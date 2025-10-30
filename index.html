@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Tip, Pay & Time • App</title>
+  <meta name="theme-color" content="#0b1220">
+  <style>
+    :root{
+      --bg:#0b1220;
+      --surface:#0f172a;
+      --panel:#111827;
+      --ring:#243244;
+      --muted:#9aa5b4;
+      --text:#f1f5f9;
+      --accent:#22c55e;
+      --danger:#ef4444;
+      --info:#38bdf8;
+      --accent2:#a78bfa;
+      --tab:#0f1c33;
+      --tabActive:#1a2d4d;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --maxContent: 720px; /* hard cap for desktop so no super wide layouts */
+    }
+    *{box-sizing:border-box;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-width:0}
+    html,body{height:100%;background:var(--bg);color:var(--text);overflow-x:hidden}
+    body{margin:0;word-wrap:break-word;overflow-wrap:break-word}
+    img,svg,canvas,video{max-width:100%;height:auto}
+    input,select,button{max-width:100%}
+    /* App Shell */
+    .app-shell{height:100dvh;display:flex;flex-direction:column;overscroll-behavior:none}
+    .appbar{
+      position:relative;display:flex;align-items:center;gap:10px;
+      background:linear-gradient(180deg,#0d1526, #0b1220);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      padding: max(12px, env(safe-area-inset-top)) 16px 12px 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.25);
+      z-index:10;
+      max-width:100%;
+      overflow:hidden;
+    }
+    .app-title{margin:0;font-weight:700;font-size:18px;letter-spacing:.01em;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .icon-btn{
+      width:36px;height:36px;border-radius:10px;border:1px solid rgba(255,255,255,.08);
+      display:grid;place-items:center;background:rgba(255,255,255,.03);cursor:pointer;flex:0 0 auto
+    }
+    .content{
+      flex:1;overflow:auto;scroll-behavior:smooth;
+      padding:12px 14px calc(90px + env(safe-area-inset-bottom));
+      background:
+        radial-gradient(1200px 500px at 100% -50%, rgba(104,117,245,.06), transparent 60%),
+        radial-gradient(900px 600px at -20% 120%, rgba(34,197,94,.06), transparent 60%);
+      max-width:100%;
+    }
+    /* Constrain interior width on larger screens to prevent sideways scroll */
+    .container{max-width:var(--maxContent);margin:0 auto}
+    /* Cards and shared UI */
+    .card{border-radius:16px;padding:16px;margin:16px 0;background:var(--surface);border:1px solid var(--ring);box-shadow:var(--shadow)}
+    .title{margin:0 0 8px;font-size:16px;font-weight:700}
+    .subhead{font-size:13px;color:var(--muted);margin:6px 0 6px}
+    .input{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid var(--ring);border-radius:12px;padding:12px}
+    .input input,.input select{flex:1 1 0;background:transparent;border:0;outline:0;color:var(--text);font-size:16px;width:100%}
+    .prefix{opacity:.9;font-size:16px;flex:0 0 auto}
+    .btn{appearance:none;border:1px solid var(--ring);background:#13243e;color:var(--text);padding:10px 12px;border-radius:12px;cursor:pointer;text-align:center;transition:transform .03s ease, background .2s; width:100%}
+    .btn:active{transform:scale(.98)}
+    .btn.active{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,197,94,.2) inset}
+    .grid{display:grid;grid-template-columns:1fr;gap:10px;width:100%}
+    @media(min-width:520px){.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .totals{display:grid;gap:10px;margin-top:10px;width:100%}
+    @media(min-width:420px){.totals{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .box{background:rgba(255,255,255,.04);border:1px solid var(--ring);border-radius:12px;padding:10px;text-align:center}
+    .box h3{margin:0 0 4px;font-size:12px;color:var(--muted);font-weight:600}
+    .total{font-size:22px;font-weight:800}
+    .row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--ring);border-radius:12px;padding:12px}
+    .neg{color:var(--danger)}
+    .net{color:var(--accent);font-weight:800}
+    .hint{font-size:12px;color:var(--muted);margin-top:6px}
+    /* Section visibility */
+    section[role="tabpanel"]{display:none}
+    section[role="tabpanel"].active{display:block}
+    /* Tabbar */
+    .tabbar{
+      position:fixed;left:0;right:0;bottom:0;z-index:15;
+      padding:8px max(12px, env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-right));
+      background:rgba(13,21,38,.86);backdrop-filter: blur(10px);
+      border-top:1px solid rgba(255,255,255,.06);
+      max-width:100%;
+    }
+    .tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;width:100%;max-width:var(--maxContent);margin:0 auto}
+    .tab{
+      --c:rgba(255,255,255,.06);
+      display:flex;flex-direction:column;align-items:center;gap:6px;
+      padding:10px 6px;border-radius:14px;border:1px solid var(--c);
+      background:linear-gradient(180deg, var(--tab), #0c162a);
+      text-align:center;color:var(--text);cursor:pointer;user-select:none;min-width:0
+    }
+    .tab.active{border-color:rgba(34,197,94,.35);background:linear-gradient(180deg, var(--tabActive), #132744);box-shadow:0 4px 18px rgba(34,197,94,.12)}
+    .tab svg{width:20px;height:20px;opacity:.9;flex:0 0 auto}
+    .tab span{font-size:11px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+    /* Minor accents */
+    #tipOut{color:var(--accent)}
+    #totalOut{color:var(--danger)}
+    #percentOut{color:var(--info)}
+    .pill{background:rgba(255,255,255,.04);border:1px solid var(--ring);border-radius:14px;padding:14px;text-align:center}
+    .pill h3{margin:0 0 6px;font-size:12px;color:var(--muted);font-weight:600}
+    .pill .big{display:block;font-size:22px;font-weight:800}
+    .hl{color:var(--info)} .hl2{color:var(--accent2)} .ok{color:var(--accent)}
+    .mode{display:flex;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--ring);padding:6px;border-radius:12px;width:100%}
+    .mode button{flex:1;padding:10px;border-radius:10px;border:1px solid transparent;background:transparent;color:var(--text);cursor:pointer;min-width:0}
+    .mode button.active{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06)}
+    /* Safe area helpers */
+    .sa-bottom{height: env(safe-area-inset-bottom)}
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="appbar" aria-label="App header">
+      <button class="icon-btn" id="btnBack" title="Scroll to top" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 19V5M5 12l7-7 7 7"></path>
+        </svg>
+      </button>
+      <h1 class="app-title" id="appTitle">Tip Calculator</h1>
+      <button class="icon-btn" id="btnCopy" title="Copy summary" aria-label="Copy summary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      </button>
+    </header>
+
+    <main class="content" id="content" tabindex="-1">
+      <div class="container">
+        <!-- TIP -->
+        <section id="screen-tip" role="tabpanel" aria-labelledby="tab-tip" class="active">
+          <div class="card">
+            <h2 class="title">Tip Calculator</h2>
+            <div class="subhead">Bill amount pre tax</div>
+            <div class="input"><span class="prefix">$</span><input id="bill" inputmode="decimal" placeholder="0.00" autocomplete="off"></div>
+
+            <div class="subhead">Preset percentage</div>
+            <div class="grid two" role="group" aria-label="Choose tip %">
+              <button class="btn tip" data-tip="20">20%</button>
+              <button class="btn tip" data-tip="25">25%</button>
+              <button class="btn tip" data-tip="30">30%</button>
+              <button class="btn tip" data-tip="35">35%</button>
+            </div>
+
+            <div class="subhead">Custom percentage</div>
+            <div class="input"><input id="customTip" inputmode="decimal" placeholder="Custom Percentage"><span class="prefix">%</span></div>
+
+            <div class="totals">
+              <div class="box"><h3>Tip</h3><div id="tipOut" class="total">$0.00</div></div>
+              <div class="box"><h3>Total</h3><div id="totalOut" class="total">$0.00</div></div>
+              <div class="box"><h3>Tip %</h3><div id="percentOut" class="total">0%</div></div>
+            </div>
+
+            <div class="grid two" style="margin-top:10px">
+              <button id="reset" class="btn">Reset</button>
+              <button id="copy" class="btn">Copy summary</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SALARY -->
+        <section id="screen-salary" role="tabpanel" aria-labelledby="tab-salary">
+          <div class="card">
+            <h2 class="title">Salary Calculator</h2>
+            <div class="grid three">
+              <div>
+                <div class="subhead">Hourly rate</div>
+                <div class="input"><span class="prefix">$</span><input id="hourly" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">Monthly pay</div>
+                <div class="input"><span class="prefix">$</span><input id="monthly" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">Annual salary</div>
+                <div class="input"><span class="prefix">$</span><input id="annual" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+            </div>
+            <p class="hint">Assumes 2,080 hours per year (40 hrs/week × 52 weeks).</p>
+          </div>
+        </section>
+
+        <!-- PAYCHECK -->
+        <section id="screen-pay" role="tabpanel" aria-labelledby="tab-pay">
+          <div class="card">
+            <h2 class="title">Paycheck After Taxes (NM)</h2>
+            <div class="grid two">
+              <div>
+                <div class="subhead">Hourly rate</div>
+                <div class="input"><span class="prefix">$</span><input id="p_hourly" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">Regular hours</div>
+                <div class="input"><input id="p_hours_reg" inputmode="decimal" placeholder="80" value="80"></div>
+              </div>
+              <div>
+                <div class="subhead">Overtime hours</div>
+                <div class="input"><input id="p_hours_ot" inputmode="decimal" placeholder="0"></div>
+              </div>
+              <div>
+                <div class="subhead">Overtime multiplier</div>
+                <div class="input"><input id="p_ot_mult" inputmode="decimal" placeholder="1.5" value="1.5"></div>
+              </div>
+              <div>
+                <div class="subhead">Pre-tax deductions (this paycheck)</div>
+                <div class="input"><span class="prefix">$</span><input id="p_pretax" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">YTD wages for Social Security</div>
+                <div class="input"><span class="prefix">$</span><input id="p_ytd" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">Filing status</div>
+                <div class="input">
+                  <select id="p_status">
+                    <option value="single">Single</option>
+                    <option value="married">Married filing jointly</option>
+                    <option value="hoh">Head of household</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <div class="subhead">Pay frequency</div>
+                <div class="input">
+                  <select id="p_freq">
+                    <option value="biweekly" selected>Biweekly (26/yr)</option>
+                    <option value="weekly">Weekly (52/yr)</option>
+                    <option value="semimonthly">Semi-monthly (24/yr)</option>
+                    <option value="monthly">Monthly (12/yr)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid" style="margin-top:6px">
+              <div class="row"><span>Gross Pay</span><b id="p_gross">$0.00</b></div>
+              <div class="row"><span>Federal Income Tax (est.)</span><b class="neg" id="p_fed">$0.00</b></div>
+              <div class="row"><span>New Mexico Income Tax (est.)</span><b class="neg" id="p_state">$0.00</b></div>
+              <div class="row"><span>Social Security 6.2%</span><b class="neg" id="p_ss">$0.00</b></div>
+              <div class="row"><span>Medicare 1.45%</span><b class="neg" id="p_medicare">$0.00</b></div>
+              <div class="row"><span>Net Pay (take-home)</span><b class="net" id="p_net">$0.00</b></div>
+              <p class="hint">Estimates only. Uses 2025 federal brackets, 2025 standard deduction, and current NM brackets. Social Security respects your YTD cap. Pre-tax reduces federal/state taxable wages only.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- TIME -->
+        <section id="screen-time" role="tabpanel" aria-labelledby="tab-time">
+          <div class="card">
+            <h2 class="title">Your Time & Their Time</h2>
+            <div class="grid two">
+              <div>
+                <div class="subhead">Your Airport (default ABQ)</div>
+                <div class="input"><input id="t_from" list="iataList" value="ABQ" placeholder="Enter code"></div>
+              </div>
+              <div>
+                <div class="subhead">Their Airport</div>
+                <div class="input"><input id="t_to" list="iataList" placeholder="Enter code"></div>
+              </div>
+            </div>
+            <div class="grid two" style="margin-top:8px">
+              <div>
+                <div class="subhead">Set Your Time (at your airport)</div>
+                <div class="input"><input id="t_when" type="datetime-local"></div>
+              </div>
+              <div style="display:flex;align-items:flex-end"><button id="t_now" class="btn" style="width:100%">Use current time</button></div>
+            </div>
+            <div class="grid" style="margin-top:8px">
+              <div class="row"><strong>Your Time:</strong> <span id="t_from_out">—</span></div>
+              <div class="row"><strong>Their Time:</strong> <span id="t_to_out">—</span></div>
+              <div id="t_offset_display" class="row"><strong>Offset:</strong> <span id="t_offset_txt">—</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SW POINTS -->
+        <section id="screen-sw" role="tabpanel" aria-labelledby="tab-sw">
+          <div class="card">
+            <h2 class="title">Southwest Points per Dollar</h2>
+
+            <div class="subhead">How do you want to enter price?</div>
+            <div class="mode" role="tablist" aria-label="Price entry mode">
+              <button id="sw-mode-base" class="active" aria-selected="true" role="tab">I know the base fare</button>
+              <button id="sw-mode-est" role="tab">Estimate base from total</button>
+            </div>
+
+            <div id="sw-inputs" class="grid two" style="margin-top:10px">
+              <div id="sw-baseFareBlock">
+                <div class="subhead">Base fare (excluding taxes/fees)</div>
+                <div class="input"><span class="prefix">$</span><input id="sw-baseFare" type="number" inputmode="decimal" min="0" step="0.01" placeholder="e.g., 175.00" /></div>
+              </div>
+              <div id="sw-totalPriceBlock">
+                <div class="subhead">Total ticket price charged to card</div>
+                <div class="input"><span class="prefix">$</span><input id="sw-totalPrice" type="number" inputmode="decimal" min="0" step="0.01" placeholder="e.g., 225.00" /></div>
+              </div>
+              <div id="sw-basePctBlock" style="display:none">
+                <div class="subhead">If estimating: percent of total that is base fare</div>
+                <div class="input"><input id="sw-basePct" type="number" min="0" max="100" step="1" value="70" /><span class="prefix">%</span></div>
+                <p class="hint">If you do not know the base fare, a 60–80% range is common. Adjust as needed.</p>
+              </div>
+              <div>
+                <div class="subhead">Fare type</div>
+                <div class="input">
+                  <select id="sw-fareType">
+                    <option value="2">Basic · 2 pts/$</option>
+                    <option value="6">Choice · 6 pts/$</option>
+                    <option value="10">Choice Preferred · 10 pts/$</option>
+                    <option value="14">Choice Extra · 14 pts/$</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid" style="margin-top:6px">
+              <div class="row"><label><input id="sw-useCard" type="checkbox" /> Use a Southwest credit card for purchase</label></div>
+              <div id="sw-cardRow" class="grid two" style="display:none">
+                <div>
+                  <div class="subhead">Select your Southwest card</div>
+                  <div class="input">
+                    <select id="sw-cardType">
+                      <option value="2">Southwest Plus · 2X</option>
+                      <option value="3">Southwest Premier · 3X</option>
+                      <option value="4">Southwest Priority · 4X</option>
+                      <option value="3">Premier Business · 3X</option>
+                      <option value="4">Performance Business · 4X</option>
+                    </select>
+                  </div>
+                  <p class="hint">Applies the correct multiplier to the card charge.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid two" style="margin-top:8px">
+              <div class="pill">
+                <h3>Flight points</h3>
+                <span id="sw-flightPts" class="big hl">0</span>
+              </div>
+              <div class="pill">
+                <h3>Credit card points</h3>
+                <span id="sw-cardPts" class="big hl2">0</span>
+              </div>
+              <div class="pill">
+                <h3>Total points</h3>
+                <span id="sw-totalPts" class="big ok">0</span>
+              </div>
+              <div class="pill">
+                <h3>Effective pts per $</h3>
+                <span id="sw-ppd" class="big">0.00</span>
+              </div>
+            </div>
+            <p class="hint" style="margin-top:8px">Estimates flight points on base fare and card points on total charge.</p>
+          </div>
+
+          <!-- Converter -->
+          <div class="card">
+            <h2 class="title">Points to Dollars</h2>
+            <div class="grid two">
+              <div>
+                <div class="subhead">Points to redeem</div>
+                <div class="input"><input id="sw-pointsInput" type="number" min="0" step="1" placeholder="e.g., 12500" /></div>
+              </div>
+              <div>
+                <div class="subhead">Value per point (USD)</div>
+                <div class="input"><input id="sw-pointValue" type="number" min="0" step="0.0001" value="0.0149" /></div>
+                <p class="hint">Defaults to $0.0149 per point. Adjust as needed.</p>
+              </div>
+            </div>
+            <div class="grid two" style="margin-top:8px">
+              <div class="pill">
+                <h3>Estimated dollar cost</h3>
+                <span id="sw-dollarValue" class="big ok">$0.00</span>
+              </div>
+              <div class="pill">
+                <h3>Cents per point</h3>
+                <span id="sw-cpp" class="big hl">1.49¢</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <datalist id="iataList"></datalist>
+      <div class="sa-bottom"></div>
+    </main>
+
+    <nav class="tabbar" role="tablist" aria-label="Bottom tabs">
+      <div class="tabs">
+        <button class="tab active" id="tab-tip" data-screen="tip" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.9 1.9 5.4 4.7 6.3v2.2a2 2 0 0 0 2 2h2.6a2 2 0 0 0 2-2v-2.2A7 7 0 0 0 19 9a7 7 0 0 0-7-7z"/><path d="M9 22h6"/></svg>
+          <span>Tip</span>
+        </button>
+        <button class="tab" id="tab-salary" data-screen="salary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/><rect x="4" y="5" width="16" height="14" rx="3"/></svg>
+          <span>Salary</span>
+        </button>
+        <button class="tab" id="tab-pay" data-screen="pay">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 13h6"/></svg>
+          <span>Paycheck</span>
+        </button>
+        <button class="tab" id="tab-time" data-screen="time">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <span>Time</span>
+        </button>
+        <button class="tab" id="tab-sw" data-screen="sw">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12s4-8 9-8 9 8 9 8-4 8-9 8-9-8-9-8z"/><path d="M12 4v16"/></svg>
+          <span>SW</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    // Helpers
+    const $ = s=>document.querySelector(s);
+    const $$ = s=>[...document.querySelectorAll(s)];
+    const nf = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+    const setTitle = t => $('#appTitle').textContent = t;
+
+    // Bottom tab routing
+    const SCREENS = ['tip','salary','pay','time','sw'];
+    const TITLES = {tip:'Tip Calculator', salary:'Salary Calculator', pay:'Paycheck After Taxes', time:'Your Time & Their Time', sw:'Southwest Points'};
+
+    function show(screen){
+      SCREENS.forEach(id=>{
+        const tab = $('#tab-' + id);
+        const panel = $('#screen-' + id);
+        const active = id === screen;
+        tab.classList.toggle('active', active);
+        tab.setAttribute('aria-selected', String(active));
+        panel.classList.toggle('active', active);
+      });
+      setTitle(TITLES[screen] || 'Tools');
+      history.replaceState(null,'','#' + screen);
+      $('#content').focus({preventScroll:true});
+      // ensure top visible on screen switch (prevents phantom horizontal movement on iOS)
+      document.scrollingElement.scrollLeft = 0;
+    }
+
+    function initFromHash(){
+      const h = location.hash.replace('#','');
+      if(SCREENS.includes(h)) show(h);
+    }
+
+    // Header buttons
+    $('#btnBack').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+    $('#btnCopy').addEventListener('click',()=>{
+      if($('#screen-tip').classList.contains('active')){
+        const bill=$('#bill'), percentOut=$('#percentOut'), tipOut=$('#tipOut'), totalOut=$('#totalOut');
+        const s=`Bill: ${bill.value||nf.format(0)}\nTip: ${percentOut.textContent}\nTip Amount: ${tipOut.textContent}\nTotal: ${totalOut.textContent}`;
+        navigator.clipboard.writeText(s).catch(()=>{});
+      } else {
+        navigator.clipboard.writeText($('#appTitle').textContent).catch(()=>{});
+      }
+    });
+
+    // Tab clicks
+    $$('.tab').forEach(btn=>btn.addEventListener('click',()=>show(btn.dataset.screen)));
+    window.addEventListener('hashchange', initFromHash);
+    initFromHash();
+
+    // ===== TIP =====
+    const bill=$('#bill'), customTip=$('#customTip'), tipBtns=$$('.tip');
+    const tipOut=$('#tipOut'), totalOut=$('#totalOut'), percentOut=$('#percentOut');
+    let tipPercent=0.20;
+    function setActive(p){tipBtns.forEach(b=>b.classList.toggle('active',Number(b.dataset.tip)/100===p))}
+    function calcTip(){
+      const b=(Number(String(bill.value).replace(/[^0-9.]/g,''))||0);
+      const c=(Number(String(customTip.value).replace(/[^0-9.]/g,''))||0);
+      if(c>0){tipPercent=c/100; setActive(-1);}
+      const tip=b*tipPercent;
+      tipOut.textContent=nf.format(tip);
+      totalOut.textContent=nf.format(b+tip);
+      percentOut.textContent=`${Math.round(tipPercent*100)}%`;
+    }
+    tipBtns.forEach(btn=>btn.addEventListener('click',()=>{tipPercent=Number(btn.dataset.tip)/100; customTip.value=''; setActive(tipPercent); calcTip();}));
+    ['input','change'].forEach(e=>{bill.addEventListener(e,calcTip); customTip.addEventListener(e,calcTip);});
+    setActive(tipPercent); calcTip();
+    $('#reset').addEventListener('click',()=>{bill.value=''; customTip.value=''; tipPercent=.2; setActive(tipPercent); calcTip();});
+    $('#copy').addEventListener('click',async()=>{
+      const s=`Bill: ${bill.value||nf.format(0)}\nTip: ${percentOut.textContent}\nTip Amount: ${tipOut.textContent}\nTotal: ${totalOut.textContent}`;
+      try{await navigator.clipboard.writeText(s);}catch{}
+    });
+
+    // ===== SALARY =====
+    const HOURS_PER_YEAR=2080, MONTHS=12;
+    const hourly=$('#hourly'), monthly=$('#monthly'), annual=$('#annual'); let lock=false;
+    function parseNum(v){v=String(v??'').replace(/[^0-9.,-]/g,'').replace(',','.'); const n=parseFloat(v); return isFinite(n)?n:0;}
+    function fmt(v){return nf.format(v||0)}
+    function fromHourly(){if(lock)return; lock=true; const h=parseNum(hourly.value); annual.value=h?fmt(h*HOURS_PER_YEAR):''; monthly.value=h?fmt(h*HOURS_PER_YEAR/MONTHS):''; lock=false;}
+    function fromMonthly(){if(lock)return; lock=true; const m=parseNum(monthly.value); annual.value=m?fmt(m*MONTHS):''; hourly.value=m?fmt(m*MONTHS/HOURS_PER_YEAR):''; lock=false;}
+    function fromAnnual(){if(lock)return; lock=true; const a=parseNum(annual.value); hourly.value=a?fmt(a/HOURS_PER_YEAR):''; monthly.value=a?fmt(a/MONTHS):''; lock=false;}
+    ['input','change'].forEach(e=>{hourly.addEventListener(e,fromHourly); monthly.addEventListener(e,fromMonthly); annual.addEventListener(e,fromAnnual);});
+
+    // ===== PAYCHECK (NM) =====
+    const SS_RATE=.062, MED_RATE=.0145, SS_WAGE_BASE_2025=176100;
+    const STD_DED={single:15750, married:31500, hoh:23625};
+    const FED_BRACKETS_2025={
+      single:[[11925,.10],[48475,.12],[103350,.22],[197300,.24],[250525,.32],[626350,.35],[Infinity,.37]],
+      married:[[23850,.10],[96950,.12],[206700,.22],[394600,.24],[501050,.32],[751600,.35],[Infinity,.37]],
+      hoh:[[17000,.10],[64850,.12],[103350,.22],[197300,.24],[250500,.32],[626350,.35],[Infinity,.37]]
+    };
+    const NM_BRACKETS=[[5500,.017],[16500,.032],[33500,.043],[66500,.047],[210000,.049],[Infinity,.059]];
+
+    const p_hourly=$('#p_hourly'), p_hours_reg=$('#p_hours_reg'), p_hours_ot=$('#p_hours_ot'), p_ot_mult=$('#p_ot_mult'), p_pretax=$('#p_pretax'), p_ytd=$('#p_ytd');
+    const p_status=$('#p_status'), p_freq=$('#p_freq'); const p_gross=$('#p_gross'), p_fed=$('#p_fed'), p_state=$('#p_state'), p_ss=$('#p_ss'), p_medicare=$('#p_medicare'), p_net=$('#p_net');
+    function perYearCount(f){return f==='weekly'?52:f==='semimonthly'?24:f==='monthly'?12:26}
+    function defaultHours(f){return f==='weekly'?40:f==='semimonthly'?86.67:f==='monthly'?173.33:80}
+    function taxFromBrackets(taxable,br){let tax=0,last=0;for(const[cap,rate]of br){const span=Math.max(0,Math.min(taxable,cap)-last); if(span>0) tax+=span*rate; if(taxable<=cap) break; last=cap;}return tax}
+    function calcPay(){
+      const hourly=parseNum(p_hourly.value); const freq=p_freq.value; const periods=perYearCount(freq);
+      const regH=p_hours_reg.value.trim()===''?defaultHours(freq):parseNum(p_hours_reg.value)||0; const otH=p_hours_ot.value.trim()===''?0:parseNum(p_hours_ot.value)||0; const otM=parseNum(p_ot_mult.value)||1.5;
+      const pretax=parseNum(p_pretax.value)||0; const ytd=parseNum(p_ytd.value)||0; const status=p_status.value;
+      const gross=hourly*regH + hourly*otH*otM; const annualTaxable=Math.max(0,(gross-pretax)*periods);
+      const taxableFed=Math.max(0,annualTaxable-STD_DED[status]); const fedAnnual=taxFromBrackets(taxableFed,FED_BRACKETS_2025[status]); const fed=fedAnnual/periods;
+      const nm=taxFromBrackets(annualTaxable,NM_BRACKETS)/periods; const remainingSS=Math.max(0,SS_WAGE_BASE_2025-ytd); const ss=Math.min(gross,remainingSS)*SS_RATE; const med=gross*MED_RATE;
+      const net=gross-pretax-fed-nm-ss-med;
+      p_gross.textContent=fmt(gross); p_fed.textContent=fmt(Math.max(0,fed)); p_state.textContent=fmt(Math.max(0,nm)); p_ss.textContent=fmt(Math.max(0,ss)); p_medicare.textContent=fmt(Math.max(0,med)); p_net.textContent=fmt(Math.max(0,net));
+    }
+    ['input','change'].forEach(e=>{[p_hourly,p_hours_reg,p_hours_ot,p_ot_mult,p_pretax,p_ytd,p_status,p_freq].forEach(el=>el.addEventListener(e,calcPay));}); calcPay();
+
+    // ===== SOUTHWEST POINTS =====
+    const swState={mode:'base',baseFare:0,totalPrice:0,basePct:70,fareMult:2,useCard:false,cardMult:2};
+    try{ Object.assign(swState, JSON.parse(localStorage.getItem('sw_ppd_calc_v1')||'{}')); }catch{}
+    const sw={
+      modeBase:$('#sw-mode-base'), modeEst:$('#sw-mode-est'),
+      baseFare:$('#sw-baseFare'), totalPrice:$('#sw-totalPrice'), basePct:$('#sw-basePct'),
+      baseFareBlock:$('#sw-baseFareBlock'), basePctBlock:$('#sw-basePctBlock'), totalPriceBlock:$('#sw-totalPriceBlock'),
+      fareType:$('#sw-fareType'), useCard:$('#sw-useCard'), cardRow:$('#sw-cardRow'), cardType:$('#sw-cardType'),
+      flightPts:$('#sw-flightPts'), cardPts:$('#sw-cardPts'), totalPts:$('#sw-totalPts'), ppd:$('#sw-ppd'),
+      pointsInput:$('#sw-pointsInput'), pointValue:$('#sw-pointValue'), dollarValue:$('#sw-dollarValue'), cpp:$('#sw-cpp')
+    };
+    function swSync(){
+      sw.modeBase.classList.toggle('active', swState.mode==='base');
+      sw.modeEst.classList.toggle('active', swState.mode==='est');
+      sw.baseFareBlock.style.display = swState.mode==='base' ? '' : 'none';
+      sw.basePctBlock.style.display = swState.mode==='est' ? '' : 'none';
+      sw.baseFare.value = swState.baseFare || '';
+      sw.totalPrice.value = swState.totalPrice || '';
+      sw.basePct.value = swState.basePct;
+      sw.fareType.value = String(swState.fareMult);
+      sw.useCard.checked = swState.useCard;
+      sw.cardRow.style.display = swState.useCard ? '' : 'none';
+      sw.cardType.value = swState.cardMult;
+      swCalc();
+    }
+    function swSave(){ localStorage.setItem('sw_ppd_calc_v1', JSON.stringify(swState)); }
+    function swParse(v){ const n=parseFloat(v); return Number.isFinite(n)?n:0; }
+    function swBaseFare(){ return swState.mode==='base' ? Math.max(0, swState.baseFare) : Math.max(0, swState.totalPrice * (Math.min(100, Math.max(0, swState.basePct))/100)); }
+    function swCalc(){
+      const base=swBaseFare();
+      const flight=Math.floor(base*swState.fareMult);
+      const card=swState.useCard?Math.floor(swState.totalPrice*swState.cardMult):0;
+      const total=flight+card;
+      const ppd = swState.totalPrice>0 ? (total/swState.totalPrice) : 0;
+      sw.flightPts.textContent=flight.toLocaleString();
+      sw.cardPts.textContent=card.toLocaleString();
+      sw.totalPts.textContent=total.toLocaleString();
+      sw.ppd.textContent=ppd.toFixed(2);
+      swSave();
+    }
+    sw.modeBase.addEventListener('click',()=>{swState.mode='base'; swSync();});
+    sw.modeEst .addEventListener('click',()=>{swState.mode='est';  swSync();});
+    sw.baseFare .addEventListener('input',e=>{swState.baseFare=swParse(e.target.value); swCalc();});
+    sw.totalPrice.addEventListener('input',e=>{swState.totalPrice=swParse(e.target.value); swCalc();});
+    sw.basePct  .addEventListener('input',e=>{swState.basePct=swParse(e.target.value); swCalc();});
+    sw.fareType .addEventListener('change',e=>{swState.fareMult=swParse(e.target.value); swCalc();});
+    sw.useCard  .addEventListener('change',e=>{swState.useCard=e.target.checked; sw.cardRow.style.display=swState.useCard?'':'none'; swCalc();});
+    sw.cardType .addEventListener('change',e=>{swState.cardMult=swParse(e.target.value); swCalc();});
+
+    function swFmtUSD(n){return n.toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2});}
+    function swUpdatePTD(){ const pts=swParse(sw.pointsInput.value); const val=parseFloat(sw.pointValue.value)||0; const dollars=pts*val; $('#sw-dollarValue').textContent=swFmtUSD(dollars); $('#sw-cpp').textContent=(val*100).toFixed(2)+'¢'; }
+    sw.pointsInput && sw.pointsInput.addEventListener('input', swUpdatePTD);
+    sw.pointValue && sw.pointValue.addEventListener('input', swUpdatePTD);
+    swSync(); swUpdatePTD();
+
+    // ===== TIME =====
+    const IATA_TZ={
+      ALB:'America/New_York', ABQ:'America/Denver', ANC:'America/Anchorage', AMA:'America/Chicago', ATL:'America/New_York', AUS:'America/Chicago',
+      BWI:'America/New_York', BHM:'America/Chicago', BOI:'America/Boise', BOS:'America/New_York', BZN:'America/Denver', BUF:'America/New_York', BUR:'America/Los_Angeles',
+      CHS:'America/New_York', CLT:'America/New_York', MDW:'America/Chicago', ORD:'America/Chicago', CVG:'America/New_York', CLE:'America/New_York', COS:'America/Denver',
+      CMH:'America/New_York', CRP:'America/Chicago', DAL:'America/Chicago', DEN:'America/Denver', DSM:'America/Chicago', VPS:'America/Chicago', DTW:'America/Detroit',
+      ELP:'America/Denver', EUG:'America/Los_Angeles', FLL:'America/New_York', RSW:'America/New_York', FAT:'America/Los_Angeles', GRR:'America/Detroit', GSP:'America/New_York',
+      HRL:'America/Chicago', BDL:'America/New_York', HOU:'America/Chicago', IND:'America/Indiana/Indianapolis', JAN:'America/Chicago', JAX:'America/New_York',
+      MCI:'America/Chicago', TYS:'America/New_York', LAS:'America/Los_Angeles', LIT:'America/Chicago', LGB:'America/Los_Angeles', ISP:'America/New_York', LAX:'America/Los_Angeles',
+      SDF:'America/Kentucky/Louisville', LBB:'America/Chicago', MHT:'America/New_York', MEM:'America/Chicago', MIA:'America/New_York', MAF:'America/Chicago', MKE:'America/Chicago',
+      MSP:'America/Chicago', MTJ:'America/Denver', MYR:'America/New_York', BNA:'America/Chicago', MSY:'America/Chicago', LGA:'America/New_York', ORF:'America/New_York',
+      OAK:'America/Los_Angeles', OKC:'America/Chicago', OMA:'America/Chicago', ONT:'America/Los_Angeles', SNA:'America/Los_Angeles', MCO:'America/New_York', PSP:'America/Los_Angeles',
+      ECP:'America/Chicago', PNS:'America/Chicago', PHL:'America/New_York', PHX:'America/Phoenix', PIT:'America/New_York', PWM:'America/New_York', PDX:'America/Los_Angeles',
+      PVD:'America/New_York', RDU:'America/New_York', RNO:'America/Los_Angeles', RIC:'America/New_York', ROC:'America/New_York', SMF:'America/Los_Angeles', SLC:'America/Denver',
+      SAT:'America/Chicago', SAN:'America/Los_Angeles', SFO:'America/Los_Angeles', SJC:'America/Los_Angeles', SBA:'America/Los_Angeles', STS:'America/Los_Angeles',
+      SRQ:'America/New_York', SAV:'America/New_York', SEA:'America/Los_Angeles', GEG:'America/Los_Angeles', STL:'America/Chicago', HDN:'America/Denver',
+      TPA:'America/New_York', TUS:'America/Phoenix', TUL:'America/Chicago', IAD:'America/New_York', DCA:'America/New_York', PBI:'America/New_York', ICT:'America/Chicago',
+      AUA:'America/Aruba', BZE:'America/Belize', CUN:'America/Cancun', GCM:'America/Cayman', HAV:'America/Havana', LIR:'America/Costa_Rica', SJD:'America/Mazatlan',
+      MBJ:'America/Jamaica', NAS:'America/Nassau', PLS:'America/Grand_Turk', PVR:'America/Mexico_City', PUJ:'America/Santo_Domingo', SJO:'America/Costa_Rica',
+      SJU:'America/Puerto_Rico', SXM:'America/Lower_Princes', STT:'America/St_Thomas', ITO:'Pacific/Honolulu', HNL:'Pacific/Honolulu', OGG:'Pacific/Honolulu',
+      KOA:'Pacific/Honolulu', LIH:'Pacific/Honolulu'
+    };
+    const list=$('#iataList'); Object.keys(IATA_TZ).forEach(code=>{const o=document.createElement('option'); o.value=code; list.appendChild(o)});
+
+    const t_from=$('#t_from'), t_to=$('#t_to'), t_when=$('#t_when'), t_now=$('#t_now');
+    const t_from_out=$('#t_from_out'), t_to_out=$('#t_to_out'), t_offset_display=$('#t_offset_display'), t_offset_txt=$('#t_offset_txt');
+
+    function setNow(){
+      const fromCode=(t_from.value||'ABQ').toUpperCase(); const fromTZ=IATA_TZ[fromCode]||'America/Denver';
+      const now=new Date(); const parts=new Intl.DateTimeFormat('sv-SE',{timeZone:fromTZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(now);
+      const P=Object.fromEntries(parts.map(p=>[p.type,p.value])); t_when.value=`${P.year}-${P.month}-${P.day}T${P.hour}:${P.minute}`;
+    }
+    function parseLocalToUTC(localStr,tz){ if(!localStr) return null; const [date,time]=localStr.split('T'); const[y,m,d]=date.split('-').map(Number); const[hh,mm]=time.split(':').map(Number);
+      let guess=new Date(Date.UTC(y,m-1,d,hh,mm)); for(let i=0;i<3;i++){ const parts=new Intl.DateTimeFormat('sv-SE',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(guess);
+        const P=Object.fromEntries(parts.map(p=>[p.type,p.value])); const diff=(Number(P.hour)*60+Number(P.minute))-(hh*60+mm); if(diff===0) break; guess=new Date(guess.getTime()-diff*60*1000);} return guess; }
+    function fmtInTZ(d,tz){ return new Intl.DateTimeFormat('en-US',{timeZone:tz,month:'short',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:true}).format(d); }
+    function getOffsetHours(fromTZ,toTZ,base){ const fromTime=new Date(base.toLocaleString('en-US',{timeZone:fromTZ})); const toTime=new Date(base.toLocaleString('en-US',{timeZone:toTZ})); return (toTime-fromTime)/(1000*60*60); }
+
+    function runTime(){
+      const fromCode=(t_from.value||'ABQ').toUpperCase(); const toCode=(t_to.value||'ABQ').toUpperCase();
+      const fromTZ=IATA_TZ[fromCode]; const toTZ=IATA_TZ[toCode]; if(!fromTZ||!toTZ) return;
+      const base=parseLocalToUTC(t_when.value,fromTZ); if(!base) return;
+      t_from_out.textContent=`${fmtInTZ(base,fromTZ)} (${fromCode})`; t_to_out.textContent=`${fmtInTZ(base,toTZ)} (${toCode})`;
+      const off=getOffsetHours(fromTZ,toTZ,base); let txt='Same Time'; if(off>0) txt=`+${off.toFixed(1)} hr`; else if(off<0) txt=`${off.toFixed(1)} hr`;
+      t_offset_txt.textContent=txt;
+      t_offset_display.className='row '+(off>0?'plus':off<0?'minus':'');
+    }
+
+    $('#t_now').addEventListener('click',()=>{setNow();runTime();});
+    ['input','change'].forEach(e=>{
+      t_from.addEventListener(e,()=>{setNow();runTime();});
+      t_to.addEventListener(e,runTime);
+      t_when.addEventListener(e,runTime);
+    });
+    setNow(); runTime();
+  </script>
+</body>
+</html>
