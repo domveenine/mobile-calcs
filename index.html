@@ -190,7 +190,78 @@
   
     /* Enlarge 'cini.moD' in welcome headline */
     .welcome-headline span{font-size:34px; line-height:1.1}
-    </style>
+    
+/* ===== Mobile-fit tweaks (added) ===== */
+@media (max-width: 400px){
+  .appbar { padding-left: 10px; padding-right: 10px; }
+  .app-title { font-size: 16px; }
+  .title { font-size: 15px; }
+  .welcome-headline { font-size: 24px; }
+  .welcome-headline span { font-size: 28px; }
+  .grid.two { grid-template-columns: 1fr !important; }
+  .grid.three { grid-template-columns: 1fr !important; }
+  .totals { grid-template-columns: 1fr !important; }
+  .tab { padding: 10px 4px; }
+  .tab span { display: none; }
+  .tabs { gap: 6px; }
+  .card { margin: 12px 0; padding: 14px; }
+  .input { padding: 10px; }
+  .enter-btn { padding: 12px; }
+}
+
+/* Slightly larger small phones */
+@media (min-width: 401px) and (max-width: 480px){
+  .grid.three { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .totals { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+
+/* Ensure the welcome card never overflows short viewports */
+.welcome-card{
+  width: min(92vw, 360px);
+  max-height: 86vh;
+  aspect-ratio: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Protect against content underlap with the tabbar */
+.content {
+  padding-bottom: 120px; /* will be corrected by JS based on actual tabbar height */
+}
+
+
+/* ===== Ensure Enter button is never hidden on mobile (added) ===== */
+:root {
+  /* Respect iOS/Android safe areas */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-h: 90px; /* updated dynamically via JS */
+}
+
+/* Give the home overlay breathing room at the bottom so buttons clear the tab bar */
+#homeOverlay {
+  padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 24px) !important;
+}
+
+/* If the Enter button sits inside a footer/actions row, keep it visible */
+.welcome-actions,
+.enter-row,
+.enter-footer {
+  position: sticky;
+  bottom: calc(var(--safe-bottom) + 12px);
+  padding-bottom: var(--safe-bottom);
+  z-index: 5;
+}
+
+/* As an extra guard, make sure the main welcome card isn't forced offscreen */
+.welcome-card {
+  max-height: calc(92vh - var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+</style>
 </head>
 <body>
   <div class="app-shell">
@@ -765,6 +836,85 @@
       t_when.addEventListener(e,runTime);
     });
     setNow(); runTime();
-  </script>
+  
+// ===== Mobile-fit helpers (added) =====
+(function(){
+  const content = document.getElementById('content');
+  const tabbar = document.querySelector('.tabbar');
+  const tabs = document.querySelector('.tabs');
+
+  function adjustBottomPadding(){
+    if (!content || !tabbar) return;
+    const h = tabbar.offsetHeight || 90;
+    // Add a little breathing room above the tabbar
+    content.style.paddingBottom = (h + 24) + 'px';
+  }
+
+  function toggleCompactTabs(){
+    if (!tabs) return;
+    // Icons-only on very narrow screens for better fit
+    if (window.innerWidth <= 400) {
+      tabs.classList.add('compact');
+    } else {
+      tabs.classList.remove('compact');
+    }
+  }
+
+  // Run on load and whenever layout might change
+  window.addEventListener('load', () => { adjustBottomPadding(); toggleCompactTabs(); });
+  window.addEventListener('resize', () => { adjustBottomPadding(); toggleCompactTabs(); });
+  window.addEventListener('orientationchange', () => { setTimeout(()=>{ adjustBottomPadding(); toggleCompactTabs(); }, 150); });
+
+  // Also re-run after the home overlay is dismissed since heights can change
+  const home = document.getElementById('homeOverlay');
+  if (home) {
+    const obs = new MutationObserver(adjustBottomPadding);
+    obs.observe(home, { attributes: true, attributeFilter: ['class'] });
+  }
+})();
+
+
+// ===== Keep Enter button clear of bottom UI (added) =====
+(function(){
+  const root = document.documentElement;
+  const content = document.getElementById('content');
+  const tabbar = document.querySelector('.tabbar');
+  const home = document.getElementById('homeOverlay');
+
+  function getTabbarHeight(){
+    return (tabbar && tabbar.offsetHeight) ? tabbar.offsetHeight : 90;
+  }
+
+  function adjustLayoutForBottomUI(){
+    const h = getTabbarHeight();
+    // Expose the tabbar height to CSS
+    root.style.setProperty('--tabbar-h', h + 'px');
+
+    // Make sure main content doesn't slip under the tabbar
+    if (content) content.style.paddingBottom = (h + 24) + 'px';
+
+    // Ensure the home overlay (with Enter button) has enough bottom padding
+    if (home) {
+      // If your overlay toggles classes like 'hidden' or 'open', padding still applies
+      home.style.paddingBottom = (h + 24) + 'px';
+    }
+  }
+
+  // Run on load and when layout changes
+  window.addEventListener('load', adjustLayoutForBottomUI);
+  window.addEventListener('resize', adjustLayoutForBottomUI);
+  window.addEventListener('orientationchange', () => setTimeout(adjustLayoutForBottomUI, 150));
+
+  // Observe home overlay visibility/class changes so padding updates when opened/closed
+  if (home && 'MutationObserver' in window) {
+    const obs = new MutationObserver(adjustLayoutForBottomUI);
+    obs.observe(home, { attributes: true, attributeFilter: ['class', 'style'] });
+  }
+
+  // Small delay to catch late layout shifts (fonts/icons)
+  setTimeout(adjustLayoutForBottomUI, 300);
+})();
+
+</script>
 </body>
 </html>
