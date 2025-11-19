@@ -281,10 +281,54 @@ body { text-transform: capitalize; }
   justify-content: space-between;
 }
 
+
+/* Subtle anti burn-in drift for long-running displays */
+@keyframes antiBurnDrift {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(1px, 0, 0); }
+  50%  { transform: translate3d(1px, 1px, 0); }
+  75%  { transform: translate3d(0, 1px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.app-shell {
+  animation: antiBurnDrift 120s ease-in-out infinite alternate;
+  will-change: transform;
+}
 </style>
 </head>
+
 <body>
+  <!-- Right-side panel: Latest stories from Aaron Parnas Substack -->
+  <div id="ap-stories" style="position:fixed; right:0; top:0; width:300px; height:100vh; overflow-y:hidden; background:#0f172a; border-left:1px solid #243244; padding:16px; box-shadow:-4px 0 12px rgba(0,0,0,0.4); z-index:500;">
+    <h2 style="margin-top:0; font-size:18px; font-weight:700;">Latest from Aaron Parnas</h2>
+    <div id="ap-feed" style="display:flex; flex-direction:column; gap:14px; font-size:14px; line-height:1.4;">
+      <!-- Story summaries will be injected here -->
+    </div>
+
+  <!-- Left-side panel: Southwest Airlines & Hilton News -->
+  <div id="brand-news" style="position:fixed; left:0; top:0; width:300px; height:100vh; overflow-y:hidden; background:#0f172a; border-right:1px solid #243244; padding:16px; box-shadow:4px 0 12px rgba(0,0,0,0.4); z-index:500;">
+    <h2 style="margin-top:0; font-size:18px; font-weight:700;">Southwest & Hilton News</h2>
+
+    <div style="margin-bottom:14px;">
+      <h3 style="margin:0 0 6px; font-size:14px; font-weight:600;">Southwest Airlines</h3>
+      <div id="sw-news-feed" style="display:flex; flex-direction:column; gap:10px; font-size:13px; line-height:1.4;">
+        <!-- Southwest news items injected by JS -->
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin:0 0 6px; font-size:14px; font-weight:600;">Hilton</h3>
+      <div id="hilton-news-feed" style="display:flex; flex-direction:column; gap:10px; font-size:13px; line-height:1.4;">
+        <!-- Hilton news items injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  </div>
+
   <div class="app-shell">
+
     <header class="appbar" aria-label="App header">
       <button class="icon-btn" id="btnBack" title="Scroll to top" aria-label="Scroll to top">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -1302,5 +1346,200 @@ body { text-transform: capitalize; }
 })();
 
 </script>
+
+  <script>
+  
+  function trimAaronToFit() {
+    const panel = document.getElementById("ap-stories");
+    const feed = document.getElementById("ap-feed");
+    if (!panel || !feed) return;
+
+    let guard = 20;
+    while (guard-- > 0 && panel.scrollHeight > panel.clientHeight) {
+      if (feed.children.length <= 1) break;
+      feed.removeChild(feed.lastElementChild);
+    }
+  }
+
+async function loadParnasStoriesViaRss() {
+    const feed = document.getElementById("ap-feed");
+    if (!feed) return;
+
+    feed.innerHTML = '<p style="color:#9aa5b4;">Loading latest stories…</p>';
+
+    try {
+      const rssUrl = encodeURIComponent("https://aaronparnas.substack.com/feed");
+      const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
+      if (!res.ok) throw new Error("Network error");
+
+      const data = await res.json();
+      const items = (data.items || []).slice(0, 10);
+
+      if (!items.length) {
+        feed.innerHTML = '<p style="color:#9aa5b4;">No recent stories found.</p>';
+        return;
+      }
+
+      feed.innerHTML = "";
+
+      items.forEach(item => {
+        const url = item.link;
+        const pub = new Date(item.pubDate);
+        const month = String(pub.getMonth() + 1).padStart(2, '0');
+        const day = String(pub.getDate()).padStart(2, '0');
+        const hrs = String(pub.getHours()).padStart(2, '0');
+        const mins = String(pub.getMinutes()).padStart(2, '0');
+        const stamp = `${month}/${day} ${hrs}:${mins}`;
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(item.description || "", "text/html");
+        let raw = item.content && item.content.length ? item.content : (doc.body.textContent || ''); raw = raw.replace(/\s+/g, " ").trim();
+        const summary = item.title || 'Untitled';
+
+        const card = document.createElement("div");
+        const apAccent = "#a855f7"; // purple for Aaron
+        card.style.padding = "10px";
+        card.style.background = "#111827";
+        card.style.border = "1px solid " + apAccent;
+        card.style.borderRadius = "10px";
+
+        card.innerHTML = `
+          <p style="margin:0 0 4px; color:${apAccent}; font-size:12px;">${stamp}</p>
+          <p style="margin:0 0 6px;">${summary}</p>
+          <a href="${url}" target="_blank" style="color:${apAccent}; font-size:13px;">Read more</a>
+        `;
+
+        feed.appendChild(card);
+      });
+
+      trimAaronToFit();
+    } catch (err) {
+      if (feed) {
+        feed.innerHTML = '<p style="color:#ef4444;">Unable to load stories right now.</p>';
+      }
+    }
+  }
+
+  // Kick off feed load after page scripts are parsed
+  document.addEventListener("DOMContentLoaded", loadParnasStoriesViaRss);
+  </script>
+
+  <script>
+  async function loadBrandNewsSection() {
+    const swFeed = document.getElementById("sw-news-feed");
+    const hiltonFeed = document.getElementById("hilton-news-feed");
+    if (!swFeed && !hiltonFeed) return;
+
+    if (swFeed) {
+      swFeed.innerHTML = '<p style="color:#9aa5b4; font-size:12px;">Loading Southwest Airlines news…</p>';
+    }
+    if (hiltonFeed) {
+      hiltonFeed.innerHTML = '<p style="color:#9aa5b4; font-size:12px;">Loading Hilton news…</p>';
+    }
+
+    async function loadNews(feedUrl, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      try {
+        const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
+        const res = await fetch(apiUrl);
+        if (!res.ok) throw new Error("Network error");
+
+        const data = await res.json();
+        const items = (data.items || []).slice(0, 3);
+
+        if (!items.length) {
+          container.innerHTML = '<p style="color:#9aa5b4; font-size:12px;">No recent stories found.</p>';
+          return;
+        }
+
+        container.innerHTML = "";
+
+        items.forEach(item => {
+          const url = item.link;
+          const pub = new Date(item.pubDate);
+          const month = String(pub.getMonth() + 1).padStart(2, '0');
+          const day = String(pub.getDate()).padStart(2, '0');
+          const hrs = String(pub.getHours()).padStart(2, '0');
+          const mins = String(pub.getMinutes()).padStart(2, '0');
+          const stamp = month + "/" + day + " " + hrs + ":" + mins;
+
+          // Get fuller article text: prefer content, then description
+          const parser = new DOMParser();
+          const rawHtml = item.content && item.content.length ? item.content : (item.description || "");
+          const doc = parser.parseFromString(rawHtml, "text/html");
+          let raw = (doc.body.textContent || "").replace(/\s+/g, " ").trim();
+
+          // Strip title if it appears at the start so we keep the meat, not just the headline
+          if (item.title) {
+            const t = String(item.title).replace(/\s+/g, " ").trim();
+            const rawLower = raw.toLowerCase();
+            const tLower = t.toLowerCase();
+            if (rawLower.startsWith(tLower)) {
+              raw = raw.slice(t.length).trim();
+            }
+          }
+
+          const summary = item.title || 'Untitled';
+
+          const card = document.createElement("div");
+          const accent = containerId === "sw-news-feed" ? "#ef4444" : "#38bdf8"; // red for Southwest, blue for Hilton
+          card.style.padding = "8px";
+          card.style.background = "#111827";
+          card.style.border = "1px solid " + accent;
+          card.style.borderRadius = "8px";
+
+          card.innerHTML = `
+            <p style="margin:0 0 3px; color:${accent}; font-size:11px;">${stamp}</p>
+            <p style="margin:0 0 4px; font-size:13px;">${summary}</p>
+            <a href="${url}" target="_blank" style="color:${accent}; font-size:12px;">Read more</a>
+          `;
+
+          container.appendChild(card);
+        });
+      } catch (err) {
+        container.innerHTML = '<p style="color:#ef4444; font-size:12px;">Unable to load news right now.</p>';
+      }
+    }
+
+    
+    function trimBrandNewsToFit() {
+      const panel = document.getElementById("brand-news");
+      const sw = document.getElementById("sw-news-feed");
+      const hilton = document.getElementById("hilton-news-feed");
+      if (!panel || !sw || !hilton) return;
+
+      let guard = 20; // safety to avoid infinite loops
+      while (guard-- > 0 && panel.scrollHeight > panel.clientHeight) {
+        const swCount = sw.children.length;
+        const hiltonCount = hilton.children.length;
+
+        if (!swCount && !hiltonCount) break;
+
+        // Remove from the brand with more items first to keep counts even
+        if (swCount >= hiltonCount && swCount > 0) {
+          sw.removeChild(sw.lastElementChild);
+        }
+        if (hiltonCount >= swCount && hiltonCount > 0) {
+          hilton.removeChild(hilton.lastElementChild);
+        }
+      }
+    }
+
+// Google News RSS feeds for Southwest Airlines and Hilton
+    const swUrl = "https://news.google.com/rss/search?q=Southwest+Airlines&hl=en-US&gl=US&ceid=US:en";
+    const hiltonUrl = "https://news.google.com/rss/search?q=Hilton+Hotels&hl=en-US&gl=US&ceid=US:en";
+
+    loadNews(swUrl, "sw-news-feed");
+    loadNews(hiltonUrl, "hilton-news-feed");
+  }
+
+  document.addEventListener("DOMContentLoaded", loadBrandNewsSection);
+  </script>
+
+
+
+
+
 </body>
-</html>
