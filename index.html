@@ -6,6 +6,8 @@
   <title>Tip, Pay & Time • App</title>
   <meta name="theme-color" content="#0b1220">
   <style>
+body { text-transform: capitalize; }
+
     :root{
       --bg:#0b1220;
       --surface:#0f172a;
@@ -66,7 +68,25 @@
     @media(min-width:520px){.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
     .totals{display:grid;gap:10px;margin-top:10px;width:100%}
     @media(min-width:420px){.totals{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    .box{background:rgba(255,255,255,.04);border:1px solid var(--ring);border-radius:12px;padding:10px;text-align:center}
+    .box{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--ring);
+  border-radius:8px;
+  padding:4px 6px;
+  text-align:center;
+  font-size:12px;
+}
+.pets-ok{background:rgba(0,160,60,.25);border-color:rgba(0,160,60,.8)}
+.pets-in{background:rgba(255,140,0,.25);border-color:rgba(255,140,0,.9)}
+
+.box h3{margin:0 0 2px;font-size:12px}
+.total{font-size:14px}
+.subhead{font-size:12px}
+
+.box h3{font-size:11px !important}
+.total{font-size:13px !important}
+.subhead{font-size:11px !important}
+;border:1px solid var(--ring);border-radius:12px;padding:10px;text-align:center}
     .box h3{margin:0 0 4px;font-size:12px;color:var(--muted);font-weight:600}
     .total{font-size:22px;font-weight:800}
     .row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--ring);border-radius:12px;padding:12px}
@@ -82,7 +102,7 @@
       border-top:1px solid rgba(255,255,255,.06);
       max-width:100%;
     }
-    .tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;width:100%;max-width:var(--maxContent);margin:0 auto}
+    .tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;width:100%;max-width:var(--maxContent);margin:0 auto}
     .tab{
       --c:rgba(255,255,255,.06);
       display:flex;flex-direction:column;align-items:center;gap:6px;
@@ -313,8 +333,86 @@
 
     <main class="content" id="content" tabindex="-1">
       <div class="container">
+
+        <!-- OVERVIEW -->
+        <section id="screen-overview" role="tabpanel" aria-labelledby="tab-overview" class="active">
+          <div class="card">
+            <h2 class="title">Overview</h2>
+            <div class="subhead"></div>
+            <div id="tz-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin-top:6px">
+              <div class="box">
+                <h3>Hawai'i (HST)</h3>
+                <div class="total" id="tz-hawaii">--:--</div>
+                <div class="subhead" id="tz-hawaii-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Pacific (PT)</h3>
+                <div class="total" id="tz-pacific">--:--</div>
+                <div class="subhead" id="tz-pacific-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Mountain (MT)</h3>
+                <div class="total" id="tz-mountain">--:--</div>
+                <div class="subhead" id="tz-mountain-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Central (CT)</h3>
+                <div class="total" id="tz-central">--:--</div>
+                <div class="subhead" id="tz-central-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Eastern (ET)</h3>
+                <div class="total" id="tz-eastern">--:--</div>
+                <div class="subhead" id="tz-eastern-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Zulu (UTC)</h3>
+                <div class="total" id="tz-zulu">--:--</div>
+                <div class="subhead" id="tz-zulu-date" style="color:#d8c75a">--/--</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="title">Albuquerque Weather</h2>
+            <div class="subhead" id="wx-status">Loading current conditions…</div>
+            <div class="grid two">
+              <div class="box">
+                <h3>Temperature</h3>
+                <div class="total" id="wx-temp">--</div>
+              </div>
+              <div class="box">
+                <h3>Condition</h3>
+                <div class="total" id="wx-cond">--</div>
+              </div>
+              <div class="box">
+                <h3>Wind</h3>
+                <div class="total" id="wx-wind">--</div>
+              </div>
+            </div>
+
+            <div class="subhead" style="margin-top:10px">Next 8 Hours</div>
+            <div id="wx-hourly" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px;overflow-x:visible;padding-bottom:4px;margin-top:6px">
+              <!-- Hourly forecast cards injected by JS -->
+            </div>
+
+
+            <div class="subhead" style="margin-top:10px">Following 8 Hours</div>
+            <div id="wx-hourly-next" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px;overflow-x:visible;padding-bottom:4px;margin-top:6px">
+              <!-- Next 8 hours after the first block -->
+            </div>
+
+            <div class="subhead" style="margin-top:10px">Pet Comfort </div>
+            <div id="pets-box" class="box" style="margin-top:6px">
+              <h3 id="pets-label">Pets status</h3>
+              <div class="total" id="pets-text">Checking forecast…</div>
+            </div>
+          </div>
+        </section>
+
         <!-- TIP -->
-        <section id="screen-tip" role="tabpanel" aria-labelledby="tab-tip" class="active">
+
+        <section id="screen-tip" role="tabpanel" aria-labelledby="tab-tip">
           <div class="card">
             <h2 class="title">Tip Calculator</h2>
             <div class="subhead">Bill amount pre tax</div>
@@ -571,7 +669,14 @@
 
     <nav class="tabbar" role="tablist" aria-label="Bottom tabs">
       <div class="tabs">
-        <button class="tab active" id="tab-tip" data-screen="tip" aria-selected="true">
+        <button class="tab active" id="tab-overview" data-screen="overview" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="16" rx="4"></rect>
+            <path d="M9 9h9M9 13h6M9 17h4"></path>
+          </svg>
+          <span>Overview</span>
+        </button>
+        <button class="tab" id="tab-tip" data-screen="tip">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path d="M12 1v22M17 5c0-1.5-2.5-3-5-3s-5 1.5-5 3 2.5 3 5 3 5 1.5 5 3-2.5 3-5 3-5 1.5-5 3 2.5 3 5 3 5-1.5 5-3"/>
   </svg>
@@ -605,8 +710,8 @@
     const setTitle = t => $('#appTitle').textContent = t;
 
     // Bottom tab routing
-    const SCREENS = ['tip','salary','pay','time','sw'];
-    const TITLES = {tip:'Tip Calculator', salary:'Salary Calculator', pay:'Paycheck After Taxes', time:'Your Time & Their Time', sw:'Southwest Points'};
+    const SCREENS = ['overview','tip','salary','pay','time','sw'];
+    const TITLES = {overview:'Overview', tip:'Tip Calculator', salary:'Salary Calculator', pay:'Paycheck After Taxes', time:'Your Time & Their Time', sw:'Southwest Points'};
 
     function show(screen){
       SCREENS.forEach(id=>{
@@ -651,8 +756,8 @@
     function enterApp(){
       // Fade the overlay and then remove it from flow
       home.classList.add('hide');
-      // Ensure we land on the first calculator
-      show('tip');
+      // Ensure we land on the overview dashboard first
+      show('overview');
       // Optional: remember last time used (comment out if not wanted)
       // localStorage.setItem('cini_mod_last_enter', Date.now());
     }
@@ -837,6 +942,287 @@
     });
     setNow(); runTime();
   
+    // ===== OVERVIEW DASHBOARD (Time Zones + ABQ Weather) =====
+    const tzEls = {
+      hawaii: $('#tz-hawaii'),
+      pacific: $('#tz-pacific'),
+      mountain: $('#tz-mountain'),
+      central: $('#tz-central'),
+      eastern: $('#tz-eastern'),
+      zulu: $('#tz-zulu')
+    };
+
+    function formatTimeForZone(timeZone) {
+      const now = new Date();
+      return new Intl.DateTimeFormat('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        
+        hour12: true,
+        timeZone
+      }).format(now);
+    }
+
+    function updateTimeZones() {
+      if (!tzEls.hawaii) return; // Overview screen might not be mounted yet
+      tzEls.hawaii.textContent  = formatTimeForZone('Pacific/Honolulu');
+      tzEls.pacific.textContent = formatTimeForZone('America/Los_Angeles');
+      tzEls.mountain.textContent= formatTimeForZone('America/Denver');
+      tzEls.central.textContent = formatTimeForZone('America/Chicago');
+      tzEls.eastern.textContent = formatTimeForZone('America/New_York');
+      tzEls.zulu.textContent    = formatTimeForZone('UTC');
+    }
+    updateTimeZones();
+    function formatDateForZone(timeZone) {
+      const now = new Date();
+      return new Intl.DateTimeFormat('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        timeZone
+      }).format(now);
+    }
+    function updateTimeZoneDates(){
+      const map = {
+        'tz-hawaii-date':'Pacific/Honolulu',
+        'tz-pacific-date':'America/Los_Angeles',
+        'tz-mountain-date':'America/Denver',
+        'tz-central-date':'America/Chicago',
+        'tz-eastern-date':'America/New_York',
+        'tz-zulu-date':'UTC'
+      };
+      Object.entries(map).forEach(([id,tz])=>{
+        const el = document.getElementById(id);
+        if (el) el.textContent = formatDateForZone(tz);
+      });
+    }
+    updateTimeZoneDates();
+
+    setInterval(updateTimeZones, 1000);
+    setInterval(updateTimeZoneDates, 60 * 1000);
+
+    // Simple helpers for weather
+    const wxStatusEl = $('#wx-status');
+    const wxTempEl   = $('#wx-temp');
+    const wxCondEl   = $('#wx-cond');
+    const wxWindEl   = $('#wx-wind');
+    const wxHourlyEl = $('#wx-hourly');
+
+    function cToF(c) {
+      return (c * 9/5) + 32;
+    }
+    function kmhToMph(kmh) {
+      return kmh * 0.621371;
+    }
+
+    // Map Open-Meteo WMO weather codes to simple condition labels
+    function mapWeatherCondition(code, tempC, windKmh) {
+      const tempF = cToF(tempC);
+      let base = '';
+
+      if (code === 0) {
+        base = 'Clear';
+      } else if (code >= 1 && code <= 3) {
+        base = 'Partly cloudy';
+      } else if (code >= 45 && code <= 48) {
+        base = 'Foggy';
+      } else if ((code >= 51 && code <= 57) || (code >= 61 && code <= 67) || (code >= 80 && code <= 82)) {
+        base = 'Rain';
+      } else if ((code >= 71 && code <= 77) || (code >= 85 && code <= 86)) {
+        base = 'Snow';
+      } else if (code >= 95) {
+        base = 'Storm';
+      } else {
+        base = 'Cloudy';
+      }
+
+      // Special tags from your list
+      if ((code === 66 || code === 67 || code === 77) && tempF <= 34) {
+        base = 'Ice';
+      } else if (tempF >= 90 && !(code >= 61 && code <= 67) && !(code >= 71 && code <= 77)) {
+        base = 'Hot';
+      }
+
+      if (windKmh >= 35) {
+        if (base === 'Clear') return 'Windy & Clear';
+        if (base === 'Rain') return 'Windy & Rain';
+        if (base === 'Snow') return 'Windy & Snow';
+        return 'Windy';
+      }
+
+      return base;
+    }
+
+    async function fetchAbqWeather() {
+      if (!wxStatusEl) return;
+
+      const LAT = 35.0844;
+      const LON = -106.6504;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&hourly=temperature_2m,weather_code,wind_speed_10m&timezone=America%2FDenver`;
+
+      try {
+        wxStatusEl.textContent = 'Loading current conditions…';
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Network error');
+        const data = await res.json();
+
+        // Current
+        const current = data.current_weather;
+        if (current) {
+          const tempF = Math.round(cToF(current.temperature));
+          const windMph = Math.round(kmhToMph(current.wind_speed_10m || current.windspeed || 0));
+          const condLabel = mapWeatherCondition(current.weather_code ?? current.weathercode ?? 0, current.temperature, current.wind_speed_10m || current.windspeed || 0);
+
+          wxTempEl.textContent = `${tempF}°F`;
+          wxCondEl.textContent = condLabel;
+          wxWindEl.textContent = `${windMph} mph`;
+          wxStatusEl.textContent = '';
+        } else {
+          wxStatusEl.textContent = 'Current conditions unavailable.';
+        }
+
+        // Hourly next 8 hours
+        if (wxHourlyEl && data.hourly && Array.isArray(data.hourly.time)) {
+          wxHourlyEl.innerHTML = '';
+          const times = data.hourly.time;
+          const temps = data.hourly.temperature_2m || [];
+          const codes = data.hourly.weather_code || data.hourly.weathercode || [];
+          const winds = data.hourly.wind_speed_10m || data.hourly.windspeed_10m || [];
+
+          const now = new Date();
+          const upcoming = [];
+
+          for (let i = 0; i < times.length; i++) {
+            const t = new Date(times[i]);
+            if (t <= now) continue;
+            upcoming.push({ t, tempC: temps[i], code: codes[i], windKmh: winds[i] });
+            if (upcoming.length >= 8) break;
+          }
+
+          upcoming.forEach(item => {
+            const tempF = Math.round(cToF(item.tempC));
+            const label = mapWeatherCondition(item.code, item.tempC, item.windKmh);
+            const timeLabel = new Intl.DateTimeFormat('en-US', {
+              hour: 'numeric',
+              hour12: true
+            }).format(item.t);
+
+            const div = document.createElement('div');
+            div.className = 'box';
+            div.innerHTML = `<h3>${timeLabel}</h3>
+              <div class="total">${tempF}°F</div>
+              <div class="subhead" style="margin-top:4px">${label}</div>`;
+            wxHourlyEl.appendChild(div);
+          });
+
+          // Following 8 hours (hours 9–16 ahead)
+          const wxNext = document.getElementById('wx-hourly-next');
+          if (wxNext) {
+            let following = [];
+            let startIndex = 0;
+
+            // find the index right after our first 8 upcoming slots
+            for (let i = 0; i < times.length; i++) {
+              const t = new Date(times[i]);
+              if (t > now) {
+                startIndex = i + 8;
+                break;
+              }
+            }
+
+            for (let i = startIndex; i < times.length; i++) {
+              const t = new Date(times[i]);
+              following.push({
+                t,
+                tempC: temps[i],
+                code: codes[i],
+                windKmh: winds[i]
+              });
+              if (following.length >= 8) break;
+            }
+
+            wxNext.innerHTML = '';
+            following.forEach(item => {
+              const tempF2 = Math.round(cToF(item.tempC));
+              const label2 = mapWeatherCondition(item.code, item.tempC, item.windKmh);
+              const timeLabel2 = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric',
+                hour12: true
+              }).format(item.t);
+
+              const div2 = document.createElement('div');
+              div2.className = 'box';
+              div2.innerHTML = `<h3>${timeLabel2}</h3>
+                <div class="total">${tempF2}°F</div>
+                <div class="subhead" style="margin-top:4px">${label2}</div>`;
+              wxNext.appendChild(div2);
+            });
+          }
+
+          // Pets comfort: look at today's temps between 11:00 and 19:00
+          const petsBox = document.getElementById('pets-box');
+          const petsLabel = document.getElementById('pets-label');
+          const petsText = document.getElementById('pets-text');
+          if (petsBox && data.hourly && Array.isArray(data.hourly.time)) {
+            const nowLocal = new Date();
+            const todayY = nowLocal.getFullYear();
+            const todayM = nowLocal.getMonth();
+            const todayD = nowLocal.getDate();
+
+            let totalSlots = 0;
+            let coldSlots = 0;
+            let warmSlots = 0;
+
+            for (let i = 0; i < data.hourly.time.length; i++) {
+              const t = new Date(data.hourly.time[i]);
+              if (t.getFullYear() !== todayY || t.getMonth() !== todayM || t.getDate() !== todayD) continue;
+              const hr = t.getHours();
+              if (hr < 11 || hr > 19) continue;
+
+              const tempC = (data.hourly.temperature_2m || [])[i];
+              if (typeof tempC !== 'number') continue;
+              const tempF = cToF(tempC);
+
+              totalSlots++;
+              if (tempF < 52) {
+                coldSlots++;
+              } else if (tempF >= 53) {
+                warmSlots++;
+              }
+            }
+
+            if (totalSlots === 0) {
+              petsBox.classList.remove('pets-ok', 'pets-in');
+              petsLabel.textContent = 'Pets status';
+              petsText.textContent = "Today's daytime forecast not available.";
+            } else if (coldSlots > warmSlots) {
+              petsBox.classList.remove('pets-ok');
+              petsBox.classList.add('pets-in');
+              petsLabel.textContent = 'Pets Stay In';
+              petsText.textContent = 'Below 52°F for most of 11 AM – 7 PM.';
+            } else if (warmSlots > coldSlots) {
+              petsBox.classList.remove('pets-in');
+              petsBox.classList.add('pets-ok');
+              petsLabel.textContent = 'Pets OK Out';
+              petsText.textContent = '53°F or warmer for most of 11 AM – 7 PM.';
+            } else {
+              // Tie or mixed – be cautious
+              petsBox.classList.remove('pets-ok');
+              petsBox.classList.add('pets-in');
+              petsLabel.textContent = 'Pets Stay In';
+              petsText.textContent = 'Temperatures are mixed; keeping pets in is safer.';
+            }
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        wxStatusEl.textContent = 'Weather data unavailable.';
+      }
+    }
+
+    // Initial fetch + refresh every 10 minutes
+    fetchAbqWeather();
+    setInterval(fetchAbqWeather, 10 * 60 * 1000);
+
 // ===== Mobile-fit helpers (added) =====
 (function(){
   const content = document.getElementById('content');
