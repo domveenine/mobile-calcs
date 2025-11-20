@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, viewport-fit=cover, minimum-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-<title>Tip, Pay &amp; Time • App</title>
-<meta content="#0b1220" name="theme-color"/>
-<style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Tip, Pay & Time • App</title>
+  <meta name="theme-color" content="#0b1220">
+  <style>
+body { text-transform: capitalize; }
+
     :root{
       --bg:#0b1220;
       --surface:#0f172a;
@@ -21,7 +22,7 @@
       --tab:#0f1c33;
       --tabActive:#1a2d4d;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --maxContent: 2000px;
+      --maxContent: 720px;
     }
     *{box-sizing:border-box;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-width:0}
     html,body{height:100%;background:var(--bg);color:var(--text);overflow-x:hidden}
@@ -67,7 +68,25 @@
     @media(min-width:520px){.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
     .totals{display:grid;gap:10px;margin-top:10px;width:100%}
     @media(min-width:420px){.totals{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    .box{background:rgba(255,255,255,.04);border:1px solid var(--ring);border-radius:12px;padding:10px;text-align:center}
+    .box{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--ring);
+  border-radius:8px;
+  padding:4px 6px;
+  text-align:center;
+  font-size:12px;
+}
+.pets-ok{background:rgba(0,160,60,.25);border-color:rgba(0,160,60,.8)}
+.pets-in{background:rgba(255,140,0,.25);border-color:rgba(255,140,0,.9)}
+
+.box h3{margin:0 0 2px;font-size:12px}
+.total{font-size:14px}
+.subhead{font-size:12px}
+
+.box h3{font-size:11px !important}
+.total{font-size:13px !important}
+.subhead{font-size:11px !important}
+;border:1px solid var(--ring);border-radius:12px;padding:10px;text-align:center}
     .box h3{margin:0 0 4px;font-size:12px;color:var(--muted);font-weight:600}
     .total{font-size:22px;font-weight:800}
     .row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--ring);border-radius:12px;padding:12px}
@@ -83,7 +102,7 @@
       border-top:1px solid rgba(255,255,255,.06);
       max-width:100%;
     }
-    .tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;width:100%;max-width:var(--maxContent);margin:0 auto}
+    .tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;width:100%;max-width:var(--maxContent);margin:0 auto}
     .tab{
       --c:rgba(255,255,255,.06);
       display:flex;flex-direction:column;align-items:center;gap:6px;
@@ -263,831 +282,498 @@
 }
 
 
-    /* DASHBOARD */
-    .dash-clocks{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap:10px;
-      margin-top:8px;
-    }
-    .clock-card{
-      background:rgba(255,255,255,.04);
-      border:1px solid var(--ring);
-      border-radius:14px;
-      padding:10px 12px;
-      text-align:center;
-      box-shadow:0 6px 18px rgba(0,0,0,.25);
-    }
-    .clock-label{
-      font-size:12px;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      margin-bottom:4px;
-    }
-    .clock-time{
-      font-family:system-ui, -apple-system, BlinkMacSystemFont, "SF Mono", Menlo, monospace;
-      font-size:22px;
-      font-weight:700;
-    }
-    .wx-current{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:12px;
-      border-radius:14px;
-      background:rgba(15,23,42,.9);
-      border:1px solid var(--ring);
-    }
-    .wx-temp{
-      font-size:32px;
-      font-weight:800;
-    }
-    .wx-main{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-    .wx-cond{
-      font-size:15px;
-      font-weight:600;
-    }
-    .wx-extra{
-      font-size:12px;
-      color:var(--muted);
-    }
-    .wx-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0,1fr));
-      gap:8px;
-    }
-    @media (max-width: 480px){
-      .wx-grid{
-        grid-template-columns:repeat(2, minmax(0,1fr));
-      }
-    }
-    .wx-hour{
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--ring);
-      border-radius:12px;
-      padding:8px;
-      text-align:center;
-      font-size:12px;
-    }
-    .wx-hour-time{
-      font-weight:600;
-      margin-bottom:4px;
-    }
-    .wx-hour-temp{
-      font-size:16px;
-      font-weight:700;
-      margin-bottom:2px;
-    }
-    .wx-hour-cond{
-      font-size:11px;
-      color:var(--muted);
-    }
 
-/* Force all clocks on one line with horizontal scroll if needed */
-.dash-clocks{
-  display:flex !important;
-  flex-wrap:nowrap !important;
-  gap:18px !important;
-  overflow-x:auto !important;
-  padding-bottom:6px;
+/* Anti burn-in: gentle water-drop ripple every 30 seconds */
+.ripple-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 9999; /* under the side panels, over the background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Make each clock card narrower so they fit better */
-.clock-card{
-  min-width:120px !important;
+.ripple-overlay .ripple-circle {
+  width: 600px;
+  height: 600px;
+  border-radius: 9999px;
+  border: 4px solid rgba(148, 163, 184, 0.55);
+  opacity: 0;
+  transform: scale(0.2);
 }
 
-/* Force next8 and next8b into one long row */
-.wx-grid{
-  display:flex !important;
-  flex-wrap:nowrap !important;
-  gap:16px !important;
-  overflow-x:auto !important;
-  padding-bottom:6px;
+.ripple-overlay .ripple-circle.rippling {
+  animation: ripplePulse 2.4s ease-out;
 }
 
-.wx-hour{
-  min-width:120px !important;
-}
-
-.dash-clocks{
-  display:grid !important;
-  grid-template-columns: repeat(6, 1fr) !important;
-  gap:20px !important;
-  overflow-x:hidden !important;
-}
-
-.wx-grid{
-  display:grid !important;
-  grid-template-columns: repeat(8, 1fr) !important;
-  gap:20px !important;
-  overflow-x:hidden !important;
-}
-
-/* DASHBOARD LAYOUT WITH NEWS COLUMN */
-.dash-layout{
-  display:flex;
-  gap:18px;
-  align-items:flex-start;
-}
-.dash-main{
-  flex:2;
-  min-width:0;
-}
-.dash-news{
-  flex:1;
-  min-width:260px;
-}
-.news-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.news-item{
-  padding:10px 12px;
-  border-radius:12px;
-  background:rgba(15,23,42,.9);
-  border:1px solid var(--ring);
-}
-.news-title{ font-size:13px; font-weight:600; margin-bottom:4px; color:#ffffff !important; }
-.news-summary{
-  font-size:12px;
-  color:var(--muted);
-}
-
-/* Stack vertically on smaller screens */
-@media (max-width: 960px){
-  .dash-layout{
-    flex-direction:column;
+@keyframes ripplePulse {
+  0% {
+    transform: scale(0.2);
+    opacity: 0.6;
   }
-  .dash-news{
-    width:100%;
-    min-width:0;
+  40% {
+    transform: scale(2.5);
+    opacity: 0.35;
+  }
+  70% {
+    transform: scale(4.5);
+    opacity: 0.18;
+  }
+  100% {
+    transform: scale(6.5);
+    opacity: 0;
   }
 }
-
-html, body{
-  overflow:hidden !important;
-  height:100%;
-}
-
-html, body{
-  overflow:hidden !important;
-  height:100% !important;
-  margin:0 !important;
-}
-.container{
-  height:100% !important;
-  overflow:hidden !important;
-}
-
-.news-time{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:4px;
-}
-
-/* Force dashboard to full height with no scroll */
-html, body{
-  height:100vh !important;
-  overflow:hidden !important;
-}
-
-/* Layout: main left + right column fit vertically */
-.dash-layout{
-  height:100%;
-  display:flex;
-  flex-direction:row;
-  align-items:flex-start;
-}
-
-/* Left side scrolls internally if needed */
-.dash-main{
-  height:100%;
-  overflow:hidden;
-}
-
-/* Right side: fit full height, no scroll */
-.dash-news{
-  height:100%;
-  overflow:hidden !important;
-}
-
-/* Fit the news card fully inside */
-.dash-news .card{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-}
-
-/* News list fills available space but no scroll */
-.news-list{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-/* Each item auto sizes */
-.news-item{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-}
-
-/* Prevent overflow inside items */
-.news-item *{
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* Smaller bottom nav buttons */
-.tabbar{
-  height:48px !important;
-}
-.tabbar .tabs .tab{
-  padding:4px 6px !important;
-  font-size:11px !important;
-  height:38px !important;
-  border-radius:6px !important;
-}
-.tabbar .tabs .tab svg{
-  width:14px !important;
-  height:14px !important;
-}
-
-/* FINAL dashboard layout tweaks: no page scroll, content fully visible above footer */
-.content{
-  flex:1 !important;
-  overflow:hidden !important;
-  padding:12px 14px 16px 14px !important;
-}
-.dash-layout{
-  height:100%;
-  display:flex;
-  align-items:flex-start;
-}
-.dash-main{
-  height:100%;
-  overflow:hidden;
-}
-.dash-news{
-  height:100%;
-  overflow:hidden;
-}
-
-.clock-date{ font-size:11px; color:#fcd34d !important; margin-top:2px; }
-
-.wx-row{
-  display:flex;
-  gap:20px;
-  align-items:flex-start;
-  margin-bottom:20px;
-}
-.wx-row .card{
-  flex:1;
-}
-
-/* Smaller bottom buttons to fit one line */
-.tabbar{
-  height:42px !important;
-}
-.tabbar .tabs .tab{
-  padding:2px 4px !important;
-  font-size:10px !important;
-  height:32px !important;
-  border-radius:5px !important;
-  min-width: 45px !important;
-}
-.tabbar .tabs{
-  gap:4px !important;
-}
-.tabbar .tabs .tab svg{
-  width:12px !important;
-  height:12px !important;
-}
-
-/* Force all bottom tabs to fit in one line and be fully visible */
-.tabbar{
-  height:40px !important;
-}
-.tabbar .tabs{
-  display:flex !important;
-  flex-wrap:nowrap !important;
-  justify-content:space-between !important;
-  overflow-x:hidden !important;
-  gap:2px !important;
-}
-.tabbar .tabs .tab{
-  flex:1 1 0 !important;
-  padding:1px 2px !important;
-  font-size:9px !important;
-  height:30px !important;
-  border-radius:4px !important;
-  min-width:0 !important;
-}
-.tabbar .tabs .tab svg{
-  width:11px !important;
-  height:11px !important;
-  margin-right:2px !important;
-}
-
-/* Option A: Slightly larger, cleaner bottom tabs without wrapping */
-.tabbar{
-  height:48px !important;
-}
-.tabbar .tabs{
-  gap:4px !important;
-}
-.tabbar .tabs .tab{
-  flex:1 1 0 !important;
-  padding:4px 6px !important;
-  font-size:11px !important;
-  height:36px !important;
-  border-radius:6px !important;
-  min-width:0 !important;
-}
-.tabbar .tabs .tab svg{
-  width:14px !important;
-  height:14px !important;
-  margin-right:4px !important;
-}
-
-/* Further tweak: remove icons so labels have room, keep one clean line */
-.tabbar .tabs .tab svg{
-  display:none !important;
-  margin:0 !important;
-}
-.tabbar .tabs .tab{
-  flex:1 1 0 !important;
-  padding:4px 8px !important;
-  font-size:12px !important;
-  height:34px !important;
-}
-
-/* Final bottom bar fix: no vertical squish, sits slightly above screen edge */
-.tabbar{
-  height:auto !important;
-  padding-top:6px !important;
-  padding-bottom:calc(10px + env(safe-area-inset-bottom)) !important;
-}
-.tabbar .tabs .tab{
-  height:auto !important;
-  padding-top:6px !important;
-  padding-bottom:6px !important;
-}
-
-/* FINAL OVERRIDE: comfortable, single-line bottom tabs */
-.content{
-  padding-bottom:64px !important; /* leave room for a taller tabbar */
-}
-.tabbar{
-  height:56px !important;
-  padding-top:8px !important;
-  padding-bottom:8px !important;
-}
-.tabbar .tabs .tab{
-  font-size:13px !important;
-  padding:6px 10px !important;
-}
-
-/* Option A: Bigger comfortable tabs with emojis */
-.tabbar{
-  height:60px !important;
-  padding:8px 0 !important;
-}
-.tabbar .tabs{
-  gap:6px !important;
-}
-.tabbar .tabs .tab{
-  flex:1 1 0 !important;
-  padding:8px 10px !important;
-  font-size:15px !important;
-  height:44px !important;
-  border-radius:10px !important;
-  min-width:0 !important;
-}
-
-/* ===== Section text color accents for visual separation ===== */
-
-/* Dashboard: clocks, weather, news */
-#screen-dash .card .title{
-  color: var(--accent2);
-}
-#screen-dash .card .subhead{
-  color: var(--info);
-}
-.dash-clocks .clock-label{
-  color: var(--info);
-}
-.wx-cond{
-  color: var(--accent);
-}
-.wx-hour-time{
-  color: var(--info);
-}
-.wx-hour-cond{
-  color: var(--muted);
-}
-.news-title{ font-size:13px; font-weight:600; margin-bottom:4px; color:#ffffff !important; }
-
-/* Tip Calculator */
-#screen-tip .card .title{
-  color: var(--accent);
-}
-
-/* Salary Calculator */
-#screen-salary .card .title{
-  color: var(--info);
-}
-
-/* Paycheck After Taxes */
-#screen-pay .card .title{
-  color: var(--danger);
-}
-
-/* Your Time & Their Time */
-#screen-time .card .title{
-  color: var(--accent2);
-}
-
-/* Southwest Points tools */
-#screen-sw .card .title{
-  color: var(--accent);
-}
-#screen-sw .pill h3{
-  color: var(--info);
-}
-
-.news-date{ color:#fcd34d !important; } /* yellow */
-.news-timepart{ color:#fb923c !important; } /* orange */
-
-.dash-news .title{ font-size:16px; font-weight:700; margin-bottom:8px; color:#ffffff !important; }
-
-.dash-title,
-.dash-weather h2,
-#currentWeatherTitle,
-#tomorrowWeatherTitle {
-  color:#ffffff !important;
-}
-
-/* Force these specific dashboard titles to white */
-.dash-main > .card:first-child .title{ color:#ffffff !important; }           /* Dashboard */
-.wx-row > .card:first-child .title{ color:#ffffff !important; }             /* Current Weather */
-.wx-row > .card:last-child .title{ color:#ffffff !important; }              /* Tomorrow's Weather */
 </style>
 </head>
-<body>
-<div class="app-shell">
-<header aria-label="App header" class="appbar">
-<button aria-label="Scroll to top" class="icon-btn" id="btnBack" title="Scroll to top">
-<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
-<path d="M12 19V5M5 12l7-7 7 7"></path>
-</svg>
-</button>
-<h1 class="app-title" id="appTitle">Dashboard</h1>
-<button aria-label="Copy summary" class="icon-btn" id="btnCopy" title="Copy summary">
-<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
-<rect height="13" rx="2" width="13" x="9" y="9"></rect>
-<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-</svg>
-</button>
-</header>
-<!-- HOME OVERLAY -->
-<main class="content" id="content" tabindex="-1">
-<div class="container">
-<!-- DASHBOARD -->
-<section aria-labelledby="tab-dash" class="active" id="screen-dash" role="tabpanel">
-<div class="dash-layout"><div class="dash-main"><div class="card">
-<h2 class="title">Dashboard</h2>
-<div class="subhead">Network-wide clocks</div>
-<div class="dash-clocks">
-<div class="clock-card">
-<div class="clock-label">Hawai'i</div>
-<div class="clock-time" id="clock-hi">--:--</div>
-<div class="clock-date">--/--</div></div>
-<div class="clock-card">
-<div class="clock-label">Pacific</div>
-<div class="clock-time" id="clock-pt">--:--</div>
-<div class="clock-date">--/--</div></div>
-<div class="clock-card">
-<div class="clock-label">Mountain</div>
-<div class="clock-time" id="clock-mt">--:--</div>
-<div class="clock-date">--/--</div></div>
-<div class="clock-card">
-<div class="clock-label">Central</div>
-<div class="clock-time" id="clock-ct">--:--</div>
-<div class="clock-date">--/--</div></div>
-<div class="clock-card">
-<div class="clock-label">Eastern</div>
-<div class="clock-time" id="clock-et">--:--</div>
-<div class="clock-date">--/--</div></div>
-<div class="clock-card">
-<div class="clock-label">Zulu</div>
-<div class="clock-time" id="clock-z">--:--</div>
-<div class="clock-date">--/--</div></div>
-</div>
-</div><div class="wx-row"><div class="card">
-<h2 class="title">Current Weather</h2>
-<div class="subhead">Albuquerque, NM (Downtown)</div>
-<div class="wx-current" id="wx-current">
-<div class="wx-temp">--°</div>
-<div class="wx-main">
-<div class="wx-cond">Loading...</div>
-<div class="wx-extra" id="wx-extra">Updating forecast</div>
-</div>
-</div>
-</div><div class="card">
-<h2 class="title">Tomorrow's Weather</h2>
-<div class="subhead">Albuquerque, NM (Downtown)</div>
-<div class="wx-current" id="wx-tomorrow">
-<div class="wx-temp" id="wx-tomorrow-hi">--°</div>
-<div class="wx-main">
-<div class="wx-cond" id="wx-tomorrow-cond">Loading...</div>
-<div class="wx-extra" id="wx-tomorrow-extra">High / Low</div>
-</div>
-</div>
-</div></div>
-<div class="card">
-<h2 class="title">Next 8 hours</h2>
-<div class="wx-grid" id="wx-next8">
-<!-- Filled by JS -->
-</div>
-</div><div class="card">
-<h2 class="title">Following 8 hours</h2>
-<div class="wx-grid" id="wx-next8b">
-<!-- Filled by JS -->
-</div>
-</div></div><aside class="dash-news"><div class="card">
-<h2 class="title">Top U.S. News</h2>
-<div class="news-list" id="news-list">
-<p class="hint">Loading top headlines…</p>
-</div>
-</div></aside></div></section>
-<!-- TIP -->
-<section aria-labelledby="tab-tip" id="screen-tip" role="tabpanel">
-<div class="card">
-<h2 class="title">Tip Calculator</h2>
-<div class="subhead">Bill amount pre tax</div>
-<div class="input"><span class="prefix">$</span><input autocomplete="off" id="bill" inputmode="decimal" placeholder="0.00"/></div>
-<div class="subhead">Preset percentage</div>
-<div aria-label="Choose tip %" class="grid two" role="group">
-<button class="btn tip" data-tip="20">20%</button>
-<button class="btn tip" data-tip="25">25%</button>
-<button class="btn tip" data-tip="30">30%</button>
-<button class="btn tip" data-tip="35">35%</button>
-</div>
-<div class="subhead">Custom percentage</div>
-<div class="input"><input id="customTip" inputmode="decimal" placeholder="Custom Percentage"/><span class="prefix">%</span></div>
-<div class="totals">
-<div class="box"><h3>Tip</h3><div class="total" id="tipOut">$0.00</div></div>
-<div class="box"><h3>Total</h3><div class="total" id="totalOut">$0.00</div></div>
-<div class="box"><h3>Tip %</h3><div class="total" id="percentOut">0%</div></div>
-</div>
-<div class="grid two" style="margin-top:10px">
-<button class="btn" id="reset">Reset</button>
-<button class="btn" id="copy">Copy summary</button>
-</div>
-</div>
-</section>
-<!-- SALARY -->
-<section aria-labelledby="tab-salary" id="screen-salary" role="tabpanel">
-<div class="card">
-<h2 class="title">Salary Calculator</h2>
-<div class="grid three">
-<div>
-<div class="subhead">Hourly rate</div>
-<div class="input"><span class="prefix">$</span><input id="hourly" inputmode="decimal" placeholder="0.00" type="text"/></div>
-</div>
-<div>
-<div class="subhead">Monthly pay</div>
-<div class="input"><span class="prefix">$</span><input id="monthly" inputmode="decimal" placeholder="0.00" type="text"/></div>
-</div>
-<div>
-<div class="subhead">Annual salary</div>
-<div class="input"><span class="prefix">$</span><input id="annual" inputmode="decimal" placeholder="0.00" type="text"/></div>
-</div>
-</div>
-<p class="hint">Assumes 2,080 hours per year (40 hrs/week × 52 weeks).</p>
-</div>
-</section>
-<!-- PAYCHECK -->
-<section aria-labelledby="tab-pay" id="screen-pay" role="tabpanel">
-<div class="card">
-<h2 class="title">Paycheck After Taxes (NM)</h2>
-<div class="grid two">
-<div>
-<div class="subhead">Hourly rate</div>
-<div class="input"><span class="prefix">$</span><input id="p_hourly" inputmode="decimal" placeholder="0.00"/></div>
-</div>
-<div>
-<div class="subhead">Regular hours</div>
-<div class="input"><input id="p_hours_reg" inputmode="decimal" placeholder="80" value="80"/></div>
-</div>
-<div>
-<div class="subhead">Overtime hours</div>
-<div class="input"><input id="p_hours_ot" inputmode="decimal" placeholder="0"/></div>
-</div>
-<div>
-<div class="subhead">Overtime multiplier</div>
-<div class="input"><input id="p_ot_mult" inputmode="decimal" placeholder="1.5" value="1.5"/></div>
-</div>
-<div>
-<div class="subhead">Pre-tax deductions (this paycheck)</div>
-<div class="input"><span class="prefix">$</span><input id="p_pretax" inputmode="decimal" placeholder="0.00"/></div>
-</div>
-<div>
-<div class="subhead">YTD wages for Social Security</div>
-<div class="input"><span class="prefix">$</span><input id="p_ytd" inputmode="decimal" placeholder="0.00"/></div>
-</div>
-<div>
-<div class="subhead">Filing status</div>
-<div class="input">
-<select id="p_status">
-<option value="single">Single</option>
-<option value="married">Married filing jointly</option>
-<option value="hoh">Head of household</option>
-</select>
-</div>
-</div>
-<div>
-<div class="subhead">Pay frequency</div>
-<div class="input">
-<select id="p_freq">
-<option selected="" value="biweekly">Biweekly (26/yr)</option>
-<option value="weekly">Weekly (52/yr)</option>
-<option value="semimonthly">Semi-monthly (24/yr)</option>
-<option value="monthly">Monthly (12/yr)</option>
-</select>
-</div>
-</div>
-</div>
-<div class="grid" style="margin-top:6px">
-<div class="row"><span>Gross Pay</span><b id="p_gross">$0.00</b></div>
-<div class="row"><span>Federal Income Tax (est.)</span><b class="neg" id="p_fed">$0.00</b></div>
-<div class="row"><span>New Mexico Income Tax (est.)</span><b class="neg" id="p_state">$0.00</b></div>
-<div class="row"><span>Social Security 6.2%</span><b class="neg" id="p_ss">$0.00</b></div>
-<div class="row"><span>Medicare 1.45%</span><b class="neg" id="p_medicare">$0.00</b></div>
-<div class="row"><span>Net Pay (take-home)</span><b class="net" id="p_net">$0.00</b></div>
-<p class="hint">Estimates only. Uses 2025 federal brackets, 2025 standard deduction, and current NM brackets. Social Security respects your YTD cap. Pre-tax reduces federal/state taxable wages only.</p>
-</div>
-</div>
-</section>
-<!-- TIME -->
-<section aria-labelledby="tab-time" id="screen-time" role="tabpanel">
-<div class="card">
-<h2 class="title">Your Time &amp; Their Time</h2>
-<div class="grid two">
-<div>
-<div class="subhead">Your Airport (default ABQ)</div>
-<div class="input"><input id="t_from" list="iataList" placeholder="Enter code" value="ABQ"/></div>
-</div>
-<div>
-<div class="subhead">Their Airport</div>
-<div class="input"><input id="t_to" list="iataList" placeholder="Enter code"/></div>
-</div>
-</div>
-<div class="grid two" style="margin-top:8px">
-<div>
-<div class="subhead">Set Your Time (at your airport)</div>
-<div class="input"><input id="t_when" type="datetime-local"/></div>
-</div>
-<div style="display:flex;align-items:flex-end"><button class="btn" id="t_now" style="width:100%">Use current time</button></div>
-</div>
-<div class="grid" style="margin-top:8px">
-<div class="row"><strong>Your Time:</strong> <span id="t_from_out">—</span></div>
-<div class="row"><strong>Their Time:</strong> <span id="t_to_out">—</span></div>
-<div class="row" id="t_offset_display"><strong>Offset:</strong> <span id="t_offset_txt">—</span></div>
-</div>
-</div>
-</section>
-<!-- SW POINTS -->
-<section aria-labelledby="tab-sw" id="screen-sw" role="tabpanel">
-<div class="card">
-<h2 class="title">Southwest Points per Dollar</h2>
-<div class="subhead">How do you want to enter price?</div>
-<div aria-label="Price entry mode" class="mode" role="tablist">
-<button aria-selected="true" class="active" id="sw-mode-base" role="tab">I know the base fare</button>
-<button id="sw-mode-est" role="tab">Estimate base from total</button>
-</div>
-<div class="grid two" id="sw-inputs" style="margin-top:10px">
-<div id="sw-baseFareBlock">
-<div class="subhead">Base fare (excluding taxes/fees)</div>
-<div class="input"><span class="prefix">$</span><input id="sw-baseFare" inputmode="decimal" min="0" placeholder="e.g., 175.00" step="0.01" type="number"/></div>
-</div>
-<div id="sw-totalPriceBlock">
-<div class="subhead">Total ticket price charged to card</div>
-<div class="input"><span class="prefix">$</span><input id="sw-totalPrice" inputmode="decimal" min="0" placeholder="e.g., 225.00" step="0.01" type="number"/></div>
-</div>
-<div id="sw-basePctBlock" style="display:none">
-<div class="subhead">If estimating: percent of total that is base fare</div>
-<div class="input"><input id="sw-basePct" max="100" min="0" step="1" type="number" value="70"/><span class="prefix">%</span></div>
-<p class="hint">If you do not know the base fare, a 60–80% range is common. Adjust as needed.</p>
-</div>
-<div>
-<div class="subhead">Fare type</div>
-<div class="input">
-<select id="sw-fareType">
-<option value="2">Basic · 2 pts/$</option>
-<option value="6">Choice · 6 pts/$</option>
-<option value="10">Choice Preferred · 10 pts/$</option>
-<option value="14">Choice Extra · 14 pts/$</option>
-</select>
-</div>
-</div>
-</div>
-<div class="grid" style="margin-top:6px">
-<div class="row"><label><input id="sw-useCard" type="checkbox"/> Use a Southwest credit card for purchase</label></div>
-<div class="grid two" id="sw-cardRow" style="display:none">
-<div>
-<div class="subhead">Select your Southwest card</div>
-<div class="input">
-<select id="sw-cardType">
-<option value="2">Southwest Plus · 2X</option>
-<option value="3">Southwest Premier · 3X</option>
-<option value="4">Southwest Priority · 4X</option>
-<option value="3">Premier Business · 3X</option>
-<option value="4">Performance Business · 4X</option>
-</select>
-</div>
-<p class="hint">Applies the correct multiplier to the card charge.</p>
-</div>
-</div>
-</div>
-<div class="grid two" style="margin-top:8px">
-<div class="pill">
-<h3>Flight points</h3>
-<span class="big hl" id="sw-flightPts">0</span>
-</div>
-<div class="pill">
-<h3>Credit card points</h3>
-<span class="big hl2" id="sw-cardPts">0</span>
-</div>
-<div class="pill">
-<h3>Total points</h3>
-<span class="big ok" id="sw-totalPts">0</span>
-</div>
-<div class="pill">
-<h3>Effective pts per $</h3>
-<span class="big" id="sw-ppd">0.00</span>
-</div>
-</div>
-<p class="hint" style="margin-top:8px">Estimates flight points on base fare and card points on total charge.</p>
-</div>
-<!-- Converter -->
-<div class="card">
-<h2 class="title">Points to Dollars</h2>
-<div class="grid two">
-<div>
-<div class="subhead">Points to redeem</div>
-<div class="input"><input id="sw-pointsInput" min="0" placeholder="e.g., 12500" step="1" type="number"/></div>
-</div>
-<div>
-<div class="subhead">Value per point (USD)</div>
-<div class="input"><input id="sw-pointValue" min="0" step="0.0001" type="number" value="0.0149"/></div>
-<p class="hint">Defaults to $0.0149 per point. Adjust as needed.</p>
-</div>
-</div>
-<div class="grid two" style="margin-top:8px">
-<div class="pill">
-<h3>Estimated dollar cost</h3>
-<span class="big ok" id="sw-dollarValue">$0.00</span>
-</div>
-<div class="pill">
-<h3>Cents per point</h3>
-<span class="big hl" id="sw-cpp">1.49¢</span>
-</div>
-</div>
-</div>
-</section>
-</div>
-<datalist id="iataList"></datalist>
-<div class="sa-bottom"></div>
-</main>
-<nav aria-label="Bottom tabs" class="tabbar" role="tablist">
-<div class="tabs">
-<button aria-selected="true" class="tab active" data-screen="dash" id="tab-dash">📊 Dashboard</button>
-<button aria-selected="false" class="tab" data-screen="tip" id="tab-tip">💵 Tip</button>
-<button class="tab" data-screen="salary" id="tab-salary">📈 Salary</button>
-<button class="tab" data-screen="pay" id="tab-pay">🧾 Paycheck</button>
-<button class="tab" data-screen="time" id="tab-time">⏱️ Time</button>
-<button class="tab" data-screen="sw" id="tab-sw">✈️ Points</button>
-</div>
-</nav>
-</div>
-<script>
-function formatNewsTimestamp(ts){
-  if(!ts) return '';
-  let [date,time] = ts.split(' ');
-  return `<span class="news-date">${date}</span> <span class="news-timepart">${time}</span>`;
-}
 
+<body>
+  <div class="ripple-overlay"><div class="ripple-circle" id="screen-ripple"></div></div>
+  <!-- Right-side panel: Latest stories from Aaron Parnas Substack -->
+  <div id="ap-stories" style="position:fixed; right:0; top:0; width:300px; height:100vh; overflow-y:hidden; background:#0f172a; border-left:1px solid #243244; padding:16px; box-shadow:-4px 0 12px rgba(0,0,0,0.4); z-index:500;">
+    <h2 style="margin-top:0; font-size:18px; font-weight:700;">Latest from Aaron Parnas</h2>
+    <div id="ap-feed" style="display:flex; flex-direction:column; gap:14px; font-size:14px; line-height:1.4;">
+      <!-- Story summaries will be injected here -->
+    </div>
+
+  <!-- Left-side panel: Southwest Airlines & Hilton News -->
+  <div id="brand-news" style="position:fixed; left:0; top:0; width:300px; height:100vh; overflow-y:hidden; background:#0f172a; border-right:1px solid #243244; padding:16px; box-shadow:4px 0 12px rgba(0,0,0,0.4); z-index:500;">
+    <h2 style="margin-top:0; font-size:18px; font-weight:700;">Southwest & Hilton News</h2>
+
+    <div style="margin-bottom:14px;">
+      <h3 style="margin:0 0 6px; font-size:14px; font-weight:600;">Southwest Airlines</h3>
+      <div id="sw-news-feed" style="display:flex; flex-direction:column; gap:10px; font-size:13px; line-height:1.4;">
+        <!-- Southwest news items injected by JS -->
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin:0 0 6px; font-size:14px; font-weight:600;">Hilton</h3>
+      <div id="hilton-news-feed" style="display:flex; flex-direction:column; gap:10px; font-size:13px; line-height:1.4;">
+        <!-- Hilton news items injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="app-shell">
+
+    <header class="appbar" aria-label="App header">
+      <button class="icon-btn" id="btnBack" title="Scroll to top" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 19V5M5 12l7-7 7 7"></path>
+        </svg>
+      </button>
+      <h1 class="app-title" id="appTitle">Tip Calculator</h1>
+      <button class="icon-btn" id="btnCopy" title="Copy summary" aria-label="Copy summary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      </button>
+    </header>
+
+    <!-- HOME OVERLAY -->
+    <div id="homeOverlay" class="home-overlay" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+      <div class="welcome-card" role="group" aria-label="Welcome card">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="ring-wrap" aria-hidden="true">
+          <div class="ring"></div>
+          <div class="ring r2"></div>
+          <div class="ring r3"></div>
+        </div>
+        <span class="sparkle s1"></span>
+        <span class="sparkle s2"></span>
+        <span class="sparkle s3"></span>
+        <span class="sparkle s4"></span>
+        <span class="sparkle s5"></span>
+
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;height:100%">
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+            <span class="badge">cini.moD</span>
+            <h3 class="welcome-headline">Welcome to <span style="color:var(--accent)">cini.moD</span><br>Your pocket sidekick for work and wander!</h3>
+          </div>
+          <div style="margin-top:auto">
+            <button id="enterBtn" class="enter-btn">Enter
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:18px;height:18px">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="content" id="content" tabindex="-1">
+      <div class="container">
+
+        <!-- OVERVIEW -->
+        <section id="screen-overview" role="tabpanel" aria-labelledby="tab-overview" class="active">
+          <div class="card">
+            <h2 class="title">Overview</h2>
+            <div class="subhead"></div>
+            <div id="tz-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin-top:6px">
+              <div class="box">
+                <h3>Hawai'i (HST)</h3>
+                <div class="total" id="tz-hawaii">--:--</div>
+                <div class="subhead" id="tz-hawaii-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Pacific (PT)</h3>
+                <div class="total" id="tz-pacific">--:--</div>
+                <div class="subhead" id="tz-pacific-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Mountain (MT)</h3>
+                <div class="total" id="tz-mountain">--:--</div>
+                <div class="subhead" id="tz-mountain-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Central (CT)</h3>
+                <div class="total" id="tz-central">--:--</div>
+                <div class="subhead" id="tz-central-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Eastern (ET)</h3>
+                <div class="total" id="tz-eastern">--:--</div>
+                <div class="subhead" id="tz-eastern-date" style="color:#d8c75a">--/--</div>
+              </div>
+              <div class="box">
+                <h3>Zulu (UTC)</h3>
+                <div class="total" id="tz-zulu">--:--</div>
+                <div class="subhead" id="tz-zulu-date" style="color:#d8c75a">--/--</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="title">Albuquerque Weather</h2>
+            <div class="subhead" id="wx-status">Loading current conditions…</div>
+            <div class="grid two">
+              <div class="box">
+                <h3>Temperature</h3>
+                <div class="total" id="wx-temp">--</div>
+              </div>
+              <div class="box">
+                <h3>Condition</h3>
+                <div class="total" id="wx-cond">--</div>
+              </div>
+              <div class="box">
+                <h3>Wind</h3>
+                <div class="total" id="wx-wind">--</div>
+              </div>
+            </div>
+
+            <div class="subhead" style="margin-top:10px">Next 8 Hours</div>
+            <div id="wx-hourly" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px;overflow-x:visible;padding-bottom:4px;margin-top:6px">
+              <!-- Hourly forecast cards injected by JS -->
+            </div>
+
+
+            <div class="subhead" style="margin-top:10px">Following 8 Hours</div>
+            <div id="wx-hourly-next" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px;overflow-x:visible;padding-bottom:4px;margin-top:6px">
+              <!-- Next 8 hours after the first block -->
+            </div>
+
+            <div class="subhead" style="margin-top:10px">Pet Comfort </div>
+            <div id="pets-box" class="box" style="margin-top:6px">
+              <h3 id="pets-label">Pets status</h3>
+              <div class="total" id="pets-text">Checking forecast…</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TIP -->
+
+        <section id="screen-tip" role="tabpanel" aria-labelledby="tab-tip">
+          <div class="card">
+            <h2 class="title">Tip Calculator</h2>
+            <div class="subhead">Bill amount pre tax</div>
+            <div class="input"><span class="prefix">$</span><input id="bill" inputmode="decimal" placeholder="0.00" autocomplete="off"></div>
+
+            <div class="subhead">Preset percentage</div>
+            <div class="grid two" role="group" aria-label="Choose tip %">
+              <button class="btn tip" data-tip="20">20%</button>
+              <button class="btn tip" data-tip="25">25%</button>
+              <button class="btn tip" data-tip="30">30%</button>
+              <button class="btn tip" data-tip="35">35%</button>
+            </div>
+
+            <div class="subhead">Custom percentage</div>
+            <div class="input"><input id="customTip" inputmode="decimal" placeholder="Custom Percentage"><span class="prefix">%</span></div>
+
+            <div class="totals">
+              <div class="box"><h3>Tip</h3><div id="tipOut" class="total">$0.00</div></div>
+              <div class="box"><h3>Total</h3><div id="totalOut" class="total">$0.00</div></div>
+              <div class="box"><h3>Tip %</h3><div id="percentOut" class="total">0%</div></div>
+            </div>
+
+            <div class="grid two" style="margin-top:10px">
+              <button id="reset" class="btn">Reset</button>
+              <button id="copy" class="btn">Copy summary</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SALARY -->
+        <section id="screen-salary" role="tabpanel" aria-labelledby="tab-salary">
+          <div class="card">
+            <h2 class="title">Salary Calculator</h2>
+            <div class="grid three">
+              <div>
+                <div class="subhead">Hourly rate</div>
+                <div class="input"><span class="prefix">$</span><input id="hourly" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">Monthly pay</div>
+                <div class="input"><span class="prefix">$</span><input id="monthly" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">Annual salary</div>
+                <div class="input"><span class="prefix">$</span><input id="annual" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+            </div>
+            <p class="hint">Assumes 2,080 hours per year (40 hrs/week × 52 weeks).</p>
+          </div>
+        </section>
+
+        <!-- PAYCHECK -->
+        <section id="screen-pay" role="tabpanel" aria-labelledby="tab-pay">
+          <div class="card">
+            <h2 class="title">Paycheck After Taxes (NM)</h2>
+            <div class="grid two">
+              <div>
+                <div class="subhead">Hourly rate</div>
+                <div class="input"><span class="prefix">$</span><input id="p_hourly" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">Regular hours</div>
+                <div class="input"><input id="p_hours_reg" inputmode="decimal" placeholder="80" value="80"></div>
+              </div>
+              <div>
+                <div class="subhead">Overtime hours</div>
+                <div class="input"><input id="p_hours_ot" inputmode="decimal" placeholder="0"></div>
+              </div>
+              <div>
+                <div class="subhead">Overtime multiplier</div>
+                <div class="input"><input id="p_ot_mult" inputmode="decimal" placeholder="1.5" value="1.5"></div>
+              </div>
+              <div>
+                <div class="subhead">Pre-tax deductions (this paycheck)</div>
+                <div class="input"><span class="prefix">$</span><input id="p_pretax" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">YTD wages for Social Security</div>
+                <div class="input"><span class="prefix">$</span><input id="p_ytd" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div>
+                <div class="subhead">Filing status</div>
+                <div class="input">
+                  <select id="p_status">
+                    <option value="single">Single</option>
+                    <option value="married">Married filing jointly</option>
+                    <option value="hoh">Head of household</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <div class="subhead">Pay frequency</div>
+                <div class="input">
+                  <select id="p_freq">
+                    <option value="biweekly" selected>Biweekly (26/yr)</option>
+                    <option value="weekly">Weekly (52/yr)</option>
+                    <option value="semimonthly">Semi-monthly (24/yr)</option>
+                    <option value="monthly">Monthly (12/yr)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid" style="margin-top:6px">
+              <div class="row"><span>Gross Pay</span><b id="p_gross">$0.00</b></div>
+              <div class="row"><span>Federal Income Tax (est.)</span><b class="neg" id="p_fed">$0.00</b></div>
+              <div class="row"><span>New Mexico Income Tax (est.)</span><b class="neg" id="p_state">$0.00</b></div>
+              <div class="row"><span>Social Security 6.2%</span><b class="neg" id="p_ss">$0.00</b></div>
+              <div class="row"><span>Medicare 1.45%</span><b class="neg" id="p_medicare">$0.00</b></div>
+              <div class="row"><span>Net Pay (take-home)</span><b class="net" id="p_net">$0.00</b></div>
+              <p class="hint">Estimates only. Uses 2025 federal brackets, 2025 standard deduction, and current NM brackets. Social Security respects your YTD cap. Pre-tax reduces federal/state taxable wages only.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- TIME -->
+        <section id="screen-time" role="tabpanel" aria-labelledby="tab-time">
+          <div class="card">
+            <h2 class="title">Your Time & Their Time</h2>
+            <div class="grid two">
+              <div>
+                <div class="subhead">Your Airport (default ABQ)</div>
+                <div class="input"><input id="t_from" list="iataList" value="ABQ" placeholder="Enter code"></div>
+              </div>
+              <div>
+                <div class="subhead">Their Airport</div>
+                <div class="input"><input id="t_to" list="iataList" placeholder="Enter code"></div>
+              </div>
+            </div>
+            <div class="grid two" style="margin-top:8px">
+              <div>
+                <div class="subhead">Set Your Time (at your airport)</div>
+                <div class="input"><input id="t_when" type="datetime-local"></div>
+              </div>
+              <div style="display:flex;align-items:flex-end"><button id="t_now" class="btn" style="width:100%">Use current time</button></div>
+            </div>
+            <div class="grid" style="margin-top:8px">
+              <div class="row"><strong>Your Time:</strong> <span id="t_from_out">—</span></div>
+              <div class="row"><strong>Their Time:</strong> <span id="t_to_out">—</span></div>
+              <div id="t_offset_display" class="row"><strong>Offset:</strong> <span id="t_offset_txt">—</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SW POINTS -->
+        <section id="screen-sw" role="tabpanel" aria-labelledby="tab-sw">
+          <div class="card">
+            <h2 class="title">Southwest Points per Dollar</h2>
+
+            <div class="subhead">How do you want to enter price?</div>
+            <div class="mode" role="tablist" aria-label="Price entry mode">
+              <button id="sw-mode-base" class="active" aria-selected="true" role="tab">I know the base fare</button>
+              <button id="sw-mode-est" role="tab">Estimate base from total</button>
+            </div>
+
+            <div id="sw-inputs" class="grid two" style="margin-top:10px">
+              <div id="sw-baseFareBlock">
+                <div class="subhead">Base fare (excluding taxes/fees)</div>
+                <div class="input"><span class="prefix">$</span><input id="sw-baseFare" type="number" inputmode="decimal" min="0" step="0.01" placeholder="e.g., 175.00" /></div>
+              </div>
+              <div id="sw-totalPriceBlock">
+                <div class="subhead">Total ticket price charged to card</div>
+                <div class="input"><span class="prefix">$</span><input id="sw-totalPrice" type="number" inputmode="decimal" min="0" step="0.01" placeholder="e.g., 225.00" /></div>
+              </div>
+              <div id="sw-basePctBlock" style="display:none">
+                <div class="subhead">If estimating: percent of total that is base fare</div>
+                <div class="input"><input id="sw-basePct" type="number" min="0" max="100" step="1" value="70" /><span class="prefix">%</span></div>
+                <p class="hint">If you do not know the base fare, a 60–80% range is common. Adjust as needed.</p>
+              </div>
+              <div>
+                <div class="subhead">Fare type</div>
+                <div class="input">
+                  <select id="sw-fareType">
+                    <option value="2">Basic · 2 pts/$</option>
+                    <option value="6">Choice · 6 pts/$</option>
+                    <option value="10">Choice Preferred · 10 pts/$</option>
+                    <option value="14">Choice Extra · 14 pts/$</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid" style="margin-top:6px">
+              <div class="row"><label><input id="sw-useCard" type="checkbox" /> Use a Southwest credit card for purchase</label></div>
+              <div id="sw-cardRow" class="grid two" style="display:none">
+                <div>
+                  <div class="subhead">Select your Southwest card</div>
+                  <div class="input">
+                    <select id="sw-cardType">
+                      <option value="2">Southwest Plus · 2X</option>
+                      <option value="3">Southwest Premier · 3X</option>
+                      <option value="4">Southwest Priority · 4X</option>
+                      <option value="3">Premier Business · 3X</option>
+                      <option value="4">Performance Business · 4X</option>
+                    </select>
+                  </div>
+                  <p class="hint">Applies the correct multiplier to the card charge.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid two" style="margin-top:8px">
+              <div class="pill">
+                <h3>Flight points</h3>
+                <span id="sw-flightPts" class="big hl">0</span>
+              </div>
+              <div class="pill">
+                <h3>Credit card points</h3>
+                <span id="sw-cardPts" class="big hl2">0</span>
+              </div>
+              <div class="pill">
+                <h3>Total points</h3>
+                <span id="sw-totalPts" class="big ok">0</span>
+              </div>
+              <div class="pill">
+                <h3>Effective pts per $</h3>
+                <span id="sw-ppd" class="big">0.00</span>
+              </div>
+            </div>
+            <p class="hint" style="margin-top:8px">Estimates flight points on base fare and card points on total charge.</p>
+          </div>
+
+          <!-- Converter -->
+          <div class="card">
+            <h2 class="title">Points to Dollars</h2>
+            <div class="grid two">
+              <div>
+                <div class="subhead">Points to redeem</div>
+                <div class="input"><input id="sw-pointsInput" type="number" min="0" step="1" placeholder="e.g., 12500" /></div>
+              </div>
+              <div>
+                <div class="subhead">Value per point (USD)</div>
+                <div class="input"><input id="sw-pointValue" type="number" min="0" step="0.0001" value="0.0149" /></div>
+                <p class="hint">Defaults to $0.0149 per point. Adjust as needed.</p>
+              </div>
+            </div>
+            <div class="grid two" style="margin-top:8px">
+              <div class="pill">
+                <h3>Estimated dollar cost</h3>
+                <span id="sw-dollarValue" class="big ok">$0.00</span>
+              </div>
+              <div class="pill">
+                <h3>Cents per point</h3>
+                <span id="sw-cpp" class="big hl">1.49¢</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <datalist id="iataList"></datalist>
+      <div class="sa-bottom"></div>
+    </main>
+
+    <nav class="tabbar" role="tablist" aria-label="Bottom tabs">
+      <div class="tabs">
+        <button class="tab active" id="tab-overview" data-screen="overview" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="16" rx="4"></rect>
+            <path d="M9 9h9M9 13h6M9 17h4"></path>
+          </svg>
+          <span>Overview</span>
+        </button>
+        <button class="tab" id="tab-tip" data-screen="tip">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M12 1v22M17 5c0-1.5-2.5-3-5-3s-5 1.5-5 3 2.5 3 5 3 5 1.5 5 3-2.5 3-5 3-5 1.5-5 3 2.5 3 5 3 5-1.5 5-3"/>
+  </svg>
+  <span>Tip</span>
+</button>
+        <button class="tab" id="tab-salary" data-screen="salary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/><rect x="4" y="5" width="16" height="14" rx="3"/></svg>
+          <span>Salary</span>
+        </button>
+        <button class="tab" id="tab-pay" data-screen="pay">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 13h6"/></svg>
+          <span>Paycheck</span>
+        </button>
+        <button class="tab" id="tab-time" data-screen="time">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <span>Time</span>
+        </button>
+        <button class="tab" id="tab-sw" data-screen="sw">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12s4-8 9-8 9 8 9 8-4 8-9 8-9-8-9-8z"/><path d="M12 4v16"/></svg>
+          <span>Points</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <script>
     // Helpers
     const $ = s=>document.querySelector(s);
     const $$ = s=>[...document.querySelectorAll(s)];
@@ -1095,8 +781,8 @@ function formatNewsTimestamp(ts){
     const setTitle = t => $('#appTitle').textContent = t;
 
     // Bottom tab routing
-    const SCREENS = ['dash','tip','salary','pay','time','sw'];
-    const TITLES = {dash:'Dashboard', tip:'Tip Calculator', salary:'Salary Calculator', pay:'Paycheck After Taxes', time:'Your Time & Their Time', sw:'Southwest Points'};
+    const SCREENS = ['overview','tip','salary','pay','time','sw'];
+    const TITLES = {overview:'Overview', tip:'Tip Calculator', salary:'Salary Calculator', pay:'Paycheck After Taxes', time:'Your Time & Their Time', sw:'Southwest Points'};
 
     function show(screen){
       SCREENS.forEach(id=>{
@@ -1115,11 +801,7 @@ function formatNewsTimestamp(ts){
 
     function initFromHash(){
       const h = location.hash.replace('#','');
-      if(SCREENS.includes(h)) {
-        show(h);
-      } else {
-        show('dash');
-      }
+      if(SCREENS.includes(h)) show(h);
     }
 
     // Header buttons
@@ -1139,601 +821,143 @@ function formatNewsTimestamp(ts){
     window.addEventListener('hashchange', initFromHash);
     initFromHash();
 
-    initTools();
-
-
-    
-    
-// ===== TIP CALCULATOR =====
-function parseNumInput(el){
-  if(!el) return 0;
-  const raw = (el.value || '').replace(/,/g,'').trim();
-  const n = parseFloat(raw);
-  return isNaN(n) ? 0 : n;
-}
-function fmtMoney(n){
-  return nf.format(isNaN(n) ? 0 : n);
-}
-
-function updateTipCalc(useCustom){
-  const billInput = document.getElementById('bill');
-  const customInput = document.getElementById('customTip');
-  const bill = parseNumInput(billInput);
-  let pct = 0;
-
-  if(useCustom){
-    pct = parseNumInput(customInput);
-  } else {
-    const activeBtn = document.querySelector('.btn.tip.active');
-    if(activeBtn) pct = parseFloat(activeBtn.dataset.tip || '0') || 0;
-    if(!pct && customInput){
-      const customVal = parseNumInput(customInput);
-      if(customVal) pct = customVal;
+    // ===== HOME OVERLAY ENTER BEHAVIOR =====
+    const home = $('#homeOverlay');
+    const enterBtn = $('#enterBtn');
+    function enterApp(){
+      // Fade the overlay and then remove it from flow
+      home.classList.add('hide');
+      // Ensure we land on the overview dashboard first
+      show('overview');
+      // Optional: remember last time used (comment out if not wanted)
+      // localStorage.setItem('cini_mod_last_enter', Date.now());
     }
-  }
-
-  const tip = bill * pct / 100;
-  const total = bill + tip;
-
-  const tipOut = document.getElementById('tipOut');
-  const totalOut = document.getElementById('totalOut');
-  const percentOut = document.getElementById('percentOut');
-
-  if(tipOut) tipOut.textContent = fmtMoney(tip);
-  if(totalOut) totalOut.textContent = fmtMoney(total);
-  if(percentOut) percentOut.textContent = (pct || 0) + '%';
-}
-
-function initTipCalc(){
-  const bill = document.getElementById('bill');
-  const customTip = document.getElementById('customTip');
-  const resetBtn = document.getElementById('reset');
-  const copyBtn = document.getElementById('copy');
-  const tipBtns = [...document.querySelectorAll('.btn.tip')];
-
-  tipBtns.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      tipBtns.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      if(customTip) customTip.value = '';
-      updateTipCalc(false);
+    enterBtn.addEventListener('click', ()=>{
+      // slight delay to let the button press feel responsive
+      setTimeout(enterApp, 120);
     });
-  });
 
-  if(bill){
-    bill.addEventListener('input',()=>updateTipCalc(false));
-  }
-  if(customTip){
-    customTip.addEventListener('input',()=>{
-      tipBtns.forEach(b=>b.classList.remove('active'));
-      updateTipCalc(true);
+    // Close overlay if user deep-links into a specific screen via hash
+    if(location.hash && SCREENS.includes(location.hash.slice(1))){
+      home.classList.add('hide');
+    }
+
+    // ===== TIP =====
+    const bill=$('#bill'), customTip=$('#customTip'), tipBtns=$$('.tip');
+    const tipOut=$('#tipOut'), totalOut=$('#totalOut'), percentOut=$('#percentOut');
+    let tipPercent=0.20;
+    function setActive(p){tipBtns.forEach(b=>b.classList.toggle('active',Number(b.dataset.tip)/100===p))}
+    function calcTip(){
+      const b=(Number(String(bill.value).replace(/[^0-9.]/g,''))||0);
+      const c=(Number(String(customTip.value).replace(/[^0-9.]/g,''))||0);
+      if(c>0){tipPercent=c/100; setActive(-1);}
+      const tip=b*tipPercent;
+      tipOut.textContent=nf.format(tip);
+      totalOut.textContent=nf.format(b+tip);
+      percentOut.textContent=`${Math.round(tipPercent*100)}%`;
+    }
+    tipBtns.forEach(btn=>btn.addEventListener('click',()=>{tipPercent=Number(btn.dataset.tip)/100; customTip.value=''; setActive(tipPercent); calcTip();}));
+    ['input','change'].forEach(e=>{bill.addEventListener(e,calcTip); customTip.addEventListener(e,calcTip);});
+    setActive(tipPercent); calcTip();
+    $('#reset').addEventListener('click',()=>{bill.value=''; customTip.value=''; tipPercent=.2; setActive(tipPercent); calcTip();});
+    $('#copy').addEventListener('click',async()=>{
+      const s=`Bill: ${bill.value||nf.format(0)}\\nTip: ${percentOut.textContent}\\nTip Amount: ${tipOut.textContent}\\nTotal: ${totalOut.textContent}`;
+      try{await navigator.clipboard.writeText(s);}catch{}
     });
-  }
-  if(resetBtn){
-    resetBtn.addEventListener('click',()=>{
-      if(bill) bill.value = '';
-      if(customTip) customTip.value = '';
-      tipBtns.forEach(b=>b.classList.remove('active'));
-      const tipOut = document.getElementById('tipOut');
-      const totalOut = document.getElementById('totalOut');
-      const percentOut = document.getElementById('percentOut');
-      if(tipOut) tipOut.textContent = fmtMoney(0);
-      if(totalOut) totalOut.textContent = fmtMoney(0);
-      if(percentOut) percentOut.textContent = '0%';
-    });
-  }
-  if(copyBtn){
-    copyBtn.addEventListener('click',()=>{
-      const btnCopy = document.getElementById('btnCopy');
-      if(btnCopy) btnCopy.click();
-    });
-  }
-}
 
-// ===== SALARY CALCULATOR =====
-function updateSalaryCalc(source){
-  const hEl = document.getElementById('hourly');
-  const mEl = document.getElementById('monthly');
-  const aEl = document.getElementById('annual');
-  if(!hEl || !mEl || !aEl) return;
+    // ===== SALARY =====
+    const HOURS_PER_YEAR=2080, MONTHS=12;
+    const hourly=$('#hourly'), monthly=$('#monthly'), annual=$('#annual'); let lock=false;
+    function parseNum(v){v=String(v??'').replace(/[^0-9.,-]/g,'').replace(',','.'); const n=parseFloat(v); return isFinite(n)?n:0;}
+    function fmt(v){return nf.format(v||0)}
+    function fromHourly(){if(lock)return; lock=true; const h=parseNum(hourly.value); annual.value=h?fmt(h*HOURS_PER_YEAR):''; monthly.value=h?fmt(h*HOURS_PER_YEAR/MONTHS):''; lock=false;}
+    function fromMonthly(){if(lock)return; lock=true; const m=parseNum(monthly.value); annual.value=m?fmt(m*MONTHS):''; hourly.value=m?fmt(m*MONTHS/HOURS_PER_YEAR):''; lock=false;}
+    function fromAnnual(){if(lock)return; lock=true; const a=parseNum(annual.value); hourly.value=a?fmt(a/HOURS_PER_YEAR):''; monthly.value=a?fmt(a/MONTHS):''; lock=false;}
+    ['input','change'].forEach(e=>{hourly.addEventListener(e,fromHourly); monthly.addEventListener(e,fromMonthly); annual.addEventListener(e,fromAnnual);});
 
-  let h = parseNumInput(hEl);
-  let m = parseNumInput(mEl);
-  let a = parseNumInput(aEl);
-  const HOURS_PER_YEAR = 2080;
-
-  if(source === 'hourly'){
-    a = h * HOURS_PER_YEAR;
-    m = a / 12;
-    // update only other fields so user can finish typing hourly
-    mEl.value = m ? m.toFixed(2) : '';
-    aEl.value = a ? a.toFixed(2) : '';
-  } else if(source === 'monthly'){
-    a = m * 12;
-    h = a / HOURS_PER_YEAR;
-    hEl.value = h ? h.toFixed(2) : '';
-    aEl.value = a ? a.toFixed(2) : '';
-  } else if(source === 'annual'){
-    a = a;
-    m = a / 12;
-    h = a / HOURS_PER_YEAR;
-    hEl.value = h ? h.toFixed(2) : '';
-    mEl.value = m ? m.toFixed(2) : '';
-  }
-}
-
-function initSalaryCalc(){
-  const hEl = document.getElementById('hourly');
-  const mEl = document.getElementById('monthly');
-  const aEl = document.getElementById('annual');
-  if(hEl) hEl.addEventListener('input',()=>updateSalaryCalc('hourly'));
-  if(mEl) mEl.addEventListener('input',()=>updateSalaryCalc('monthly'));
-  if(aEl) aEl.addEventListener('input',()=>updateSalaryCalc('annual'));
-}
-
-// ===== PAYCHECK CALCULATOR (NM ESTIMATE) =====
-function estimateFedRate(annualTaxable, status){
-  if(annualTaxable <= 0) return 0;
-  if(status === 'married'){
-    if(annualTaxable < 25000) return 0.10;
-    if(annualTaxable < 90000) return 0.12;
-    if(annualTaxable < 190000) return 0.22;
-    return 0.24;
-  }
-  if(status === 'hoh'){
-    if(annualTaxable < 20000) return 0.10;
-    if(annualTaxable < 80000) return 0.12;
-    if(annualTaxable < 160000) return 0.22;
-    return 0.24;
-  }
-  // single (default)
-  if(annualTaxable < 12000) return 0.10;
-  if(annualTaxable < 45000) return 0.12;
-  if(annualTaxable < 95000) return 0.22;
-  return 0.24;
-}
-
-function initPaycheckCalc(){
-  const inputs = [
-    'p_hourly','p_hours_reg','p_hours_ot',
-    'p_pre','p_post','p_ytd','p_extra'
-  ];
-  function getVal(id){
-    const el = document.getElementById(id);
-    if(!el) return 0;
-    return parseNumInput(el);
-  }
-  function runPaycheck(){
-    const hourly = getVal('p_hourly');
-    const regHrs = getVal('p_hours_reg');
-    const otHrs = getVal('p_hours_ot');
-    const pre = getVal('p_pre');
-    const post = getVal('p_post');
-    const extra = getVal('p_extra');
-    const statusEl = document.getElementById('p_status');
-    const freqEl = document.getElementById('p_freq');
-    const status = statusEl ? statusEl.value : 'single';
-    const freq = freqEl ? freqEl.value : 'biweekly';
-
-    const gross = hourly * regHrs + hourly * 1.5 * otHrs;
-
-    const freqFactor =
-      freq === 'weekly' ? 52 :
-      freq === 'biweekly' ? 26 :
-      freq === 'semimonthly' ? 24 :
-      freq === 'monthly' ? 12 : 26;
-
-    const taxable = Math.max(0, gross - pre);
-    const annualTaxable = taxable * freqFactor;
-    const fedRate = estimateFedRate(annualTaxable, status);
-    const stateRate = 0.049; // simple NM estimate
-
-    const fed = taxable * fedRate / 1; // per-check
-    const state = taxable * stateRate;
-    const ss = gross * 0.062;
-    const medicare = gross * 0.0145;
-
-    const totalTaxes = fed + state + ss + medicare + extra;
-    const net = gross - totalTaxes - post;
-
-    const set = (id, val)=>{
-      const el = document.getElementById(id);
-      if(el) el.textContent = fmtMoney(val);
+    // ===== PAYCHECK (NM) =====
+    const SS_RATE=.062, MED_RATE=.0145, SS_WAGE_BASE_2025=176100;
+    const STD_DED={single:15750, married:31500, hoh:23625};
+    const FED_BRACKETS_2025={
+      single:[[11925,.10],[48475,.12],[103350,.22],[197300,.24],[250525,.32],[626350,.35],[Infinity,.37]],
+      married:[[23850,.10],[96950,.12],[206700,.22],[394600,.24],[501050,.32],[751600,.35],[Infinity,.37]],
+      hoh:[[17000,.10],[64850,.12],[103350,.22],[197300,.24],[250500,.32],[626350,.35],[Infinity,.37]]
     };
+    const NM_BRACKETS=[[5500,.017],[16500,.032],[33500,.043],[66500,.047],[210000,.049],[Infinity,.059]];
 
-    set('p_gross', gross);
-    set('p_fed', -fed);
-    set('p_state', -state);
-    set('p_ss', -ss);
-    set('p_medicare', -medicare);
-    set('p_net', net);
-  }
-
-  inputs.forEach(id=>{
-    const el = document.getElementById(id);
-    if(el) el.addEventListener('input', runPaycheck);
-  });
-  const statusEl = document.getElementById('p_status');
-  const freqEl = document.getElementById('p_freq');
-  if(statusEl) statusEl.addEventListener('change', runPaycheck);
-  if(freqEl) freqEl.addEventListener('change', runPaycheck);
-
-  runPaycheck();
-}
-
-// ===== SOUTHWEST POINTS =====
-function initSWPoints(){
-  const baseFareEl = document.getElementById('sw-baseFare');
-  const totalPriceEl = document.getElementById('sw-totalPrice');
-  const basePctEl = document.getElementById('sw-basePct');
-  const fareTypeEl = document.getElementById('sw-fareType');
-  const useCardEl = document.getElementById('sw-useCard');
-  const cardTypeEl = document.getElementById('sw-cardType');
-  const modeBaseBtn = document.getElementById('sw-mode-base');
-  const modeEstBtn = document.getElementById('sw-mode-est');
-  const baseBlock = document.getElementById('sw-baseFareBlock');
-  const basePctBlock = document.getElementById('sw-basePctBlock');
-  const totalPriceBlock = document.getElementById('sw-totalPriceBlock');
-
-  const flightPtsEl = document.getElementById('sw-flightPts');
-  const cardPtsEl = document.getElementById('sw-cardPts');
-  const totalPtsEl = document.getElementById('sw-totalPts');
-  const ppdEl = document.getElementById('sw-ppd');
-
-  const pointsInputEl = document.getElementById('sw-pointsInput');
-  const pointValueEl = document.getElementById('sw-pointValue');
-  const dollarsOutEl = document.getElementById('sw-dollarValue');
-  const cppEl = document.getElementById('sw-cpp');
-
-  function currentMode(){
-    return modeEstBtn && modeEstBtn.classList.contains('active') ? 'est' : 'base';
-  }
-
-  function updateModeUI(mode){
-    if(!modeBaseBtn || !modeEstBtn) return;
-    if(mode === 'est'){
-      modeBaseBtn.classList.remove('active');
-      modeBaseBtn.setAttribute('aria-selected','false');
-      modeEstBtn.classList.add('active');
-      modeEstBtn.setAttribute('aria-selected','true');
-      if(baseBlock) baseBlock.style.display = 'none';
-      if(basePctBlock) basePctBlock.style.display = '';
-      if(totalPriceBlock) totalPriceBlock.style.display = '';
-    } else {
-      modeBaseBtn.classList.add('active');
-      modeBaseBtn.setAttribute('aria-selected','true');
-      modeEstBtn.classList.remove('active');
-      modeEstBtn.setAttribute('aria-selected','false');
-      if(baseBlock) baseBlock.style.display = '';
-      if(basePctBlock) basePctBlock.style.display = 'none';
-      if(totalPriceBlock) totalPriceBlock.style.display = '';
+    const p_hourly=$('#p_hourly'), p_hours_reg=$('#p_hours_reg'), p_hours_ot=$('#p_hours_ot'), p_ot_mult=$('#p_ot_mult'), p_pretax=$('#p_pretax'), p_ytd=$('#p_ytd');
+    const p_status=$('#p_status'), p_freq=$('#p_freq'); const p_gross=$('#p_gross'), p_fed=$('#p_fed'), p_state=$('#p_state'), p_ss=$('#p_ss'), p_medicare=$('#p_medicare'), p_net=$('#p_net');
+    function perYearCount(f){return f==='weekly'?52:f==='semimonthly'?24:f==='monthly'?12:26}
+    function defaultHours(f){return f==='weekly'?40:f==='semimonthly'?86.67:f==='monthly'?173.33:80}
+    function taxFromBrackets(taxable,br){let tax=0,last=0;for(const[cap,rate]of br){const span=Math.max(0,Math.min(taxable,cap)-last); if(span>0) tax+=span*rate; if(taxable<=cap) break; last=cap;}return tax}
+    function calcPay(){
+      const hourly=parseNum(p_hourly.value); const freq=p_freq.value; const periods=perYearCount(freq);
+      const regH=p_hours_reg.value.trim()===''?defaultHours(freq):parseNum(p_hours_reg.value)||0; const otH=p_hours_ot.value.trim()===''?0:parseNum(p_hours_ot.value)||0; const otM=parseNum(p_ot_mult.value)||1.5;
+      const pretax=parseNum(p_pretax.value)||0; const ytd=parseNum(p_ytd.value)||0; const status=p_status.value;
+      const gross=hourly*regH + hourly*otH*otM; const annualTaxable=Math.max(0,(gross-pretax)*periods);
+      const taxableFed=Math.max(0,annualTaxable-STD_DED[status]); const fedAnnual=taxFromBrackets(taxableFed,FED_BRACKETS_2025[status]); const fed=fedAnnual/periods;
+      const nm=taxFromBrackets(annualTaxable,NM_BRACKETS)/periods; const remainingSS=Math.max(0,SS_WAGE_BASE_2025-ytd); const ss=Math.min(gross,remainingSS)*SS_RATE; const med=gross*MED_RATE;
+      const net=gross-pretax-fed-nm-ss-med;
+      p_gross.textContent=fmt(gross); p_fed.textContent=fmt(Math.max(0,fed)); p_state.textContent=fmt(Math.max(0,nm)); p_ss.textContent=fmt(Math.max(0,ss)); p_medicare.textContent=fmt(Math.max(0,med)); p_net.textContent=fmt(Math.max(0,net));
     }
-  }
+    ['input','change'].forEach(e=>{[p_hourly,p_hours_reg,p_hours_ot,p_ot_mult,p_pretax,p_ytd,p_status,p_freq].forEach(el=>el.addEventListener(e,calcPay));}); calcPay();
 
-  function runSW(){
-    const mode = currentMode();
-    const baseFare = parseNumInput(baseFareEl);
-    const totalPrice = parseNumInput(totalPriceEl);
-    const basePct = basePctEl ? parseNumInput(basePctEl) : 0;
-    const fareMult = fareTypeEl ? parseFloat(fareTypeEl.value || '0') || 0 : 0;
-
-    let usedBase = 0;
-    let usedTotal = totalPrice;
-
-    if(mode === 'base'){
-      usedBase = baseFare;
-      if(!usedTotal) usedTotal = baseFare;
-    } else {
-      usedTotal = totalPrice;
-      const pct = basePct / 100;
-      usedBase = usedTotal * (pct || 0);
-    }
-
-    const flightPts = usedBase * fareMult;
-    let cardPts = 0;
-    if(useCardEl && useCardEl.checked){
-      const cardMult = cardTypeEl ? parseFloat(cardTypeEl.value || '0') || 0 : 0;
-      cardPts = usedTotal * cardMult;
-    }
-    const totalPts = flightPts + cardPts;
-    const dollarsBase = usedTotal || usedBase || 0;
-    const ppd = dollarsBase ? totalPts / dollarsBase : 0;
-
-    if(flightPtsEl) flightPtsEl.textContent = Math.round(flightPts).toLocaleString('en-US');
-    if(cardPtsEl) cardPtsEl.textContent = Math.round(cardPts).toLocaleString('en-US');
-    if(totalPtsEl) totalPtsEl.textContent = Math.round(totalPts).toLocaleString('en-US');
-    if(ppdEl) ppdEl.textContent = ppd.toFixed(2);
-
-    const pts = parseNumInput(pointsInputEl);
-    const valuePerPoint = pointValueEl ? parseNumInput(pointValueEl) : 0;
-    const dollarValue = pts * valuePerPoint;
-    const cpp = valuePerPoint * 100;
-
-    if(dollarsOutEl) dollarsOutEl.textContent = fmtMoney(dollarValue);
-    if(cppEl) cppEl.textContent = cpp.toFixed(2) + '¢';
-  }
-
-  if(modeBaseBtn){
-    modeBaseBtn.addEventListener('click',()=>{
-      updateModeUI('base');
-      runSW();
-    });
-  }
-  if(modeEstBtn){
-    modeEstBtn.addEventListener('click',()=>{
-      updateModeUI('est');
-      runSW();
-    });
-  }
-
-  if(useCardEl){
-    useCardEl.addEventListener('change',()=>{
-      const row = document.getElementById('sw-cardRow');
-      if(row) row.style.display = useCardEl.checked ? '' : 'none';
-      runSW();
-    });
-  }
-
-  [baseFareEl,totalPriceEl,basePctEl,fareTypeEl,cardTypeEl,pointsInputEl,pointValueEl].forEach(el=>{
-    if(el){
-      el.addEventListener('input', runSW);
-      el.addEventListener('change', runSW);
-    }
-  });
-
-  updateModeUI(currentMode());
-  runSW();
-}
-
-// Initialize calculators/tools
-function initTools(){
-  initTipCalc();
-  initSalaryCalc();
-  initPaycheckCalc();
-  initSWPoints();
-}
-
-// ===== DASHBOARD CLOCKS & WEATHER =====
-    const CLOCKS = [
-      {id:'clock-hi', tz:'Pacific/Honolulu'},
-      {id:'clock-pt', tz:'America/Los_Angeles'},
-      {id:'clock-mt', tz:'America/Denver'},
-      {id:'clock-ct', tz:'America/Chicago'},
-      {id:'clock-et', tz:'America/New_York'},
-      {id:'clock-z',  tz:'UTC'}
-    ];
-
-    function formatClock(date, tz){
-      const parts = new Intl.DateTimeFormat('en-US',{
-        timeZone: tz,
-        hour:'2-digit',
-        minute:'2-digit',
-        hour12:true
-      }).formatToParts(date);
-      const lookup = Object.fromEntries(parts.map(p=>[p.type,p.value]));
-      return lookup.hour + ':' + lookup.minute + ' ' + lookup.dayPeriod.toUpperCase();
-    }
-
-    function tickClocks(){
-      const now = new Date();
-      CLOCKS.forEach(c=>{
-        const el = document.getElementById(c.id);
-        if(!el) return;
-        el.textContent = formatClock(now, c.tz);
-  // update date
-  const dateStr = new Intl.DateTimeFormat('en-US',{
-      month:'2-digit', day:'2-digit'
-  }).format(now);
-  const dateEl = document.getElementById(c.id.replace('clock','date'));
-  const dEl = document.querySelector('#'+c.id).parentElement.querySelector('.clock-date');
-  if(dEl) dEl.textContent = dateStr;
-
-      });
-    }
-    tickClocks();
-    setInterval(tickClocks, 1000);
-
-    // Simple WMO weathercode to text
-    const WMO_TEXT = {
-      0:'Clear sky',
-      1:'Mainly clear',
-      2:'Partly cloudy',
-      3:'Overcast',
-      45:'Fog',
-      48:'Depositing rime fog',
-      51:'Light drizzle',
-      53:'Moderate drizzle',
-      55:'Dense drizzle',
-      61:'Light rain',
-      63:'Moderate rain',
-      65:'Heavy rain',
-      71:'Light snow',
-      73:'Moderate snow',
-      75:'Heavy snow',
-      80:'Rain showers',
-      81:'Rain showers',
-      82:'Heavy rain showers',
-      85:'Snow showers',
-      86:'Snow showers',
-      95:'Thunderstorm',
-      96:'Thunderstorm w/ hail',
-      99:'Thunderstorm w/ hail'
+    // ===== SOUTHWEST POINTS =====
+    const swState={mode:'base',baseFare:0,totalPrice:0,basePct:70,fareMult:2,useCard:false,cardMult:2};
+    try{ Object.assign(swState, JSON.parse(localStorage.getItem('sw_ppd_calc_v1')||'{}')); }catch{}
+    const sw={
+      modeBase:$('#sw-mode-base'), modeEst:$('#sw-mode-est'),
+      baseFare:$('#sw-baseFare'), totalPrice:$('#sw-totalPrice'), basePct:$('#sw-basePct'),
+      baseFareBlock:$('#sw-baseFareBlock'), basePctBlock:$('#sw-basePctBlock'), totalPriceBlock:$('#sw-totalPriceBlock'),
+      fareType:$('#sw-fareType'), useCard:$('#sw-useCard'), cardRow:$('#sw-cardRow'), cardType:$('#sw-cardType'),
+      flightPts:$('#sw-flightPts'), cardPts:$('#sw-cardPts'), totalPts:$('#sw-totalPts'), ppd:$('#sw-ppd'),
+      pointsInput:$('#sw-pointsInput'), pointValue:$('#sw-pointValue'), dollarValue:$('#sw-dollarValue'), cpp:$('#sw-cpp')
     };
-
-    async function loadWeather(){
-      const curBox = document.getElementById('wx-current');
-      const next8 = document.getElementById('wx-next8');
-      const next8b = document.getElementById('wx-next8b');
-      if(!curBox || !next8 || !next8b) return;
-      try{
-        const url = 'https://api.open-meteo.com/v1/forecast?latitude=35.0844&longitude=-106.6504&current_weather=true&hourly=temperature_2m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=fahrenheit&timezone=America%2FDenver';
-        const res = await fetch(url);
-        const data = await res.json();
-        const cur = data.current_weather || {};
-        const hours = data.hourly || {};
-        const times = hours.time || [];
-        const temps = hours.temperature_2m || [];
-        const codes = hours.weathercode || [];
-        const nowIso = cur.time || times[0];
-
-// Daily data for tomorrow's summary
-const daily = data.daily || {};
-const dTimes = daily.time || [];
-const dMax = daily.temperature_2m_max || [];
-const dMin = daily.temperature_2m_min || [];
-const dCodes = daily.weathercode || [];
-
-const tomorrowBox = document.getElementById('wx-tomorrow');
-if (tomorrowBox && dTimes.length) {
-  // Figure out which daily index is "tomorrow" relative to current day
-  const curDay = (nowIso || dTimes[0] || '').split('T')[0];
-  let todayIdx = dTimes.indexOf(curDay);
-  if (todayIdx < 0) todayIdx = 0;
-  const tomorrowIdx = todayIdx + 1 < dTimes.length ? todayIdx + 1 : todayIdx;
-
-  const hi = dMax[tomorrowIdx];
-  const lo = dMin[tomorrowIdx];
-  const codeVal = dCodes[tomorrowIdx];
-
-  const hiEl = document.getElementById('wx-tomorrow-hi');
-  const condEl2 = document.getElementById('wx-tomorrow-cond');
-  const extraEl2 = document.getElementById('wx-tomorrow-extra');
-
-  if (hiEl) hiEl.textContent = Math.round(hi ?? 0) + '°';
-  if (condEl2) condEl2.textContent = WMO_TEXT[codeVal] || 'Tomorrow\'s weather';
-
-  if (extraEl2) {
-    const labelDate = dTimes[tomorrowIdx] ? new Date(dTimes[tomorrowIdx]).toLocaleDateString('en-US',{
-      month:'2-digit', day:'2-digit'
-    }) : '';
-    extraEl2.textContent = 'High ' + Math.round(hi ?? 0) + '° / Low ' + Math.round(lo ?? 0) + '°' + (labelDate ? ' · ' + labelDate : '');
-  }
-}
-
-        // Fill current
-        const tempEl = curBox.querySelector('.wx-temp');
-        const condEl = curBox.querySelector('.wx-cond');
-        const extraEl = curBox.querySelector('.wx-extra');
-        if(tempEl) tempEl.textContent = Math.round(cur.temperature ?? 0) + '°';
-        if(condEl) condEl.textContent = WMO_TEXT[cur.weathercode] || 'Current conditions';
-        if(extraEl) extraEl.textContent = 'Updated ' + (nowIso || '').replace('T',' ');
-
-        // Find index of the hour closest to now in the hourly array
-        let idx = 0;
-        if(times.length){
-          const now = new Date();
-          let bestDiff = Infinity;
-          times.forEach((t,i)=>{
-            const d = new Date(t);
-            const diff = Math.abs(d - now);
-            if(diff < bestDiff){
-              bestDiff = diff;
-              idx = i;
-            }
-          });
-        }
-
-        
-        function buildHourCell(timeStr, temp, code){
-          const d = new Date(timeStr);
-          const parts = new Intl.DateTimeFormat('en-US',{
-            hour:'numeric', minute:'2-digit', hour12:true
-          }).formatToParts(d);
-          const lu = Object.fromEntries(parts.map(p=>[p.type,p.value]));
-          const label = lu.hour + ':' + lu.minute + ' ' + lu.dayPeriod;
-          const div = document.createElement('div');
-          div.className = 'wx-hour';
-          div.innerHTML = `
-            <div class="wx-hour-time">${label}</div>
-            <div class="wx-hour-temp">${Math.round(temp)}°</div>
-            <div class="wx-hour-cond">${WMO_TEXT[code] || ''}</div>
-          `;
-          return div;
-        }
-
-        next8.innerHTML = '';
-        next8b.innerHTML = '';
-
-        for(let i=idx; i<idx+8 && i<times.length; i++){
-          next8.appendChild(buildHourCell(times[i], temps[i], codes[i]));
-        }
-        for(let i=idx+8; i<idx+16 && i<times.length; i++){
-          next8b.appendChild(buildHourCell(times[i], temps[i], codes[i]));
-        }
-
-      }catch(err){
-        const extraEl = document.getElementById('wx-extra');
-        if(extraEl) extraEl.textContent = 'Unable to load weather right now.';
-      }
+    function swSync(){
+      sw.modeBase.classList.toggle('active', swState.mode==='base');
+      sw.modeEst.classList.toggle('active', swState.mode==='est');
+      sw.baseFareBlock.style.display = swState.mode==='base' ? '' : 'none';
+      sw.basePctBlock.style.display = swState.mode==='est' ? '' : 'none';
+      sw.baseFare.value = swState.baseFare || '';
+      sw.totalPrice.value = swState.totalPrice || '';
+      sw.basePct.value = swState.basePct;
+      sw.fareType.value = String(swState.fareMult);
+      sw.useCard.checked = swState.useCard;
+      sw.cardRow.style.display = swState.useCard ? '' : 'none';
+      sw.cardType.value = swState.cardMult;
+      swCalc();
     }
-
-    const NEWS_URL = 'https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=us&max=12&apikey=demo';
-
-    const FALLBACK_ARTICLES = [
-  {
-    title: 'Trump acknowledges slide in approval ratings',
-    description: 'President Donald Trump admitted his poll numbers have fallen as voters react to high living costs and the Epstein investigation pressure on his administration.'
-  },
-  {
-    title: 'Justice Department to release Epstein investigation files',
-    description: 'Attorney General Pam Bondi said the U.S. Justice Department will publish files on the late Jeffrey Epstein within 30 days after Congress pushed for transparency.'
-  },
-  {
-    title: 'White House freezes billions for Democratic-led states',
-    description: 'The administration halted funding for transit and green-energy projects in Democratic-leaning states during the government shutdown, escalating the partisan budget standoff.'
-  },
-  {
-    title: 'Government data blackout worries global policymakers',
-    description: 'A shutdown-driven halt in key U.S. economic releases is making it harder for officials abroad to read the health of the world’s largest economy.'
-  },
-  {
-    title: 'U.S. outlets protest new Pentagon press access rules',
-    description: 'More than two dozen news organizations refused to sign a revised Pentagon access policy, warning it could limit independent reporting on the military.'
-  },
-  {
-    title: 'U.S. strike on Caribbean drug vessel leaves survivors',
-    description: 'A recent U.S. military strike on a suspected drug-smuggling vessel in the Caribbean reportedly left survivors, a first in this type of operation, an official said.'
-  }
-];
-
-    async function loadNews(){
-      const box = document.getElementById('news-list');
-      if(!box) return;
-
-      function renderArticles(list){
-        if(!list || !list.length){
-          box.innerHTML = '<p class="hint">No headlines available.</p>';
-          return;
-        }
-        box.innerHTML = '';
-        list.forEach(a=>{
-          const item = document.createElement('article');
-          item.className = 'news-item';
-          const title = a.title || 'Untitled';
-          const summary = (a.description || '').trim();
-          const short = summary.length > 180 ? summary.slice(0,177) + '…' : summary;
-          const now = new Date();
-          const dateStr = now.toLocaleDateString("en-US",{month:"2-digit",day:"2-digit"});
-          const timeStr = now.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",hour12:true});
-          item.innerHTML =
-            '<div class="news-title">'+title+'</div>' +
-            '<div class="news-summary">'+(short || 'No summary available.')+'</div>' +
-            '<div class="news-time">' +
-              '<span class="news-date">'+dateStr+'</span> ' +
-              '<span class="news-timepart">'+timeStr+'</span>' +
-            '</div>';
-          box.appendChild(item);
-        });
-      }
-
-      // Option C: static Reuters-style feed only
-      renderArticles(FALLBACK_ARTICLES);
+    function swSave(){ localStorage.setItem('sw_ppd_calc_v1', JSON.stringify(swState)); }
+    function swParse(v){ const n=parseFloat(v); return Number.isFinite(n)?n:0; }
+    function swBaseFare(){ return swState.mode==='base' ? Math.max(0, swState.baseFare) : Math.max(0, swState.totalPrice * (Math.min(100, Math.max(0, swState.basePct))/100)); }
+    function swCalc(){
+      const base=swBaseFare();
+      const flight=Math.floor(base*swState.fareMult);
+      const card=swState.useCard?Math.floor(swState.totalPrice*swState.cardMult):0;
+      const total=flight+card;
+      const ppd = swState.totalPrice>0 ? (total/swState.totalPrice) : 0;
+      sw.flightPts.textContent=flight.toLocaleString();
+      sw.cardPts.textContent=card.toLocaleString();
+      sw.totalPts.textContent=total.toLocaleString();
+      sw.ppd.textContent=ppd.toFixed(2);
+      swSave();
     }
+    sw.modeBase.addEventListener('click',()=>{swState.mode='base'; swSync();});
+    sw.modeEst .addEventListener('click',()=>{swState.mode='est';  swSync();});
+    sw.baseFare .addEventListener('input',e=>{swState.baseFare=swParse(e.target.value); swCalc();});
+    sw.totalPrice.addEventListener('input',e=>{swState.totalPrice=swParse(e.target.value); swCalc();});
+    sw.basePct  .addEventListener('input',e=>{swState.basePct=swParse(e.target.value); swCalc();});
+    sw.fareType .addEventListener('change',e=>{swState.fareMult=swParse(e.target.value); swCalc();});
+    sw.useCard  .addEventListener('change',e=>{swState.useCard=e.target.checked; sw.cardRow.style.display=swState.useCard?'':'none'; swCalc();});
+    sw.cardType .addEventListener('change',e=>{swState.cardMult=swParse(e.target.value); swCalc();});
 
-    loadWeather();
-    loadNews();
+    function swFmtUSD(n){return n.toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2});}
+    function swUpdatePTD(){ const pts=swParse(sw.pointsInput.value); const val=parseFloat(sw.pointValue.value)||0; const dollars=pts*val; $('#sw-dollarValue').textContent=swFmtUSD(dollars); $('#sw-cpp').textContent=(val*100).toFixed(2)+'¢'; }
+    sw.pointsInput && sw.pointsInput.addEventListener('input', swUpdatePTD);
+    sw.pointValue && sw.pointValue.addEventListener('input', swUpdatePTD);
+    swSync(); swUpdatePTD();
 
-// ===== TIME =====
+    // ===== TIME =====
     const IATA_TZ={
       ALB:'America/New_York', ABQ:'America/Denver', ANC:'America/Anchorage', AMA:'America/Chicago', ATL:'America/New_York', AUS:'America/Chicago',
       BWI:'America/New_York', BHM:'America/Chicago', BOI:'America/Boise', BOS:'America/New_York', BZN:'America/Denver', BUF:'America/New_York', BUR:'America/Los_Angeles',
@@ -1789,6 +1013,287 @@ if (tomorrowBox && dTimes.length) {
     });
     setNow(); runTime();
   
+    // ===== OVERVIEW DASHBOARD (Time Zones + ABQ Weather) =====
+    const tzEls = {
+      hawaii: $('#tz-hawaii'),
+      pacific: $('#tz-pacific'),
+      mountain: $('#tz-mountain'),
+      central: $('#tz-central'),
+      eastern: $('#tz-eastern'),
+      zulu: $('#tz-zulu')
+    };
+
+    function formatTimeForZone(timeZone) {
+      const now = new Date();
+      return new Intl.DateTimeFormat('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        
+        hour12: true,
+        timeZone
+      }).format(now);
+    }
+
+    function updateTimeZones() {
+      if (!tzEls.hawaii) return; // Overview screen might not be mounted yet
+      tzEls.hawaii.textContent  = formatTimeForZone('Pacific/Honolulu');
+      tzEls.pacific.textContent = formatTimeForZone('America/Los_Angeles');
+      tzEls.mountain.textContent= formatTimeForZone('America/Denver');
+      tzEls.central.textContent = formatTimeForZone('America/Chicago');
+      tzEls.eastern.textContent = formatTimeForZone('America/New_York');
+      tzEls.zulu.textContent    = formatTimeForZone('UTC');
+    }
+    updateTimeZones();
+    function formatDateForZone(timeZone) {
+      const now = new Date();
+      return new Intl.DateTimeFormat('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        timeZone
+      }).format(now);
+    }
+    function updateTimeZoneDates(){
+      const map = {
+        'tz-hawaii-date':'Pacific/Honolulu',
+        'tz-pacific-date':'America/Los_Angeles',
+        'tz-mountain-date':'America/Denver',
+        'tz-central-date':'America/Chicago',
+        'tz-eastern-date':'America/New_York',
+        'tz-zulu-date':'UTC'
+      };
+      Object.entries(map).forEach(([id,tz])=>{
+        const el = document.getElementById(id);
+        if (el) el.textContent = formatDateForZone(tz);
+      });
+    }
+    updateTimeZoneDates();
+
+    setInterval(updateTimeZones, 1000);
+    setInterval(updateTimeZoneDates, 60 * 1000);
+
+    // Simple helpers for weather
+    const wxStatusEl = $('#wx-status');
+    const wxTempEl   = $('#wx-temp');
+    const wxCondEl   = $('#wx-cond');
+    const wxWindEl   = $('#wx-wind');
+    const wxHourlyEl = $('#wx-hourly');
+
+    function cToF(c) {
+      return (c * 9/5) + 32;
+    }
+    function kmhToMph(kmh) {
+      return kmh * 0.621371;
+    }
+
+    // Map Open-Meteo WMO weather codes to simple condition labels
+    function mapWeatherCondition(code, tempC, windKmh) {
+      const tempF = cToF(tempC);
+      let base = '';
+
+      if (code === 0) {
+        base = 'Clear';
+      } else if (code >= 1 && code <= 3) {
+        base = 'Partly cloudy';
+      } else if (code >= 45 && code <= 48) {
+        base = 'Foggy';
+      } else if ((code >= 51 && code <= 57) || (code >= 61 && code <= 67) || (code >= 80 && code <= 82)) {
+        base = 'Rain';
+      } else if ((code >= 71 && code <= 77) || (code >= 85 && code <= 86)) {
+        base = 'Snow';
+      } else if (code >= 95) {
+        base = 'Storm';
+      } else {
+        base = 'Cloudy';
+      }
+
+      // Special tags from your list
+      if ((code === 66 || code === 67 || code === 77) && tempF <= 34) {
+        base = 'Ice';
+      } else if (tempF >= 90 && !(code >= 61 && code <= 67) && !(code >= 71 && code <= 77)) {
+        base = 'Hot';
+      }
+
+      if (windKmh >= 35) {
+        if (base === 'Clear') return 'Windy & Clear';
+        if (base === 'Rain') return 'Windy & Rain';
+        if (base === 'Snow') return 'Windy & Snow';
+        return 'Windy';
+      }
+
+      return base;
+    }
+
+    async function fetchAbqWeather() {
+      if (!wxStatusEl) return;
+
+      const LAT = 35.0844;
+      const LON = -106.6504;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&hourly=temperature_2m,weather_code,wind_speed_10m&timezone=America%2FDenver`;
+
+      try {
+        wxStatusEl.textContent = 'Loading current conditions…';
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Network error');
+        const data = await res.json();
+
+        // Current
+        const current = data.current_weather;
+        if (current) {
+          const tempF = Math.round(cToF(current.temperature));
+          const windMph = Math.round(kmhToMph(current.wind_speed_10m || current.windspeed || 0));
+          const condLabel = mapWeatherCondition(current.weather_code ?? current.weathercode ?? 0, current.temperature, current.wind_speed_10m || current.windspeed || 0);
+
+          wxTempEl.textContent = `${tempF}°F`;
+          wxCondEl.textContent = condLabel;
+          wxWindEl.textContent = `${windMph} mph`;
+          wxStatusEl.textContent = '';
+        } else {
+          wxStatusEl.textContent = 'Current conditions unavailable.';
+        }
+
+        // Hourly next 8 hours
+        if (wxHourlyEl && data.hourly && Array.isArray(data.hourly.time)) {
+          wxHourlyEl.innerHTML = '';
+          const times = data.hourly.time;
+          const temps = data.hourly.temperature_2m || [];
+          const codes = data.hourly.weather_code || data.hourly.weathercode || [];
+          const winds = data.hourly.wind_speed_10m || data.hourly.windspeed_10m || [];
+
+          const now = new Date();
+          const upcoming = [];
+
+          for (let i = 0; i < times.length; i++) {
+            const t = new Date(times[i]);
+            if (t <= now) continue;
+            upcoming.push({ t, tempC: temps[i], code: codes[i], windKmh: winds[i] });
+            if (upcoming.length >= 8) break;
+          }
+
+          upcoming.forEach(item => {
+            const tempF = Math.round(cToF(item.tempC));
+            const label = mapWeatherCondition(item.code, item.tempC, item.windKmh);
+            const timeLabel = new Intl.DateTimeFormat('en-US', {
+              hour: 'numeric',
+              hour12: true
+            }).format(item.t);
+
+            const div = document.createElement('div');
+            div.className = 'box';
+            div.innerHTML = `<h3>${timeLabel}</h3>
+              <div class="total">${tempF}°F</div>
+              <div class="subhead" style="margin-top:4px">${label}</div>`;
+            wxHourlyEl.appendChild(div);
+          });
+
+          // Following 8 hours (hours 9–16 ahead)
+          const wxNext = document.getElementById('wx-hourly-next');
+          if (wxNext) {
+            let following = [];
+            let startIndex = 0;
+
+            // find the index right after our first 8 upcoming slots
+            for (let i = 0; i < times.length; i++) {
+              const t = new Date(times[i]);
+              if (t > now) {
+                startIndex = i + 8;
+                break;
+              }
+            }
+
+            for (let i = startIndex; i < times.length; i++) {
+              const t = new Date(times[i]);
+              following.push({
+                t,
+                tempC: temps[i],
+                code: codes[i],
+                windKmh: winds[i]
+              });
+              if (following.length >= 8) break;
+            }
+
+            wxNext.innerHTML = '';
+            following.forEach(item => {
+              const tempF2 = Math.round(cToF(item.tempC));
+              const label2 = mapWeatherCondition(item.code, item.tempC, item.windKmh);
+              const timeLabel2 = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric',
+                hour12: true
+              }).format(item.t);
+
+              const div2 = document.createElement('div');
+              div2.className = 'box';
+              div2.innerHTML = `<h3>${timeLabel2}</h3>
+                <div class="total">${tempF2}°F</div>
+                <div class="subhead" style="margin-top:4px">${label2}</div>`;
+              wxNext.appendChild(div2);
+            });
+          }
+
+          // Pets comfort: look at today's temps between 11:00 and 19:00
+          const petsBox = document.getElementById('pets-box');
+          const petsLabel = document.getElementById('pets-label');
+          const petsText = document.getElementById('pets-text');
+          if (petsBox && data.hourly && Array.isArray(data.hourly.time)) {
+            const nowLocal = new Date();
+            const todayY = nowLocal.getFullYear();
+            const todayM = nowLocal.getMonth();
+            const todayD = nowLocal.getDate();
+
+            let totalSlots = 0;
+            let coldSlots = 0;
+            let warmSlots = 0;
+
+            for (let i = 0; i < data.hourly.time.length; i++) {
+              const t = new Date(data.hourly.time[i]);
+              if (t.getFullYear() !== todayY || t.getMonth() !== todayM || t.getDate() !== todayD) continue;
+              const hr = t.getHours();
+              if (hr < 11 || hr > 19) continue;
+
+              const tempC = (data.hourly.temperature_2m || [])[i];
+              if (typeof tempC !== 'number') continue;
+              const tempF = cToF(tempC);
+
+              totalSlots++;
+              if (tempF < 52) {
+                coldSlots++;
+              } else if (tempF >= 53) {
+                warmSlots++;
+              }
+            }
+
+            if (totalSlots === 0) {
+              petsBox.classList.remove('pets-ok', 'pets-in');
+              petsLabel.textContent = 'Pets status';
+              petsText.textContent = "Today's daytime forecast not available.";
+            } else if (coldSlots > warmSlots) {
+              petsBox.classList.remove('pets-ok');
+              petsBox.classList.add('pets-in');
+              petsLabel.textContent = 'Pets Stay In';
+              petsText.textContent = 'Below 52°F for most of 11 AM – 7 PM.';
+            } else if (warmSlots > coldSlots) {
+              petsBox.classList.remove('pets-in');
+              petsBox.classList.add('pets-ok');
+              petsLabel.textContent = 'Pets OK Out';
+              petsText.textContent = '53°F or warmer for most of 11 AM – 7 PM.';
+            } else {
+              // Tie or mixed – be cautious
+              petsBox.classList.remove('pets-ok');
+              petsBox.classList.add('pets-in');
+              petsLabel.textContent = 'Pets Stay In';
+              petsText.textContent = 'Temperatures are mixed; keeping pets in is safer.';
+            }
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        wxStatusEl.textContent = 'Weather data unavailable.';
+      }
+    }
+
+    // Initial fetch + refresh every 10 minutes
+    fetchAbqWeather();
+    setInterval(fetchAbqWeather, 10 * 60 * 1000);
+
 // ===== Mobile-fit helpers (added) =====
 (function(){
   const content = document.getElementById('content');
@@ -1867,63 +1372,222 @@ if (tomorrowBox && dTimes.length) {
   setTimeout(adjustLayoutForBottomUI, 300);
 })();
 
+</script>
 
+  <script>
+  
+  function trimAaronToFit() {
+    const panel = document.getElementById("ap-stories");
+    const feed = document.getElementById("ap-feed");
+    if (!panel || !feed) return;
 
-// ===== AUTO REFRESH EVERY 15 MINUTES =====
-function scheduleQuarterHourRefresh() {
-  const now = new Date();
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
-  const ms = now.getMilliseconds();
-
-  const nextQuarter = Math.ceil(minutes / 15) * 15;
-  const targetMinute = nextQuarter === 60 ? 0 : nextQuarter;
-
-  let diffMinutes = targetMinute - minutes;
-  if (diffMinutes <= 0) diffMinutes += 60;
-
-  const delay =
-    diffMinutes * 60 * 1000 -
-    seconds * 1000 -
-    ms;
-
-  setTimeout(() => {
-    location.reload();
-  }, delay);
-}
-
-scheduleQuarterHourRefresh();
-
-
-// ===== KEEP SCREEN AWAKE (Wake Lock API) =====
-let wakeLock = null;
-
-async function requestWakeLock() {
-  try {
-    if ('wakeLock' in navigator) {
-      wakeLock = await navigator.wakeLock.request('screen');
-      console.log('Wake Lock active');
-
-      wakeLock.addEventListener('release', () => {
-        console.log('Wake Lock released');
-      });
-    } else {
-      console.log('Wake Lock API not supported in this browser.');
+    let guard = 20;
+    while (guard-- > 0 && panel.scrollHeight > panel.clientHeight) {
+      if (feed.children.length <= 1) break;
+      feed.removeChild(feed.lastElementChild);
     }
-  } catch (err) {
-    console.log('Wake Lock error:', err);
   }
-}
 
-// Re-request wake lock when tab becomes visible again
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') {
-    requestWakeLock();
+async function loadParnasStoriesViaRss() {
+    const feed = document.getElementById("ap-feed");
+    if (!feed) return;
+
+    feed.innerHTML = '<p style="color:#9aa5b4;">Loading latest stories…</p>';
+
+    try {
+      const rssUrl = encodeURIComponent("https://aaronparnas.substack.com/feed");
+      const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
+      if (!res.ok) throw new Error("Network error");
+
+      const data = await res.json();
+      const items = (data.items || []).slice(0, 10);
+
+      if (!items.length) {
+        feed.innerHTML = '<p style="color:#9aa5b4;">No recent stories found.</p>';
+        return;
+      }
+
+      feed.innerHTML = "";
+
+      items.forEach(item => {
+        const url = item.link;
+        const pub = new Date(item.pubDate);
+        const month = String(pub.getMonth() + 1).padStart(2, '0');
+        const day = String(pub.getDate()).padStart(2, '0');
+        const hrs = String(pub.getHours()).padStart(2, '0');
+        const mins = String(pub.getMinutes()).padStart(2, '0');
+        const stamp = `${month}/${day} ${hrs}:${mins}`;
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(item.description || "", "text/html");
+        let raw = item.content && item.content.length ? item.content : (doc.body.textContent || ''); raw = raw.replace(/\s+/g, " ").trim();
+        const summary = item.title || 'Untitled';
+
+        const card = document.createElement("div");
+        const apAccent = "#a855f7"; // purple for Aaron
+        card.style.padding = "10px";
+        card.style.background = "#111827";
+        card.style.border = "1px solid " + apAccent;
+        card.style.borderRadius = "10px";
+
+        card.innerHTML = `
+          <p style="margin:0 0 4px; color:${apAccent}; font-size:12px;">${stamp}</p>
+          <p style="margin:0 0 6px;">${summary}</p>
+          <a href="${url}" target="_blank" style="color:${apAccent}; font-size:13px;">Read more</a>
+        `;
+
+        feed.appendChild(card);
+      });
+
+      trimAaronToFit();
+    } catch (err) {
+      if (feed) {
+        feed.innerHTML = '<p style="color:#ef4444;">Unable to load stories right now.</p>';
+      }
+    }
   }
-});
 
-// Initial activation
-requestWakeLock();
+  // Kick off feed load after page scripts are parsed
+  document.addEventListener("DOMContentLoaded", loadParnasStoriesViaRss);
+  </script>
+
+  <script>
+  async function loadBrandNewsSection() {
+    const swFeed = document.getElementById("sw-news-feed");
+    const hiltonFeed = document.getElementById("hilton-news-feed");
+    if (!swFeed && !hiltonFeed) return;
+
+    if (swFeed) {
+      swFeed.innerHTML = '<p style="color:#9aa5b4; font-size:12px;">Loading Southwest Airlines news…</p>';
+    }
+    if (hiltonFeed) {
+      hiltonFeed.innerHTML = '<p style="color:#9aa5b4; font-size:12px;">Loading Hilton news…</p>';
+    }
+
+    async function loadNews(feedUrl, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      try {
+        const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
+        const res = await fetch(apiUrl);
+        if (!res.ok) throw new Error("Network error");
+
+        const data = await res.json();
+        const items = (data.items || []).slice(0, 3);
+
+        if (!items.length) {
+          container.innerHTML = '<p style="color:#9aa5b4; font-size:12px;">No recent stories found.</p>';
+          return;
+        }
+
+        container.innerHTML = "";
+
+        items.forEach(item => {
+          const url = item.link;
+          const pub = new Date(item.pubDate);
+          const month = String(pub.getMonth() + 1).padStart(2, '0');
+          const day = String(pub.getDate()).padStart(2, '0');
+          const hrs = String(pub.getHours()).padStart(2, '0');
+          const mins = String(pub.getMinutes()).padStart(2, '0');
+          const stamp = month + "/" + day + " " + hrs + ":" + mins;
+
+          // Get fuller article text: prefer content, then description
+          const parser = new DOMParser();
+          const rawHtml = item.content && item.content.length ? item.content : (item.description || "");
+          const doc = parser.parseFromString(rawHtml, "text/html");
+          let raw = (doc.body.textContent || "").replace(/\s+/g, " ").trim();
+
+          // Strip title if it appears at the start so we keep the meat, not just the headline
+          if (item.title) {
+            const t = String(item.title).replace(/\s+/g, " ").trim();
+            const rawLower = raw.toLowerCase();
+            const tLower = t.toLowerCase();
+            if (rawLower.startsWith(tLower)) {
+              raw = raw.slice(t.length).trim();
+            }
+          }
+
+          const summary = item.title || 'Untitled';
+
+          const card = document.createElement("div");
+          const accent = containerId === "sw-news-feed" ? "#ef4444" : "#38bdf8"; // red for Southwest, blue for Hilton
+          card.style.padding = "8px";
+          card.style.background = "#111827";
+          card.style.border = "1px solid " + accent;
+          card.style.borderRadius = "8px";
+
+          card.innerHTML = `
+            <p style="margin:0 0 3px; color:${accent}; font-size:11px;">${stamp}</p>
+            <p style="margin:0 0 4px; font-size:13px;">${summary}</p>
+            <a href="${url}" target="_blank" style="color:${accent}; font-size:12px;">Read more</a>
+          `;
+
+          container.appendChild(card);
+        });
+      } catch (err) {
+        container.innerHTML = '<p style="color:#ef4444; font-size:12px;">Unable to load news right now.</p>';
+      }
+    }
+
+    
+    function trimBrandNewsToFit() {
+      const panel = document.getElementById("brand-news");
+      const sw = document.getElementById("sw-news-feed");
+      const hilton = document.getElementById("hilton-news-feed");
+      if (!panel || !sw || !hilton) return;
+
+      let guard = 20; // safety to avoid infinite loops
+      while (guard-- > 0 && panel.scrollHeight > panel.clientHeight) {
+        const swCount = sw.children.length;
+        const hiltonCount = hilton.children.length;
+
+        if (!swCount && !hiltonCount) break;
+
+        // Remove from the brand with more items first to keep counts even
+        if (swCount >= hiltonCount && swCount > 0) {
+          sw.removeChild(sw.lastElementChild);
+        }
+        if (hiltonCount >= swCount && hiltonCount > 0) {
+          hilton.removeChild(hilton.lastElementChild);
+        }
+      }
+    }
+
+// Google News RSS feeds for Southwest Airlines and Hilton
+    const swUrl = "https://news.google.com/rss/search?q=Southwest+Airlines&hl=en-US&gl=US&ceid=US:en";
+    const hiltonUrl = "https://news.google.com/rss/search?q=Hilton+Hotels&hl=en-US&gl=US&ceid=US:en";
+
+    loadNews(swUrl, "sw-news-feed");
+    loadNews(hiltonUrl, "hilton-news-feed");
+  }
+
+  document.addEventListener("DOMContentLoaded", loadBrandNewsSection);
+  </script>
+
+
+
+
+
+
+<script>
+  // Create a soft ripple every 30 seconds to help prevent burn-in
+  (function() {
+    const circle = document.getElementById("screen-ripple");
+    if (!circle) return;
+
+    function triggerRipple() {
+      circle.classList.remove("rippling");
+      // Force reflow so the animation can restart cleanly
+      void circle.offsetWidth;
+      circle.classList.add("rippling");
+    }
+
+    // First ripple a few seconds after load, then every 30 seconds
+    window.addEventListener("load", function() {
+      setTimeout(triggerRipple, 4000);
+      setInterval(triggerRipple, 15000);
+    });
+  })();
 </script>
 </body>
-</html>
