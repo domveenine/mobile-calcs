@@ -126,7 +126,70 @@ body { text-transform: capitalize; }
     .mode button.active{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06)}
     .sa-bottom{height: env(safe-area-inset-bottom)}
 
-    /* ---------- HOME OVERLAY ---------- */
+    
+/* Live news ticker bar */
+.news-bar{
+  position:relative;
+  z-index:40;
+  background:linear-gradient(90deg,#0f172a,#020617);
+  border-bottom:1px solid rgba(148,163,184,.35);
+  box-shadow:0 6px 14px rgba(0,0,0,.45);
+  padding:6px 10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  overflow:hidden;
+}
+.news-bar-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--accent2);
+  flex:0 0 auto;
+  white-space:nowrap;
+}
+.news-bar-track{
+  overflow:hidden;
+  flex:1 1 auto;
+}
+.news-bar-items{
+  display:inline-flex;
+  gap:24px;
+  white-space:nowrap;
+  animation:news-marquee 40s linear infinite;
+}
+.news-item{
+  font-size:12px;
+  color:var(--text);
+  opacity:.9;
+}
+.news-item a{
+  color:var(--info);
+  text-decoration:none;
+}
+.news-item a:hover{
+  text-decoration:underline;
+}
+@keyframes news-marquee{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
+/* Mobile tweaks for ticker */
+@media (max-width:480px){
+  .news-bar{
+    padding:4px 8px;
+    gap:8px;
+  }
+  .news-bar-label{
+    display:none;
+  }
+  .news-item{
+    font-size:11px;
+  }
+}
+
+/* ---------- HOME OVERLAY ---------- */
     .home-overlay{
       position:fixed;inset:0;z-index:999;
       display:grid;place-items:center;
@@ -302,12 +365,13 @@ body { text-transform: capitalize; }
 }
 /* Pets box sizing tweaks */
 #pets-label {
-  font-size: 2.6rem !important;
-  font-weight: 700;
+  font-size: 1rem !important;
+  font-weight: 600;
 }
 #pets-text {
-  font-size: 0.45rem !important;
+  font-size: 0.35rem !important;
 }
+
 
 #tz-hawaii-date,
 #tz-pacific-date,
@@ -362,46 +426,263 @@ body { text-transform: capitalize; }
   font-size:20px;
   font-weight:700;
 }
+
+/* Improve visual separation between Today's and Tomorrow's weather */
+.weather-card .grid.two {
+  align-items: stretch;
+  gap: 14px !important;
+}
+
+.weather-card .grid.two > div {
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, rgba(15,23,42,.95), rgba(15,23,42,.85));
+  border: 1px solid rgba(148,163,184,.6);
+  box-shadow: 0 10px 28px rgba(15,23,42,.55);
+}
+
+/* Today block */
+.weather-card .grid.two > div:first-child {
+  box-shadow: 0 0 0 1px rgba(56,189,248,.8), 0 10px 28px rgba(15,23,42,.55);
+}
+
+/* Tomorrow block */
+.weather-card .grid.two > div:last-child {
+  box-shadow: 0 0 0 1px rgba(167,139,250,.9), 0 10px 28px rgba(15,23,42,.55);
+}
+
+/* Label styling for Today / Tomorrow text */
+.weather-card .grid.two > div .subhead {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.weather-card .grid.two > div:first-child .subhead {
+  color: var(--info);
+}
+
+.weather-card .grid.two > div:last-child .subhead {
+  color: var(--accent2);
+}
+
+
+/* Improved visibility between news items */
+.news-bar-items .news-item{
+  padding: 0 16px;
+  border-right: 1px solid rgba(255,255,255,0.25);
+}
+.news-bar-items .news-item:last-child{
+  border-right: none;
+}
+
+
+.news-bar-label{
+  color:#ef4444 !important;
+}
+
+
+/* Hide app title and section headers */
+.app-title { display:none !important; }
+
+
+
+
+/* Brighter news headline color */
+.news-item,
+.news-item a {
+    color: #ffffff !important;
+}
+
+
+/* Use full window width for main content */
+.container{
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Smaller, centered timezone pills */
+#screen-overview #tz-grid .box{
+    text-align:center !important;
+}
+#screen-overview #tz-grid .box h3{
+    font-size:9px !important;
+    text-align:center !important;
+}
+#screen-overview #tz-grid .box .total{
+    font-size:18px !important;
+    text-align:center !important;
+}
+#screen-overview #tz-grid .box .subhead{
+    font-size:10px !important;
+    text-align:center !important;
+}
+
+/* Three-day forecast row: Today, Tomorrow, Day After */
+.three-day-row{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin-top:10px;
+}
+.three-day-row .day-card{
+  background:rgba(15,23,42,.96);
+  border-radius:12px;
+  padding:10px 12px;
+  box-shadow:0 12px 30px rgba(15,23,42,.7);
+}
+.three-day-row .day-card .subhead.small{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:6px;
+}
+.three-day-row .day-card .box h3{
+  font-size:11px;
+}
+.three-day-row .day-card .box .total{
+  font-size:16px;
+}
+
+
+
+
+  /* Red tone */
+
+
+  /* subtle red */
+
+
+.three-day-row .day-card:nth-child(1){background:#10263a !important;}  /* subtle teal-blue */
+.three-day-row .day-card:nth-child(2){background:#1a1230 !important;}  /* subtle violet */
+.three-day-row .day-card:nth-child(3){background:#0d2a20 !important;}  /* subtle green */
+
+
+/* Timezone cards: make times the focal point */
+#screen-overview #tz-grid .box{
+  text-align:center !important;
+}
+#screen-overview #tz-grid .box h3{
+  font-size:10px !important;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted) !important;
+}
+#screen-overview #tz-grid .box .total{
+  font-size:26px !important;
+  font-weight:800;
+  color:#ffffff !important;
+  line-height:1.15;
+}
+#screen-overview #tz-grid .box .subhead{
+  font-size:11px !important;
+  color:rgba(226,232,240,.9) !important;
+  margin-top:2px;
+}
+
+
+/* Larger three-day forecast text */
+.three-day-row .day-card .subhead.small{
+  font-size:13px !important;
+}
+.three-day-row .day-card .box h3{
+  font-size:14px !important;
+}
+.three-day-row .day-card .box .total{
+  font-size:22px !important;
+  font-weight:800 !important;
+}
+
+
+/* Hide all scrollbars */
+* {
+  scrollbar-width: none !important;
+}
+*::-webkit-scrollbar {
+  display: none !important;
+}
+html, body {
+  overflow: hidden !important;
+}
+
+
+/* Floating Pet Comfort bubble */
+#pets-box {
+  position: fixed !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  z-index: 9999 !important;
+  width: 240px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+  border-radius: 16px !important;
+}
+
+
+/* Hide secondary pets text so bubble only shows main label */
+#pets-text {
+  display: none !important;
+}
+
+
+/* Slightly smaller 3‑day forecast text */
+.three-day-row .day-card .subhead.small {
+  font-size: 11px !important;
+}
+.three-day-row .day-card .box h3 {
+  font-size: 11px !important;
+}
+.three-day-row .day-card .box .total {
+  font-size: 18px !important;
+}
+
+
+/* Show Pets bubble only on Overview tab */
+#pets-box {
+  display: none !important;
+}
+section#screen-overview.active #pets-box {
+  display: block !important;
+}
+
+
+/* Hide Pets bubble when Enter screen (home overlay) is visible */
+#homeOverlay:not(.hide) ~ .content #pets-box {
+    display: none !important;
+}
+
+
+/* Pulse animation for "Live News" label */
+@keyframes livePulse {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  50%  { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1);   opacity: 0.8; }
+}
+.news-bar-label {
+  animation: livePulse 1.15s ease-in-out infinite;
+  transform-origin: center;
+}
+
 </style>
 </head>
 <body>
-<!-- Right-side panel: Latest stories from Aaron Parnas Substack -->
-<div id="ap-stories" style="position:fixed; right:0; top:0; width:300px; height:100vh; overflow-y:hidden; background:#0f172a; border-left:1px solid #243244; padding:16px; box-shadow:-4px 0 12px rgba(0,0,0,0.4); z-index:500;">
-<h2 style="margin-top:0; font-size:18px; font-weight:700;">Latest from Substack</h2>
-<div id="ap-feed" style="display:flex; flex-direction:column; gap:14px; font-size:14px; line-height:1.4;">
-<!-- Story summaries will be injected here -->
+
+<div id="global-news-bar" class="news-bar" aria-label="Live news headlines">
+  <div class="news-bar-label">Live News</div>
+  <div class="news-bar-track">
+    <div class="news-bar-items" id="newsTickerItems">
+      <span class="news-item">Loading latest headlines…</span>
+    </div>
+  </div>
 </div>
-<!-- Left-side panel: Southwest Airlines & Hilton News -->
-<div id="brand-news" style="position:fixed; left:0; top:0; width:300px; height:100vh; overflow-y:hidden; background:#0f172a; border-right:1px solid #243244; padding:16px; box-shadow:4px 0 12px rgba(0,0,0,0.4); z-index:500;">
-<h2 style="margin-top:0; font-size:18px; font-weight:700;">Southwest &amp; Hilton News</h2>
-<div style="margin-bottom:14px;">
-<h3 style="margin:0 0 6px; font-size:14px; font-weight:600;">Southwest Airlines</h3>
-<div id="sw-news-feed" style="display:flex; flex-direction:column; gap:10px; font-size:13px; line-height:1.4;">
-<!-- Southwest news items injected by JS -->
-</div>
-</div>
-<div>
-<h3 style="margin:0 0 6px; font-size:14px; font-weight:600;">Hilton</h3>
-<div id="hilton-news-feed" style="display:flex; flex-direction:column; gap:10px; font-size:13px; line-height:1.4;">
-<!-- Hilton news items injected by JS -->
-</div>
-</div>
-</div>
-</div>
+
 <div class="app-shell">
 <header aria-label="App header" class="appbar">
-<button aria-label="Scroll to top" class="icon-btn" id="btnBack" title="Scroll to top">
-<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
-<path d="M12 19V5M5 12l7-7 7 7"></path>
-</svg>
-</button>
+<button aria-label="Scroll to top" class="icon-btn" id="btnBack" title="Scroll to top" style="display:none"></button>
+<button aria-label="Copy summary" class="icon-btn" id="btnCopy" title="Copy summary" style="display:none"></button>
+
 <h1 class="app-title" id="appTitle">Tip Calculator</h1>
-<button aria-label="Copy summary" class="icon-btn" id="btnCopy" title="Copy summary">
-<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
-<rect height="13" rx="2" width="13" x="9" y="9"></rect>
-<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-</svg>
-</button>
+
 </header>
 <!-- HOME OVERLAY -->
 <div aria-labelledby="welcomeTitle" aria-modal="true" class="home-overlay" id="homeOverlay" role="dialog">
@@ -437,7 +718,7 @@ body { text-transform: capitalize; }
 <!-- OVERVIEW -->
 <section aria-labelledby="tab-overview" class="active" id="screen-overview" role="tabpanel">
 <div class="card">
-<h2 class="title">Overview</h2>
+
 <div class="subhead"></div>
 <div id="tz-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin-top:6px">
 <div class="box">
@@ -473,22 +754,64 @@ body { text-transform: capitalize; }
 </div>
 </div>
 <div class="card weather-card">
-<h2 class="title">Albuquerque Weather</h2>
+
+
 <div class="subhead" id="wx-status">Loading current conditions…</div>
-<div class="grid two" style="gap:12px; margin-top:10px;"><div style="display:flex; flex-direction:column; gap:6px;"><div class="subhead" style="margin-bottom:4px;">Today</div><div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
-<div class="box">
-<h3>Temperature</h3>
-<div class="total" id="wx-temp">--</div>
+<div class="three-day-row">
+  <div class="day-card">
+    <div class="subhead small">Today</div>
+    <div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
+      <div class="box">
+        <h3>Temperature</h3>
+        <div class="total" id="wx-temp">--</div>
+      </div>
+      <div class="box">
+        <h3>Condition</h3>
+        <div class="total" id="wx-cond">--</div>
+      </div>
+      <div class="box">
+        <h3>Wind</h3>
+        <div class="total" id="wx-wind">--</div>
+      </div>
+    </div>
+  </div>
+  <div class="day-card">
+    <div class="subhead small">Tomorrow</div>
+    <div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
+      <div class="box">
+        <h3>Temperature</h3>
+        <div class="total" id="wx-tomorrow-temp">--</div>
+      </div>
+      <div class="box">
+        <h3>Condition</h3>
+        <div class="total" id="wx-tomorrow-cond">--</div>
+      </div>
+      <div class="box">
+        <h3>Wind</h3>
+        <div class="total" id="wx-tomorrow-wind">--</div>
+      </div>
+    </div>
+  </div>
+  <div class="day-card">
+    <div class="subhead small">Day After</div>
+    <div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
+      <div class="box">
+        <h3>Temperature</h3>
+        <div class="total" id="wx-dayafter-temp">--</div>
+      </div>
+      <div class="box">
+        <h3>Condition</h3>
+        <div class="total" id="wx-dayafter-cond">--</div>
+      </div>
+      <div class="box">
+        <h3>Wind</h3>
+        <div class="total" id="wx-dayafter-wind">--</div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="box">
-<h3>Condition</h3>
-<div class="total" id="wx-cond">--</div>
-</div>
-<div class="box">
-<h3>Wind</h3>
-<div class="total" id="wx-wind">--</div>
-</div>
-</div></div><div style="display:flex; flex-direction:column; gap:6px;"><div class="subhead" style="margin-top:10px">Tomorrow</div><div class="stacked-pills" id="wx-tomorrow" style="display:flex; flex-direction:column; gap:10px;"><div class="box"><h3>Temperature</h3><div class="total" id="wx-tomorrow-temp">--</div></div><div class="box"><h3>Condition</h3><div class="total" id="wx-tomorrow-cond">--</div></div><div class="box"><h3>Wind</h3><div class="total" id="wx-tomorrow-wind">--</div></div></div></div></div><div class="subhead" style="margin-top:10px">Next 8 Hours</div>
+
+<div class="subhead" style="margin-top:10px">Next 8 Hours</div>
 <div id="wx-hourly" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px;overflow-x:visible;padding-bottom:4px;margin-top:6px">
 <!-- Hourly forecast cards injected by JS -->
 </div>
@@ -499,14 +822,14 @@ body { text-transform: capitalize; }
 <div class="subhead" style="margin-top:10px">Pet Comfort </div>
 <div class="box" id="pets-box" style="margin-top:6px">
 <h3 id="pets-label">Pets status</h3>
-<div class="total" id="pets-text">Checking forecast…</div>
+<div class="total" id="pets-text"></div>
 </div>
 </div>
 </section>
 <!-- TIP -->
 <section aria-labelledby="tab-tip" id="screen-tip" role="tabpanel">
 <div class="card">
-<h2 class="title">Tip Calculator</h2>
+
 <div class="subhead">Bill amount pre tax</div>
 <div class="input"><span class="prefix">$</span><input autocomplete="off" id="bill" inputmode="decimal" placeholder="0.00"/></div>
 <div class="subhead">Preset percentage</div>
@@ -532,7 +855,7 @@ body { text-transform: capitalize; }
 <!-- SALARY -->
 <section aria-labelledby="tab-salary" id="screen-salary" role="tabpanel">
 <div class="card">
-<h2 class="title">Salary Calculator</h2>
+
 <div class="grid three">
 <div>
 <div class="subhead">Hourly rate</div>
@@ -553,7 +876,7 @@ body { text-transform: capitalize; }
 <!-- PAYCHECK -->
 <section aria-labelledby="tab-pay" id="screen-pay" role="tabpanel">
 <div class="card">
-<h2 class="title">Paycheck After Taxes (NM)</h2>
+
 <div class="grid two">
 <div>
 <div class="subhead">Hourly rate</div>
@@ -615,7 +938,7 @@ body { text-transform: capitalize; }
 <!-- TIME -->
 <section aria-labelledby="tab-time" id="screen-time" role="tabpanel">
 <div class="card">
-<h2 class="title">Your Time &amp; Their Time</h2>
+
 <div class="grid two">
 <div>
 <div class="subhead">Your Airport (default ABQ)</div>
@@ -643,7 +966,7 @@ body { text-transform: capitalize; }
 <!-- SW POINTS -->
 <section aria-labelledby="tab-sw" id="screen-sw" role="tabpanel">
 <div class="card">
-<h2 class="title">Southwest Points per Dollar</h2>
+
 <div class="subhead">How do you want to enter price?</div>
 <div aria-label="Price entry mode" class="mode" role="tablist">
 <button aria-selected="true" class="active" id="sw-mode-base" role="tab">I know the base fare</button>
@@ -715,7 +1038,7 @@ body { text-transform: capitalize; }
 </div>
 <!-- Converter -->
 <div class="card">
-<h2 class="title">Points to Dollars</h2>
+
 <div class="grid two">
 <div>
 <div class="subhead">Points to redeem</div>
@@ -1084,6 +1407,9 @@ body { text-transform: capitalize; }
     const wxTomorrowTempEl = $('#wx-tomorrow-temp');
     const wxTomorrowCondEl = $('#wx-tomorrow-cond');
     const wxTomorrowWindEl = $('#wx-tomorrow-wind');
+    const wxDayAfterTempEl = $('#wx-dayafter-temp');
+    const wxDayAfterCondEl = $('#wx-dayafter-cond');
+    const wxDayAfterWindEl = $('#wx-dayafter-wind');
 
     function cToF(c) {
       return (c * 9/5) + 32;
@@ -1135,7 +1461,7 @@ body { text-transform: capitalize; }
 
       const LAT = 35.0844;
       const LON = -106.6504;
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&hourly=temperature_2m,weather_code,wind_speed_10m&timezone=America%2FDenver`;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&hourly=temperature_2m,weather_code,wind_speed_10m&forecast_days=3&timezone=America%2FDenver`;
 
       try {
         wxStatusEl.textContent = 'Loading current conditions…';
@@ -1207,7 +1533,54 @@ body { text-transform: capitalize; }
           }
         }
 
-        // Hourly next 8 hours
+        
+        // Day After (two days from now) using same hourly series
+        if (wxDayAfterTempEl && data.hourly && Array.isArray(data.hourly.time)) {
+          const times = data.hourly.time;
+          const temps = data.hourly.temperature_2m || [];
+          const codes = data.hourly.weather_code || data.hourly.weathercode || [];
+          const winds = data.hourly.wind_speed_10m || data.hourly.windspeed_10m || [];
+
+          const now = new Date();
+          const dayAfter = new Date(now);
+          dayAfter.setDate(now.getDate() + 2);
+          dayAfter.setHours(0,0,0,0);
+
+          let bestIndex2 = -1;
+          let bestDiff2 = Infinity;
+
+          // Pick the hour closest to 3pm about two days from now, without requiring exact same calendar day.
+          const target = new Date(dayAfter);
+          target.setHours(15,0,0,0);
+
+          for (let i = 0; i < times.length; i++) {
+            const t = new Date(times[i]);
+            const diff = Math.abs(t - target);
+            if (diff < bestDiff2) {
+              bestDiff2 = diff;
+              bestIndex2 = i;
+            }
+          }
+
+          if (bestIndex2 >= 0 && temps[bestIndex2] != null && codes[bestIndex2] != null) {
+            const tempC2 = temps[bestIndex2];
+            const code2 = codes[bestIndex2];
+            const windKmh2 = winds[bestIndex2] || 0;
+            const tempF2 = Math.round(cToF(tempC2));
+            const windMph2 = Math.round(kmhToMph(windKmh2));
+            const label2 = mapWeatherCondition(code2, tempC2, windKmh2);
+
+            wxDayAfterTempEl.textContent = tempF2 + '°F';
+            wxDayAfterCondEl.textContent = label2;
+            wxDayAfterWindEl.textContent = windMph2 + ' mph';
+          } else {
+            wxDayAfterTempEl.textContent = '--';
+            wxDayAfterCondEl.textContent = 'N/A';
+            wxDayAfterWindEl.textContent = '--';
+          }
+        }
+
+// Hourly next 8 hours
         if (wxHourlyEl && data.hourly && Array.isArray(data.hourly.time)) {
           wxHourlyEl.innerHTML = '';
           const times = data.hourly.time;
@@ -1325,7 +1698,7 @@ body { text-transform: capitalize; }
               petsBox.classList.remove('pets-ok');
               petsBox.classList.add('pets-in');
               petsLabel.textContent = 'Pets Stay In';
-              petsText.textContent = 'Below 52°F for most of 11 AM – 7 PM.';
+              petsText.textContent = 'Stays below 52°F from about 11 AM to 7 PM.';
             } else if (warmSlots > coldSlots) {
               petsBox.classList.remove('pets-in');
               petsBox.classList.add('pets-ok');
@@ -1614,7 +1987,63 @@ async function loadParnasStoriesViaRss() {
     loadNews(hiltonUrl, "hilton-news-feed");
   }
 
-  document.addEventListener("DOMContentLoaded", loadBrandNewsSection);
+  
+async function loadGlobalNewsTicker() {
+  const container = document.getElementById("newsTickerItems");
+  if (!container) return;
+
+  container.innerHTML = '<span class="news-item">Loading latest headlines…</span>';
+
+  try {
+    const feedUrl = "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en";
+    const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
+    const res = await fetch(apiUrl);
+    if (!res.ok) throw new Error("Network error");
+
+    const data = await res.json();
+    const items = (data.items || []).slice(0, 10);
+
+    if (!items.length) {
+      container.innerHTML = '<span class="news-item">No recent headlines available right now.</span>';
+      return;
+    }
+
+    const headlines = items.map(item => ({
+      title: item.title || "Untitled",
+      link: item.link || ""
+    }));
+
+    container.innerHTML = "";
+
+    function appendSet() {
+      headlines.forEach(h => {
+        const span = document.createElement("span");
+        span.className = "news-item";
+        if (h.link) {
+          span.innerHTML = '<a href="' + h.link + '" target="_blank" rel="noopener noreferrer">' +
+                           h.title +
+                           '</a>';
+        } else {
+          span.textContent = h.title;
+        }
+        container.appendChild(span);
+      });
+    }
+
+    // Duplicate once so the marquee has enough width to scroll smoothly
+    appendSet();
+    appendSet();
+
+  } catch (err) {
+    console.error("Error loading global news ticker", err);
+    container.innerHTML = '<span class="news-item">Unable to load live headlines right now.</span>';
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadGlobalNewsTicker);
+
+
+document.addEventListener("DOMContentLoaded", loadBrandNewsSection);
   </script>
 </body>
 </html>
