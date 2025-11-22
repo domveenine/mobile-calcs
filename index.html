@@ -663,18 +663,243 @@ section#screen-overview.active #pets-box {
   transform-origin: center;
 }
 
+
+/* ===== NEWS SCREEN ===== */
+#screen-news .news-shell{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+#screen-news .news-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  flex-wrap:wrap;
+}
+#screen-news .news-header-meta{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+#screen-news .pill-small{
+  font-size:10px;
+  padding:3px 8px;
+}
+#screen-news .news-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+#screen-news .news-panel{
+  border-radius:16px;
+  padding:10px;
+  background:rgba(15,23,42,0.95);
+  border:1px solid rgba(148,163,184,0.5);
+  display:flex;
+  flex-direction:column;
+  min-height:120px;
+}
+#screen-news .news-panel-us{
+  grid-row:1 / span 2;
+}
+#screen-news .news-panel-abq{
+  grid-column:1 / span 2;
+}
+
+/* Make all four news panels even grid cells */
+#screen-news .news-panel-us,
+#screen-news .news-panel-abq{
+  grid-row:auto;
+  grid-column:auto;
+}
+#screen-news .news-panel-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:6px;
+  margin-bottom:6px;
+}
+#screen-news .news-panel-header h3{
+  margin:0;
+  font-size:14px;
+}
+#screen-news .news-panel-header .tag{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:#9ca3af;
+}
+#screen-news .news-list{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+#screen-news .news-empty{
+  font-size:11px;
+  color:#9ca3af;
+}
+#screen-news .news-card{
+  border-radius:12px;
+  padding:6px 8px;
+  background:#020617;
+  border:1px solid rgba(55,65,81,0.9);
+  cursor:pointer;
+  transition:transform .1s ease, box-shadow .15s ease, border-color .15s ease;
+}
+#screen-news .news-card:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 28px rgba(15,23,42,0.8);
+  border-color:#38bdf8;
+}
+#screen-news .news-title{
+  font-size:13px;
+  margin:0 0 2px;
+}
+#screen-news .news-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  font-size:10px;
+  color:#9ca3af;
+}
+#screen-news .news-meta span{
+  border-radius:999px;
+  padding:1px 6px;
+  border:1px solid rgba(55,65,81,0.8);
+}
+#screen-news .news-footer{
+  margin-top:4px;
+  font-size:10px;
+  color:#9ca3af;
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+}
+#screen-news .news-footer a{
+  color:#38bdf8;
+  text-decoration:none;
+}
+#screen-news .news-footer a:hover{
+  text-decoration:underline;
+}
+#screen-news 
+.news-refresh{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:12px;
+  padding:6px 10px;
+  background:#16a34a; /* subtle green */
+  color:white;
+  border-radius:10px;
+  border:1px solid #166534;
+  box-shadow:0 0 6px rgba(0,0,0,0.3);
+}
+
+/* Stack panels on small screens */
+@media (max-width:768px){
+  #screen-news .news-grid{
+    grid-template-columns:1fr;
+    grid-template-rows:auto;
+  }
+  #screen-news .news-panel-us,
+  #screen-news .news-panel-abq{
+    grid-row:auto;
+    grid-column:auto;
+  }
+}
+
+
+/* Compact layout for News so all sections fit without page scroll on most screens */
+#screen-news .card.news-shell{
+  padding:10px 10px;
+  margin:8px 0;
+}
+#screen-news .news-shell{
+  gap:8px;
+}
+#screen-news .news-header{
+  gap:8px;
+}
+#screen-news .news-grid{
+  gap:8px;
+}
+#screen-news .news-panel{
+  padding:8px;
+  min-height:90px;
+}
+#screen-news .news-panel-header h3{
+  font-size:13px;
+}
+#screen-news .news-panel-header .tag{
+  font-size:9px;
+}
+#screen-news .news-title{
+  font-size:12px;
+}
+#screen-news .news-meta{
+  font-size:9px;
+}
+#screen-news .news-footer{
+  margin-top:2px;
+  font-size:9px;
+}
+/* ABQ section in two columns to save vertical space */
+#screen-news .news-panel-abq .news-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:4px;
+}
+#screen-news .news-panel-abq .news-card{
+  padding:5px 6px;
+}
+/* News button visibility fixes */
+.btn.news-refresh {
+  width: auto !important;
+  min-width: 90px;
+  padding: 6px 10px;
+}
+/* Updated pill wider */
+.pill.pill-small {
+  display:inline-block;
+  padding:4px 18px !important;
+}
+
+/* Force bottom tabs into a single horizontal row */
+.tabbar .tabs{
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  justify-content:space-between;
+  width:100%;
+  max-width:var(--maxContent);
+}
+.tabbar .tab{
+  flex:1 1 auto;
+}
+
+/* Make News page stretch full height (only when active) */
+#screen-news.active{
+  display:flex;
+  flex-direction:column;
+  min-height:calc(100vh - 70px); /* approx bottom nav height */
+}
+#screen-news.active .card.news-shell{
+  display:block;
+  height:auto;
+  min-height:0;
+}
+#screen-news.active .news-grid{
+  height:auto;
+  overflow:visible;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
 </style>
 </head>
 <body>
-
-<div id="global-news-bar" class="news-bar" aria-label="Live news headlines">
-  <div class="news-bar-label">Live News</div>
-  <div class="news-bar-track">
-    <div class="news-bar-items" id="newsTickerItems">
-      <span class="news-item">Loading latest headlines…</span>
-    </div>
-  </div>
-</div>
 
 <div class="app-shell">
 <header aria-label="App header" class="appbar">
@@ -826,7 +1051,64 @@ section#screen-overview.active #pets-box {
 </div>
 </div>
 </section>
+<!-- NEWS -->
+<section aria-labelledby="tab-news" id="screen-news" role="tabpanel">
+  <div class="card news-shell">
+    <div class="news-header">
+      <div>
+        <div class="subhead">Live headlines · auto refresh every 15 minutes</div>
+        <h2 style="margin:4px 0 2px;font-size:18px;">News Desk</h2>
+        <p style="margin:0;font-size:12px;color:#9ca3af;">US, Southwest Airlines, Hilton, and Albuquerque in one place.</p>
+      </div>
+      <div class="news-header-meta">
+        <button type="button" class="btn news-refresh" id="newsRefreshBtn">
+          <span>Refresh Now</span>
+        </button>
+        <span class="pill pill-small">Updated: <span id="newsLastUpdated">--</span></span>
+      </div>
+    </div>
+
+    <div class="news-grid">
+      <section class="news-panel news-panel-us" aria-label="US news">
+        <div class="news-panel-header">
+          <h3>US News</h3>
+          <span class="tag">Top stories</span>
+        </div>
+        <div id="news-us-list" class="news-list"></div>
+        <div id="news-us-empty" class="news-empty" hidden>No US headlines right now.</div>
+      </section>
+
+      <section class="news-panel news-panel-sw" aria-label="Southwest Airlines news">
+        <div class="news-panel-header">
+          <h3>Southwest Airlines</h3>
+          <span class="tag">Brand & operations</span>
+        </div>
+        <div id="news-sw-list" class="news-list"></div>
+        <div id="news-sw-empty" class="news-empty" hidden>No Southwest stories found.</div>
+      </section>
+
+      <section class="news-panel news-panel-hilton" aria-label="Hilton news">
+        <div class="news-panel-header">
+          <h3>Hilton</h3>
+          <span class="tag">Hospitality</span>
+        </div>
+        <div id="news-hilton-list" class="news-list"></div>
+        <div id="news-hilton-empty" class="news-empty" hidden>No Hilton stories found.</div>
+      </section>
+
+      <section class="news-panel news-panel-abq" aria-label="Albuquerque news">
+        <div class="news-panel-header">
+          <h3>Albuquerque</h3>
+          <span class="tag">Local</span>
+        </div>
+        <div id="news-abq-list" class="news-list"></div>
+        <div id="news-abq-empty" class="news-empty" hidden>No Albuquerque stories found.</div>
+      </section>
+    </div>
+  </div>
+</section>
 <!-- TIP -->
+
 <section aria-labelledby="tab-tip" id="screen-tip" role="tabpanel">
 <div class="card">
 
@@ -1075,6 +1357,13 @@ section#screen-overview.active #pets-box {
 </svg>
 <span>Overview</span>
 </button>
+<button class="tab" data-screen="news" id="tab-news">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+  <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+  <path d="M7 8h7M7 11h10M7 14h10"></path>
+</svg>
+<span>News</span>
+</button>
 <button class="tab" data-screen="tip" id="tab-tip">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
 <path d="M12 1v22M17 5c0-1.5-2.5-3-5-3s-5 1.5-5 3 2.5 3 5 3 5 1.5 5 3-2.5 3-5 3-5 1.5-5 3 2.5 3 5 3 5-1.5 5-3"></path>
@@ -1108,8 +1397,8 @@ section#screen-overview.active #pets-box {
     const setTitle = t => $('#appTitle').textContent = t;
 
     // Bottom tab routing
-    const SCREENS = ['overview','tip','salary','pay','time','sw'];
-    const TITLES = {overview:'Overview', tip:'Tip Calculator', salary:'Salary Calculator', pay:'Paycheck After Taxes', time:'Your Time & Their Time', sw:'Southwest Points'};
+    const SCREENS = ['overview','news','tip','salary','pay','time','sw'];
+    const TITLES = {overview:'Overview', news:'News Desk', tip:'Tip Calculator', salary:'Salary vs Hourly', pay:'Your Pay After Taxes', time:'Your Time & Their Time', sw:'Southwest Points'};
 
     function show(screen){
       SCREENS.forEach(id=>{
@@ -1878,7 +2167,160 @@ async function loadParnasStoriesViaRss() {
   document.addEventListener("DOMContentLoaded", loadParnasStoriesViaRss);
   </script>
 <script>
-  async function loadBrandNewsSection() {
+// ===== Dedicated News screen (US, Southwest, Hilton, Albuquerque) =====
+function formatNewsStamp(dateStr){
+  if(!dateStr) return '';
+  const d = new Date(dateStr);
+  if(isNaN(d.getTime())) return '';
+  const now = new Date();
+  const diff = (now - d) / 1000;
+  if(diff < 60) return 'Just now';
+  if(diff < 3600){
+    const m = Math.round(diff/60);
+    return m + ' min' + (m === 1 ? '' : 's') + ' ago';
+  }
+  if(diff < 86400){
+    const h = Math.round(diff/3600);
+    return h + ' hour' + (h === 1 ? '' : 's') + ' ago';
+  }
+  return d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+}
+
+function renderNewsList(containerId, emptyId, items){
+  const container = document.getElementById(containerId);
+  const empty = document.getElementById(emptyId);
+  if(!container || !empty) return;
+  container.innerHTML = '';
+  if(!items || !items.length){
+    empty.hidden = false;
+    return;
+  }
+  empty.hidden = true;
+  items.forEach(item=>{
+    const card = document.createElement('article');
+    card.className = 'news-card';
+    card.tabIndex = 0;
+
+    const title = document.createElement('h4');
+    title.className = 'news-title';
+    title.textContent = item.title || 'Untitled';
+
+    const meta = document.createElement('div');
+    meta.className = 'news-meta';
+    const src = item.source || item.sourceName;
+    if(src){
+      const span = document.createElement('span');
+      span.textContent = src;
+      meta.appendChild(span);
+    }
+    if(item.published){
+      const span = document.createElement('span');
+      span.textContent = formatNewsStamp(item.published);
+      meta.appendChild(span);
+    }
+
+    card.appendChild(title);
+    card.appendChild(meta);
+
+    const open = ()=>{ if(item.url) window.open(item.url, '_blank', 'noopener'); };
+    card.addEventListener('click', open);
+    card.addEventListener('keypress', e=>{ if(e.key === 'Enter') open(); });
+
+    container.appendChild(card);
+  });
+}
+
+async function fetchRssNews(feedUrl){
+  try{
+    const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
+    const res = await fetch(apiUrl);
+    if(!res.ok) throw new Error('Network error');
+    const data = await res.json();
+
+    // Sort by published date (newest first) and keep up to 8 items
+    let items = (data.items || []).slice();
+    items.sort((a, b) => {
+      const da = new Date(a.pubDate || a.pubdate || a.published || 0).getTime();
+      const db = new Date(b.pubDate || b.pubdate || b.published || 0).getTime();
+      return db - da;
+    });
+    items = items.slice(0, 8);
+
+    return items.map(item=>{
+      const d = {
+        title: item.title || "Untitled",
+        url: item.link || "",
+        published: item.pubDate || item.pubdate || item.published,
+        source: (item.author || (data.feed && data.feed.title)) || ""
+      };
+      const parser = new DOMParser();
+      const rawHtml = item.content && item.content.length ? item.content : (item.description || "");
+      const doc = parser.parseFromString(rawHtml, "text/html");
+      const raw = (doc.body.textContent || "").replace(/\s+/g, " ").trim();
+      d.summary = raw.slice(0, 90) + (raw.length > 90 ? "…" : "");
+      return d;
+    });
+  }catch(err){
+    console.error("News RSS error", err);
+    // Return a single "error" item so the panels never look completely empty
+    return [{
+      title: "Unable to load news right now",
+      url: "",
+      published: "",
+      source: "News feed",
+      summary: "Check your internet connection or try opening this page from a secure (https) site instead of file://."
+    }];
+  }
+}
+async function refreshNewsScreen(fromInterval){
+  const lastEl = document.getElementById('newsLastUpdated');
+  const now = new Date();
+  if(lastEl){
+    lastEl.textContent = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}) +
+      ' · ' + now.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  }
+  // Show a basic loading state so it never looks blank
+  const panels = [
+    ['news-us-list','news-us-empty','Loading US headlines…'],
+    ['news-sw-list','news-sw-empty','Loading Southwest stories…'],
+    ['news-hilton-list','news-hilton-empty','Loading Hilton stories…'],
+    ['news-abq-list','news-abq-empty','Loading Albuquerque stories…']
+  ];
+  panels.forEach(([listId, emptyId, text])=>{
+    const listEl = document.getElementById(listId);
+    const emptyEl = document.getElementById(emptyId);
+    if(listEl){ listEl.innerHTML = ''; }
+    if(emptyEl){
+      emptyEl.hidden = false;
+      emptyEl.textContent = text;
+    }
+  });
+  const usFeed = "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en";
+  const swFeed = "https://news.google.com/rss/search?q=Southwest+Airlines&hl=en-US&gl=US&ceid=US:en";
+  const hiltonFeed = "https://news.google.com/rss/search?q=Hilton+Hotels&hl=en-US&gl=US&ceid=US:en";
+  const abqFeed = "https://news.google.com/rss/search?q=Albuquerque+New+Mexico&hl=en-US&gl=US&ceid=US:en";
+  const [us, sw, hilton, abq] = await Promise.all([
+    fetchRssNews(usFeed),
+    fetchRssNews(swFeed),
+    fetchRssNews(hiltonFeed),
+    fetchRssNews(abqFeed)
+  ]);
+  renderNewsList('news-us-list','news-us-empty',us);
+  renderNewsList('news-sw-list','news-sw-empty',sw);
+  renderNewsList('news-hilton-list','news-hilton-empty',hilton);
+  renderNewsList('news-abq-list','news-abq-empty',abq);
+}
+
+function initNewsScreen(){
+  const btn = document.getElementById('newsRefreshBtn');
+  if(btn){
+    btn.addEventListener('click', ()=>refreshNewsScreen(false));
+  }
+  refreshNewsScreen(false);
+  // auto-refresh every 15 minutes
+  setInterval(()=>refreshNewsScreen(true), 15*60*1000);
+}
+function loadBrandNewsSection() {
     const swFeed = document.getElementById("sw-news-feed");
     const hiltonFeed = document.getElementById("hilton-news-feed");
     if (!swFeed && !hiltonFeed) return;
@@ -1988,62 +2430,10 @@ async function loadParnasStoriesViaRss() {
   }
 
   
-async function loadGlobalNewsTicker() {
-  const container = document.getElementById("newsTickerItems");
-  if (!container) return;
-
-  container.innerHTML = '<span class="news-item">Loading latest headlines…</span>';
-
-  try {
-    const feedUrl = "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en";
-    const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
-    const res = await fetch(apiUrl);
-    if (!res.ok) throw new Error("Network error");
-
-    const data = await res.json();
-    const items = (data.items || []).slice(0, 10);
-
-    if (!items.length) {
-      container.innerHTML = '<span class="news-item">No recent headlines available right now.</span>';
-      return;
-    }
-
-    const headlines = items.map(item => ({
-      title: item.title || "Untitled",
-      link: item.link || ""
-    }));
-
-    container.innerHTML = "";
-
-    function appendSet() {
-      headlines.forEach(h => {
-        const span = document.createElement("span");
-        span.className = "news-item";
-        if (h.link) {
-          span.innerHTML = '<a href="' + h.link + '" target="_blank" rel="noopener noreferrer">' +
-                           h.title +
-                           '</a>';
-        } else {
-          span.textContent = h.title;
-        }
-        container.appendChild(span);
-      });
-    }
-
-    // Duplicate once so the marquee has enough width to scroll smoothly
-    appendSet();
-    appendSet();
-
-  } catch (err) {
-    console.error("Error loading global news ticker", err);
-    container.innerHTML = '<span class="news-item">Unable to load live headlines right now.</span>';
-  }
-}
-
-document.addEventListener("DOMContentLoaded", loadGlobalNewsTicker);
-
 
 document.addEventListener("DOMContentLoaded", loadBrandNewsSection);
+
+document.addEventListener("DOMContentLoaded", initNewsScreen);
   </script>
 </body>
 </html>
