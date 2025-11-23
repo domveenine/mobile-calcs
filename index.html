@@ -897,6 +897,316 @@ section#screen-overview.active #pets-box {
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:10px;
 }
+
+/* === News visual clean-up + 2x2 dashboard that fits on screen === */
+
+/* Shell: centered, limited height so all 4 boxes fit without page scroll on typical screens */
+#screen-news .card.news-shell {
+  max-width: 1040px;
+  margin: 16px auto;
+  padding: 16px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* Cap height so four panels fit without needing to scroll on most laptops */
+  height: min(560px, calc(100vh - 220px));
+}
+
+/* Header spacing & alignment */
+#screen-news .news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+/* Header text sizing */
+#screen-news .news-title-main {
+  font-size: 16px;
+}
+#screen-news .news-subtitle {
+  font-size: 12px;
+}
+
+/* Main grid: fixed 2x2 layout that fills the shell's remaining height */
+#screen-news .news-grid,
+#screen-news.active .news-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Each panel: softer look, flex column so list can scroll inside */
+#screen-news .news-panel {
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: 18px;
+  padding: 12px 12px 10px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.7);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Panel headers tidy */
+#screen-news .news-panel-header h3 {
+  font-size: 14px;
+}
+#screen-news .news-panel-header .tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* List area scrolls inside panel when there are lots of stories */
+#screen-news .news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 2px; /* room for scrollbar */
+}
+
+/* Individual story card */
+#screen-news .news-card {
+  padding: 8px 9px;
+  border-radius: 12px;
+  background: #020617;
+  border: 1px solid rgba(55, 65, 81, 0.7);
+}
+#screen-news .news-title {
+  font-size: 13px;
+}
+
+/* Meta info: calmer, less "chip" clutter */
+#screen-news .news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 10px;
+  color: #9ca3af;
+}
+#screen-news .news-meta span {
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #9ca3af;
+}
+
+/* Footer text small and soft */
+#screen-news .news-footer {
+  margin-top: 3px;
+  font-size: 9px;
+  color: #9ca3af;
+}
+#screen-news .news-footer a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+#screen-news .news-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Albuquerque list matches others but stays simple */
+#screen-news .news-panel-abq .news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#screen-news .news-panel-abq .news-card {
+  padding: 8px 9px;
+}
+
+/* Mobile: stack panels so it's still readable, and let height be natural */
+@media (max-width: 768px) {
+  #screen-news .card.news-shell {
+    height: auto;
+    margin: 10px 8px;
+    padding: 12px 10px;
+  }
+  #screen-news .news-grid,
+  #screen-news.active .news-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+  }
+}
+
+
+/* === News true 4-quadrant viewport layout === */
+
+/* Make sure the viewport is the reference for sizing */
+html, body {
+  height: 100%;
+}
+
+/* When News is active, treat its shell as a fixed-height dashboard
+   that fits within the visible viewport. Adjust the 160px offset
+   if header/footer sizing changes. */
+#screen-news.active .card.news-shell {
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  height: calc(100vh - 160px);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grid fills the shell and splits into 4 equal quadrants */
+#screen-news.active .news-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Panels stretch to fully occupy each quadrant */
+#screen-news.active .news-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Lists scroll inside each quadrant if needed */
+#screen-news.active .news-list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* On smaller screens, allow vertical scrolling instead of forcing tiny quadrants */
+@media (max-height: 720px), (max-width: 768px) {
+  #screen-news.active .card.news-shell {
+    height: auto;
+    padding: 12px 10px;
+  }
+  #screen-news.active .news-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+
+/* === Color accents per News panel === */
+
+/* US News: cool blue accent */
+#screen-news .news-panel-us {
+  border-color: rgba(59, 130, 246, 0.7);
+  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.5);
+}
+#screen-news .news-panel-us .news-panel-header h3 {
+  color: #bfdbfe;
+}
+#screen-news .news-panel-us .tag {
+  background: rgba(37, 99, 235, 0.25);
+  color: #bfdbfe;
+}
+
+/* Southwest Airlines: warm orange accent */
+#screen-news .news-panel-sw {
+  border-color: rgba(249, 115, 22, 0.7);
+  box-shadow: 0 10px 26px rgba(194, 65, 12, 0.5);
+}
+#screen-news .news-panel-sw .news-panel-header h3 {
+  color: #fed7aa;
+}
+#screen-news .news-panel-sw .tag {
+  background: rgba(249, 115, 22, 0.25);
+  color: #fed7aa;
+}
+
+/* Hilton: royal purple accent */
+#screen-news .news-panel-hilton {
+  border-color: rgba(147, 51, 234, 0.7);
+  box-shadow: 0 10px 26px rgba(126, 34, 206, 0.5);
+}
+#screen-news .news-panel-hilton .news-panel-header h3 {
+  color: #e9d5ff;
+}
+#screen-news .news-panel-hilton .tag {
+  background: rgba(147, 51, 234, 0.25);
+  color: #e9d5ff;
+}
+
+/* Albuquerque: teal/green accent */
+#screen-news .news-panel-abq {
+  border-color: rgba(45, 212, 191, 0.7);
+  box-shadow: 0 10px 26px rgba(15, 118, 110, 0.5);
+}
+#screen-news .news-panel-abq .news-panel-header h3 {
+  color: #a5f3fc;
+}
+#screen-news .news-panel-abq .tag {
+  background: rgba(45, 212, 191, 0.25);
+  color: #a5f3fc;
+}
+
+
+/* === BRIGHTER colors + SWAPPED Hilton & Albuquerque === */
+
+/* US News: brighter blue */
+#screen-news .news-panel-us {
+  border-color: rgba(96, 165, 250, 1);
+  box-shadow: 0 0 25px rgba(96, 165, 250, 0.7);
+}
+#screen-news .news-panel-us .news-panel-header h3 {
+  color: #dbeafe;
+}
+#screen-news .news-panel-us .tag {
+  background: rgba(96, 165, 250, 0.45);
+  color: #dbeafe;
+}
+
+/* Southwest Airlines: brighter orange */
+#screen-news .news-panel-sw {
+  border-color: rgba(253, 186, 116, 1);
+  box-shadow: 0 0 25px rgba(253, 186, 116, 0.7);
+}
+#screen-news .news-panel-sw .news-panel-header h3 {
+  color: #ffedd5;
+}
+#screen-news .news-panel-sw .tag {
+  background: rgba(253, 186, 116, 0.45);
+  color: #ffedd5;
+}
+
+/* Hilton (now TEAL/GREEN) */
+#screen-news .news-panel-hilton {
+  border-color: rgba(45, 212, 191, 1);
+  box-shadow: 0 0 25px rgba(45, 212, 191, 0.7);
+}
+#screen-news .news-panel-hilton .news-panel-header h3 {
+  color: #ccfbf1;
+}
+#screen-news .news-panel-hilton .tag {
+  background: rgba(45, 212, 191, 0.45);
+  color: #ccfbf1;
+}
+
+/* Albuquerque (now PURPLE) */
+#screen-news .news-panel-abq {
+  border-color: rgba(192, 132, 252, 1);
+  box-shadow: 0 0 25px rgba(192, 132, 252, 0.7);
+}
+#screen-news .news-panel-abq .news-panel-header h3 {
+  color: #f3e8ff;
+}
+#screen-news .news-panel-abq .tag {
+  background: rgba(192, 132, 252, 0.45);
+  color: #f3e8ff;
+}
+
 </style>
 </head>
 <body>
@@ -1058,7 +1368,7 @@ section#screen-overview.active #pets-box {
       <div>
         <div class="subhead">Live headlines · auto refresh every 15 minutes</div>
         <h2 style="margin:4px 0 2px;font-size:18px;">News Desk</h2>
-        <p style="margin:0;font-size:12px;color:#9ca3af;">US, Southwest Airlines, Hilton, and Albuquerque in one place.</p>
+        <p style="margin:0;font-size:12px;color:#9ca3af;"></p>
       </div>
       <div class="news-header-meta">
         <button type="button" class="btn news-refresh" id="newsRefreshBtn">
