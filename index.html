@@ -403,12 +403,10 @@ body { text-transform: capitalize; }
   padding: 6px 8px;
   font-size: 13px;
 }
-.weather-card .box h3 {
-  font-size: 13px;
+.weather-card .box h3 { font-size:14px;
   margin-bottom: 4px;
 }
-.weather-card .total {
-  font-size: 20px;
+.weather-card .total { font-size:20px;
   font-weight: 700;
 }
 
@@ -510,8 +508,7 @@ body { text-transform: capitalize; }
     font-size:9px !important;
     text-align:center !important;
 }
-#screen-overview #tz-grid .box .total{
-    font-size:18px !important;
+#screen-overview #tz-grid .box .total{ font-size:16px !important;
     text-align:center !important;
 }
 #screen-overview #tz-grid .box .subhead{
@@ -526,12 +523,13 @@ body { text-transform: capitalize; }
   gap:12px;
   margin-top:10px;
 }
-.three-day-row .day-card{
-  background:rgba(15,23,42,.96);
+.three-day-row .day-card {
+  background: rgba(0,0,0,0);
   border-radius:12px;
   padding:10px 12px;
-  box-shadow:0 12px 30px rgba(15,23,42,.7);
+  border:1px solid transparent;
 }
+
 .three-day-row .day-card .subhead.small{
   font-size:11px;
   text-transform:uppercase;
@@ -554,9 +552,9 @@ body { text-transform: capitalize; }
   /* subtle red */
 
 
-.three-day-row .day-card:nth-child(1){background:#10263a !important;}  /* subtle teal-blue */
-.three-day-row .day-card:nth-child(2){background:#1a1230 !important;}  /* subtle violet */
-.three-day-row .day-card:nth-child(3){background:#0d2a20 !important;}  /* subtle green */
+.  /* subtle teal-blue */
+.  /* subtle violet */
+.  /* subtle green */
 
 
 /* Timezone cards: make times the focal point */
@@ -569,8 +567,7 @@ body { text-transform: capitalize; }
   text-transform:uppercase;
   color:var(--muted) !important;
 }
-#screen-overview #tz-grid .box .total{
-  font-size:26px !important;
+#screen-overview #tz-grid .box .total{ font-size:16px !important;
   font-weight:800;
   color:#ffffff !important;
   line-height:1.15;
@@ -587,7 +584,7 @@ body { text-transform: capitalize; }
   font-size:13px !important;
 }
 .three-day-row .day-card .box h3{
-  font-size:14px !important;
+  font-size:16px !important;
 }
 .three-day-row .day-card .box .total{
   font-size:22px !important;
@@ -629,11 +626,9 @@ html, body {
 .three-day-row .day-card .subhead.small {
   font-size: 11px !important;
 }
-.three-day-row .day-card .box h3 {
-  font-size: 11px !important;
+.three-day-row .day-card .box h3 { font-size:11px !important;
 }
-.three-day-row .day-card .box .total {
-  font-size: 18px !important;
+.three-day-row .day-card .box .total { font-size:16px !important;
 }
 
 
@@ -728,7 +723,13 @@ section#screen-overview.active #pets-box {
   font-size:10px;
   text-transform:uppercase;
   letter-spacing:.08em;
-  color:#9ca3af;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:2px 10px;
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.7);
+  background:rgba(15,23,42,0.95);
 }
 #screen-news .news-list{
   display:flex;
@@ -1207,17 +1208,42 @@ html, body {
   color: #f3e8ff;
 }
 
+
+.three-day-row .day-card:nth-child(1) {
+  border:1px solid rgba(34,197,94,0.8);
+  box-shadow:0 0 26px rgba(34,197,94,0.55);
+}
+.three-day-row .day-card:nth-child(2) {
+  border:1px solid rgba(234,179,8,0.8);
+  box-shadow:0 0 26px rgba(234,179,8,0.55);
+}
+.three-day-row .day-card:nth-child(3) {
+  border:1px solid rgba(239,68,68,0.85);
+  box-shadow:0 0 26px rgba(239,68,68,0.55);
+}
+
+
+#wx-hourly .box, #wx-hourly-next .box {
+  border:1px solid rgba(255,255,255,0.3);
+  box-shadow:0 0 12px rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0);
+}
+
+
+#tz-grid .box {
+  border:1px solid rgba(255,255,255,0.45) !important;
+  box-shadow:0 0 18px rgba(255,255,255,0.35) !important;
+  background: rgba(0,0,0,0.0) !important;
+}
+
 </style>
 </head>
 <body>
-
 <div class="app-shell">
 <header aria-label="App header" class="appbar">
-<button aria-label="Scroll to top" class="icon-btn" id="btnBack" title="Scroll to top" style="display:none"></button>
-<button aria-label="Copy summary" class="icon-btn" id="btnCopy" title="Copy summary" style="display:none"></button>
-
+<button aria-label="Scroll to top" class="icon-btn" id="btnBack" style="display:none" title="Scroll to top"></button>
+<button aria-label="Copy summary" class="icon-btn" id="btnCopy" style="display:none" title="Copy summary"></button>
 <h1 class="app-title" id="appTitle">Tip Calculator</h1>
-
 </header>
 <!-- HOME OVERLAY -->
 <div aria-labelledby="welcomeTitle" aria-modal="true" class="home-overlay" id="homeOverlay" role="dialog">
@@ -1253,7 +1279,6 @@ html, body {
 <!-- OVERVIEW -->
 <section aria-labelledby="tab-overview" class="active" id="screen-overview" role="tabpanel">
 <div class="card">
-
 <div class="subhead"></div>
 <div id="tz-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin-top:6px">
 <div class="box">
@@ -1289,63 +1314,72 @@ html, body {
 </div>
 </div>
 <div class="card weather-card">
-
-
 <div class="subhead" id="wx-status">Loading current conditions…</div>
 <div class="three-day-row">
-  <div class="day-card">
-    <div class="subhead small">Today</div>
-    <div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
-      <div class="box">
-        <h3>Temperature</h3>
-        <div class="total" id="wx-temp">--</div>
-      </div>
-      <div class="box">
-        <h3>Condition</h3>
-        <div class="total" id="wx-cond">--</div>
-      </div>
-      <div class="box">
-        <h3>Wind</h3>
-        <div class="total" id="wx-wind">--</div>
-      </div>
-    </div>
-  </div>
-  <div class="day-card">
-    <div class="subhead small">Tomorrow</div>
-    <div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
-      <div class="box">
-        <h3>Temperature</h3>
-        <div class="total" id="wx-tomorrow-temp">--</div>
-      </div>
-      <div class="box">
-        <h3>Condition</h3>
-        <div class="total" id="wx-tomorrow-cond">--</div>
-      </div>
-      <div class="box">
-        <h3>Wind</h3>
-        <div class="total" id="wx-tomorrow-wind">--</div>
-      </div>
-    </div>
-  </div>
-  <div class="day-card">
-    <div class="subhead small">Day After</div>
-    <div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
-      <div class="box">
-        <h3>Temperature</h3>
-        <div class="total" id="wx-dayafter-temp">--</div>
-      </div>
-      <div class="box">
-        <h3>Condition</h3>
-        <div class="total" id="wx-dayafter-cond">--</div>
-      </div>
-      <div class="box">
-        <h3>Wind</h3>
-        <div class="total" id="wx-dayafter-wind">--</div>
-      </div>
-    </div>
-  </div>
+<div class="day-card">
+<div class="subhead small">Today - Sunday, Nov 23th</div>
+<div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
+<div class="box">
+<h3>Temperature</h3>
+<div class="total" id="wx-temp">--</div>
 </div>
-
+<div class="box">
+<h3>Condition</h3>
+<div class="total" id="wx-cond">--</div>
+</div>
+<div class="box">
+<h3>Wind</h3>
+<div class="total" id="wx-wind">--</div>
+</div>
+<div class="box">
+<h3>Sunrise / Sunset</h3>
+<div class="total" id="wx-sun-today">-- / --</div>
+</div>
+</div>
+</div>
+<div class="day-card">
+<div class="subhead small">Tomorrow - Monday, Nov 24th</div>
+<div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
+<div class="box">
+<h3>Temperature</h3>
+<div class="total" id="wx-tomorrow-temp">--</div>
+</div>
+<div class="box">
+<h3>Condition</h3>
+<div class="total" id="wx-tomorrow-cond">--</div>
+</div>
+<div class="box">
+<h3>Wind</h3>
+<div class="total" id="wx-tomorrow-wind">--</div>
+</div>
+<div class="box">
+<h3>Sunrise / Sunset</h3>
+<div class="total" id="wx-sun-tomorrow">-- / --</div>
+</div>
+</div>
+</div>
+<div class="day-card">
+<div class="subhead small">Day After - Tuesday, Nov 25th</div>
+<div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
+<div class="box">
+<h3>Temperature</h3>
+<div class="total" id="wx-dayafter-temp">--</div>
+</div>
+<div class="box">
+<h3>Condition</h3>
+<div class="total" id="wx-dayafter-cond">--</div>
+</div>
+<div class="box">
+<h3>Wind</h3>
+<div class="total" id="wx-dayafter-wind">--</div>
+</div>
+<div class="box">
+<h3>Sunrise / Sunset</h3>
+<div class="total" id="wx-sun-dayafter">-- / --</div>
+</div>
+</div>
+</div>
+</div>
 <div class="subhead" style="margin-top:10px">Next 8 Hours</div>
 <div id="wx-hourly" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px;overflow-x:visible;padding-bottom:4px;margin-top:6px">
 <!-- Hourly forecast cards injected by JS -->
@@ -1354,7 +1388,6 @@ html, body {
 <div id="wx-hourly-next" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px;overflow-x:visible;padding-bottom:4px;margin-top:6px">
 <!-- Next 8 hours after the first block -->
 </div>
-
 <div class="box" id="pets-box" style="margin-top:6px">
 <h3 id="pets-label">Pets status</h3>
 <div class="total" id="pets-text"></div>
@@ -1363,65 +1396,54 @@ html, body {
 </section>
 <!-- NEWS -->
 <section aria-labelledby="tab-news" id="screen-news" role="tabpanel">
-  <div class="card news-shell">
-    <div class="news-header">
-      <div>
-        <div class="subhead">Live headlines · auto refresh every 15 minutes</div>
-        <h2 style="margin:4px 0 2px;font-size:18px;">News Desk</h2>
-        <p style="margin:0;font-size:12px;color:#9ca3af;"></p>
-      </div>
-      <div class="news-header-meta">
-        <button type="button" class="btn news-refresh" id="newsRefreshBtn">
-          <span>Refresh Now</span>
-        </button>
-        <span class="pill pill-small">Updated: <span id="newsLastUpdated">--</span></span>
-      </div>
-    </div>
-
-    <div class="news-grid">
-      <section class="news-panel news-panel-us" aria-label="US news">
-        <div class="news-panel-header">
-          <h3>US News</h3>
-          <span class="tag">Top stories</span>
-        </div>
-        <div id="news-us-list" class="news-list"></div>
-        <div id="news-us-empty" class="news-empty" hidden>No US headlines right now.</div>
-      </section>
-
-      <section class="news-panel news-panel-sw" aria-label="Southwest Airlines news">
-        <div class="news-panel-header">
-          <h3>Southwest Airlines</h3>
-          <span class="tag">Brand & operations</span>
-        </div>
-        <div id="news-sw-list" class="news-list"></div>
-        <div id="news-sw-empty" class="news-empty" hidden>No Southwest stories found.</div>
-      </section>
-
-      <section class="news-panel news-panel-hilton" aria-label="Hilton news">
-        <div class="news-panel-header">
-          <h3>Hilton</h3>
-          <span class="tag">Hospitality</span>
-        </div>
-        <div id="news-hilton-list" class="news-list"></div>
-        <div id="news-hilton-empty" class="news-empty" hidden>No Hilton stories found.</div>
-      </section>
-
-      <section class="news-panel news-panel-abq" aria-label="Albuquerque news">
-        <div class="news-panel-header">
-          <h3>Albuquerque</h3>
-          <span class="tag">Local</span>
-        </div>
-        <div id="news-abq-list" class="news-list"></div>
-        <div id="news-abq-empty" class="news-empty" hidden>No Albuquerque stories found.</div>
-      </section>
-    </div>
-  </div>
+<div class="card news-shell">
+<div class="news-header">
+<div>
+<div class="subhead">Live headlines · auto refresh every 15 minutes</div>
+<h2 style="margin:4px 0 2px;font-size:18px;">News Desk</h2>
+<p style="margin:0;font-size:12px;color:#9ca3af;"></p>
+</div>
+<div class="news-header-meta">
+<button class="btn news-refresh" id="newsRefreshBtn" type="button">
+<span>Refresh Now</span>
+</button>
+<span class="pill pill-small">Updated: <span id="newsLastUpdated">--</span></span>
+</div>
+</div>
+<div class="news-grid"><section aria-label="US news" class="news-panel news-panel-us">
+<div class="news-panel-header">
+<h3>US News</h3>
+<span class="tag">Top stories</span>
+</div>
+<div class="news-list" id="news-us-list"></div>
+<div class="news-empty" hidden="" id="news-us-empty">No US headlines right now.</div>
+</section><section aria-label="Albuquerque news" class="news-panel news-panel-abq">
+<div class="news-panel-header">
+<h3>Albuquerque</h3>
+<span class="tag">Local</span>
+</div>
+<div class="news-list" id="news-abq-list"></div>
+<div class="news-empty" hidden="" id="news-abq-empty">No Albuquerque stories found.</div>
+</section><section aria-label="Hilton news" class="news-panel news-panel-hilton">
+<div class="news-panel-header">
+<h3>Hilton</h3>
+<span class="tag">Hospitality</span>
+</div>
+<div class="news-list" id="news-hilton-list"></div>
+<div class="news-empty" hidden="" id="news-hilton-empty">No Hilton stories found.</div>
+</section><section aria-label="Southwest Airlines news" class="news-panel news-panel-sw">
+<div class="news-panel-header">
+<h3>Southwest Airlines</h3>
+<span class="tag">Airline</span>
+</div>
+<div class="news-list" id="news-sw-list"></div>
+<div class="news-empty" hidden="" id="news-sw-empty">No Southwest stories found.</div>
+</section></div>
+</div>
 </section>
 <!-- TIP -->
-
 <section aria-labelledby="tab-tip" id="screen-tip" role="tabpanel">
 <div class="card">
-
 <div class="subhead">Bill amount pre tax</div>
 <div class="input"><span class="prefix">$</span><input autocomplete="off" id="bill" inputmode="decimal" placeholder="0.00"/></div>
 <div class="subhead">Preset percentage</div>
@@ -1447,7 +1469,6 @@ html, body {
 <!-- SALARY -->
 <section aria-labelledby="tab-salary" id="screen-salary" role="tabpanel">
 <div class="card">
-
 <div class="grid three">
 <div>
 <div class="subhead">Hourly rate</div>
@@ -1468,7 +1489,6 @@ html, body {
 <!-- PAYCHECK -->
 <section aria-labelledby="tab-pay" id="screen-pay" role="tabpanel">
 <div class="card">
-
 <div class="grid two">
 <div>
 <div class="subhead">Hourly rate</div>
@@ -1530,7 +1550,6 @@ html, body {
 <!-- TIME -->
 <section aria-labelledby="tab-time" id="screen-time" role="tabpanel">
 <div class="card">
-
 <div class="grid two">
 <div>
 <div class="subhead">Your Airport (default ABQ)</div>
@@ -1558,7 +1577,6 @@ html, body {
 <!-- SW POINTS -->
 <section aria-labelledby="tab-sw" id="screen-sw" role="tabpanel">
 <div class="card">
-
 <div class="subhead">How do you want to enter price?</div>
 <div aria-label="Price entry mode" class="mode" role="tablist">
 <button aria-selected="true" class="active" id="sw-mode-base" role="tab">I know the base fare</button>
@@ -1630,7 +1648,6 @@ html, body {
 </div>
 <!-- Converter -->
 <div class="card">
-
 <div class="grid two">
 <div>
 <div class="subhead">Points to redeem</div>
@@ -1669,8 +1686,8 @@ html, body {
 </button>
 <button class="tab" data-screen="news" id="tab-news">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
-  <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-  <path d="M7 8h7M7 11h10M7 14h10"></path>
+<rect height="16" rx="2" width="18" x="3" y="4"></rect>
+<path d="M7 8h7M7 11h10M7 14h10"></path>
 </svg>
 <span>News</span>
 </button>
@@ -2009,6 +2026,9 @@ html, body {
     const wxDayAfterTempEl = $('#wx-dayafter-temp');
     const wxDayAfterCondEl = $('#wx-dayafter-cond');
     const wxDayAfterWindEl = $('#wx-dayafter-wind');
+    const wxSunTodayEl = $('#wx-sun-today');
+    const wxSunTomorrowEl = $('#wx-sun-tomorrow');
+    const wxSunDayAfterEl = $('#wx-sun-dayafter');
 
     function cToF(c) {
       return (c * 9/5) + 32;
@@ -2060,7 +2080,7 @@ html, body {
 
       const LAT = 35.0844;
       const LON = -106.6504;
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&hourly=temperature_2m,weather_code,wind_speed_10m&forecast_days=3&timezone=America%2FDenver`;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&hourly=temperature_2m,weather_code,wind_speed_10m&daily=sunrise,sunset&forecast_days=3&timezone=America%2FDenver`;
 
       try {
         wxStatusEl.textContent = 'Loading current conditions…';
@@ -2081,6 +2101,29 @@ html, body {
           wxStatusEl.textContent = '';
         } else {
           wxStatusEl.textContent = 'Current conditions unavailable.';
+        }
+
+        // Sunrise / sunset today, tomorrow, day after
+        if (data.daily && Array.isArray(data.daily.sunrise) && Array.isArray(data.daily.sunset)) {
+          const sr = data.daily.sunrise;
+          const ss = data.daily.sunset;
+          const fmt = new Intl.DateTimeFormat('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+            timeZone: 'America/Denver'
+          });
+
+          const formatPair = (idx) => {
+            if (!sr[idx] || !ss[idx]) return '-- / --';
+            const srd = new Date(sr[idx]);
+            const ssd = new Date(ss[idx]);
+            return `${fmt.format(srd)} / ${fmt.format(ssd)}`;
+          };
+
+          if (wxSunTodayEl) wxSunTodayEl.textContent = formatPair(0);
+          if (wxSunTomorrowEl) wxSunTomorrowEl.textContent = formatPair(1);
+          if (wxSunDayAfterEl) wxSunDayAfterEl.textContent = formatPair(2);
         }
 
         // Simple tomorrow daytime snapshot (around 3 PM local if available)
@@ -2478,10 +2521,23 @@ async function loadParnasStoriesViaRss() {
   </script>
 <script>
 // ===== Dedicated News screen (US, Southwest, Hilton, Albuquerque) =====
+function parseNewsDate(dateStr){
+  if(!dateStr) return null;
+  // rss2json / Google News often returns e.g. "2025-11-23 16:36:00" in GMT with no timezone.
+  // If there is no explicit timezone but it matches that pattern, treat it as UTC.
+  const hasTZ = /[zZ]|[+\-]\d{2}:?\d{2}/.test(dateStr);
+  if(!hasTZ && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}/.test(dateStr)){
+    return new Date(dateStr.replace(' ', 'T') + 'Z');
+  }
+  const d = new Date(dateStr);
+  if(isNaN(d.getTime())) return null;
+  return d;
+}
+
 function formatNewsStamp(dateStr){
   if(!dateStr) return '';
-  const d = new Date(dateStr);
-  if(isNaN(d.getTime())) return '';
+  const d = parseNewsDate(dateStr);
+  if(!d || isNaN(d.getTime())) return '';
   const now = new Date();
   const diff = (now - d) / 1000;
   if(diff < 60) return 'Just now';
@@ -2550,8 +2606,10 @@ async function fetchRssNews(feedUrl){
     // Sort by published date (newest first) and keep up to 8 items
     let items = (data.items || []).slice();
     items.sort((a, b) => {
-      const da = new Date(a.pubDate || a.pubdate || a.published || 0).getTime();
-      const db = new Date(b.pubDate || b.pubdate || b.published || 0).getTime();
+      const daDate = parseNewsDate(a.pubDate || a.pubdate || a.published || '');
+      const dbDate = parseNewsDate(b.pubDate || b.pubdate || b.published || '');
+      const da = daDate ? daDate.getTime() : 0;
+      const db = dbDate ? dbDate.getTime() : 0;
       return db - da;
     });
     items = items.slice(0, 8);
