@@ -604,15 +604,46 @@ html, body {
 }
 
 
-/* Floating Pet Comfort bubble */
+/* Pets bubble: small, round, under "Following 8 Hours" */
 #pets-box {
-  position: fixed !important;
-  bottom: 20px !important;
-  left: 20px !important;
-  z-index: 9999 !important;
-  width: 240px !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
-  border-radius: 16px !important;
+  position: relative !important;
+  margin: 8px 0 0 0 !important;
+  padding: 4px 10px !important;
+  width: fit-content !important;
+  max-width: none !important;
+  border-radius: 999px !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.30) !important;
+  text-align: left !important;
+  font-size: 12px !important;
+}
+
+/* Custom hover tooltip for Pets bubble */
+#pets-box::after {
+  content: "Pets Go Out when most temps from 11 AM–7 PM are 52°F or warmer. Pets Stay In when they are mostly colder.";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 6px;
+  padding: 10px 14px;
+  width: 360px;
+  max-width: 360px;
+  border-radius: 10px;
+  background: rgba(15,23,42,0.98);
+  border: 1px solid rgba(148,163,184,0.8);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.85);
+  font-size: 11px;
+  line-height: 1.35;
+  color: #e5e7eb;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.16s ease-out, transform 0.16s ease-out;
+  z-index: 50;
+}
+
+#pets-box:hover::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 
@@ -634,16 +665,127 @@ html, body {
 
 /* Show Pets bubble only on Overview tab */
 #pets-box {
-  display: none !important;
+  position: relative !important;
+  margin: 8px 0 0 0 !important;
+  padding: 4px 10px !important;
+  width: fit-content !important;
+  max-width: none !important;
+  border-radius: 999px !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.30) !important;
+  text-align: left !important;
+  font-size: 12px !important;
+}
+
+/* Custom hover tooltip for Pets bubble */
+#pets-box::after {
+  content: "Pets Go Out when most temps from 11 AM–7 PM are 52°F or warmer. Pets Stay In when they are mostly colder.";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 6px;
+  padding: 10px 14px;
+  width: 360px;
+  max-width: 360px;
+  border-radius: 10px;
+  background: rgba(15,23,42,0.98);
+  border: 1px solid rgba(148,163,184,0.8);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.85);
+  font-size: 11px;
+  line-height: 1.35;
+  color: #e5e7eb;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.16s ease-out, transform 0.16s ease-out;
+  z-index: 50;
+}
+
+#pets-box:hover::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 section#screen-overview.active #pets-box {
-  display: block !important;
+  position: relative !important;
+  margin: 8px 0 0 0 !important;
+  padding: 4px 10px !important;
+  width: fit-content !important;
+  max-width: none !important;
+  border-radius: 999px !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.30) !important;
+  text-align: left !important;
+  font-size: 12px !important;
+}
+
+/* Custom hover tooltip for Pets bubble */
+#pets-box::after {
+  content: "Pets Go Out when most temps from 11 AM–7 PM are 52°F or warmer. Pets Stay In when they are mostly colder.";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 6px;
+  padding: 10px 14px;
+  width: 360px;
+  max-width: 360px;
+  border-radius: 10px;
+  background: rgba(15,23,42,0.98);
+  border: 1px solid rgba(148,163,184,0.8);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.85);
+  font-size: 11px;
+  line-height: 1.35;
+  color: #e5e7eb;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.16s ease-out, transform 0.16s ease-out;
+  z-index: 50;
+}
+
+#pets-box:hover::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 
 /* Hide Pets bubble when Enter screen (home overlay) is visible */
 #homeOverlay:not(.hide) ~ .content #pets-box {
-    display: none !important;
+  position: relative !important;
+  margin: 8px 0 0 0 !important;
+  padding: 4px 10px !important;
+  width: fit-content !important;
+  max-width: none !important;
+  border-radius: 999px !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.30) !important;
+  text-align: left !important;
+  font-size: 12px !important;
+}
+
+/* Custom hover tooltip for Pets bubble */
+#pets-box::after {
+  content: "Pets Go Out when most temps from 11 AM–7 PM are 52°F or warmer. Pets Stay In when they are mostly colder.";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 6px;
+  padding: 10px 14px;
+  width: 360px;
+  max-width: 360px;
+  border-radius: 10px;
+  background: rgba(15,23,42,0.98);
+  border: 1px solid rgba(148,163,184,0.8);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.85);
+  font-size: 11px;
+  line-height: 1.35;
+  color: #e5e7eb;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.16s ease-out, transform 0.16s ease-out;
+  z-index: 50;
+}
+
+#pets-box:hover::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 
@@ -1293,7 +1435,7 @@ html, body {
 </div>
 <div class="box">
 <h3 style="color: orange">Mountain (MT)</h3>
-<div class="total" id="tz-mountain">--:--</div>
+<div class="total" id="tz-mountain" style="text-shadow: 0 0 12px yellow; color: yellow;">--:--</div>
 <div class="subhead" id="tz-mountain-date" style="color:#d8c75a">--/--</div>
 </div>
 <div class="box">
@@ -1317,7 +1459,7 @@ html, body {
 <div class="subhead" id="wx-status">Loading current conditions…</div>
 <div class="three-day-row">
 <div class="day-card">
-<div class="subhead small">Today - Sunday, Nov 23th</div>
+<div class="subhead small" id="wx-label-today">Today</div>
 <div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
 <div class="box">
 <h3>Temperature</h3>
@@ -1338,7 +1480,7 @@ html, body {
 </div>
 </div>
 <div class="day-card">
-<div class="subhead small">Tomorrow - Monday, Nov 24th</div>
+<div class="subhead small" id="wx-label-tomorrow">Tomorrow</div>
 <div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
 <div class="box">
 <h3>Temperature</h3>
@@ -1359,7 +1501,7 @@ html, body {
 </div>
 </div>
 <div class="day-card">
-<div class="subhead small">Day After - Tuesday, Nov 25th</div>
+<div class="subhead small" id="wx-label-dayafter">Day After</div>
 <div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
 <div class="box">
 <h3>Temperature</h3>
@@ -2327,7 +2469,7 @@ html, body {
               totalSlots++;
               if (tempF < 52) {
                 coldSlots++;
-              } else if (tempF >= 53) {
+              } else if (tempF >= 52) {
                 warmSlots++;
               }
             }
@@ -2344,7 +2486,7 @@ html, body {
             } else if (warmSlots > coldSlots) {
               petsBox.classList.remove('pets-in');
               petsBox.classList.add('pets-ok');
-              petsLabel.textContent = 'Pets OK Out';
+              petsLabel.textContent = 'Pets Go Out';
               petsText.textContent = '53°F or warmer for most of 11 AM – 7 PM.';
             } else {
               // Tie or mixed – be cautious
@@ -2803,5 +2945,34 @@ document.addEventListener("DOMContentLoaded", loadBrandNewsSection);
 
 document.addEventListener("DOMContentLoaded", initNewsScreen);
   </script>
+
+<script>
+(function() {
+  try {
+    const todayEl = document.getElementById('wx-label-today');
+    const tomorrowEl = document.getElementById('wx-label-tomorrow');
+    const dayAfterEl = document.getElementById('wx-label-dayafter');
+    if (!todayEl || !tomorrowEl || !dayAfterEl) return;
+
+    function ordinal(n){ return parseInt(n,10); }
+
+    function makeLabel(prefix, offsetDays) {
+      const d = new Date();
+      d.setDate(d.getDate() + offsetDays);
+      const weekday = d.toLocaleDateString(undefined, { weekday: 'long' });
+      const month = d.toLocaleDateString(undefined, { month: 'short' });
+      const dayNum = d.toLocaleDateString(undefined, { day: 'numeric' });
+      return prefix + ' - ' + weekday + ', ' + month + ' ' + dayNum;
+    }
+
+    todayEl.innerHTML = '<strong>' + makeLabel('Today', 0) + '</strong>';
+    tomorrowEl.innerHTML = '<strong>' + makeLabel('Tomorrow', 1) + '</strong>';
+    dayAfterEl.innerHTML = '<strong>' + makeLabel('Day After', 2) + '</strong>';
+  } catch (e) {
+    console && console.error && console.error('wx label error', e);
+  }
+})();
+</script>
+
 </body>
 </html>
