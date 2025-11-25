@@ -1381,6 +1381,227 @@ html, body {
 </style>
 </head>
 <body>
+
+<!-- Multi‑Station Slim Radio Bar (Right-Aligned) -->
+<div id="island-radio-bar" style="
+  width:100%;
+  height:46px;
+  background:linear-gradient(to right, #020617, #0b1120, #111827);
+  border-bottom:1px solid rgba(148,163,184,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:0 14px;
+  box-sizing:border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  color:#e5e7eb;
+  font-size:12px;
+  letter-spacing:.04em;
+  z-index:9999;
+  position:relative;
+  gap:12px;
+">
+  <div id="radio-info" style="
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:2px;
+    text-align:right;
+    white-space:nowrap;
+  ">
+    <span id="radioName" style="font-size:11px; text-transform:uppercase; opacity:.9;">
+      Island 98.9 · KITH-FM
+    </span>
+    <span id="radioSubtitle" style="font-size:10px; color:#a5f3fc; opacity:.9;">
+      Reggae · Hawai‘i · Live
+    </span>
+  </div>
+
+  <div style="
+    display:flex;
+    align-items:center;
+    gap:6px;
+  ">
+    <button id="radioPrevBtn" type="button" title="Previous station" style="
+      width:26px;
+      height:26px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      background:rgba(15,23,42,0.9);
+      color:#e5e7eb;
+      font-size:12px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    ">
+      ‹
+    </button>
+
+    <button id="radioPlayBtn" type="button" style="
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      background:rgba(15,23,42,0.95);
+      color:#e5e7eb;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      cursor:pointer;
+      box-shadow:0 0 10px rgba(15,23,42,0.9);
+    ">
+      <span id="radioPlayIcon">▶</span>
+      <span id="radioPlayLabel">Play</span>
+    </button>
+
+    <button id="radioNextBtn" type="button" title="Next station" style="
+      width:26px;
+      height:26px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      background:rgba(15,23,42,0.9);
+      color:#e5e7eb;
+      font-size:12px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    ">
+      ›
+    </button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // You can customize this list with any other stream URLs you like.
+  const stations = [
+    {
+      name: 'Island 98.9 · KITH-FM',
+      subtitle: 'Reggae · Hawai‘i · Live',
+      url: 'https://streaming.live365.com/a53788'
+    },
+    {
+      name: 'Reggae Roots Radio',
+      subtitle: 'Roots · Reggae · Live',
+      url: 'https://streaming.live365.com/a38681'
+    },
+    {
+      name: 'Hawaiian Rainbow',
+      subtitle: 'Traditional Hawaiian · Live',
+      url: 'https://fwd.autopo.st/hawaiianrainbow'
+    },
+    {
+      name: 'Island 98.5',
+      subtitle: 'Hawaiian Contemporary · Live',
+      url: 'https://stream.revma.ihrhls.com/zc821/hls.m3u8'
+    },
+    {
+      name: 'Hawaiian 105 KINE HD2',
+      subtitle: 'Hawaiian Contemporary · iHeart Live',
+      url: 'https://stream.rcs.revma.com/vfa2fzr1t7uvv/15_1hxu2efit755802/playlist.m3u8'
+    }
+];
+
+  let currentIndex = 0;
+  const audio = new Audio();
+  audio.preload = 'none';
+
+  const playBtn = document.getElementById('radioPlayBtn');
+  const playIcon = document.getElementById('radioPlayIcon');
+  const playLabel = document.getElementById('radioPlayLabel');
+  const prevBtn = document.getElementById('radioPrevBtn');
+  const nextBtn = document.getElementById('radioNextBtn');
+  const nameEl = document.getElementById('radioName');
+  const subEl = document.getElementById('radioSubtitle');
+
+  if (!playBtn || !prevBtn || !nextBtn || !nameEl || !subEl) return;
+
+  let isPlaying = false;
+
+  function updateStationDisplay() {
+    const s = stations[currentIndex];
+    nameEl.textContent = s.name;
+    subEl.textContent = s.subtitle;
+  }
+
+  function setPlayingUI(on) {
+    isPlaying = on;
+    if (on) {
+      playIcon.textContent = '🔊';
+      playLabel.textContent = 'Mute';
+      playBtn.style.borderColor = 'rgba(34,197,94,0.9)';
+      playBtn.style.boxShadow = '0 0 12px rgba(34,197,94,0.7)';
+    } else {
+      playIcon.textContent = '▶';
+      playLabel.textContent = 'Play';
+      playBtn.style.borderColor = 'rgba(148,163,184,0.7)';
+      playBtn.style.boxShadow = '0 0 10px rgba(15,23,42,0.9)';
+    }
+  }
+
+  function loadStation(newIndex, autoplay) {
+    currentIndex = (newIndex + stations.length) % stations.length;
+    const s = stations[currentIndex];
+    updateStationDisplay();
+    audio.src = s.url || '';
+    if (autoplay && s.url) {
+      audio.play().then(function () {
+        setPlayingUI(true);
+      }).catch(function (e) {
+        console.error('Audio play error:', e);
+        setPlayingUI(false);
+      });
+    } else {
+      setPlayingUI(false);
+    }
+  }
+
+  playBtn.addEventListener('click', function () {
+    const s = stations[currentIndex];
+    if (!isPlaying) {
+      if (!audio.src) {
+        loadStation(currentIndex, true);
+      } else {
+        audio.play().then(function () {
+          setPlayingUI(true);
+        }).catch(function (e) {
+          console.error('Audio play error:', e);
+          setPlayingUI(false);
+        });
+      }
+    } else {
+      audio.pause();
+      setPlayingUI(false);
+    }
+  });
+
+  prevBtn.addEventListener('click', function () {
+    loadStation(currentIndex - 1, isPlaying);
+  });
+
+  nextBtn.addEventListener('click', function () {
+    loadStation(currentIndex + 1, isPlaying);
+  });
+
+  audio.addEventListener('ended', function () {
+    setPlayingUI(false);
+  });
+
+  audio.addEventListener('error', function (e) {
+    console.error('Audio error:', e);
+    setPlayingUI(false);
+  });
+
+  // Initialize display with first station
+  updateStationDisplay();
+});
+</script>
+
 <div class="app-shell">
 <header aria-label="App header" class="appbar">
 <button aria-label="Scroll to top" class="icon-btn" id="btnBack" style="display:none" title="Scroll to top"></button>
