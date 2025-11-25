@@ -1551,7 +1551,7 @@ document.addEventListener('DOMContentLoaded', function () {
   {
     name: 'Hawaiian Rainbow',
     subtitle: 'Traditional Hawaiian Hula · Live',
-    url: 'https://fwd.autopo.st/hawaiianrainbow'
+    url: 'http://178.159.3.22:8307/stream/;stream.mp3'
   }
 ];
 
@@ -1609,26 +1609,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  playBtn.addEventListener('click', function () {
-    const s = stations[currentIndex];
-    if (!isPlaying) {
-      if (!audio.src) {
-        loadStation(currentIndex, true);
-      } else {
-        audio.play().then(function () {
-          setPlayingUI(true);
-        }).catch(function (e) {
-          console.error('Audio play error:', e);
-          setPlayingUI(false);
-        });
-      }
+    playBtn.addEventListener('click', function () {
+  const s = stations[currentIndex];
+  if (!isPlaying) {
+    if (!audio.src) {
+      loadStation(currentIndex, true);
     } else {
-      audio.pause();
-      setPlayingUI(false);
+      audio.play().then(function () {
+        setPlayingUI(true);
+      }).catch(function (e) {
+        console.error('Audio play error:', e);
+        setPlayingUI(false);
+      });
     }
-  });
+  } else {
+    audio.pause();
+    setPlayingUI(false);
+  }
+});
 
-  prevBtn.addEventListener('click', function () {
+prevBtn.addEventListener('click', function () {
     loadStation(currentIndex - 1, isPlaying);
   });
 
