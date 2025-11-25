@@ -1378,10 +1378,47 @@ html, body {
   background: rgba(0,0,0,0.0) !important;
 }
 
+
+/* ==== Always-visible radio bar + mobile tweaks ==== */
+:root {
+  --radio-height: 46px;
+}
+
+#island-radio-bar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--radio-height);
+  padding-top: calc(env(safe-area-inset-top, 0px) / 2);
+  z-index: 11000;
+}
+
+.app-shell {
+  padding-top: var(--radio-height);
+  height: calc(100dvh - var(--radio-height));
+}
+
+@media (max-width: 480px) {
+  #island-radio-bar {
+    font-size: 11px;
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  #island-radio-bar button {
+    min-width: 32px;
+    min-height: 32px;
+    font-size: 12px;
+  }
+
+  #radio-info span {
+    font-size: 10px;
+  }
+}
 </style>
 </head>
 <body>
-
 <!-- Multi‑Station Slim Radio Bar (Right-Aligned) -->
 <div id="island-radio-bar" style="
   width:100%;
@@ -1401,7 +1438,7 @@ html, body {
   position:relative;
   gap:12px;
 ">
-  <div id="radio-info" style="
+<div id="radio-info" style="
     display:flex;
     flex-direction:column;
     align-items:flex-end;
@@ -1409,20 +1446,19 @@ html, body {
     text-align:right;
     white-space:nowrap;
   ">
-    <span id="radioName" style="font-size:11px; text-transform:uppercase; opacity:.9;">
+<span id="radioName" style="font-size:11px; text-transform:uppercase; opacity:.9;">
       Island 98.9 · KITH-FM
     </span>
-    <span id="radioSubtitle" style="font-size:10px; color:#a5f3fc; opacity:.9;">
+<span id="radioSubtitle" style="font-size:10px; color:#a5f3fc; opacity:.9;">
       Reggae · Hawai‘i · Live
     </span>
-  </div>
-
-  <div style="
+</div>
+<div style="
     display:flex;
     align-items:center;
     gap:6px;
   ">
-    <button id="radioPrevBtn" type="button" title="Previous station" style="
+<button id="radioPrevBtn" style="
       width:26px;
       height:26px;
       border-radius:999px;
@@ -1434,11 +1470,10 @@ html, body {
       display:flex;
       align-items:center;
       justify-content:center;
-    ">
+    " title="Previous station" type="button">
       ‹
     </button>
-
-    <button id="radioPlayBtn" type="button" style="
+<button id="radioPlayBtn" style="
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -1453,12 +1488,11 @@ html, body {
       letter-spacing:.12em;
       cursor:pointer;
       box-shadow:0 0 10px rgba(15,23,42,0.9);
-    ">
-      <span id="radioPlayIcon">▶</span>
-      <span id="radioPlayLabel">Play</span>
-    </button>
-
-    <button id="radioNextBtn" type="button" title="Next station" style="
+    " type="button">
+<span id="radioPlayIcon">▶</span>
+<span id="radioPlayLabel">Play</span>
+</button>
+<button id="radioNextBtn" style="
       width:26px;
       height:26px;
       border-radius:999px;
@@ -1470,41 +1504,40 @@ html, body {
       display:flex;
       align-items:center;
       justify-content:center;
-    ">
+    " title="Next station" type="button">
       ›
     </button>
-  </div>
 </div>
-
+</div>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   // You can customize this list with any other stream URLs you like.
   const stations = [
-    {
-      name: 'Island 98.9 · KITH-FM',
-      subtitle: 'Reggae · Hawai‘i · Live',
-      url: 'https://streaming.live365.com/a53788'
-    },
-    {
-      name: 'Reggae Roots Radio',
-      subtitle: 'Roots · Reggae · Live',
-      url: 'https://streaming.live365.com/a38681'
-    },
-    {
-      name: 'Hawaiian Rainbow',
-      subtitle: 'Traditional Hawaiian · Live',
-      url: 'https://fwd.autopo.st/hawaiianrainbow'
-    },
-    {
-      name: 'Island 98.5',
-      subtitle: 'Hawaiian Contemporary · Live',
-      url: 'https://stream.revma.ihrhls.com/zc821/hls.m3u8'
-    },
-    {
-      name: 'Hawaiian 105 KINE HD2',
-      subtitle: 'Hawaiian Contemporary · iHeart Live',
-      url: 'https://stream.rcs.revma.com/vfa2fzr1t7uvv/15_1hxu2efit755802/playlist.m3u8'
-    }
+  {
+    name: 'Island 98.9',
+    subtitle: 'Reggae · Hawai‘i · Live',
+    url: 'https://streaming.live365.com/a53788'
+  },
+  {
+    name: 'Island 98.5',
+    subtitle: 'Hawaiian Contemporary · Live',
+    url: 'https://stream.revma.ihrhls.com/zc821/hls.m3u8'
+  },
+  {
+    name: 'Hawaiian 105 KINE',
+    subtitle: 'Hawaiian Contemporary · iHeart Live',
+    url: 'https://stream.rcs.revma.com/vfa2fzr1t7uvv/15_1hxu2efit755802/playlist.m3u8'
+  },
+  {
+    name: 'Reggae Roots Radio',
+    subtitle: 'Roots · Reggae · Live',
+    url: 'https://streaming.live365.com/a38681'
+  },
+  {
+    name: 'Hawaiian Rainbow',
+    subtitle: 'Traditional Hawaiian Hula · Live',
+    url: 'https://fwd.autopo.st/hawaiianrainbow'
+  }
 ];
 
   let currentIndex = 0;
@@ -1601,7 +1634,6 @@ document.addEventListener('DOMContentLoaded', function () {
   updateStationDisplay();
 });
 </script>
-
 <div class="app-shell">
 <header aria-label="App header" class="appbar">
 <button aria-label="Scroll to top" class="icon-btn" id="btnBack" style="display:none" title="Scroll to top"></button>
@@ -3166,7 +3198,6 @@ document.addEventListener("DOMContentLoaded", loadBrandNewsSection);
 
 document.addEventListener("DOMContentLoaded", initNewsScreen);
   </script>
-
 <script>
 (function() {
   try {
@@ -3194,6 +3225,5 @@ document.addEventListener("DOMContentLoaded", initNewsScreen);
   }
 })();
 </script>
-
 </body>
 </html>
