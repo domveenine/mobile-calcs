@@ -1468,6 +1468,15 @@ html, body {
       Reggae · Hawai‘i · Live
     </span>
 </div>
+<div id="radio-volume-wrap" style="
+    display:flex;
+    align-items:center;
+    gap:4px;
+    margin-left:8px;
+  ">
+  <span style="font-size:10px;opacity:.7;">VOL</span>
+  <input id="radioVolume" type="range" min="0" max="150" value="75" style="width:72px;cursor:pointer;">
+</div>
 <div style="
     display:flex;
     align-items:center;
@@ -1557,7 +1566,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let currentIndex = 0;
   const audio = new Audio();
+  audio.crossOrigin = "anonymous";
   audio.preload = 'none';
+
+  let audioCtx = null;
+  let gainNode = null;
+  let sourceNode = null;
+  let currentVolume = 0.75; // default 75%
+
 
   const playBtn = document.getElementById('radioPlayBtn');
   const playIcon = document.getElementById('radioPlayIcon');
@@ -1566,10 +1582,54 @@ document.addEventListener('DOMContentLoaded', function () {
   const nextBtn = document.getElementById('radioNextBtn');
   const nameEl = document.getElementById('radioName');
   const subEl = document.getElementById('radioSubtitle');
+  const volumeSlider = document.getElementById('radioVolume');
 
   if (!playBtn || !prevBtn || !nextBtn || !nameEl || !subEl) return;
 
   let isPlaying = false;
+
+  function ensureAudioGraph() {
+    if (!audioCtx) {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (Ctx) {
+        audioCtx = new Ctx();
+        gainNode = audioCtx.createGain();
+        gainNode.gain.value = currentVolume;
+        try {
+          sourceNode = audioCtx.createMediaElementSource(audio);
+          sourceNode.connect(gainNode).connect(audioCtx.destination);
+        } catch (err) {
+          console.error('Audio graph error:', err);
+          gainNode = null;
+          sourceNode = null;
+        }
+      } else {
+        // Fallback: no Web Audio, use element volume up to 1.0
+        gainNode = null;
+      }
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(function(e){ console.error('AudioContext resume error:', e); });
+    }
+  }
+
+  if (volumeSlider) {
+    // Initialize slider to default 75%
+    volumeSlider.value = 75;
+    const applyVolume = function () {
+      const raw = Number(volumeSlider.value) || 0;
+      const gainValue = raw / 100; // 0.0 -> 1.25
+      currentVolume = gainValue;
+      if (gainNode) {
+        gainNode.gain.value = gainValue;
+      } else {
+        // Fallback for browsers without Web Audio: clamp to 1.0
+        audio.volume = Math.max(0, Math.min(1, gainValue));
+      }
+    };
+    volumeSlider.addEventListener('input', applyVolume);
+    applyVolume();
+  }
 
   function updateStationDisplay() {
     const s = stations[currentIndex];
@@ -1598,6 +1658,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateStationDisplay();
     audio.src = s.url || '';
     if (autoplay && s.url) {
+      ensureAudioGraph();
       audio.play().then(function () {
         setPlayingUI(true);
       }).catch(function (e) {
@@ -1615,6 +1676,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!audio.src) {
       loadStation(currentIndex, true);
     } else {
+      ensureAudioGraph();
       audio.play().then(function () {
         setPlayingUI(true);
       }).catch(function (e) {
