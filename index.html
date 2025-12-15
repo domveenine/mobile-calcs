@@ -1396,7 +1396,7 @@ html, body {
 
 .app-shell {
   padding-top: var(--radio-height);
-  height: calc(100dvh - var(--radio-height));
+  height: 100dvh;
 }
 
 @media (max-width: 480px) {
@@ -1431,6 +1431,216 @@ html, body {
     overflow-x: hidden;
   }
 }
+
+/* ==== Radio volume: boost visuals + stepped feel ==== */
+#radioVolume{
+  accent-color: #38bdf8; /* affects thumb in modern browsers */
+}
+#radioVolume{
+  /* Track fill: updated by JS via background gradient */
+  background: linear-gradient(90deg, rgba(56,189,248,0.85) 0%, rgba(56,189,248,0.85) 50%, rgba(148,163,184,0.25) 50%, rgba(148,163,184,0.25) 100%);
+  height: 4px;
+  border-radius: 999px;
+  outline: none;
+}
+/* WebKit track/thumb tuning */
+#radioVolume::-webkit-slider-runnable-track{
+  height: 4px;
+  border-radius: 999px;
+}
+#radioVolume::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(148,163,184,0.85);
+  background: rgba(226,232,240,0.95);
+  margin-top: -5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.35);
+}
+#radioVolume:active::-webkit-slider-thumb{
+  transform: scale(1.05);
+}
+/* Firefox */
+#radioVolume::-moz-range-track{
+  height: 4px;
+  border-radius: 999px;
+}
+#radioVolume::-moz-range-thumb{
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(148,163,184,0.85);
+  background: rgba(226,232,240,0.95);
+  box-shadow: 0 0 10px rgba(0,0,0,0.35);
+}
+
+
+/* ==== Robust redline track styling (cross-browser) ==== */
+#radioVolume{
+  -webkit-appearance:none !important;
+  appearance:none !important;
+  background: transparent !important;
+  height: 18px; /* gives room for thumb */
+}
+/* WebKit track uses CSS vars set by JS: --vol-safe and --vol-pct */
+#radioVolume::-webkit-slider-runnable-track{
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    rgba(56,189,248,1) 0%,
+    rgba(56,189,248,1) var(--vol-safe, 0%),
+    rgba(239,68,68,1) var(--vol-safe, 0%),
+    rgba(239,68,68,1) var(--vol-pct, 0%),
+    rgba(148,163,184,0.35) var(--vol-pct, 0%),
+    rgba(148,163,184,0.35) 100%
+  ) !important;
+}
+#radioVolume::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(148,163,184,0.85);
+  background: rgba(226,232,240,0.95);
+  margin-top: -5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.35);
+}
+/* Firefox track */
+#radioVolume::-moz-range-track{
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    rgba(56,189,248,1) 0%,
+    rgba(56,189,248,1) var(--vol-safe, 0%),
+    rgba(239,68,68,1) var(--vol-safe, 0%),
+    rgba(239,68,68,1) var(--vol-pct, 0%),
+    rgba(148,163,184,0.35) var(--vol-pct, 0%),
+    rgba(148,163,184,0.35) 100%
+  ) !important;
+}
+#radioVolume::-moz-range-thumb{
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(148,163,184,0.85);
+  background: rgba(226,232,240,0.95);
+  box-shadow: 0 0 10px rgba(0,0,0,0.35);
+}
+
+
+/* ==== Mobile optimization for the top radio bar ==== */
+/* The bar is inline-styled, so we use !important overrides */
+#island-radio-bar{
+  height: auto !important;
+  min-height: 46px !important;
+  padding: 6px 10px !important;
+  gap: 10px !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+}
+
+/* Let station info breathe and wrap nicely */
+#radio-info{
+  flex: 1 1 160px !important;
+  min-width: 160px !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+#radioName{
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+}
+#radioSubtitle{
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+}
+
+/* Volume group: keep it usable, prevent cramping */
+#radio-volume-wrap{
+  flex: 0 1 auto !important;
+  margin-left: 0 !important;
+  gap: 6px !important;
+}
+#radioVolume{
+  width: 110px !important;
+  touch-action: pan-y; /* smoother drag on mobile */
+}
+#radioVolValue{
+  min-width: 30px !important;
+}
+
+/* Transport controls: always visible and not squished */
+#radioPrevBtn, #radioNextBtn{
+  width: 32px !important;
+  height: 32px !important;
+  font-size: 14px !important;
+}
+#radioPlayBtn{
+  padding: 6px 12px !important;
+  font-size: 11px !important;
+}
+
+/* On very small phones, stack: info on top, controls row below */
+@media (max-width: 380px){
+  #island-radio-bar{
+    gap: 8px !important;
+  }
+  #radio-info{
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+  }
+  #radio-volume-wrap{
+    order: 2 !important;
+  }
+  /* The buttons container is the next sibling div inside the bar */
+  #island-radio-bar > div:last-child{
+    order: 3 !important;
+  }
+}
+
+/* Keep the app shell offset accurate when the bar becomes taller */
+.app-shell{
+  padding-top: auto !important;
+}
+
+
+/* ==== News page: lock main scroll, allow panel-only scroll ==== */
+#screen-news.active {
+  height: calc(100vh - 160px);
+  overflow: hidden !important;
+}
+
+#screen-news.active .card.news-shell {
+  height: 100%;
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grid itself should not scroll */
+#screen-news.active .news-grid {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden !important;
+}
+
+/* Individual panels scroll internally */
+#screen-news.active .news-panel {
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#screen-news.active .news-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 </style>
 </head>
 <body>
@@ -1474,9 +1684,10 @@ html, body {
     gap:4px;
     margin-left:8px;
   ">
-  <span style="font-size:10px;opacity:.7;">VOL</span>
-  <input id="radioVolume" type="range" min="0" max="150" value="75" style="width:72px;cursor:pointer;">
-</div>
+    <span style="font-size:10px;opacity:.7;">VOL</span>
+  <input id="radioVolume" type="range" min="0" max="150" step="5" value="100" style="width:72px;cursor:pointer;">
+  <span id="radioVolValue" style="font-size:10px;opacity:.85;min-width:26px;text-align:right;">75</span>
+  </div>
 <div style="
     display:flex;
     align-items:center;
@@ -1572,7 +1783,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let audioCtx = null;
   let gainNode = null;
   let sourceNode = null;
-  let currentVolume = 0.75; // default 75%
+  let currentVolume = 1.0; // default 75%
 
 
   const playBtn = document.getElementById('radioPlayBtn');
@@ -1615,17 +1826,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (volumeSlider) {
     // Initialize slider to default 75%
-    volumeSlider.value = 75;
+    volumeSlider.value = 100;
     const applyVolume = function () {
       const raw = Number(volumeSlider.value) || 0;
-      const gainValue = raw / 100; // 0.0 -> 1.25
-      currentVolume = gainValue;
+
+      // Linear mapping, snapped to 5s
+      let effective = Math.round(raw / 5) * 5;
+      effective = Math.max(0, Math.min(150, effective));
+
+      currentVolume = effective / 100; // 0.0 -> 1.5
+
       if (gainNode) {
-        gainNode.gain.value = gainValue;
+        gainNode.gain.value = currentVolume;
       } else {
-        // Fallback for browsers without Web Audio: clamp to 1.0
-        audio.volume = Math.max(0, Math.min(1, gainValue));
+        audio.volume = Math.max(0, Math.min(1, currentVolume));
       }
+
+      const volValueEl = document.getElementById('radioVolValue');
+      if (volValueEl) volValueEl.textContent = String(effective);
+
+      // Redline: compute track positions and set CSS vars used by ::track
+      const pct = (effective / 150) * 100;               // 0..100
+      const safePct = (Math.min(effective, 100) / 150) * 100;
+
+      // Always set vars; if effective <= 100 then safePct == pct (red segment disappears)
+      volumeSlider.style.setProperty('--vol-safe', safePct.toFixed(3) + '%');
+      volumeSlider.style.setProperty('--vol-pct', pct.toFixed(3) + '%');
     };
     volumeSlider.addEventListener('input', applyVolume);
     applyVolume();
