@@ -1027,6 +1027,9 @@ section#screen-overview.active #pets-box {
   display:flex;
   flex-direction:column;
   min-height:calc(100vh - 70px); /* approx bottom nav height */
+
+  height:100% !important;
+  overflow:hidden !important;
 }
 #screen-news.active .card.news-shell{
   display:block;
@@ -1641,6 +1644,195 @@ html, body {
   -webkit-overflow-scrolling: touch;
 }
 
+
+#subtaxOut {
+  color: var(--info);
+}
+
+
+/* --- NEWS full-screen 2x2 tiles + no page scroll (Dec 2025) --- */
+
+/* Lock the main scroll container when News is active */
+html.no-page-scroll body .content,
+body.no-page-scroll .content{
+  overflow:hidden !important;
+  padding:0 !important;
+}
+
+/* Ensure the active News panel uses available content height (not full viewport + header) */
+#screen-news.active{
+  height:100% !important;
+}
+#screen-news.active .news-shell{
+  height:100% !important;
+  min-height:0 !important;
+}
+
+body.no-page-scroll,
+html.no-page-scroll{
+
+  overflow:hidden !important;
+  height:100% !important;
+}
+
+
+/* --- NEWS: lock app-level scroller without breaking layout --- */
+body.no-page-scroll .content,
+html.no-page-scroll body .content{
+  overflow:hidden !important;
+  padding:0 !important;
+}
+
+/* Make News screen full-bleed even if the app is centered */
+#screen-news.active{
+  overflow:hidden !important;
+  padding:0 !important;
+}
+#screen-news.active .news-shell{
+  width:100vw !important;
+  max-width:100vw !important;
+  margin:0 !important;
+  /* full-bleed trick when inside a centered container */
+  position:relative;
+  left:50%;
+  right:50%;
+  margin-left:-50vw !important;
+  margin-right:-50vw !important;
+
+  display:flex;
+  flex-direction:column;
+  height:100% !important;
+  min-height:0 !important;
+  border-radius:0 !important;
+}
+
+/* 4 tiles fill the available area */
+#screen-news.active .news-grid{
+  display:grid !important;
+  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  grid-template-rows:repeat(2, minmax(0, 1fr)) !important;
+  gap:0 !important;
+  width:100% !important;
+  flex:1 1 auto;
+  min-height:0;
+}
+
+/* Each tile scrolls internally */
+#screen-news.active .news-panel{
+  min-height:0;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+#screen-news.active .news-list{
+  flex:1 1 auto;
+  min-height:0;
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+
+#screen-news.active .news-header{
+  padding:8px 10px !important;
+}
+#screen-news.active .news-header h2{
+  margin:2px 0 !important;
+  font-size:16px !important;
+}
+#screen-news.active .news-header .subhead{
+  margin:0 !important;
+  font-size:11px !important;
+}
+
+
+#screen-news.active .news-grid{
+  overflow:hidden !important;
+  min-height:0 !important;
+}
+#screen-news.active .news-panel{
+  min-height:0 !important;
+}
+#screen-news.active .news-list{
+  min-height:0 !important;
+}
+
+
+/* --- NEWS: ensure the 2x2 grid fits exactly within the visible content area --- */
+body.no-page-scroll .content{
+  display:flex !important;
+  flex-direction:column !important;
+}
+body.no-page-scroll .container{
+  flex:1 1 auto !important;
+  height:100% !important;
+  min-height:0 !important;
+  max-width:100% !important;
+  margin:0 !important;
+}
+
+/* Make the News tabpanel participate in flex sizing */
+#screen-news.active{
+  flex:1 1 auto !important;
+  display:flex !important;
+  min-height:0 !important;
+}
+
+/* News shell and grid: header + grid split, grid cannot overflow */
+#screen-news.active .news-shell{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+}
+#screen-news.active .news-grid{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+}
+
+
+/* --- NEWS: keep tiles above the fixed bottom tab bar --- */
+:root{
+  --tabbarSpace: calc(92px + env(safe-area-inset-bottom));
+}
+
+/* When News is active, remove main padding (prevents page scroll),
+   but reserve space inside the News screen for the fixed tab bar. */
+body.no-page-scroll .content,
+html.no-page-scroll body .content{
+  padding:0 !important;
+  overflow:hidden !important;
+}
+
+#screen-news.active .news-grid{
+  /* grid fills whatever is left under the News header */
+  min-height:0 !important;
+}
+
+
+/* --- NEWS: reserve space for the fixed tab bar without enabling page scroll --- */
+:root{ --tabbarSpace: calc(92px + env(safe-area-inset-bottom)); }
+
+body.no-page-scroll .content,
+html.no-page-scroll body .content{
+  overflow:hidden !important;
+  /* Reserve space at the bottom so tiles don't sit behind the fixed .tabbar */
+  padding: 0 0 var(--tabbarSpace) 0 !important;
+}
+
+#screen-news.active{
+  height:100% !important;
+  overflow:hidden !important;
+}
+
+#screen-news.active .news-shell{
+  height:100% !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+}
+
+#screen-news.active .news-grid{
+  min-height:0 !important;
+  overflow:hidden !important;
+}
+
 </style>
 </head>
 <body>
@@ -2144,6 +2336,8 @@ prevBtn.addEventListener('click', function () {
 <div class="card">
 <div class="subhead">Bill amount pre tax</div>
 <div class="input"><span class="prefix">$</span><input autocomplete="off" id="bill" inputmode="decimal" placeholder="0.00"/></div>
+<div class="subhead">Tax</div>
+<div class="input"><span class="prefix">$</span><input autocomplete="off" id="tax" inputmode="decimal" placeholder="0.00"/></div>
 <div class="subhead">Preset percentage</div>
 <div aria-label="Choose tip %" class="grid two" role="group">
 <button class="btn tip" data-tip="20">20%</button>
@@ -2153,10 +2347,24 @@ prevBtn.addEventListener('click', function () {
 </div>
 <div class="subhead">Custom percentage</div>
 <div class="input"><input id="customTip" inputmode="decimal" placeholder="Custom Percentage"/><span class="prefix">%</span></div>
+
 <div class="totals">
-<div class="box"><h3>Tip</h3><div class="total" id="tipOut">$0.00</div></div>
-<div class="box"><h3>Total</h3><div class="total" id="totalOut">$0.00</div></div>
-<div class="box"><h3>Tip %</h3><div class="total" id="percentOut">0%</div></div>
+  <div class="box">
+    <h3>Subtotal + Tax</h3>
+    <div class="total" id="subtaxOut">$0.00</div>
+  </div>
+  <div class="box">
+    <h3>Tip</h3>
+    <div class="total" id="tipOut">$0.00</div>
+  </div>
+  <div class="box">
+    <h3>Final Amount</h3>
+    <div class="total" id="totalOut">$0.00</div>
+  </div>
+</div>
+
+
+
 </div>
 <div class="grid two" style="margin-top:10px">
 <button class="btn" id="reset">Reset</button>
@@ -2436,7 +2644,9 @@ prevBtn.addEventListener('click', function () {
       });
       setTitle(TITLES[screen] || 'Tools');
       history.replaceState(null,'','#' + screen);
-      $('#content').focus({preventScroll:true});
+            document.body.classList.toggle('no-page-scroll', screen === 'news');
+      document.documentElement.classList.toggle('no-page-scroll', screen === 'news');
+$('#content').focus({preventScroll:true});
       document.scrollingElement.scrollLeft = 0;
     }
 
@@ -2450,7 +2660,10 @@ prevBtn.addEventListener('click', function () {
     $('#btnCopy').addEventListener('click',()=>{
       if($('#screen-tip').classList.contains('active')){
         const bill=$('#bill'), percentOut=$('#percentOut'), tipOut=$('#tipOut'), totalOut=$('#totalOut');
-        const s=`Bill: ${bill.value||nf.format(0)}\\nTip: ${percentOut.textContent}\\nTip Amount: ${tipOut.textContent}\\nTotal: ${totalOut.textContent}`;
+        const s=`Subtotal: ${bill.value||nf.format(0)}
+Tax: ${tax.value||nf.format(0)}
+Tip: ${tipOut.textContent}
+Final Amount: ${totalOut.textContent}`;
         navigator.clipboard.writeText(s).catch(()=>{});
       } else {
         navigator.clipboard.writeText($('#appTitle').textContent).catch(()=>{});
@@ -2484,25 +2697,30 @@ prevBtn.addEventListener('click', function () {
     }
 
     // ===== TIP =====
-    const bill=$('#bill'), customTip=$('#customTip'), tipBtns=$$('.tip');
-    const tipOut=$('#tipOut'), totalOut=$('#totalOut'), percentOut=$('#percentOut');
+    const bill=$('#bill'), tax=$('#tax'), customTip=$('#customTip'), tipBtns=$$('.tip');
+    const subtaxOut=$('#subtaxOut'), tipOut=$('#tipOut'), totalOut=$('#totalOut');
     let tipPercent=0.20;
     function setActive(p){tipBtns.forEach(b=>b.classList.toggle('active',Number(b.dataset.tip)/100===p))}
     function calcTip(){
       const b=(Number(String(bill.value).replace(/[^0-9.]/g,''))||0);
+      const t=(Number(String(tax.value).replace(/[^0-9.]/g,''))||0);
       const c=(Number(String(customTip.value).replace(/[^0-9.]/g,''))||0);
       if(c>0){tipPercent=c/100; setActive(-1);}
       const tip=b*tipPercent;
       tipOut.textContent=nf.format(tip);
-      totalOut.textContent=nf.format(b+tip);
-      percentOut.textContent=`${Math.round(tipPercent*100)}%`;
+      if(subtaxOut) subtaxOut.textContent=nf.format(b+t);
+      totalOut.textContent=nf.format(b+t+tip);
+      
     }
     tipBtns.forEach(btn=>btn.addEventListener('click',()=>{tipPercent=Number(btn.dataset.tip)/100; customTip.value=''; setActive(tipPercent); calcTip();}));
-    ['input','change'].forEach(e=>{bill.addEventListener(e,calcTip); customTip.addEventListener(e,calcTip);});
+    ['input','change'].forEach(e=>{bill.addEventListener(e,calcTip); tax.addEventListener(e,calcTip); customTip.addEventListener(e,calcTip);});
     setActive(tipPercent); calcTip();
-    $('#reset').addEventListener('click',()=>{bill.value=''; customTip.value=''; tipPercent=.2; setActive(tipPercent); calcTip();});
+    $('#reset').addEventListener('click',()=>{bill.value=''; tax.value=''; customTip.value=''; tipPercent=.2; setActive(tipPercent); calcTip();});
     $('#copy').addEventListener('click',async()=>{
-      const s=`Bill: ${bill.value||nf.format(0)}\\nTip: ${percentOut.textContent}\\nTip Amount: ${tipOut.textContent}\\nTotal: ${totalOut.textContent}`;
+      const s=`Subtotal: ${bill.value||nf.format(0)}
+Tax: ${tax.value||nf.format(0)}
+Tip: ${tipOut.textContent}
+Final Amount: ${totalOut.textContent}`;
       try{await navigator.clipboard.writeText(s);}catch{}
     });
 
@@ -3528,5 +3746,6 @@ document.addEventListener("DOMContentLoaded", initNewsScreen);
   }
 })();
 </script>
+
 </body>
 </html>
