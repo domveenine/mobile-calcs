@@ -3,3783 +3,1486 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, viewport-fit=cover, minimum-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-<title>Cini•Mod</title>
-<meta content="#0b1220" name="theme-color"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <style>
-body { text-transform: capitalize; }
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #111a2b;
+      --card: rgba(255,255,255,0.08);
+      --text: #f7f8fb;
+      --muted: #a9b4c7;
+      --accent: #7dd3fc;
+      --accent-2: #93c5fd;
+      --success: #86efac;
+      --shadow: 0 18px 40px rgba(0,0,0,0.35);
+      --radius: 22px;
+    }
 
-    :root{
-      --bg:#0b1220;
-      --surface:#0f172a;
-      --panel:#111827;
-      --ring:#243244;
-      --muted:#9aa5b4;
-      --text:#f1f5f9;
-      --accent:#22c55e;
-      --danger:#ef4444;
-      --info:#38bdf8;
-      --accent2:#a78bfa;
-      --tab:#0f1c33;
-      --tabActive:#1a2d4d;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --maxContent: 720px;
-    }
-    *{box-sizing:border-box;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-width:0}
-    html,body{height:100%;background:var(--bg);color:var(--text);overflow-x:hidden}
-    body{margin:0;word-wrap:break-word;overflow-wrap:break-word}
-    img,svg,canvas,video{max-width:100%;height:auto}
-    input,select,button{max-width:100%}
-    /* App Shell */
-    .app-shell{height:100dvh;display:flex;flex-direction:column;overscroll-behavior:none}
-    .appbar{
-      position:relative;display:flex;align-items:center;gap:10px;
-      background:linear-gradient(180deg,#0d1526, #0b1220);
-      border-bottom:1px solid rgba(255,255,255,.06);
-      padding: max(12px, env(safe-area-inset-top)) 16px 12px 16px;
-      box-shadow: 0 6px 18px rgba(0,0,0,.25);
-      z-index:10;
-      max-width:100%;
-      overflow:hidden;
-    }
-    .app-title{margin:0;font-weight:700;font-size:18px;letter-spacing:.01em;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .icon-btn{
-      width:36px;height:36px;border-radius:10px;border:1px solid rgba(255,255,255,.08);
-      display:grid;place-items:center;background:rgba(255,255,255,.03);cursor:pointer;flex:0 0 auto
-    }
-    .content{
-      flex:1;overflow:auto;scroll-behavior:smooth;
-      padding:12px 14px calc(90px + env(safe-area-inset-bottom));
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(1200px 500px at 100% -50%, rgba(104,117,245,.06), transparent 60%),
-        radial-gradient(900px 600px at -20% 120%, rgba(34,197,94,.06), transparent 60%);
-      max-width:100%;
+        radial-gradient(circle at top left, rgba(125, 211, 252, 0.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(147, 197, 253, 0.12), transparent 28%),
+        linear-gradient(180deg, #09111d 0%, #0f172a 100%);
+      color: var(--text);
+      min-height: 100vh;
     }
-    .container{max-width:var(--maxContent);margin:0 auto}
-    .card{border-radius:16px;padding:16px;margin:16px 0;background:var(--surface);border:1px solid var(--ring);box-shadow:var(--shadow)}
-    .title{margin:0 0 8px;font-size:16px;font-weight:700}
-    .subhead{font-size:13px;color:var(--muted);margin:6px 0 6px}
-    .input{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid var(--ring);border-radius:12px;padding:12px}
-    .input input,.input select{flex:1 1 0;background:transparent;border:0;outline:0;color:var(--text);font-size:16px;width:100%}
-    .prefix{opacity:.9;font-size:16px;flex:0 0 auto}
-    .btn{appearance:none;border:1px solid var(--ring);background:#13243e;color:var(--text);padding:10px 12px;border-radius:12px;cursor:pointer;text-align:center;transition:transform .03s ease, background .2s; width:100%}
-    .btn:active{transform:scale(.98)}
-    .btn.active{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,197,94,.2) inset}
-    .grid{display:grid;grid-template-columns:1fr;gap:10px;width:100%}
-    @media(min-width:520px){.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    .totals{display:grid;gap:10px;margin-top:10px;width:100%}
-    @media(min-width:420px){.totals{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    .box{
-  background:rgba(255,255,255,.04);
-  border:1px solid var(--ring);
-  border-radius:8px;
-  padding:4px 6px;
-  text-align:center;
-  font-size:12px;
-}
-.pets-ok{background:rgba(0,160,60,.25);border-color:rgba(0,160,60,.8)}
-.pets-in{background:rgba(255,140,0,.25);border-color:rgba(255,140,0,.9)}
 
-.box h3{margin:0 0 2px;font-size:12px}
-.total{font-size:14px}
-.subhead{font-size:12px}
-
-.box h3{font-size:11px !important}
-.total{font-size:13px !important}
-.subhead{font-size:11px !important}
-;border:1px solid var(--ring);border-radius:12px;padding:10px;text-align:center}
-    .box h3{margin:0 0 4px;font-size:12px;color:var(--muted);font-weight:600}
-    .total{font-size:22px;font-weight:800}
-    .row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--ring);border-radius:12px;padding:12px}
-    .neg{color:var(--danger)}
-    .net{color:var(--accent);font-weight:800}
-    .hint{font-size:12px;color:var(--muted);margin-top:6px}
-    section[role="tabpanel"]{display:none}
-    section[role="tabpanel"].active{display:block}
-    .tabbar{
-      position:fixed;left:0;right:0;bottom:0;z-index:15;
-      padding:8px max(12px, env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-right));
-      background:rgba(13,21,38,.86);backdrop-filter: blur(10px);
-      border-top:1px solid rgba(255,255,255,.06);
-      max-width:100%;
+    .app {
+      width: 100%;
+      min-height: 100vh;
+      padding: 18px;
     }
-    .tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;width:100%;max-width:var(--maxContent);margin:0 auto}
-    .tab{
-      --c:rgba(255,255,255,.06);
-      display:flex;flex-direction:column;align-items:center;gap:6px;
-      padding:10px 6px;border-radius:14px;border:1px solid var(--c);
-      background:linear-gradient(180deg, var(--tab), #0c162a);
-      text-align:center;color:var(--text);cursor:pointer;user-select:none;min-width:0
-    }
-    .tab.active{border-color:rgba(34,197,94,.35);background:linear-gradient(180deg, var(--tabActive), #132744);box-shadow:0 4px 18px rgba(34,197,94,.12)}
-    .tab svg{width:20px;height:20px;opacity:.9;flex:0 0 auto}
-    .tab span{font-size:11px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-    #tipOut{color:var(--accent)}
-    #totalOut{color:var(--danger)}
-    #percentOut{color:var(--info)}
-    .pill{background:rgba(255,255,255,.04);border:1px solid var(--ring);border-radius:14px;padding:14px;text-align:center}
-    .pill h3{margin:0 0 6px;font-size:12px;color:var(--muted);font-weight:600}
-    .pill .big{display:block;font-size:22px;font-weight:800}
-    .hl{color:var(--info)} .hl2{color:var(--accent2)} .ok{color:var(--accent)}
-    .mode{display:flex;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--ring);padding:6px;border-radius:12px;width:100%}
-    .mode button{flex:1;padding:10px;border-radius:10px;border:1px solid transparent;background:transparent;color:var(--text);cursor:pointer;min-width:0}
-    .mode button.active{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06)}
-    .sa-bottom{height: env(safe-area-inset-bottom)}
 
-    
-/* Live news ticker bar */
-.news-bar{
-  position:relative;
-  z-index:40;
-  background:linear-gradient(90deg,#0f172a,#020617);
-  border-bottom:1px solid rgba(148,163,184,.35);
-  box-shadow:0 6px 14px rgba(0,0,0,.45);
-  padding:6px 10px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  overflow:hidden;
-}
-.news-bar-label{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  color:var(--accent2);
-  flex:0 0 auto;
-  white-space:nowrap;
-}
-.news-bar-track{
-  overflow:hidden;
-  flex:1 1 auto;
-}
-.news-bar-items{
-  display:inline-flex;
-  gap:24px;
-  white-space:nowrap;
-  animation:news-marquee 40s linear infinite;
-}
-.news-item{
-  font-size:12px;
-  color:var(--text);
-  opacity:.9;
-}
-.news-item a{
-  color:var(--info);
-  text-decoration:none;
-}
-.news-item a:hover{
-  text-decoration:underline;
-}
-@keyframes news-marquee{
-  0%{transform:translateX(0);}
-  100%{transform:translateX(-50%);}
-}
-
-/* Mobile tweaks for ticker */
-@media (max-width:480px){
-  .news-bar{
-    padding:4px 8px;
-    gap:8px;
-  }
-  .news-bar-label{
-    display:none;
-  }
-  .news-item{
-    font-size:11px;
-  }
-}
-
-/* ---------- HOME OVERLAY ---------- */
-    .home-overlay{
-      position:fixed;inset:0;z-index:999;
-      display:grid;place-items:center;
-      background:
-        radial-gradient(1200px 500px at 100% -50%, rgba(104,117,245,.10), transparent 60%),
-        radial-gradient(900px 600px at -20% 120%, rgba(34,197,94,.10), transparent 60%),
-        linear-gradient(180deg,#0d1526,#0b1220);
-      transition:opacity .5s ease, visibility .5s ease;
-    }
-    .home-overlay.hide{opacity:0;visibility:hidden}
-    .welcome-card{
-      width:min(82vw, 360px); aspect-ratio:1/1; 
-      background:linear-gradient(180deg,#0e1628,#0b1220);
-      border:1px solid var(--ring); border-radius:24px; padding:18px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04);
-      position:relative; overflow:hidden; isolation:isolate;
-    }
-    .welcome-title{font-size:18px;letter-spacing:.06em;color:var(--muted);margin:0 0 6px;text-transform:uppercase}
-    .welcome-headline{font-size:28px;font-weight:800;margin:0 0 10px;line-height:1.3;text-align:center;display:flex;flex-direction:column;justify-content:center;flex:1;}
-    .welcome-sub{font-size:13px;color:var(--muted);margin:0 0 14px}
-    .enter-btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      width:100%;padding:12px 14px;border-radius:14px;cursor:pointer;
-      background:linear-gradient(180deg,#143154,#10243f); border:1px solid var(--ring); color:var(--text);
+    .hero {
+      padding-bottom: 10px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px;
+      padding: 22px 20px;
       box-shadow: var(--shadow);
-      transition: transform .12s ease, box-shadow .2s ease, opacity .4s ease;
-      font-weight:700; letter-spacing:.02em;
-    }
-    .enter-btn:active{transform:translateY(1px) scale(.99)}
-
-    /* Animated ring inside the card */
-    .ring-wrap{
-      position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.8;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
-    }
-    .ring{
-      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-      width:120%; aspect-ratio:1/1; border-radius:50%;
-      background: conic-gradient(from 0deg, transparent 0 20%, rgba(56,189,248,.35) 20% 35%, transparent 35% 55%, rgba(167,139,250,.35) 55% 70%, transparent 70% 100%);
-      mask: radial-gradient(circle at 50% 50%, transparent 48%, black 52%);
-      animation: spin 10s linear infinite;
-    }
-    .ring.r2{width:100%; animation-duration: 16s; opacity:.8}
-    .ring.r3{width:80%;  animation-duration: 22s; opacity:.7}
-
-    @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-
-    /* Floating sparkles */
-    .sparkle{
-      position:absolute; width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.7;
-      filter: blur(.2px);
-      animation: float 6s ease-in-out infinite;
-    }
-    .s1{ color:#22c55e; left:10%; top:72%; animation-delay:.2s}
-    .s2{ color:#38bdf8; right:12%; top:18%; animation-delay:1s}
-    .s3{ color:#a78bfa; left:20%; top:20%; animation-delay:2.2s}
-    .s4{ color:#38bdf8; right:18%; bottom:14%; animation-delay:3.1s}
-    .s5{ color:#22c55e; left:48%; top:6%; animation-delay:4s}
-    @keyframes float{
-      0%,100%{ transform:translateY(0) scale(1) }
-      50%{ transform:translateY(-10px) scale(1.15) }
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      margin-bottom: 16px;
     }
 
-    /* Content dim blur behind card */
-    .glow{
-      position:absolute; inset:-20%;
-      background: radial-gradient(300px 300px at 65% 30%, rgba(56,189,248,.18), transparent 60%),
-                  radial-gradient(360px 360px at 35% 70%, rgba(34,197,94,.16), transparent 65%),
-                  radial-gradient(500px 500px at 50% 50%, rgba(167,139,250,.12), transparent 70%);
-      filter: blur(40px); opacity:.9; z-index:-2;
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      font-weight: 700;
     }
 
-    /* Home badge */
-    .badge{display:inline-block;font-size:24px;padding:10px 14px;border-radius:999px;border:1px solid var(--ring);background:rgba(255,255,255,.04);margin-bottom:10px}
-
-    /* Reduce motion preference */
-    @media (prefers-reduced-motion: reduce){
-      .ring,.ring.r2,.ring.r3{animation:none}
-      .sparkle{animation:none}
-      .home-overlay{transition:none}
+    h1 {
+      margin: 0;
+      font-size: clamp(1.75rem, 2.2vw, 2.5rem);
+      line-height: 1.1;
     }
-  
-    /* Enlarge 'cini.moD' in welcome headline */
-    .welcome-headline span{font-size:34px; line-height:1.1}
-    
-/* ===== Mobile-fit tweaks (added) ===== */
-@media (max-width: 400px){
-  .appbar { padding-left: 10px; padding-right: 10px; }
-  .app-title { font-size: 16px; }
-  .title { font-size: 15px; }
-  .welcome-headline { font-size: 24px; }
-  .welcome-headline span { font-size: 28px; }
-  .grid.two { grid-template-columns: 1fr !important; }
-  .grid.three { grid-template-columns: 1fr !important; }
-  .totals { grid-template-columns: 1fr !important; }
-  .tab { padding: 10px 4px; }
-  .tab span { display: none; }
-  .tabs { gap: 6px; }
-  .card { margin: 12px 0; padding: 14px; }
-  .input { padding: 10px; }
-  .enter-btn { padding: 12px; }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--success);
+      background: rgba(134, 239, 172, 0.08);
+      border: 1px solid rgba(134, 239, 172, 0.14);
+      border-radius: 999px;
+      padding: 7px 10px;
+      margin-top: 10px;
+    }
+
+    .clock-banner {
+      margin-top: 16px;
+      width: calc(100% + 40px);
+      margin-left: -20px;
+      margin-right: -20px;
+      padding: 14px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(125, 211, 252, 0.18), rgba(147, 197, 253, 0.12));
+      border-top: 1px solid rgba(255,255,255,0.10);
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .clock-banner .clock-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .clock-banner .clock-time {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    .clock-banner .clock-date {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .clock-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .clock-item {
+      text-align: center;
+      min-width: 90px;
+    }
+
+    .clock-item .label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clock-item .time {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .weather-grid {
+      gap: 12px;
+    }
+
+    .weather-card {
+      min-height: 118px;
+    }
+
+    .widget-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.2fr 1.2fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      height: 100%;
+    }
+
+    .card h2, .card h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .stat {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 14px;
+      min-height: 100px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .small {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(5, 10, 20, 0.58);
+      color: var(--text);
+      border-radius: 16px;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(125, 211, 252, 0.7);
+      box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.14);
+    }
+
+    .field { margin-bottom: 12px; }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .segmented button,
+    .button {
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+
+    .segmented button {
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+    }
+
+    .segmented button.active,
+    .button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #06111f;
+    }
+
+    .button {
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      width: 100%;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .result {
+      background: linear-gradient(145deg, rgba(125, 211, 252, 0.12), rgba(255,255,255,0.06));
+      border-radius: 18px;
+      padding: 14px;
+      border: 1px solid rgba(125, 211, 252, 0.18);
+      margin-top: 8px;
+    }
+
+    .result .title {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    .result .value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .notice {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.45;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 1180px) {
+      .widget-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .grid.two, .grid.three { grid-template-columns: 1fr; }
+      .segmented { grid-template-columns: repeat(2, 1fr); }
+      .app { padding: 14px; }
+      .button-row { grid-template-columns: 1fr; }
+    }
+  </style>
+<style>
+#radioVolume::-webkit-slider-runnable-track {
+  height:6px;
+  background:#111827;
+  border:1px solid rgba(148,163,184,0.4);
 }
-
-/* Slightly larger small phones */
-@media (min-width: 401px) and (max-width: 480px){
-  .grid.three { grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .totals { grid-template-columns: repeat(2, minmax(0,1fr)); }
+#radioVolume::-webkit-slider-thumb {
+  appearance:none;
+  width:10px;
+  height:14px;
+  background:#e5e7eb;
+  border:1px solid #9ca3af;
+  cursor:pointer;
+  margin-top:-5px;
 }
+#radioVolume::-moz-range-track {
+  height:6px;
+  background:#111827;
+  border:1px solid rgba(148,163,184,0.4);
+}
+#radioVolume::-moz-range-thumb {
+  width:10px;
+  height:14px;
+  background:#e5e7eb;
+  border:1px solid #9ca3af;
+  cursor:pointer;
+}
+</style><style>
+.weather-card [data-role="current-temp"].weather-loading,
+.weather-card [data-role="today-line"].weather-loading,
+.weather-card [data-role="tmrw-line"].weather-loading,
+.weather-card [data-role="next-line"].weather-loading {
+  opacity: 0.82;
+}
+</style><style>
+#swa-assistant-btn {
+  position: fixed;
+  bottom: 14px;
+  right: 14px;
+  z-index: 9999;
+  width: 40px;
+  height: 40px;
 
-/* Ensure the welcome card never overflows short viewports */
-.welcome-card{
-  width: min(92vw, 360px);
-  max-height: 86vh;
-  aspect-ratio: auto;
   display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15,23,42,0.9);
+  border: 1px solid rgba(148,163,184,0.6);
+  border-radius: 10px;
+
+  backdrop-filter: blur(6px);
+  opacity: 0.9;
+  transition: all 0.2s ease;
+}
+
+#swa-assistant-btn:hover {
+  opacity: 1;
+  border-color: rgba(59,130,246,0.8);
+  box-shadow: 0 0 10px rgba(59,130,246,0.4);
+}
+</style><style>
+/* Improved readability font */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+}
+
+/* Slightly enhance headings */
+h1, h2, h3, .stat-label {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Improve small text clarity */
+small, .subtext {
+  font-size: 12px;
+  opacity: 0.85;
+}
+</style><style>
+/* Compact time display */
+#yourTimeDisplay, #theirTimeDisplay, #offsetDisplay {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.time-box, .time-output, .time-value {
+  font-size: 12px !important;
+  white-space: nowrap;
+}
+</style><style>
+/* Style date portion */
+.time-value span.date-part {
+  color: #9ca3af; /* light grey */
+}
+</style><style>
+.date-part {
+  color: #9ca3af !important;
+}
+</style><style>
+#yourTimeDisplay, #theirTimeDisplay, #offsetDisplay {
+  text-align: center !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
-  justify-content: space-between;
+  white-space: normal !important;
+  line-height: 1.15;
+  width: 100%;
 }
 
-/* Protect against content underlap with the tabbar */
-.content {
-  padding-bottom: 120px; /* will be corrected by JS based on actual tabbar height */
+#yourTimeDisplay .date-part,
+#theirTimeDisplay .date-part {
+  display: block;
+  color: #9ca3af !important;
+  font-size: 11px;
+  margin-bottom: 2px;
 }
 
-
-/* ===== Ensure Enter button is never hidden on mobile (added) ===== */
-:root {
-  /* Respect iOS/Android safe areas */
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --tabbar-h: 90px; /* updated dynamically via JS */
-}
-
-/* Give the home overlay breathing room at the bottom so buttons clear the tab bar */
-#homeOverlay {
-  padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 24px) !important;
-}
-
-/* If the Enter button sits inside a footer/actions row, keep it visible */
-.welcome-actions,
-.enter-row,
-.enter-footer {
-  position: sticky;
-  bottom: calc(var(--safe-bottom) + 12px);
-  padding-bottom: var(--safe-bottom);
-  z-index: 5;
-}
-
-/* As an extra guard, make sure the main welcome card isn't forced offscreen */
-.welcome-card {
-  max-height: calc(92vh - var(--safe-bottom));
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-
-
-
-
-
-  40% {
-    transform: scale(2.5);
-    opacity: 0.35;
-  }
-  70% {
-    transform: scale(4.5);
-    opacity: 0.18;
-  }
-  100% {
-    transform: scale(6.5);
-    opacity: 0;
-  }
-}
-/* Pets box sizing tweaks */
-#pets-label {
-  font-size: 1rem !important;
+#yourTimeDisplay .time-part,
+#theirTimeDisplay .time-part {
+  display: block;
+  color: inherit;
+  font-size: 13px;
   font-weight: 600;
 }
-#pets-text {
-  font-size: 0.35rem !important;
-}
 
-
-#tz-hawaii-date,
-#tz-pacific-date,
-#tz-mountain-date,
-#tz-central-date,
-#tz-eastern-date,
-#tz-zulu-date {
-  color: green !important;
-}
-
-
-/* Slightly smaller pills inside Albuquerque Weather card */
-.weather-card .box {
-  border-radius: 6px;
-  padding: 2px 4px;
-  font-size: 11px;
-}
-.weather-card .box h3 {
-  font-size: 11px;
-}
-.weather-card .total {
-  font-size: 16px;
-  font-weight: 700;
-}
-
-/* Ensure weather pills stay even and readable when stacked */
-.weather-card .box {
-  border-radius: 8px;
-  padding: 6px 8px;
-  font-size: 13px;
-}
-.weather-card .box h3 { font-size:14px;
-  margin-bottom: 4px;
-}
-.weather-card .total { font-size:20px;
-  font-weight: 700;
-}
-
-/* Ensure stacked pill columns stay clean */
-.stacked-pills .box {
-  width:100%;
-  border-radius:8px;
-  padding:8px 10px;
-}
-.stacked-pills h3 {
-  font-size:13px;
-  margin-bottom:4px;
-}
-.stacked-pills .total {
-  font-size:20px;
-  font-weight:700;
-}
-
-/* Improve visual separation between Today's and Tomorrow's weather */
-.weather-card .grid.two {
-  align-items: stretch;
-  gap: 14px !important;
-}
-
-.weather-card .grid.two > div {
-  border-radius: 14px;
-  padding: 10px 12px;
-  background: linear-gradient(180deg, rgba(15,23,42,.95), rgba(15,23,42,.85));
-  border: 1px solid rgba(148,163,184,.6);
-  box-shadow: 0 10px 28px rgba(15,23,42,.55);
-}
-
-/* Today block */
-.weather-card .grid.two > div:first-child {
-  box-shadow: 0 0 0 1px rgba(56,189,248,.8), 0 10px 28px rgba(15,23,42,.55);
-}
-
-/* Tomorrow block */
-.weather-card .grid.two > div:last-child {
-  box-shadow: 0 0 0 1px rgba(167,139,250,.9), 0 10px 28px rgba(15,23,42,.55);
-}
-
-/* Label styling for Today / Tomorrow text */
-.weather-card .grid.two > div .subhead {
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-
-.weather-card .grid.two > div:first-child .subhead {
-  color: var(--info);
-}
-
-.weather-card .grid.two > div:last-child .subhead {
-  color: var(--accent2);
-}
-
-
-/* Improved visibility between news items */
-.news-bar-items .news-item{
-  padding: 0 16px;
-  border-right: 1px solid rgba(255,255,255,0.25);
-}
-.news-bar-items .news-item:last-child{
-  border-right: none;
-}
-
-
-.news-bar-label{
-  color:#ef4444 !important;
-}
-
-
-/* Hide app title and section headers */
-.app-title { display:none !important; }
-
-
-
-
-/* Brighter news headline color */
-.news-item,
-.news-item a {
-    color: #ffffff !important;
-}
-
-
-/* Use full window width for main content */
-.container{
-  max-width: 100% !important;
-  width: 100% !important;
-}
-
-/* Smaller, centered timezone pills */
-#screen-overview #tz-grid .box{
-    text-align:center !important;
-}
-#screen-overview #tz-grid .box h3{
-    font-size:9px !important;
-    text-align:center !important;
-}
-#screen-overview #tz-grid .box .total{ font-size:16px !important;
-    text-align:center !important;
-}
-#screen-overview #tz-grid .box .subhead{
-    font-size:10px !important;
-    text-align:center !important;
-}
-
-/* Three-day forecast row: Today, Tomorrow, Day After */
-.three-day-row{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-  margin-top:10px;
-}
-.three-day-row .day-card {
-  background: rgba(0,0,0,0);
-  border-radius:12px;
-  padding:10px 12px;
-  border:1px solid transparent;
-}
-
-.three-day-row .day-card .subhead.small{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  margin-bottom:6px;
-}
-.three-day-row .day-card .box h3{
-  font-size:11px;
-}
-.three-day-row .day-card .box .total{
-  font-size:16px;
-}
-
-
-
-
-  /* Red tone */
-
-
-  /* subtle red */
-
-
-.  /* subtle teal-blue */
-.  /* subtle violet */
-.  /* subtle green */
-
-
-/* Timezone cards: make times the focal point */
-#screen-overview #tz-grid .box{
-  text-align:center !important;
-}
-#screen-overview #tz-grid .box h3{
-  font-size:10px !important;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--muted) !important;
-}
-#screen-overview #tz-grid .box .total{ font-size:16px !important;
-  font-weight:800;
-  color:#ffffff !important;
-  line-height:1.15;
-}
-#screen-overview #tz-grid .box .subhead{
-  font-size:11px !important;
-  color:rgba(226,232,240,.9) !important;
-  margin-top:2px;
-}
-
-
-/* Larger three-day forecast text */
-.three-day-row .day-card .subhead.small{
-  font-size:13px !important;
-}
-.three-day-row .day-card .box h3{
-  font-size:16px !important;
-}
-.three-day-row .day-card .box .total{
-  font-size:22px !important;
-  font-weight:800 !important;
-}
-
-
-/* Hide all scrollbars */
-* {
-  scrollbar-width: none !important;
-}
-*::-webkit-scrollbar {
-  display: none !important;
-}
-html, body {
-  overflow: hidden !important;
-}
-
-
-/* Pets bubble: small, round, under "Following 8 Hours" */
-#pets-box {
-  position: relative !important;
-  margin: 8px 0 0 0 !important;
-  padding: 4px 10px !important;
-  width: fit-content !important;
-  max-width: none !important;
-  border-radius: 999px !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.30) !important;
-  text-align: left !important;
+#offsetDisplay {
   font-size: 12px !important;
+  font-weight: 600;
 }
 
-/* Custom hover tooltip for Pets bubble */
-#pets-box::after {
-  content: "Pets Go Out when most temps from 11 AM–7 PM are 52°F or warmer. Pets Stay In when they are mostly colder.";
-  position: absolute;
-  left: 0;
-  top: 100%;
-  margin-top: 6px;
-  padding: 10px 14px;
-  width: 360px;
-  max-width: 360px;
-  border-radius: 10px;
-  background: rgba(15,23,42,0.98);
-  border: 1px solid rgba(148,163,184,0.8);
-  box-shadow: 0 10px 24px rgba(15,23,42,0.85);
-  font-size: 11px;
-  line-height: 1.35;
-  color: #e5e7eb;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(4px);
-  transition: opacity 0.16s ease-out, transform 0.16s ease-out;
-  z-index: 50;
-}
-
-#pets-box:hover::after {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-/* Hide secondary pets text so bubble only shows main label */
-#pets-text {
-  display: none !important;
-}
-
-
-/* Slightly smaller 3‑day forecast text */
-.three-day-row .day-card .subhead.small {
-  font-size: 11px !important;
-}
-.three-day-row .day-card .box h3 { font-size:11px !important;
-}
-.three-day-row .day-card .box .total { font-size:16px !important;
-}
-
-
-/* Show Pets bubble only on Overview tab */
-#pets-box {
-  position: relative !important;
-  margin: 8px 0 0 0 !important;
-  padding: 4px 10px !important;
-  width: fit-content !important;
-  max-width: none !important;
-  border-radius: 999px !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.30) !important;
-  text-align: left !important;
-  font-size: 12px !important;
-}
-
-/* Custom hover tooltip for Pets bubble */
-#pets-box::after {
-  content: "Pets Go Out when most temps from 11 AM–7 PM are 52°F or warmer. Pets Stay In when they are mostly colder.";
-  position: absolute;
-  left: 0;
-  top: 100%;
-  margin-top: 6px;
-  padding: 10px 14px;
-  width: 360px;
-  max-width: 360px;
-  border-radius: 10px;
-  background: rgba(15,23,42,0.98);
-  border: 1px solid rgba(148,163,184,0.8);
-  box-shadow: 0 10px 24px rgba(15,23,42,0.85);
-  font-size: 11px;
-  line-height: 1.35;
-  color: #e5e7eb;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(4px);
-  transition: opacity 0.16s ease-out, transform 0.16s ease-out;
-  z-index: 50;
-}
-
-#pets-box:hover::after {
-  opacity: 1;
-  transform: translateY(0);
-}
-section#screen-overview.active #pets-box {
-  position: relative !important;
-  margin: 8px 0 0 0 !important;
-  padding: 4px 10px !important;
-  width: fit-content !important;
-  max-width: none !important;
-  border-radius: 999px !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.30) !important;
-  text-align: left !important;
-  font-size: 12px !important;
-}
-
-/* Custom hover tooltip for Pets bubble */
-#pets-box::after {
-  content: "Pets Go Out when most temps from 11 AM–7 PM are 52°F or warmer. Pets Stay In when they are mostly colder.";
-  position: absolute;
-  left: 0;
-  top: 100%;
-  margin-top: 6px;
-  padding: 10px 14px;
-  width: 360px;
-  max-width: 360px;
-  border-radius: 10px;
-  background: rgba(15,23,42,0.98);
-  border: 1px solid rgba(148,163,184,0.8);
-  box-shadow: 0 10px 24px rgba(15,23,42,0.85);
-  font-size: 11px;
-  line-height: 1.35;
-  color: #e5e7eb;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(4px);
-  transition: opacity 0.16s ease-out, transform 0.16s ease-out;
-  z-index: 50;
-}
-
-#pets-box:hover::after {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-/* Hide Pets bubble when Enter screen (home overlay) is visible */
-#homeOverlay:not(.hide) ~ .content #pets-box {
-  position: relative !important;
-  margin: 8px 0 0 0 !important;
-  padding: 4px 10px !important;
-  width: fit-content !important;
-  max-width: none !important;
-  border-radius: 999px !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.30) !important;
-  text-align: left !important;
-  font-size: 12px !important;
-}
-
-/* Custom hover tooltip for Pets bubble */
-#pets-box::after {
-  content: "Pets Go Out when most temps from 11 AM–7 PM are 52°F or warmer. Pets Stay In when they are mostly colder.";
-  position: absolute;
-  left: 0;
-  top: 100%;
-  margin-top: 6px;
-  padding: 10px 14px;
-  width: 360px;
-  max-width: 360px;
-  border-radius: 10px;
-  background: rgba(15,23,42,0.98);
-  border: 1px solid rgba(148,163,184,0.8);
-  box-shadow: 0 10px 24px rgba(15,23,42,0.85);
-  font-size: 11px;
-  line-height: 1.35;
-  color: #e5e7eb;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(4px);
-  transition: opacity 0.16s ease-out, transform 0.16s ease-out;
-  z-index: 50;
-}
-
-#pets-box:hover::after {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-/* Pulse animation for "Live News" label */
-@keyframes livePulse {
-  0%   { transform: scale(1);   opacity: 0.8; }
-  50%  { transform: scale(1.12); opacity: 1; }
-  100% { transform: scale(1);   opacity: 0.8; }
-}
-.news-bar-label {
-  animation: livePulse 1.15s ease-in-out infinite;
-  transform-origin: center;
-}
-
-
-/* ===== NEWS SCREEN ===== */
-#screen-news .news-shell{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-#screen-news .news-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:10px;
-  flex-wrap:wrap;
-}
-#screen-news .news-header-meta{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-#screen-news .pill-small{
-  font-size:10px;
-  padding:3px 8px;
-}
-#screen-news .news-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-}
-#screen-news .news-panel{
-  border-radius:16px;
-  padding:10px;
-  background:rgba(15,23,42,0.95);
-  border:1px solid rgba(148,163,184,0.5);
-  display:flex;
-  flex-direction:column;
-  min-height:120px;
-}
-#screen-news .news-panel-us{
-  grid-row:1 / span 2;
-}
-#screen-news .news-panel-abq{
-  grid-column:1 / span 2;
-}
-
-/* Make all four news panels even grid cells */
-#screen-news .news-panel-us,
-#screen-news .news-panel-abq{
-  grid-row:auto;
-  grid-column:auto;
-}
-#screen-news .news-panel-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:6px;
-  margin-bottom:6px;
-}
-#screen-news .news-panel-header h3{
-  margin:0;
-  font-size:14px;
-}
-#screen-news .news-panel-header .tag{
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:2px 10px;
-  border-radius:999px;
-  border:1px solid rgba(148,163,184,0.7);
-  background:rgba(15,23,42,0.95);
-}
-#screen-news .news-list{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-#screen-news .news-empty{
-  font-size:11px;
-  color:#9ca3af;
-}
-#screen-news .news-card{
-  border-radius:12px;
-  padding:6px 8px;
-  background:#020617;
-  border:1px solid rgba(55,65,81,0.9);
-  cursor:pointer;
-  transition:transform .1s ease, box-shadow .15s ease, border-color .15s ease;
-}
-#screen-news .news-card:hover{
-  transform:translateY(-1px);
-  box-shadow:0 10px 28px rgba(15,23,42,0.8);
-  border-color:#38bdf8;
-}
-#screen-news .news-title{
-  font-size:13px;
-  margin:0 0 2px;
-}
-#screen-news .news-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:4px;
-  font-size:10px;
-  color:#9ca3af;
-}
-#screen-news .news-meta span{
-  border-radius:999px;
-  padding:1px 6px;
-  border:1px solid rgba(55,65,81,0.8);
-}
-#screen-news .news-footer{
-  margin-top:4px;
-  font-size:10px;
-  color:#9ca3af;
-  display:flex;
-  justify-content:space-between;
-  gap:6px;
-}
-#screen-news .news-footer a{
-  color:#38bdf8;
-  text-decoration:none;
-}
-#screen-news .news-footer a:hover{
-  text-decoration:underline;
-}
-#screen-news 
-.news-refresh{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  font-size:12px;
-  padding:6px 10px;
-  background:#16a34a; /* subtle green */
-  color:white;
-  border-radius:10px;
-  border:1px solid #166534;
-  box-shadow:0 0 6px rgba(0,0,0,0.3);
-}
-
-/* Stack panels on small screens */
-@media (max-width:768px){
-  #screen-news .news-grid{
-    grid-template-columns:1fr;
-    grid-template-rows:auto;
-  }
-  #screen-news .news-panel-us,
-  #screen-news .news-panel-abq{
-    grid-row:auto;
-    grid-column:auto;
-  }
-}
-
-
-/* Compact layout for News so all sections fit without page scroll on most screens */
-#screen-news .card.news-shell{
-  padding:10px 10px;
-  margin:8px 0;
-}
-#screen-news .news-shell{
-  gap:8px;
-}
-#screen-news .news-header{
-  gap:8px;
-}
-#screen-news .news-grid{
-  gap:8px;
-}
-#screen-news .news-panel{
-  padding:8px;
-  min-height:90px;
-}
-#screen-news .news-panel-header h3{
-  font-size:13px;
-}
-#screen-news .news-panel-header .tag{
-  font-size:9px;
-}
-#screen-news .news-title{
-  font-size:12px;
-}
-#screen-news .news-meta{
-  font-size:9px;
-}
-#screen-news .news-footer{
-  margin-top:2px;
-  font-size:9px;
-}
-/* ABQ section in two columns to save vertical space */
-#screen-news .news-panel-abq .news-list{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:4px;
-}
-#screen-news .news-panel-abq .news-card{
-  padding:5px 6px;
-}
-/* News button visibility fixes */
-.btn.news-refresh {
-  width: auto !important;
-  min-width: 90px;
-  padding: 6px 10px;
-}
-/* Updated pill wider */
-.pill.pill-small {
-  display:inline-block;
-  padding:4px 18px !important;
-}
-
-/* Force bottom tabs into a single horizontal row */
-.tabbar .tabs{
-  display:flex !important;
-  flex-wrap:nowrap !important;
-  justify-content:space-between;
-  width:100%;
-  max-width:var(--maxContent);
-}
-.tabbar .tab{
-  flex:1 1 auto;
-}
-
-/* Make News page stretch full height (only when active) */
-#screen-news.active{
-  display:flex;
-  flex-direction:column;
-  min-height:calc(100vh - 70px); /* approx bottom nav height */
-
-  height:100% !important;
-  overflow:hidden !important;
-}
-#screen-news.active .card.news-shell{
-  display:block;
-  height:auto;
-  min-height:0;
-}
-#screen-news.active .news-grid{
-  height:auto;
-  overflow:visible;
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-}
-
-/* === News visual clean-up + 2x2 dashboard that fits on screen === */
-
-/* Shell: centered, limited height so all 4 boxes fit without page scroll on typical screens */
-#screen-news .card.news-shell {
-  max-width: 1040px;
-  margin: 16px auto;
-  padding: 16px 18px 14px;
+.time-box, .time-output, .time-value {
+  text-align: center !important;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  /* Cap height so four panels fit without needing to scroll on most laptops */
-  height: min(560px, calc(100vh - 220px));
-}
-
-/* Header spacing & alignment */
-#screen-news .news-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 6px;
-}
-
-/* Header text sizing */
-#screen-news .news-title-main {
-  font-size: 16px;
-}
-#screen-news .news-subtitle {
-  font-size: 12px;
-}
-
-/* Main grid: fixed 2x2 layout that fills the shell's remaining height */
-#screen-news .news-grid,
-#screen-news.active .news-grid {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-/* Each panel: softer look, flex column so list can scroll inside */
-#screen-news .news-panel {
-  background: rgba(15, 23, 42, 0.96);
-  border-radius: 18px;
-  padding: 12px 12px 10px;
-  border: 1px solid rgba(148, 163, 184, 0.55);
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.7);
-  display: flex;
+  justify-content: center;
   flex-direction: column;
-  min-height: 0;
+}
+</style><style>
+/* Increase size of date and time lines */
+#yourTimeDisplay .date-part,
+#theirTimeDisplay .date-part {
+  font-size: 13px !important;
 }
 
-/* Panel headers tidy */
-#screen-news .news-panel-header h3 {
-  font-size: 14px;
+#yourTimeDisplay .time-part,
+#theirTimeDisplay .time-part {
+  font-size: 16px !important;
+  font-weight: 700;
 }
-#screen-news .news-panel-header .tag {
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+</style><style>
+/* Match offset text size with time */
+#offsetDisplay {
+  font-size: 16px !important;
+  font-weight: 700;
 }
-
-/* List area scrolls inside panel when there are lots of stories */
-#screen-news .news-list {
-  display: flex;
+</style><style>
+/* Align offset vertically with time lines */
+#offsetDisplay {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  line-height: 1.15;
+  margin-top: 14px; /* push down slightly to align with stacked time */
+}
+</style><style>
+/* Fine-tune offset alignment */
+#offsetDisplay {
+  margin-top: 6px !important; /* reduced from 14px */
+}
+</style><style>
+/* Proper vertical alignment without guesswork */
+#offsetDisplay {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
-  gap: 8px;
-  flex: 1;
-  min-height: 0;
-  overflow: auto;
-  padding-right: 2px; /* room for scrollbar */
+  height: 100%;
+  margin-top: 0 !important;
+  line-height: 1.2;
 }
 
-/* Individual story card */
-#screen-news .news-card {
-  padding: 8px 9px;
-  border-radius: 12px;
-  background: #020617;
-  border: 1px solid rgba(55, 65, 81, 0.7);
-}
-#screen-news .news-title {
+/* Add invisible spacer to match date line height */
+#offsetDisplay::before {
+  content: "Mar 20";
+  visibility: hidden;
+  display: block;
   font-size: 13px;
+  margin-bottom: 2px;
 }
-
-/* Meta info: calmer, less "chip" clutter */
-#screen-news .news-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  font-size: 10px;
-  color: #9ca3af;
-}
-#screen-news .news-meta span {
-  border: none;
-  padding: 0;
-  border-radius: 0;
-  background: transparent;
-  color: #9ca3af;
-}
-
-/* Footer text small and soft */
-#screen-news .news-footer {
-  margin-top: 3px;
-  font-size: 9px;
-  color: #9ca3af;
-}
-#screen-news .news-footer a {
-  color: #38bdf8;
-  text-decoration: none;
-}
-#screen-news .news-footer a:hover {
-  text-decoration: underline;
-}
-
-/* Albuquerque list matches others but stays simple */
-#screen-news .news-panel-abq .news-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-#screen-news .news-panel-abq .news-card {
-  padding: 8px 9px;
-}
-
-/* Mobile: stack panels so it's still readable, and let height be natural */
-@media (max-width: 768px) {
-  #screen-news .card.news-shell {
-    height: auto;
-    margin: 10px 8px;
-    padding: 12px 10px;
-  }
-  #screen-news .news-grid,
-  #screen-news.active .news-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    gap: 10px;
-  }
-}
-
-
-/* === News true 4-quadrant viewport layout === */
-
-/* Make sure the viewport is the reference for sizing */
-html, body {
-  height: 100%;
-}
-
-/* When News is active, treat its shell as a fixed-height dashboard
-   that fits within the visible viewport. Adjust the 160px offset
-   if header/footer sizing changes. */
-#screen-news.active .card.news-shell {
-  max-width: none;
-  margin: 0;
-  border-radius: 0;
-  height: calc(100vh - 160px);
-  padding: 12px 16px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Grid fills the shell and splits into 4 equal quadrants */
-#screen-news.active .news-grid {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 10px;
-}
-
-/* Panels stretch to fully occupy each quadrant */
-#screen-news.active .news-panel {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
-/* Lists scroll inside each quadrant if needed */
-#screen-news.active .news-list {
-  flex: 1;
-  min-height: 0;
-  overflow: auto;
-}
-
-/* On smaller screens, allow vertical scrolling instead of forcing tiny quadrants */
-@media (max-height: 720px), (max-width: 768px) {
-  #screen-news.active .card.news-shell {
-    height: auto;
-    padding: 12px 10px;
-  }
-  #screen-news.active .news-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-}
-
-
-/* === Color accents per News panel === */
-
-/* US News: cool blue accent */
-#screen-news .news-panel-us {
-  border-color: rgba(59, 130, 246, 0.7);
-  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.5);
-}
-#screen-news .news-panel-us .news-panel-header h3 {
-  color: #bfdbfe;
-}
-#screen-news .news-panel-us .tag {
-  background: rgba(37, 99, 235, 0.25);
-  color: #bfdbfe;
-}
-
-/* Southwest Airlines: warm orange accent */
-#screen-news .news-panel-sw {
-  border-color: rgba(249, 115, 22, 0.7);
-  box-shadow: 0 10px 26px rgba(194, 65, 12, 0.5);
-}
-#screen-news .news-panel-sw .news-panel-header h3 {
-  color: #fed7aa;
-}
-#screen-news .news-panel-sw .tag {
-  background: rgba(249, 115, 22, 0.25);
-  color: #fed7aa;
-}
-
-/* Hilton: royal purple accent */
-#screen-news .news-panel-hilton {
-  border-color: rgba(147, 51, 234, 0.7);
-  box-shadow: 0 10px 26px rgba(126, 34, 206, 0.5);
-}
-#screen-news .news-panel-hilton .news-panel-header h3 {
-  color: #e9d5ff;
-}
-#screen-news .news-panel-hilton .tag {
-  background: rgba(147, 51, 234, 0.25);
-  color: #e9d5ff;
-}
-
-/* Albuquerque: teal/green accent */
-#screen-news .news-panel-abq {
-  border-color: rgba(45, 212, 191, 0.7);
-  box-shadow: 0 10px 26px rgba(15, 118, 110, 0.5);
-}
-#screen-news .news-panel-abq .news-panel-header h3 {
-  color: #a5f3fc;
-}
-#screen-news .news-panel-abq .tag {
-  background: rgba(45, 212, 191, 0.25);
-  color: #a5f3fc;
-}
-
-
-/* === BRIGHTER colors + SWAPPED Hilton & Albuquerque === */
-
-/* US News: brighter blue */
-#screen-news .news-panel-us {
-  border-color: rgba(96, 165, 250, 1);
-  box-shadow: 0 0 25px rgba(96, 165, 250, 0.7);
-}
-#screen-news .news-panel-us .news-panel-header h3 {
-  color: #dbeafe;
-}
-#screen-news .news-panel-us .tag {
-  background: rgba(96, 165, 250, 0.45);
-  color: #dbeafe;
-}
-
-/* Southwest Airlines: brighter orange */
-#screen-news .news-panel-sw {
-  border-color: rgba(253, 186, 116, 1);
-  box-shadow: 0 0 25px rgba(253, 186, 116, 0.7);
-}
-#screen-news .news-panel-sw .news-panel-header h3 {
-  color: #ffedd5;
-}
-#screen-news .news-panel-sw .tag {
-  background: rgba(253, 186, 116, 0.45);
-  color: #ffedd5;
-}
-
-/* Hilton (now TEAL/GREEN) */
-#screen-news .news-panel-hilton {
-  border-color: rgba(45, 212, 191, 1);
-  box-shadow: 0 0 25px rgba(45, 212, 191, 0.7);
-}
-#screen-news .news-panel-hilton .news-panel-header h3 {
-  color: #ccfbf1;
-}
-#screen-news .news-panel-hilton .tag {
-  background: rgba(45, 212, 191, 0.45);
-  color: #ccfbf1;
-}
-
-/* Albuquerque (now PURPLE) */
-#screen-news .news-panel-abq {
-  border-color: rgba(192, 132, 252, 1);
-  box-shadow: 0 0 25px rgba(192, 132, 252, 0.7);
-}
-#screen-news .news-panel-abq .news-panel-header h3 {
-  color: #f3e8ff;
-}
-#screen-news .news-panel-abq .tag {
-  background: rgba(192, 132, 252, 0.45);
-  color: #f3e8ff;
-}
-
-
-.three-day-row .day-card:nth-child(1) {
-  border:1px solid rgba(34,197,94,0.8);
-  box-shadow:0 0 26px rgba(34,197,94,0.55);
-}
-.three-day-row .day-card:nth-child(2) {
-  border:1px solid rgba(234,179,8,0.8);
-  box-shadow:0 0 26px rgba(234,179,8,0.55);
-}
-.three-day-row .day-card:nth-child(3) {
-  border:1px solid rgba(239,68,68,0.85);
-  box-shadow:0 0 26px rgba(239,68,68,0.55);
-}
-
-
-#wx-hourly .box, #wx-hourly-next .box {
-  border:1px solid rgba(255,255,255,0.3);
-  box-shadow:0 0 12px rgba(255,255,255,0.25);
-  background: rgba(0,0,0,0);
-}
-
-
-#tz-grid .box {
-  border:1px solid rgba(255,255,255,0.45) !important;
-  box-shadow:0 0 18px rgba(255,255,255,0.35) !important;
-  background: rgba(0,0,0,0.0) !important;
-}
-
-
-/* ==== Always-visible radio bar + mobile tweaks ==== */
-:root {
-  --radio-height: 46px;
-}
-
-#island-radio-bar {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--radio-height);
-  padding-top: calc(env(safe-area-inset-top, 0px) / 2);
-  z-index: 11000;
-}
-
-.app-shell {
-  padding-top: var(--radio-height);
-  height: 100dvh;
-}
-
-@media (max-width: 480px) {
-  #island-radio-bar {
-    font-size: 11px;
-    gap: 8px;
-    padding: 0 10px;
-  }
-
-  #island-radio-bar button {
-    min-width: 32px;
-    min-height: 32px;
-    font-size: 12px;
-  }
-
-  #radio-info span {
-    font-size: 10px;
-  }
-}
-
-/* ==== Mobile: lock layout to vertical scroll only ==== */
-@media (max-width: 768px) {
-  html, body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .app-shell,
-  .content {
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
-}
-
-/* ==== Radio volume: boost visuals + stepped feel ==== */
-#radioVolume{
-  accent-color: #38bdf8; /* affects thumb in modern browsers */
-}
-#radioVolume{
-  /* Track fill: updated by JS via background gradient */
-  background: linear-gradient(90deg, rgba(56,189,248,0.85) 0%, rgba(56,189,248,0.85) 50%, rgba(148,163,184,0.25) 50%, rgba(148,163,184,0.25) 100%);
-  height: 4px;
-  border-radius: 999px;
-  outline: none;
-}
-/* WebKit track/thumb tuning */
-#radioVolume::-webkit-slider-runnable-track{
-  height: 4px;
-  border-radius: 999px;
-}
-#radioVolume::-webkit-slider-thumb{
-  -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid rgba(148,163,184,0.85);
-  background: rgba(226,232,240,0.95);
-  margin-top: -5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.35);
-}
-#radioVolume:active::-webkit-slider-thumb{
-  transform: scale(1.05);
-}
-/* Firefox */
-#radioVolume::-moz-range-track{
-  height: 4px;
-  border-radius: 999px;
-}
-#radioVolume::-moz-range-thumb{
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid rgba(148,163,184,0.85);
-  background: rgba(226,232,240,0.95);
-  box-shadow: 0 0 10px rgba(0,0,0,0.35);
-}
-
-
-/* ==== Robust redline track styling (cross-browser) ==== */
-#radioVolume{
-  -webkit-appearance:none !important;
-  appearance:none !important;
-  background: transparent !important;
-  height: 18px; /* gives room for thumb */
-}
-/* WebKit track uses CSS vars set by JS: --vol-safe and --vol-pct */
-#radioVolume::-webkit-slider-runnable-track{
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg,
-    rgba(56,189,248,1) 0%,
-    rgba(56,189,248,1) var(--vol-safe, 0%),
-    rgba(239,68,68,1) var(--vol-safe, 0%),
-    rgba(239,68,68,1) var(--vol-pct, 0%),
-    rgba(148,163,184,0.35) var(--vol-pct, 0%),
-    rgba(148,163,184,0.35) 100%
-  ) !important;
-}
-#radioVolume::-webkit-slider-thumb{
-  -webkit-appearance:none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid rgba(148,163,184,0.85);
-  background: rgba(226,232,240,0.95);
-  margin-top: -5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.35);
-}
-/* Firefox track */
-#radioVolume::-moz-range-track{
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg,
-    rgba(56,189,248,1) 0%,
-    rgba(56,189,248,1) var(--vol-safe, 0%),
-    rgba(239,68,68,1) var(--vol-safe, 0%),
-    rgba(239,68,68,1) var(--vol-pct, 0%),
-    rgba(148,163,184,0.35) var(--vol-pct, 0%),
-    rgba(148,163,184,0.35) 100%
-  ) !important;
-}
-#radioVolume::-moz-range-thumb{
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid rgba(148,163,184,0.85);
-  background: rgba(226,232,240,0.95);
-  box-shadow: 0 0 10px rgba(0,0,0,0.35);
-}
-
-
-/* ==== Mobile optimization for the top radio bar ==== */
-/* The bar is inline-styled, so we use !important overrides */
-#island-radio-bar{
+</style><style>
+/* Fix offset alignment to match the visible time line */
+#offsetDisplay {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
   height: auto !important;
-  min-height: 46px !important;
-  padding: 6px 10px !important;
-  gap: 10px !important;
-  justify-content: space-between !important;
-  flex-wrap: wrap !important;
+  margin-top: 0 !important;
+  text-align: center !important;
+  line-height: 1.15 !important;
+  white-space: normal !important;
 }
 
-/* Let station info breathe and wrap nicely */
-#radio-info{
-  flex: 1 1 160px !important;
-  min-width: 160px !important;
-  align-items: flex-start !important;
-  text-align: left !important;
+/* Invisible first row to match the date line height in the other two boxes */
+#offsetDisplay::before {
+  content: "Mar 20";
+  visibility: hidden;
+  display: block;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  margin-bottom: 2px !important;
 }
-#radioName{
-  font-size: 11px !important;
-  line-height: 1.2 !important;
-}
-#radioSubtitle{
-  font-size: 10px !important;
-  line-height: 1.2 !important;
-}
-
-/* Volume group: keep it usable, prevent cramping */
-#radio-volume-wrap{
-  flex: 0 1 auto !important;
-  margin-left: 0 !important;
-  gap: 6px !important;
-}
-#radioVolume{
-  width: 110px !important;
-  touch-action: pan-y; /* smoother drag on mobile */
-}
-#radioVolValue{
-  min-width: 30px !important;
-}
-
-/* Transport controls: always visible and not squished */
-#radioPrevBtn, #radioNextBtn{
-  width: 32px !important;
-  height: 32px !important;
-  font-size: 14px !important;
-}
-#radioPlayBtn{
-  padding: 6px 12px !important;
-  font-size: 11px !important;
-}
-
-/* On very small phones, stack: info on top, controls row below */
-@media (max-width: 380px){
-  #island-radio-bar{
-    gap: 8px !important;
-  }
-  #radio-info{
-    flex: 1 1 100% !important;
-    min-width: 0 !important;
-  }
-  #radio-volume-wrap{
-    order: 2 !important;
-  }
-  /* The buttons container is the next sibling div inside the bar */
-  #island-radio-bar > div:last-child{
-    order: 3 !important;
-  }
-}
-
-/* Keep the app shell offset accurate when the bar becomes taller */
-.app-shell{
-  padding-top: auto !important;
-}
-
-
-/* ==== News page: lock main scroll, allow panel-only scroll ==== */
-#screen-news.active {
-  height: calc(100vh - 160px);
-  overflow: hidden !important;
-}
-
-#screen-news.active .card.news-shell {
-  height: 100%;
-  overflow: hidden !important;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Grid itself should not scroll */
-#screen-news.active .news-grid {
-  flex: 1;
-  min-height: 0;
-  overflow: hidden !important;
-}
-
-/* Individual panels scroll internally */
-#screen-news.active .news-panel {
-  min-height: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-#screen-news.active .news-list {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-
-
-#subtaxOut {
-  color: var(--info);
-}
-
-
-/* --- NEWS full-screen 2x2 tiles + no page scroll (Dec 2025) --- */
-
-/* Lock the main scroll container when News is active */
-html.no-page-scroll body .content,
-body.no-page-scroll .content{
-  overflow:hidden !important;
-  padding:0 !important;
-}
-
-/* Ensure the active News panel uses available content height (not full viewport + header) */
-#screen-news.active{
-  height:100% !important;
-}
-#screen-news.active .news-shell{
-  height:100% !important;
-  min-height:0 !important;
-}
-
-body.no-page-scroll,
-html.no-page-scroll{
-
-  overflow:hidden !important;
-  height:100% !important;
-}
-
-
-/* --- NEWS: lock app-level scroller without breaking layout --- */
-body.no-page-scroll .content,
-html.no-page-scroll body .content{
-  overflow:hidden !important;
-  padding:0 !important;
-}
-
-/* Make News screen full-bleed even if the app is centered */
-#screen-news.active{
-  overflow:hidden !important;
-  padding:0 !important;
-}
-#screen-news.active .news-shell{
-  width:100vw !important;
-  max-width:100vw !important;
-  margin:0 !important;
-  /* full-bleed trick when inside a centered container */
-  position:relative;
-  left:50%;
-  right:50%;
-  margin-left:-50vw !important;
-  margin-right:-50vw !important;
-
-  display:flex;
-  flex-direction:column;
-  height:100% !important;
-  min-height:0 !important;
-  border-radius:0 !important;
-}
-
-/* 4 tiles fill the available area */
-#screen-news.active .news-grid{
-  display:grid !important;
-  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
-  grid-template-rows:repeat(2, minmax(0, 1fr)) !important;
-  gap:0 !important;
-  width:100% !important;
-  flex:1 1 auto;
-  min-height:0;
-}
-
-/* Each tile scrolls internally */
-#screen-news.active .news-panel{
-  min-height:0;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-}
-#screen-news.active .news-list{
-  flex:1 1 auto;
-  min-height:0;
-  overflow:auto;
-  -webkit-overflow-scrolling:touch;
-}
-
-
-#screen-news.active .news-header{
-  padding:8px 10px !important;
-}
-#screen-news.active .news-header h2{
-  margin:2px 0 !important;
-  font-size:16px !important;
-}
-#screen-news.active .news-header .subhead{
-  margin:0 !important;
-  font-size:11px !important;
-}
-
-
-#screen-news.active .news-grid{
-  overflow:hidden !important;
-  min-height:0 !important;
-}
-#screen-news.active .news-panel{
-  min-height:0 !important;
-}
-#screen-news.active .news-list{
-  min-height:0 !important;
-}
-
-
-/* --- NEWS: ensure the 2x2 grid fits exactly within the visible content area --- */
-body.no-page-scroll .content{
-  display:flex !important;
-  flex-direction:column !important;
-}
-body.no-page-scroll .container{
-  flex:1 1 auto !important;
-  height:100% !important;
-  min-height:0 !important;
-  max-width:100% !important;
-  margin:0 !important;
-}
-
-/* Make the News tabpanel participate in flex sizing */
-#screen-news.active{
-  flex:1 1 auto !important;
-  display:flex !important;
-  min-height:0 !important;
-}
-
-/* News shell and grid: header + grid split, grid cannot overflow */
-#screen-news.active .news-shell{
-  flex:1 1 auto !important;
-  min-height:0 !important;
-}
-#screen-news.active .news-grid{
-  flex:1 1 auto !important;
-  min-height:0 !important;
-}
-
-
-/* --- NEWS: keep tiles above the fixed bottom tab bar --- */
-:root{
-  --tabbarSpace: calc(92px + env(safe-area-inset-bottom));
-}
-
-/* When News is active, remove main padding (prevents page scroll),
-   but reserve space inside the News screen for the fixed tab bar. */
-body.no-page-scroll .content,
-html.no-page-scroll body .content{
-  padding:0 !important;
-  overflow:hidden !important;
-}
-
-#screen-news.active .news-grid{
-  /* grid fills whatever is left under the News header */
-  min-height:0 !important;
-}
-
-
-/* --- NEWS: reserve space for the fixed tab bar without enabling page scroll --- */
-:root{ --tabbarSpace: calc(92px + env(safe-area-inset-bottom)); }
-
-body.no-page-scroll .content,
-html.no-page-scroll body .content{
-  overflow:hidden !important;
-  /* Reserve space at the bottom so tiles don't sit behind the fixed .tabbar */
-  padding: 0 0 var(--tabbarSpace) 0 !important;
-}
-
-#screen-news.active{
-  height:100% !important;
-  overflow:hidden !important;
-}
-
-#screen-news.active .news-shell{
-  height:100% !important;
-  min-height:0 !important;
-  overflow:hidden !important;
-}
-
-#screen-news.active .news-grid{
-  min-height:0 !important;
-  overflow:hidden !important;
-}
-
-
-/* ===== OVERVIEW: MOBILE FIX (added by ChatGPT) ===== */
-/* Prevent "squished" overview on small screens by stacking the dense grids */
-@media (max-width: 480px){
-  /* Slightly tighter card spacing on phones */
-  #screen-overview .card{ padding:12px 12px; margin:10px 0; }
-
-  /* Timezone grid: 2 columns on phones */
-  #screen-overview #tz-grid{ 
-    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
-    gap: 8px !important;
-  }
-  #screen-overview #tz-grid .box{ padding:8px 8px !important; }
-
-  /* 3-day forecast: stack vertically */
-  .three-day-row{
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-  .three-day-row .day-card{ padding:10px 10px; }
-
-  /* Keep the Pets tooltip within the screen */
-  #pets-box::after{
-    width: min(86vw, 360px);
-    max-width: 86vw;
-  }
-}
-
-@media (max-width: 360px){
-  /* Ultra-small phones: timezone grid becomes 1 column */
-  #screen-overview #tz-grid{
-    grid-template-columns: 1fr !important;
-  }
-}
-</style>
-</head>
+</style></head>
 <body>
-<!-- Multi‑Station Slim Radio Bar (Right-Aligned) -->
+<!-- Multi-Station Slim Radio Bar (Right-Aligned) -->
 <div id="island-radio-bar" style="
-  width:100%;
-  height:46px;
-  background:linear-gradient(to right, #020617, #0b1120, #111827);
-  border-bottom:1px solid rgba(148,163,184,0.5);
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  padding:0 14px;
-  box-sizing:border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-  color:#e5e7eb;
-  font-size:12px;
-  letter-spacing:.04em;
-  z-index:9999;
-  position:relative;
-  gap:12px;
-">
-<div id="radio-info" style="
+    width:100%;
+    height:46px;
+    background:linear-gradient(to right, #020617, #0b1120, #111827);
+    border-bottom:1px solid rgba(148,163,184,0.5);
     display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    gap:2px;
-    text-align:right;
-    white-space:nowrap;
+    align-items:center;
+    justify-content:flex-end;
+    padding:0 14px;
+    box-sizing:border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    color:#e5e7eb;
+    font-size:12px;
+    letter-spacing:.04em;
+    z-index:9999;
+    position:relative;
+    gap:12px;
   ">
+<div id="radio-info" style="
+        display:flex;
+        flex-direction:column;
+        align-items:flex-end;
+        gap:2px;
+        text-align:right;
+        white-space:nowrap;
+      ">
 <span id="radioName" style="font-size:11px; text-transform:uppercase; opacity:.9;">
-      Island 98.9 · KITH-FM
-    </span>
+        Island 98.9 · KITH-FM
+      </span>
 <span id="radioSubtitle" style="font-size:10px; color:#a5f3fc; opacity:.9;">
-      Reggae · Hawai‘i · Live
-    </span>
+        Reggae · Hawai‘i · Live
+      </span>
 </div>
 <div id="radio-volume-wrap" style="
-    display:flex;
-    align-items:center;
-    gap:4px;
-    margin-left:8px;
-  ">
-    <span style="font-size:10px;opacity:.7;">VOL</span>
-  <input id="radioVolume" type="range" min="0" max="150" step="5" value="100" style="width:72px;cursor:pointer;">
-  <span id="radioVolValue" style="font-size:10px;opacity:.85;min-width:26px;text-align:right;">75</span>
-  </div>
+        display:flex;
+        align-items:center;
+        gap:4px;
+        margin-left:8px;
+      ">
+<span style="font-size:10px;opacity:.7;">VOL</span>
+<input id="radioVolume" max="150" min="0" step="5" style="
+    width:90px;
+    cursor:pointer;
+    appearance:none;
+    height:6px;
+    border-radius:2px;
+    background:#1f2937;
+    outline:none;
+    border:1px solid rgba(148,163,184,0.4);
+    " type="range" value="100"/>
+<span id="radioVolValue" style="font-size:10px;opacity:.85;min-width:26px;text-align:right;">75</span>
+</div>
 <div style="
-    display:flex;
-    align-items:center;
-    gap:6px;
-  ">
+        display:flex;
+        align-items:center;
+        gap:6px;
+      ">
 <button id="radioPrevBtn" style="
-      width:26px;
-      height:26px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.7);
-      background:rgba(15,23,42,0.9);
-      color:#e5e7eb;
-      font-size:12px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    " title="Previous station" type="button">
-      ‹
-    </button>
+          width:26px;
+          height:26px;
+          border-radius:999px;
+          border:1px solid rgba(148,163,184,0.7);
+          background:rgba(15,23,42,0.9);
+          color:#e5e7eb;
+          font-size:12px;
+          cursor:pointer;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        " title="Previous station" type="button">
+        ‹
+      </button>
 <button id="radioPlayBtn" style="
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:6px;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.7);
-      background:rgba(15,23,42,0.95);
-      color:#e5e7eb;
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      cursor:pointer;
-      box-shadow:0 0 10px rgba(15,23,42,0.9);
-    " type="button">
+          display:inline-flex;
+          align-items:center;
+          justify-content:center;
+          gap:6px;
+          padding:4px 10px;
+          border-radius:999px;
+          border:1px solid rgba(148,163,184,0.7);
+          background:rgba(15,23,42,0.95);
+          color:#e5e7eb;
+          font-size:11px;
+          text-transform:uppercase;
+          letter-spacing:.12em;
+          cursor:pointer;
+          box-shadow:0 0 10px rgba(15,23,42,0.9);
+        " type="button">
 <span id="radioPlayIcon">▶</span>
 <span id="radioPlayLabel">Play</span>
 </button>
 <button id="radioNextBtn" style="
-      width:26px;
-      height:26px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.7);
-      background:rgba(15,23,42,0.9);
-      color:#e5e7eb;
-      font-size:12px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    " title="Next station" type="button">
-      ›
-    </button>
+          width:26px;
+          height:26px;
+          border-radius:999px;
+          border:1px solid rgba(148,163,184,0.7);
+          background:rgba(15,23,42,0.9);
+          color:#e5e7eb;
+          font-size:12px;
+          cursor:pointer;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        " title="Next station" type="button">
+        ›
+      </button>
 </div>
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  // You can customize this list with any other stream URLs you like.
-  const stations = [
-  {
-    name: 'Island 98.9',
-    subtitle: 'Reggae · Hawai‘i · Live',
-    url: 'https://streaming.live365.com/a53788'
-  },
-  {
-    name: 'Island 98.5',
-    subtitle: 'Hawaiian Contemporary · Live',
-    url: 'https://stream.revma.ihrhls.com/zc821/hls.m3u8'
-  },
-  {
-    name: 'Onipaʻa 105.1',
-    subtitle: 'Hawaiian Contemporary · iHeart Live',
-    url: 'https://stream.rcs.revma.com/vfa2fzr1t7uvv/15_1hxu2efit755802/playlist.m3u8'
-  },
-  {
-    name: 'Reggae Roots Radio',
-    subtitle: 'Roots · Reggae · Live',
-    url: 'https://streaming.live365.com/a38681'
-  },
-  {
-    name: 'Hawaiian Rainbow',
-    subtitle: 'Traditional Hawaiian Hula · Live',
-    url: 'https://s1.autopo.st/proxy/nqjchago?mp=/stream'
-  }
-];
-
-  let currentIndex = 0;
-  const audio = new Audio();
-  audio.crossOrigin = "anonymous";
-  audio.preload = 'none';
-
-  let audioCtx = null;
-  let gainNode = null;
-  let sourceNode = null;
-  let currentVolume = 1.0; // default 75%
-
-
-  const playBtn = document.getElementById('radioPlayBtn');
-  const playIcon = document.getElementById('radioPlayIcon');
-  const playLabel = document.getElementById('radioPlayLabel');
-  const prevBtn = document.getElementById('radioPrevBtn');
-  const nextBtn = document.getElementById('radioNextBtn');
-  const nameEl = document.getElementById('radioName');
-  const subEl = document.getElementById('radioSubtitle');
-  const volumeSlider = document.getElementById('radioVolume');
-
-  if (!playBtn || !prevBtn || !nextBtn || !nameEl || !subEl) return;
-
-  let isPlaying = false;
-
-  function ensureAudioGraph() {
-    if (!audioCtx) {
-      const Ctx = window.AudioContext || window.webkitAudioContext;
-      if (Ctx) {
-        audioCtx = new Ctx();
-        gainNode = audioCtx.createGain();
-        gainNode.gain.value = currentVolume;
-        try {
-          sourceNode = audioCtx.createMediaElementSource(audio);
-          sourceNode.connect(gainNode).connect(audioCtx.destination);
-        } catch (err) {
-          console.error('Audio graph error:', err);
-          gainNode = null;
-          sourceNode = null;
-        }
-      } else {
-        // Fallback: no Web Audio, use element volume up to 1.0
-        gainNode = null;
-      }
-    }
-    if (audioCtx && audioCtx.state === 'suspended') {
-      audioCtx.resume().catch(function(e){ console.error('AudioContext resume error:', e); });
-    }
-  }
-
-  if (volumeSlider) {
-    // Initialize slider to default 75%
-    volumeSlider.value = 100;
-    const applyVolume = function () {
-      const raw = Number(volumeSlider.value) || 0;
-
-      // Linear mapping, snapped to 5s
-      let effective = Math.round(raw / 5) * 5;
-      effective = Math.max(0, Math.min(150, effective));
-
-      currentVolume = effective / 100; // 0.0 -> 1.5
-
-      if (gainNode) {
-        gainNode.gain.value = currentVolume;
-      } else {
-        audio.volume = Math.max(0, Math.min(1, currentVolume));
-      }
-
-      const volValueEl = document.getElementById('radioVolValue');
-      if (volValueEl) volValueEl.textContent = String(effective);
-
-      // Redline: compute track positions and set CSS vars used by ::track
-      const pct = (effective / 150) * 100;               // 0..100
-      const safePct = (Math.min(effective, 100) / 150) * 100;
-
-      // Always set vars; if effective <= 100 then safePct == pct (red segment disappears)
-      volumeSlider.style.setProperty('--vol-safe', safePct.toFixed(3) + '%');
-      volumeSlider.style.setProperty('--vol-pct', pct.toFixed(3) + '%');
-    };
-    volumeSlider.addEventListener('input', applyVolume);
-    applyVolume();
-  }
-
-  function updateStationDisplay() {
-    const s = stations[currentIndex];
-    nameEl.textContent = s.name;
-    subEl.textContent = s.subtitle;
-  }
-
-  function setPlayingUI(on) {
-    isPlaying = on;
-    if (on) {
-      playIcon.textContent = '🔊';
-      playLabel.textContent = 'Mute';
-      playBtn.style.borderColor = 'rgba(34,197,94,0.9)';
-      playBtn.style.boxShadow = '0 0 12px rgba(34,197,94,0.7)';
-    } else {
-      playIcon.textContent = '▶';
-      playLabel.textContent = 'Play';
-      playBtn.style.borderColor = 'rgba(148,163,184,0.7)';
-      playBtn.style.boxShadow = '0 0 10px rgba(15,23,42,0.9)';
-    }
-  }
-
-  function loadStation(newIndex, autoplay) {
-    currentIndex = (newIndex + stations.length) % stations.length;
-    const s = stations[currentIndex];
-    updateStationDisplay();
-    audio.src = s.url || '';
-    if (autoplay && s.url) {
-      ensureAudioGraph();
-      audio.play().then(function () {
-        setPlayingUI(true);
-      }).catch(function (e) {
-        console.error('Audio play error:', e);
-        setPlayingUI(false);
-      });
-    } else {
-      setPlayingUI(false);
-    }
-  }
-
-    playBtn.addEventListener('click', function () {
-  const s = stations[currentIndex];
-  if (!isPlaying) {
-    if (!audio.src) {
-      loadStation(currentIndex, true);
-    } else {
-      ensureAudioGraph();
-      audio.play().then(function () {
-        setPlayingUI(true);
-      }).catch(function (e) {
-        console.error('Audio play error:', e);
-        setPlayingUI(false);
-      });
-    }
-  } else {
-    audio.pause();
-    setPlayingUI(false);
-  }
-});
-
-prevBtn.addEventListener('click', function () {
-    loadStation(currentIndex - 1, isPlaying);
-  });
-
-  nextBtn.addEventListener('click', function () {
-    loadStation(currentIndex + 1, isPlaying);
-  });
-
-  audio.addEventListener('ended', function () {
-    setPlayingUI(false);
-  });
-
-  audio.addEventListener('error', function (e) {
-    console.error('Audio error:', e);
-    setPlayingUI(false);
-  });
-
-  // Initialize display with first station
-  updateStationDisplay();
-});
-</script>
-<div class="app-shell">
-<header aria-label="App header" class="appbar">
-<button aria-label="Scroll to top" class="icon-btn" id="btnBack" style="display:none" title="Scroll to top"></button>
-<button aria-label="Copy summary" class="icon-btn" id="btnCopy" style="display:none" title="Copy summary"></button>
-<h1 class="app-title" id="appTitle">Tip Calculator</h1>
-</header>
-<!-- HOME OVERLAY -->
-<div aria-labelledby="welcomeTitle" aria-modal="true" class="home-overlay" id="homeOverlay" role="dialog">
-<div aria-label="Welcome card" class="welcome-card" role="group">
-<div aria-hidden="true" class="glow"></div>
-<div aria-hidden="true" class="ring-wrap">
-<div class="ring"></div>
-<div class="ring r2"></div>
-<div class="ring r3"></div>
+<div class="app">
+<section class="hero">
+<div class="clock-banner" id="clock-bar">
+<div class="clock-row" id="clock-row"></div>
 </div>
-<span class="sparkle s1"></span>
-<span class="sparkle s2"></span>
-<span class="sparkle s3"></span>
-<span class="sparkle s4"></span>
-<span class="sparkle s5"></span>
-<div style="position:relative;z-index:1;display:flex;flex-direction:column;height:100%">
-<div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
-<span class="badge">cini.moD</span>
-<h3 class="welcome-headline">Welcome to <span style="color:var(--accent)">cini.moD</span><br/>Your pocket sidekick for work and wander!</h3>
+</section>
+<main class="widget-grid">
+<div class="stack">
+<section class="card">
+<h2>Weather</h2>
+<div class="grid two weather-grid">
+<div class="stat weather-card" data-city="Albuquerque, NM" data-lat="35.0844" data-lon="-106.6504" data-timezone="America/Denver">
+<div class="stat-label" data-role="city" style=";color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">Albuquerque, NM</div>
+<div class="stat-value" data-role="current-temp" style=";color:#f59e0b;font-weight:600;;color:#d1d5db;;color:#e4e4e7;;color:#e5e7eb;">69°F</div>
+<div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Clear • 90° / 52°</div>
+<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmr: Sunny • 87° / 53°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Sunny • 87° / 53°</div>
 </div>
-<div style="margin-top:auto">
-<button class="enter-btn" id="enterBtn">Enter
-              <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px" viewbox="0 0 24 24">
-<path d="M5 12h14M13 5l7 7-7 7"></path>
-</svg>
-</button>
+<div class="stat weather-card" data-city="Las Vegas, NV" data-lat="36.1699" data-lon="-115.1398" data-timezone="America/Los_Angeles">
+<div class="stat-label" data-role="city" style=";color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">Las Vegas, NV</div>
+<div class="stat-value" data-role="current-temp" style=";color:#f59e0b;font-weight:600;;color:#d1d5db;;color:#e4e4e7;;color:#e5e7eb;">81°F</div>
+<div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Clear • 96° / 70°</div>
+<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmr: Sunny • 96° / 69°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Sunny • 96° / 69°</div>
 </div>
+<div class="stat weather-card" data-city="Dallas, TX" data-lat="32.7767" data-lon="-96.797" data-timezone="America/Chicago">
+<div class="stat-label" data-role="city" style=";color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">Dallas, TX</div>
+<div class="stat-value" data-role="current-temp" style=";color:#f59e0b;font-weight:600;;color:#d1d5db;;color:#e4e4e7;;color:#e5e7eb;">69°F</div>
+<div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Clear • 85° / 61°</div>
+<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmr: Sunny • 92° / 64°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Sunny • 92° / 64°</div>
 </div>
-</div>
-</div>
-<main class="content" id="content" tabindex="-1">
-<div class="container">
-<!-- OVERVIEW -->
-<section aria-labelledby="tab-overview" class="active" id="screen-overview" role="tabpanel">
-<div class="card">
-<div class="subhead"></div>
-<div id="tz-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin-top:6px">
-<div class="box">
-<h3 style="color: orange">Hawai'i (HST)</h3>
-<div class="total" id="tz-hawaii">--:--</div>
-<div class="subhead" id="tz-hawaii-date" style="color:#d8c75a">--/--</div>
-</div>
-<div class="box">
-<h3 style="color: orange">Pacific (PT)</h3>
-<div class="total" id="tz-pacific">--:--</div>
-<div class="subhead" id="tz-pacific-date" style="color:#d8c75a">--/--</div>
-</div>
-<div class="box">
-<h3 style="color: orange">Mountain (MT)</h3>
-<div class="total" id="tz-mountain" style="text-shadow: 0 0 12px yellow; color: yellow;">--:--</div>
-<div class="subhead" id="tz-mountain-date" style="color:#d8c75a">--/--</div>
-</div>
-<div class="box">
-<h3 style="color: orange">Central (CT)</h3>
-<div class="total" id="tz-central">--:--</div>
-<div class="subhead" id="tz-central-date" style="color:#d8c75a">--/--</div>
-</div>
-<div class="box">
-<h3 style="color: orange">Eastern (ET)</h3>
-<div class="total" id="tz-eastern">--:--</div>
-<div class="subhead" id="tz-eastern-date" style="color:#d8c75a">--/--</div>
-</div>
-<div class="box">
-<h3 style="color: orange">Zulu (UTC)</h3>
-<div class="total" id="tz-zulu">--:--</div>
-<div class="subhead" id="tz-zulu-date" style="color:#d8c75a">--/--</div>
-</div>
-</div>
-</div>
-<div class="card weather-card">
-<div class="subhead" id="wx-status">Loading current conditions…</div>
-<div class="three-day-row">
-<div class="day-card">
-<div class="subhead small" id="wx-label-today">Today</div>
-<div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
-<div class="box">
-<h3>Temperature</h3>
-<div class="total" id="wx-temp">--</div>
-</div>
-<div class="box">
-<h3>Condition</h3>
-<div class="total" id="wx-cond">--</div>
-</div>
-<div class="box">
-<h3>Wind</h3>
-<div class="total" id="wx-wind">--</div>
-</div>
-<div class="box">
-<h3>Sunrise / Sunset</h3>
-<div class="total" id="wx-sun-today">-- / --</div>
-</div>
-</div>
-</div>
-<div class="day-card">
-<div class="subhead small" id="wx-label-tomorrow">Tomorrow</div>
-<div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
-<div class="box">
-<h3>Temperature</h3>
-<div class="total" id="wx-tomorrow-temp">--</div>
-</div>
-<div class="box">
-<h3>Condition</h3>
-<div class="total" id="wx-tomorrow-cond">--</div>
-</div>
-<div class="box">
-<h3>Wind</h3>
-<div class="total" id="wx-tomorrow-wind">--</div>
-</div>
-<div class="box">
-<h3>Sunrise / Sunset</h3>
-<div class="total" id="wx-sun-tomorrow">-- / --</div>
-</div>
-</div>
-</div>
-<div class="day-card">
-<div class="subhead small" id="wx-label-dayafter">Day After</div>
-<div class="stacked-pills" style="display:flex; flex-direction:column; gap:10px;">
-<div class="box">
-<h3>Temperature</h3>
-<div class="total" id="wx-dayafter-temp">--</div>
-</div>
-<div class="box">
-<h3>Condition</h3>
-<div class="total" id="wx-dayafter-cond">--</div>
-</div>
-<div class="box">
-<h3>Wind</h3>
-<div class="total" id="wx-dayafter-wind">--</div>
-</div>
-<div class="box">
-<h3>Sunrise / Sunset</h3>
-<div class="total" id="wx-sun-dayafter">-- / --</div>
-</div>
-</div>
-</div>
-</div>
-<div class="subhead" style="margin-top:10px">Next 8 Hours</div>
-<div id="wx-hourly" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px;overflow-x:visible;padding-bottom:4px;margin-top:6px">
-<!-- Hourly forecast cards injected by JS -->
-</div>
-<div class="subhead" style="margin-top:10px">Following 8 Hours</div>
-<div id="wx-hourly-next" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px;overflow-x:visible;padding-bottom:4px;margin-top:6px">
-<!-- Next 8 hours after the first block -->
-</div>
-<div class="box" id="pets-box" style="margin-top:6px">
-<h3 id="pets-label">Pets status</h3>
-<div class="total" id="pets-text"></div>
+<div class="stat weather-card" data-city="Kona, HI" data-lat="19.639994" data-lon="-155.996933" data-timezone="Pacific/Honolulu">
+<div class="stat-label" data-role="city" style=";color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">Kona, HI</div>
+<div class="stat-value" data-role="current-temp" style=";color:#f59e0b;font-weight:600;;color:#d1d5db;;color:#e4e4e7;;color:#e5e7eb;">73°F</div>
+<div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Showers • 75° / 71°</div>
+<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmr: Mostly Cloudy • 78° / 74°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Mostly Cloudy • 78° / 74°</div>
 </div>
 </div>
 </section>
-<!-- NEWS -->
-<section aria-labelledby="tab-news" id="screen-news" role="tabpanel">
-<div class="card news-shell">
-<div class="news-header">
-<div>
-<div class="subhead">Live headlines · auto refresh every 15 minutes</div>
-<h2 style="margin:4px 0 2px;font-size:18px;">News Desk</h2>
-<p style="margin:0;font-size:12px;color:#9ca3af;"></p>
 </div>
-<div class="news-header-meta">
-<button class="btn news-refresh" id="newsRefreshBtn" type="button">
-<span>Refresh Now</span>
-</button>
-<span class="pill pill-small">Updated: <span id="newsLastUpdated">--</span></span>
+<section class="card">
+<h2 style=";font-weight:600;">Tip Calculator</h2>
+<div class="field">
+<label for="billAmount" style=";font-weight:600;">Bill Amount Pre Tax</label>
+<input id="billAmount" min="0" placeholder="0.00" step="0.01" type="number"/>
 </div>
+<div class="field">
+<label for="taxAmount" style=";font-weight:600;">Tax</label>
+<input id="taxAmount" min="0" placeholder="0.00" step="0.01" type="number"/>
 </div>
-<div class="news-grid"><section aria-label="US news" class="news-panel news-panel-us">
-<div class="news-panel-header">
-<h3>US News</h3>
-<span class="tag">Top stories</span>
-</div>
-<div class="news-list" id="news-us-list"></div>
-<div class="news-empty" hidden="" id="news-us-empty">No US headlines right now.</div>
-</section><section aria-label="Albuquerque news" class="news-panel news-panel-abq">
-<div class="news-panel-header">
-<h3>Albuquerque</h3>
-<span class="tag">Local</span>
-</div>
-<div class="news-list" id="news-abq-list"></div>
-<div class="news-empty" hidden="" id="news-abq-empty">No Albuquerque stories found.</div>
-</section><section aria-label="Hilton news" class="news-panel news-panel-hilton">
-<div class="news-panel-header">
-<h3>Hilton</h3>
-<span class="tag">Hospitality</span>
-</div>
-<div class="news-list" id="news-hilton-list"></div>
-<div class="news-empty" hidden="" id="news-hilton-empty">No Hilton stories found.</div>
-</section><section aria-label="Southwest Airlines news" class="news-panel news-panel-sw">
-<div class="news-panel-header">
-<h3>Southwest Airlines</h3>
-<span class="tag">Airline</span>
-</div>
-<div class="news-list" id="news-sw-list"></div>
-<div class="news-empty" hidden="" id="news-sw-empty">No Southwest stories found.</div>
-</section></div>
-</div>
-</section>
-<!-- TIP -->
-<section aria-labelledby="tab-tip" id="screen-tip" role="tabpanel">
-<div class="card">
-<div class="subhead">Bill amount pre tax</div>
-<div class="input"><span class="prefix">$</span><input autocomplete="off" id="bill" inputmode="decimal" placeholder="0.00"/></div>
-<div class="subhead">Tax</div>
-<div class="input"><span class="prefix">$</span><input autocomplete="off" id="tax" inputmode="decimal" placeholder="0.00"/></div>
-<div class="subhead">Preset percentage</div>
-<div aria-label="Choose tip %" class="grid two" role="group">
-<button class="btn tip" data-tip="20">20%</button>
-<button class="btn tip" data-tip="25">25%</button>
-<button class="btn tip" data-tip="30">30%</button>
-<button class="btn tip" data-tip="35">35%</button>
-</div>
-<div class="subhead">Custom percentage</div>
-<div class="input"><input id="customTip" inputmode="decimal" placeholder="Custom Percentage"/><span class="prefix">%</span></div>
-
-<div class="totals">
-  <div class="box">
-    <h3>Subtotal + Tax</h3>
-    <div class="total" id="subtaxOut">$0.00</div>
-  </div>
-  <div class="box">
-    <h3>Tip</h3>
-    <div class="total" id="tipOut">$0.00</div>
-  </div>
-  <div class="box">
-    <h3>Final Amount</h3>
-    <div class="total" id="totalOut">$0.00</div>
-  </div>
-</div>
-
-
-
-</div>
-<div class="grid two" style="margin-top:10px">
-<button class="btn" id="reset">Reset</button>
-<button class="btn" id="copy">Copy summary</button>
+<div class="field">
+<label>Preset Percentage</label>
+<div class="segmented" id="tipButtons">
+<button class="active" data-tip="20" type="button">20%</button>
+<button data-tip="25" type="button">25%</button>
+<button data-tip="30" type="button">30%</button>
+<button data-tip="35" type="button">35%</button>
 </div>
 </div>
-</section>
-<!-- SALARY -->
-<section aria-labelledby="tab-salary" id="screen-salary" role="tabpanel">
-<div class="card">
+<div class="field">
+<label for="customTip">Custom Percentage</label>
+<input id="customTip" min="0" placeholder="Optional" step="0.01" type="number"/>
+</div>
 <div class="grid three">
-<div>
-<div class="subhead">Hourly rate</div>
-<div class="input"><span class="prefix">$</span><input id="hourly" inputmode="decimal" placeholder="0.00"/></div>
+<div class="result">
+<div class="title" style=";font-weight:600;;font-weight:600;;color:#3b82f6;font-weight:600;">Subtotal + Tax</div>
+<div class="value" id="subtotalValue">$0.00</div>
 </div>
-<div>
-<div class="subhead">Monthly pay</div>
-<div class="input"><span class="prefix">$</span><input id="monthly" inputmode="decimal" placeholder="0.00"/></div>
+<div class="result">
+<div class="title" style=";color:#22c55e;font-weight:600;">Tip</div>
+<div class="value" id="tipValue">$0.00</div>
 </div>
-<div>
-<div class="subhead">Annual salary</div>
-<div class="input"><span class="prefix">$</span><input id="annual" inputmode="decimal" placeholder="0.00"/></div>
+<div class="result">
+<div class="title" style=";color:#ef4444;font-weight:600;">Final Amount</div>
+<div class="value" id="finalValue">$0.00</div>
 </div>
 </div>
-<p class="hint">Assumes 2,080 hours per year (40 hrs/week × 52 weeks).</p>
+<div class="button-row">
+<button class="button" id="resetTip" type="button">Reset</button>
 </div>
 </section>
-<!-- PAYCHECK -->
-<section aria-labelledby="tab-pay" id="screen-pay" role="tabpanel">
-<div class="card">
-<div class="grid two">
-<div>
-<div class="subhead">Hourly rate</div>
-<div class="input"><span class="prefix">$</span><input id="p_hourly" inputmode="decimal" placeholder="0.00"/></div>
+<section class="card">
+<h2>Airport Time Comparison</h2>
+<div class="field">
+<label for="yourAirport">Your Airport</label>
+<select id="yourAirport"></select>
 </div>
-<div>
-<div class="subhead">Regular hours</div>
-<div class="input"><input id="p_hours_reg" inputmode="decimal" placeholder="80" value="80"/></div>
+<div class="field">
+<label for="theirAirport">Their Airport</label>
+<select id="theirAirport"></select>
 </div>
-<div>
-<div class="subhead">Overtime hours</div>
-<div class="input"><input id="p_hours_ot" inputmode="decimal" placeholder="0"/></div>
+<div class="field">
+<label for="yourTimeInput">Set Your Time (At Your Airport)</label>
+<input id="yourTimeInput" type="datetime-local"/>
 </div>
-<div>
-<div class="subhead">Overtime multiplier</div>
-<div class="input"><input id="p_ot_mult" inputmode="decimal" placeholder="1.5" value="1.5"/></div>
+<button class="button" id="useCurrentTime" type="button">Use Current Time</button>
+<div class="grid three" style="margin-top:12px;">
+<div class="stat">
+<div class="stat-label">Your Time</div>
+<div class="stat-value" id="yourTimeDisplay">—</div>
 </div>
-<div>
-<div class="subhead">Pre-tax deductions (this paycheck)</div>
-<div class="input"><span class="prefix">$</span><input id="p_pretax" inputmode="decimal" placeholder="0.00"/></div>
+<div class="stat">
+<div class="stat-label">Their Time</div>
+<div class="stat-value" id="theirTimeDisplay">—</div>
 </div>
-<div>
-<div class="subhead">YTD wages for Social Security</div>
-<div class="input"><span class="prefix">$</span><input id="p_ytd" inputmode="decimal" placeholder="0.00"/></div>
-</div>
-<div>
-<div class="subhead">Filing status</div>
-<div class="input">
-<select id="p_status">
-<option value="single">Single</option>
-<option value="married">Married filing jointly</option>
-<option value="hoh">Head of household</option>
-</select>
-</div>
-</div>
-<div>
-<div class="subhead">Pay frequency</div>
-<div class="input">
-<select id="p_freq">
-<option selected="" value="biweekly">Biweekly (26/yr)</option>
-<option value="weekly">Weekly (52/yr)</option>
-<option value="semimonthly">Semi-monthly (24/yr)</option>
-<option value="monthly">Monthly (12/yr)</option>
-</select>
-</div>
-</div>
-</div>
-<div class="grid" style="margin-top:6px">
-<div class="row"><span>Gross Pay</span><b id="p_gross">$0.00</b></div>
-<div class="row"><span>Federal Income Tax (est.)</span><b class="neg" id="p_fed">$0.00</b></div>
-<div class="row"><span>New Mexico Income Tax (est.)</span><b class="neg" id="p_state">$0.00</b></div>
-<div class="row"><span>Social Security 6.2%</span><b class="neg" id="p_ss">$0.00</b></div>
-<div class="row"><span>Medicare 1.45%</span><b class="neg" id="p_medicare">$0.00</b></div>
-<div class="row"><span>Net Pay (take-home)</span><b class="net" id="p_net">$0.00</b></div>
-<p class="hint">Estimates only. Uses 2025 federal brackets, 2025 standard deduction, and current NM brackets. Social Security respects your YTD cap. Pre-tax reduces federal/state taxable wages only.</p>
+<div class="stat">
+<div class="stat-label">Offset</div>
+<div class="stat-value" id="offsetDisplay">—</div>
 </div>
 </div>
 </section>
-<!-- TIME -->
-<section aria-labelledby="tab-time" id="screen-time" role="tabpanel">
-<div class="card">
-<div class="grid two">
-<div>
-<div class="subhead">Your Airport (default ABQ)</div>
-<div class="input"><input id="t_from" list="iataList" placeholder="Enter code" value="ABQ"/></div>
-</div>
-<div>
-<div class="subhead">Their Airport</div>
-<div class="input"><input id="t_to" list="iataList" placeholder="Enter code"/></div>
-</div>
-</div>
-<div class="grid two" style="margin-top:8px">
-<div>
-<div class="subhead">Set Your Time (at your airport)</div>
-<div class="input"><input id="t_when" type="datetime-local"/></div>
-</div>
-<div style="display:flex;align-items:flex-end"><button class="btn" id="t_now" style="width:100%">Use current time</button></div>
-</div>
-<div class="grid" style="margin-top:8px">
-<div class="row"><strong>Your Time:</strong> <span id="t_from_out">—</span></div>
-<div class="row"><strong>Their Time:</strong> <span id="t_to_out">—</span></div>
-<div class="row" id="t_offset_display"><strong>Offset:</strong> <span id="t_offset_txt">—</span></div>
-</div>
-</div>
-</section>
-<!-- SW POINTS -->
-<section aria-labelledby="tab-sw" id="screen-sw" role="tabpanel">
-<div class="card">
-<div class="subhead">How do you want to enter price?</div>
-<div aria-label="Price entry mode" class="mode" role="tablist">
-<button aria-selected="true" class="active" id="sw-mode-base" role="tab">I know the base fare</button>
-<button id="sw-mode-est" role="tab">Estimate base from total</button>
-</div>
-<div class="grid two" id="sw-inputs" style="margin-top:10px">
-<div id="sw-baseFareBlock">
-<div class="subhead">Base fare (excluding taxes/fees)</div>
-<div class="input"><span class="prefix">$</span><input id="sw-baseFare" inputmode="decimal" min="0" placeholder="e.g., 175.00" step="0.01" type="number"/></div>
-</div>
-<div id="sw-totalPriceBlock">
-<div class="subhead">Total ticket price charged to card</div>
-<div class="input"><span class="prefix">$</span><input id="sw-totalPrice" inputmode="decimal" min="0" placeholder="e.g., 225.00" step="0.01" type="number"/></div>
-</div>
-<div id="sw-basePctBlock" style="display:none">
-<div class="subhead">If estimating: percent of total that is base fare</div>
-<div class="input"><input id="sw-basePct" max="100" min="0" step="1" type="number" value="70"/><span class="prefix">%</span></div>
-<p class="hint">If you do not know the base fare, a 60–80% range is common. Adjust as needed.</p>
-</div>
-<div>
-<div class="subhead">Fare type</div>
-<div class="input">
-<select id="sw-fareType">
-<option value="2">Basic · 2 pts/$</option>
-<option value="6">Choice · 6 pts/$</option>
-<option value="10">Choice Preferred · 10 pts/$</option>
-<option value="14">Choice Extra · 14 pts/$</option>
-</select>
-</div>
-</div>
-</div>
-<div class="grid" style="margin-top:6px">
-<div class="row"><label><input id="sw-useCard" type="checkbox"/> Use a Southwest credit card for purchase</label></div>
-<div class="grid two" id="sw-cardRow" style="display:none">
-<div>
-<div class="subhead">Select your Southwest card</div>
-<div class="input">
-<select id="sw-cardType">
-<option value="2">Southwest Plus · 2X</option>
-<option value="3">Southwest Premier · 3X</option>
-<option value="4">Southwest Priority · 4X</option>
-<option value="3">Premier Business · 3X</option>
-<option value="4">Performance Business · 4X</option>
-</select>
-</div>
-<p class="hint">Applies the correct multiplier to the card charge.</p>
-</div>
-</div>
-</div>
-<div class="grid two" style="margin-top:8px">
-<div class="pill">
-<h3>Flight points</h3>
-<span class="big hl" id="sw-flightPts">0</span>
-</div>
-<div class="pill">
-<h3>Credit card points</h3>
-<span class="big hl2" id="sw-cardPts">0</span>
-</div>
-<div class="pill">
-<h3>Total points</h3>
-<span class="big ok" id="sw-totalPts">0</span>
-</div>
-<div class="pill">
-<h3>Effective pts per $</h3>
-<span class="big" id="sw-ppd">0.00</span>
-</div>
-</div>
-<p class="hint" style="margin-top:8px">Estimates flight points on base fare and card points on total charge.</p>
-</div>
-<!-- Converter -->
-<div class="card">
-<div class="grid two">
-<div>
-<div class="subhead">Points to redeem</div>
-<div class="input"><input id="sw-pointsInput" min="0" placeholder="e.g., 12500" step="1" type="number"/></div>
-</div>
-<div>
-<div class="subhead">Value per point (USD)</div>
-<div class="input"><input id="sw-pointValue" min="0" step="0.0001" type="number" value="0.0149"/></div>
-<p class="hint">Defaults to $0.0149 per point. Adjust as needed.</p>
-</div>
-</div>
-<div class="grid two" style="margin-top:8px">
-<div class="pill">
-<h3>Estimated dollar cost</h3>
-<span class="big ok" id="sw-dollarValue">$0.00</span>
-</div>
-<div class="pill">
-<h3>Cents per point</h3>
-<span class="big hl" id="sw-cpp">1.49¢</span>
-</div>
-</div>
-</div>
-</section>
-</div>
-<datalist id="iataList"></datalist>
-<div class="sa-bottom"></div>
 </main>
-<nav aria-label="Bottom tabs" class="tabbar" role="tablist">
-<div class="tabs">
-<button aria-selected="true" class="tab active" data-screen="overview" id="tab-overview">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
-<rect height="16" rx="4" width="18" x="3" y="4"></rect>
-<path d="M9 9h9M9 13h6M9 17h4"></path>
-</svg>
-<span>Overview</span>
-</button>
-<button class="tab" data-screen="news" id="tab-news">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
-<rect height="16" rx="2" width="18" x="3" y="4"></rect>
-<path d="M7 8h7M7 11h10M7 14h10"></path>
-</svg>
-<span>News</span>
-</button>
-<button class="tab" data-screen="tip" id="tab-tip">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
-<path d="M12 1v22M17 5c0-1.5-2.5-3-5-3s-5 1.5-5 3 2.5 3 5 3 5 1.5 5 3-2.5 3-5 3-5 1.5-5 3 2.5 3 5 3 5-1.5 5-3"></path>
-</svg>
-<span>Tip</span>
-</button>
-<button class="tab" data-screen="salary" id="tab-salary">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"></path><rect height="14" rx="3" width="16" x="4" y="5"></rect></svg>
-<span>Salary</span>
-</button>
-<button class="tab" data-screen="pay" id="tab-pay">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="16" rx="3" width="18" x="3" y="4"></rect><path d="M7 9h10M7 13h6"></path></svg>
-<span>Paycheck</span>
-</button>
-<button class="tab" data-screen="time" id="tab-time">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
-<span>Time</span>
-</button>
-<button class="tab" data-screen="sw" id="tab-sw">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 12s4-8 9-8 9 8 9 8-4 8-9 8-9-8-9-8z"></path><path d="M12 4v16"></path></svg>
-<span>Points</span>
-</button>
 </div>
-</nav>
-</div>
-<script>
-    // Helpers
-    const $ = s=>document.querySelector(s);
-    const $$ = s=>[...document.querySelectorAll(s)];
-    const nf = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
-    const setTitle = t => $('#appTitle').textContent = t;
+<script style=";font-weight:600;;font-weight:600;;font-weight:600;;color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">
+    const timezones = [
+      { label: "Hawai'i (HST)", zone: 'Pacific/Honolulu' },
+      { label: 'Pacific (PT)', zone: 'America/Los_Angeles' },
+      { label: 'Mountain (MT)', zone: 'America/Denver' },
+      { label: 'Central (CT)', zone: 'America/Chicago' },
+      { label: 'Eastern (ET)', zone: 'America/New_York' },
+      { label: 'Zulu (UTC)', zone: 'UTC' },
+    ];
 
-    // Bottom tab routing
-    const SCREENS = ['overview','news','tip','salary','pay','time','sw'];
-    const TITLES = {overview:'Overview', news:'News Desk', tip:'Tip Calculator', salary:'Salary vs Hourly', pay:'Your Pay After Taxes', time:'Your Time & Their Time', sw:'Southwest Points'};
-
-    function show(screen){
-      SCREENS.forEach(id=>{
-        const tab = $('#tab-' + id);
-        const panel = $('#screen-' + id);
-        const active = id === screen;
-        tab.classList.toggle('active', active);
-        tab.setAttribute('aria-selected', String(active));
-        panel.classList.toggle('active', active);
-      });
-      setTitle(TITLES[screen] || 'Tools');
-      history.replaceState(null,'','#' + screen);
-            document.body.classList.toggle('no-page-scroll', screen === 'news');
-      document.documentElement.classList.toggle('no-page-scroll', screen === 'news');
-$('#content').focus({preventScroll:true});
-      document.scrollingElement.scrollLeft = 0;
+    function formatTimeForZone(zone) {
+      return new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true, timeZone: zone
+      }).format(new Date());
     }
 
-    function initFromHash(){
-      const h = location.hash.replace('#','');
-      if(SCREENS.includes(h)) show(h);
+    function formatDateForZone(zone) {
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'short', day: 'numeric', weekday: 'short', timeZone: zone
+      }).format(new Date());
     }
 
-    // Header buttons
-    $('#btnBack').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-    $('#btnCopy').addEventListener('click',()=>{
-      if($('#screen-tip').classList.contains('active')){
-        const bill=$('#bill'), percentOut=$('#percentOut'), tipOut=$('#tipOut'), totalOut=$('#totalOut');
-        const s=`Subtotal: ${bill.value||nf.format(0)}
-Tax: ${tax.value||nf.format(0)}
-Tip: ${tipOut.textContent}
-Final Amount: ${totalOut.textContent}`;
-        navigator.clipboard.writeText(s).catch(()=>{});
-      } else {
-        navigator.clipboard.writeText($('#appTitle').textContent).catch(()=>{});
+    function renderClocks() {
+      const clockRow = document.getElementById('clock-row');
+      if (clockRow) {
+        clockRow.innerHTML = timezones.map(tz => `
+          <div class="clock-item">
+            <div class="label">${tz.label}</div>
+            <div class="time">${formatTimeForZone(tz.zone)}</div>
+          </div>
+        `).join('');
       }
+    }
+
+    renderClocks();
+    setInterval(renderClocks, 1000);
+
+    const billAmount = document.getElementById('billAmount');
+    const taxAmount = document.getElementById('taxAmount');
+    const customTip = document.getElementById('customTip');
+    const subtotalValue = document.getElementById('subtotalValue');
+    const tipValue = document.getElementById('tipValue');
+    const finalValue = document.getElementById('finalValue');
+    const tipButtons = document.querySelectorAll('#tipButtons button');
+    let selectedTip = 20;
+
+    function money(value) {
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value || 0);
+    }
+
+    function calculateTip() {
+      const bill = parseFloat(billAmount.value) || 0;
+      const tax = parseFloat(taxAmount.value) || 0;
+      const custom = parseFloat(customTip.value);
+      const tipPercent = Number.isFinite(custom) ? custom : selectedTip;
+      const subtotal = bill + tax;
+      const tip = bill * (tipPercent / 100);
+      const finalTotal = subtotal + tip;
+
+      subtotalValue.innerHTML = money(subtotal);
+      tipValue.innerHTML = money(tip);
+      finalValue.innerHTML = money(finalTotal);
+    }
+
+    [billAmount, taxAmount, customTip].forEach(input => input.addEventListener('input', calculateTip));
+    tipButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        tipButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        selectedTip = parseFloat(button.dataset.tip);
+        if (customTip.value !== '') customTip.value = '';
+        calculateTip();
+      });
     });
 
-    // Tab clicks
-    $$('.tab').forEach(btn=>btn.addEventListener('click',()=>show(btn.dataset.screen)));
-    window.addEventListener('hashchange', initFromHash);
-    initFromHash();
-
-    // ===== HOME OVERLAY ENTER BEHAVIOR =====
-    const home = $('#homeOverlay');
-    const enterBtn = $('#enterBtn');
-    function enterApp(){
-      // Fade the overlay and then remove it from flow
-      home.classList.add('hide');
-      // Ensure we land on the overview dashboard first
-      show('overview');
-      // Optional: remember last time used (comment out if not wanted)
-      // localStorage.setItem('cini_mod_last_enter', Date.now());
-    }
-    enterBtn.addEventListener('click', ()=>{
-      // slight delay to let the button press feel responsive
-      setTimeout(enterApp, 120);
+    document.getElementById('resetTip').addEventListener('click', () => {
+      billAmount.value = '';
+      taxAmount.value = '';
+      customTip.value = '';
+      selectedTip = 20;
+      tipButtons.forEach((btn, index) => btn.classList.toggle('active', index === 0));
+      calculateTip();
     });
 
-    // Close overlay if user deep-links into a specific screen via hash
-    if(location.hash && SCREENS.includes(location.hash.slice(1))){
-      home.classList.add('hide');
-    }
-
-    // ===== TIP =====
-    const bill=$('#bill'), tax=$('#tax'), customTip=$('#customTip'), tipBtns=$$('.tip');
-    const subtaxOut=$('#subtaxOut'), tipOut=$('#tipOut'), totalOut=$('#totalOut');
-    let tipPercent=0.20;
-    function setActive(p){tipBtns.forEach(b=>b.classList.toggle('active',Number(b.dataset.tip)/100===p))}
-    function calcTip(){
-      const b=(Number(String(bill.value).replace(/[^0-9.]/g,''))||0);
-      const t=(Number(String(tax.value).replace(/[^0-9.]/g,''))||0);
-      const c=(Number(String(customTip.value).replace(/[^0-9.]/g,''))||0);
-      if(c>0){tipPercent=c/100; setActive(-1);}
-      const tip=b*tipPercent;
-      tipOut.textContent=nf.format(tip);
-      if(subtaxOut) subtaxOut.textContent=nf.format(b+t);
-      totalOut.textContent=nf.format(b+t+tip);
-      
-    }
-    tipBtns.forEach(btn=>btn.addEventListener('click',()=>{tipPercent=Number(btn.dataset.tip)/100; customTip.value=''; setActive(tipPercent); calcTip();}));
-    ['input','change'].forEach(e=>{bill.addEventListener(e,calcTip); tax.addEventListener(e,calcTip); customTip.addEventListener(e,calcTip);});
-    setActive(tipPercent); calcTip();
-    $('#reset').addEventListener('click',()=>{bill.value=''; tax.value=''; customTip.value=''; tipPercent=.2; setActive(tipPercent); calcTip();});
-    $('#copy').addEventListener('click',async()=>{
-      const s=`Subtotal: ${bill.value||nf.format(0)}
-Tax: ${tax.value||nf.format(0)}
-Tip: ${tipOut.textContent}
-Final Amount: ${totalOut.textContent}`;
-      try{await navigator.clipboard.writeText(s);}catch{}
-    });
-
-    // ===== SALARY =====
-    const HOURS_PER_YEAR=2080, MONTHS=12;
-    const hourly=$('#hourly'), monthly=$('#monthly'), annual=$('#annual'); let lock=false;
-    function parseNum(v){v=String(v??'').replace(/[^0-9.,-]/g,'').replace(',','.'); const n=parseFloat(v); return isFinite(n)?n:0;}
-    function fmt(v){return nf.format(v||0)}
-    function fromHourly(){if(lock)return; lock=true; const h=parseNum(hourly.value); annual.value=h?fmt(h*HOURS_PER_YEAR):''; monthly.value=h?fmt(h*HOURS_PER_YEAR/MONTHS):''; lock=false;}
-    function fromMonthly(){if(lock)return; lock=true; const m=parseNum(monthly.value); annual.value=m?fmt(m*MONTHS):''; hourly.value=m?fmt(m*MONTHS/HOURS_PER_YEAR):''; lock=false;}
-    function fromAnnual(){if(lock)return; lock=true; const a=parseNum(annual.value); hourly.value=a?fmt(a/HOURS_PER_YEAR):''; monthly.value=a?fmt(a/MONTHS):''; lock=false;}
-    ['input','change'].forEach(e=>{hourly.addEventListener(e,fromHourly); monthly.addEventListener(e,fromMonthly); annual.addEventListener(e,fromAnnual);});
-
-    // ===== PAYCHECK (NM) =====
-    const SS_RATE=.062, MED_RATE=.0145, SS_WAGE_BASE_2025=176100;
-    const STD_DED={single:15750, married:31500, hoh:23625};
-    const FED_BRACKETS_2025={
-      single:[[11925,.10],[48475,.12],[103350,.22],[197300,.24],[250525,.32],[626350,.35],[Infinity,.37]],
-      married:[[23850,.10],[96950,.12],[206700,.22],[394600,.24],[501050,.32],[751600,.35],[Infinity,.37]],
-      hoh:[[17000,.10],[64850,.12],[103350,.22],[197300,.24],[250500,.32],[626350,.35],[Infinity,.37]]
-    };
-    const NM_BRACKETS=[[5500,.017],[16500,.032],[33500,.043],[66500,.047],[210000,.049],[Infinity,.059]];
-
-    const p_hourly=$('#p_hourly'), p_hours_reg=$('#p_hours_reg'), p_hours_ot=$('#p_hours_ot'), p_ot_mult=$('#p_ot_mult'), p_pretax=$('#p_pretax'), p_ytd=$('#p_ytd');
-    const p_status=$('#p_status'), p_freq=$('#p_freq'); const p_gross=$('#p_gross'), p_fed=$('#p_fed'), p_state=$('#p_state'), p_ss=$('#p_ss'), p_medicare=$('#p_medicare'), p_net=$('#p_net');
-    function perYearCount(f){return f==='weekly'?52:f==='semimonthly'?24:f==='monthly'?12:26}
-    function defaultHours(f){return f==='weekly'?40:f==='semimonthly'?86.67:f==='monthly'?173.33:80}
-    function taxFromBrackets(taxable,br){let tax=0,last=0;for(const[cap,rate]of br){const span=Math.max(0,Math.min(taxable,cap)-last); if(span>0) tax+=span*rate; if(taxable<=cap) break; last=cap;}return tax}
-    function calcPay(){
-      const hourly=parseNum(p_hourly.value); const freq=p_freq.value; const periods=perYearCount(freq);
-      const regH=p_hours_reg.value.trim()===''?defaultHours(freq):parseNum(p_hours_reg.value)||0; const otH=p_hours_ot.value.trim()===''?0:parseNum(p_hours_ot.value)||0; const otM=parseNum(p_ot_mult.value)||1.5;
-      const pretax=parseNum(p_pretax.value)||0; const ytd=parseNum(p_ytd.value)||0; const status=p_status.value;
-      const gross=hourly*regH + hourly*otH*otM; const annualTaxable=Math.max(0,(gross-pretax)*periods);
-      const taxableFed=Math.max(0,annualTaxable-STD_DED[status]); const fedAnnual=taxFromBrackets(taxableFed,FED_BRACKETS_2025[status]); const fed=fedAnnual/periods;
-      const nm=taxFromBrackets(annualTaxable,NM_BRACKETS)/periods; const remainingSS=Math.max(0,SS_WAGE_BASE_2025-ytd); const ss=Math.min(gross,remainingSS)*SS_RATE; const med=gross*MED_RATE;
-      const net=gross-pretax-fed-nm-ss-med;
-      p_gross.textContent=fmt(gross); p_fed.textContent=fmt(Math.max(0,fed)); p_state.textContent=fmt(Math.max(0,nm)); p_ss.textContent=fmt(Math.max(0,ss)); p_medicare.textContent=fmt(Math.max(0,med)); p_net.textContent=fmt(Math.max(0,net));
-    }
-    ['input','change'].forEach(e=>{[p_hourly,p_hours_reg,p_hours_ot,p_ot_mult,p_pretax,p_ytd,p_status,p_freq].forEach(el=>el.addEventListener(e,calcPay));}); calcPay();
-
-    // ===== SOUTHWEST POINTS =====
-    const swState={mode:'base',baseFare:0,totalPrice:0,basePct:70,fareMult:2,useCard:false,cardMult:2};
-    try{ Object.assign(swState, JSON.parse(localStorage.getItem('sw_ppd_calc_v1')||'{}')); }catch{}
-    const sw={
-      modeBase:$('#sw-mode-base'), modeEst:$('#sw-mode-est'),
-      baseFare:$('#sw-baseFare'), totalPrice:$('#sw-totalPrice'), basePct:$('#sw-basePct'),
-      baseFareBlock:$('#sw-baseFareBlock'), basePctBlock:$('#sw-basePctBlock'), totalPriceBlock:$('#sw-totalPriceBlock'),
-      fareType:$('#sw-fareType'), useCard:$('#sw-useCard'), cardRow:$('#sw-cardRow'), cardType:$('#sw-cardType'),
-      flightPts:$('#sw-flightPts'), cardPts:$('#sw-cardPts'), totalPts:$('#sw-totalPts'), ppd:$('#sw-ppd'),
-      pointsInput:$('#sw-pointsInput'), pointValue:$('#sw-pointValue'), dollarValue:$('#sw-dollarValue'), cpp:$('#sw-cpp')
-    };
-    function swSync(){
-      sw.modeBase.classList.toggle('active', swState.mode==='base');
-      sw.modeEst.classList.toggle('active', swState.mode==='est');
-      sw.baseFareBlock.style.display = swState.mode==='base' ? '' : 'none';
-      sw.basePctBlock.style.display = swState.mode==='est' ? '' : 'none';
-      sw.baseFare.value = swState.baseFare || '';
-      sw.totalPrice.value = swState.totalPrice || '';
-      sw.basePct.value = swState.basePct;
-      sw.fareType.value = String(swState.fareMult);
-      sw.useCard.checked = swState.useCard;
-      sw.cardRow.style.display = swState.useCard ? '' : 'none';
-      sw.cardType.value = swState.cardMult;
-      swCalc();
-    }
-    function swSave(){ localStorage.setItem('sw_ppd_calc_v1', JSON.stringify(swState)); }
-    function swParse(v){ const n=parseFloat(v); return Number.isFinite(n)?n:0; }
-    function swBaseFare(){ return swState.mode==='base' ? Math.max(0, swState.baseFare) : Math.max(0, swState.totalPrice * (Math.min(100, Math.max(0, swState.basePct))/100)); }
-    function swCalc(){
-      const base=swBaseFare();
-      const flight=Math.floor(base*swState.fareMult);
-      const card=swState.useCard?Math.floor(swState.totalPrice*swState.cardMult):0;
-      const total=flight+card;
-      const ppd = swState.totalPrice>0 ? (total/swState.totalPrice) : 0;
-      sw.flightPts.textContent=flight.toLocaleString();
-      sw.cardPts.textContent=card.toLocaleString();
-      sw.totalPts.textContent=total.toLocaleString();
-      sw.ppd.textContent=ppd.toFixed(2);
-      swSave();
-    }
-    sw.modeBase.addEventListener('click',()=>{swState.mode='base'; swSync();});
-    sw.modeEst .addEventListener('click',()=>{swState.mode='est';  swSync();});
-    sw.baseFare .addEventListener('input',e=>{swState.baseFare=swParse(e.target.value); swCalc();});
-    sw.totalPrice.addEventListener('input',e=>{swState.totalPrice=swParse(e.target.value); swCalc();});
-    sw.basePct  .addEventListener('input',e=>{swState.basePct=swParse(e.target.value); swCalc();});
-    sw.fareType .addEventListener('change',e=>{swState.fareMult=swParse(e.target.value); swCalc();});
-    sw.useCard  .addEventListener('change',e=>{swState.useCard=e.target.checked; sw.cardRow.style.display=swState.useCard?'':'none'; swCalc();});
-    sw.cardType .addEventListener('change',e=>{swState.cardMult=swParse(e.target.value); swCalc();});
-
-    function swFmtUSD(n){return n.toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2});}
-    function swUpdatePTD(){ const pts=swParse(sw.pointsInput.value); const val=parseFloat(sw.pointValue.value)||0; const dollars=pts*val; $('#sw-dollarValue').textContent=swFmtUSD(dollars); $('#sw-cpp').textContent=(val*100).toFixed(2)+'¢'; }
-    sw.pointsInput && sw.pointsInput.addEventListener('input', swUpdatePTD);
-    sw.pointValue && sw.pointValue.addEventListener('input', swUpdatePTD);
-    swSync(); swUpdatePTD();
-
-    // ===== TIME =====
-    const IATA_TZ={
-      ALB:'America/New_York', ABQ:'America/Denver', ANC:'America/Anchorage', AMA:'America/Chicago', ATL:'America/New_York', AUS:'America/Chicago',
-      BWI:'America/New_York', BHM:'America/Chicago', BOI:'America/Boise', BOS:'America/New_York', BZN:'America/Denver', BUF:'America/New_York', BUR:'America/Los_Angeles',
-      CHS:'America/New_York', CLT:'America/New_York', MDW:'America/Chicago', ORD:'America/Chicago', CVG:'America/New_York', CLE:'America/New_York', COS:'America/Denver',
-      CMH:'America/New_York', CRP:'America/Chicago', DAL:'America/Chicago', DEN:'America/Denver', DSM:'America/Chicago', VPS:'America/Chicago', DTW:'America/Detroit',
-      ELP:'America/Denver', EUG:'America/Los_Angeles', FLL:'America/New_York', RSW:'America/New_York', FAT:'America/Los_Angeles', GRR:'America/Detroit', GSP:'America/New_York',
-      HRL:'America/Chicago', BDL:'America/New_York', HOU:'America/Chicago', IND:'America/Indiana/Indianapolis', JAN:'America/Chicago', JAX:'America/New_York',
-      MCI:'America/Chicago', TYS:'America/New_York', LAS:'America/Los_Angeles', LIT:'America/Chicago', LGB:'America/Los_Angeles', ISP:'America/New_York', LAX:'America/Los_Angeles',
-      SDF:'America/Kentucky/Louisville', LBB:'America/Chicago', MHT:'America/New_York', MEM:'America/Chicago', MIA:'America/New_York', MAF:'America/Chicago', MKE:'America/Chicago',
-      MSP:'America/Chicago', MTJ:'America/Denver', MYR:'America/New_York', BNA:'America/Chicago', MSY:'America/Chicago', LGA:'America/New_York', ORF:'America/New_York',
-      OAK:'America/Los_Angeles', OKC:'America/Chicago', OMA:'America/Chicago', ONT:'America/Los_Angeles', SNA:'America/Los_Angeles', MCO:'America/New_York', PSP:'America/Los_Angeles',
-      ECP:'America/Chicago', PNS:'America/Chicago', PHL:'America/New_York', PHX:'America/Phoenix', PIT:'America/New_York', PWM:'America/New_York', PDX:'America/Los_Angeles',
-      PVD:'America/New_York', RDU:'America/New_York', RNO:'America/Los_Angeles', RIC:'America/New_York', ROC:'America/New_York', SMF:'America/Los_Angeles', SLC:'America/Denver',
-      SAT:'America/Chicago', SAN:'America/Los_Angeles', SFO:'America/Los_Angeles', SJC:'America/Los_Angeles', SBA:'America/Los_Angeles', STS:'America/Los_Angeles',
-      SRQ:'America/New_York', SAV:'America/New_York', SEA:'America/Los_Angeles', GEG:'America/Los_Angeles', STL:'America/Chicago', HDN:'America/Denver',
-      TPA:'America/New_York', TUS:'America/Phoenix', TUL:'America/Chicago', IAD:'America/New_York', DCA:'America/New_York', PBI:'America/New_York', ICT:'America/Chicago',
-      AUA:'America/Aruba', BZE:'America/Belize', CUN:'America/Cancun', GCM:'America/Cayman', HAV:'America/Havana', LIR:'America/Costa_Rica', SJD:'America/Mazatlan',
-      MBJ:'America/Jamaica', NAS:'America/Nassau', PLS:'America/Grand_Turk', PVR:'America/Mexico_City', PUJ:'America/Santo_Domingo', SJO:'America/Costa_Rica',
-      SJU:'America/Puerto_Rico', SXM:'America/Lower_Princes', STT:'America/St_Thomas', ITO:'Pacific/Honolulu', HNL:'Pacific/Honolulu', OGG:'Pacific/Honolulu',
-      KOA:'Pacific/Honolulu', LIH:'Pacific/Honolulu'
-    };
-    const list=$('#iataList'); Object.keys(IATA_TZ).forEach(code=>{const o=document.createElement('option'); o.value=code; list.appendChild(o)});
-
-    const t_from=$('#t_from'), t_to=$('#t_to'), t_when=$('#t_when'), t_now=$('#t_now');
-    const t_from_out=$('#t_from_out'), t_to_out=$('#t_to_out'), t_offset_display=$('#t_offset_display'), t_offset_txt=$('#t_offset_txt');
-
-    function setNow(){
-      const fromCode=(t_from.value||'ABQ').toUpperCase(); const fromTZ=IATA_TZ[fromCode]||'America/Denver';
-      const now=new Date(); const parts=new Intl.DateTimeFormat('sv-SE',{timeZone:fromTZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(now);
-      const P=Object.fromEntries(parts.map(p=>[p.type,p.value])); t_when.value=`${P.year}-${P.month}-${P.day}T${P.hour}:${P.minute}`;
-    }
-    function parseLocalToUTC(localStr,tz){ if(!localStr) return null; const [date,time]=localStr.split('T'); const[y,m,d]=date.split('-').map(Number); const[hh,mm]=time.split(':').map(Number);
-      let guess=new Date(Date.UTC(y,m-1,d,hh,mm)); for(let i=0;i<3;i++){ const parts=new Intl.DateTimeFormat('sv-SE',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(guess);
-        const P=Object.fromEntries(parts.map(p=>[p.type,p.value])); const diff=(Number(P.hour)*60+Number(P.minute))-(hh*60+mm); if(diff===0) break; guess=new Date(guess.getTime()-diff*60*1000);} return guess; }
-    function fmtInTZ(d,tz){ return new Intl.DateTimeFormat('en-US',{timeZone:tz,month:'short',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:true}).format(d); }
-    function getOffsetHours(fromTZ,toTZ,base){ const fromTime=new Date(base.toLocaleString('en-US',{timeZone:fromTZ})); const toTime=new Date(base.toLocaleString('en-US',{timeZone:toTZ})); return (toTime-fromTime)/(1000*60*60); }
-
-    function runTime(){
-      const fromCode=(t_from.value||'ABQ').toUpperCase(); const toCode=(t_to.value||'ABQ').toUpperCase();
-      const fromTZ=IATA_TZ[fromCode]; const toTZ=IATA_TZ[toCode]; if(!fromTZ||!toTZ) return;
-      const base=parseLocalToUTC(t_when.value,fromTZ); if(!base) return;
-      t_from_out.textContent=`${fmtInTZ(base,fromTZ)} (${fromCode})`; t_to_out.textContent=`${fmtInTZ(base,toTZ)} (${toCode})`;
-      const off=getOffsetHours(fromTZ,toTZ,base); let txt='Same Time'; if(off>0) txt=`+${off.toFixed(1)} hr`; else if(off<0) txt=`${off.toFixed(1)} hr`;
-      t_offset_txt.textContent=txt;
-      t_offset_display.className='row '+(off>0?'plus':off<0?'minus':'');
-    }
-
-    $('#t_now').addEventListener('click',()=>{setNow();runTime();});
-    ['input','change'].forEach(e=>{
-      t_from.addEventListener(e,()=>{setNow();runTime();});
-      t_to.addEventListener(e,runTime);
-      t_when.addEventListener(e,runTime);
-    });
-    setNow(); runTime();
-  
-    // ===== OVERVIEW DASHBOARD (Time Zones + ABQ Weather) =====
-    const tzEls = {
-      hawaii: $('#tz-hawaii'),
-      pacific: $('#tz-pacific'),
-      mountain: $('#tz-mountain'),
-      central: $('#tz-central'),
-      eastern: $('#tz-eastern'),
-      zulu: $('#tz-zulu')
-    };
-
-    function formatTimeForZone(timeZone) {
-      const now = new Date();
-      return new Intl.DateTimeFormat('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        
-        hour12: true,
-        timeZone
-      }).format(now);
-    }
-
-    function updateTimeZones() {
-      if (!tzEls.hawaii) return; // Overview screen might not be mounted yet
-      tzEls.hawaii.textContent  = formatTimeForZone('Pacific/Honolulu');
-      tzEls.pacific.textContent = formatTimeForZone('America/Los_Angeles');
-      tzEls.mountain.textContent= formatTimeForZone('America/Denver');
-      tzEls.central.textContent = formatTimeForZone('America/Chicago');
-      tzEls.eastern.textContent = formatTimeForZone('America/New_York');
-      tzEls.zulu.textContent    = formatTimeForZone('UTC');
-    }
-    updateTimeZones();
-    function formatDateForZone(timeZone) {
-      const now = new Date();
-      return new Intl.DateTimeFormat('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        timeZone
-      }).format(now);
-    }
-    function updateTimeZoneDates(){
-      const map = {
-        'tz-hawaii-date':'Pacific/Honolulu',
-        'tz-pacific-date':'America/Los_Angeles',
-        'tz-mountain-date':'America/Denver',
-        'tz-central-date':'America/Chicago',
-        'tz-eastern-date':'America/New_York',
-        'tz-zulu-date':'UTC'
-      };
-      Object.entries(map).forEach(([id,tz])=>{
-        const el = document.getElementById(id);
-        if (el) el.textContent = formatDateForZone(tz);
+    const copySummaryBtn = document.getElementById('copySummary');
+    if (copySummaryBtn) {
+      copySummaryBtn.addEventListener('click', async () => {
+        const summary = `Bill: ${money(parseFloat(billAmount.value) || 0)}
+Tax: ${money(parseFloat(taxAmount.value) || 0)}
+Tip: ${tipValue.textContent}
+Final Total: ${finalValue.textContent}`;
+        try {
+          await navigator.clipboard.writeText(summary);
+          const original = copySummaryBtn.textContent;
+          copySummaryBtn.innerHTML = 'Copied';
+          setTimeout(() => copySummaryBtn.innerHTML = original, 1500);
+        } catch (err) {
+          alert('Could not copy the summary on this device.');
+        }
       });
     }
-    updateTimeZoneDates();
 
-    setInterval(updateTimeZones, 1000);
-    setInterval(updateTimeZoneDates, 60 * 1000);
+    const airports = [
+      ['ABQ', 'Albuquerque', 'America/Denver'],
+      ['PHX', 'Phoenix', 'America/Phoenix'],
+      ['LAX', 'Los Angeles', 'America/Los_Angeles'],
+      ['LAS', 'Las Vegas', 'America/Los_Angeles'],
+      ['DEN', 'Denver', 'America/Denver'],
+      ['DAL', 'Dallas Love', 'America/Chicago'],
+      ['HOU', 'Houston Hobby', 'America/Chicago'],
+      ['MDW', 'Chicago Midway', 'America/Chicago'],
+      ['BWI', 'Baltimore', 'America/New_York'],
+      ['ATL', 'Atlanta', 'America/New_York'],
+      ['MCO', 'Orlando', 'America/New_York'],
+      ['JFK', 'New York JFK', 'America/New_York'],
+      ['SEA', 'Seattle', 'America/Los_Angeles'],
+      ['HNL', 'Honolulu', 'Pacific/Honolulu']
+    ];
 
-    // Simple helpers for weather
-    const wxStatusEl = $('#wx-status');
-    const wxTempEl   = $('#wx-temp');
-    const wxCondEl   = $('#wx-cond');
-    const wxWindEl   = $('#wx-wind');
-    const wxHourlyEl = $('#wx-hourly');
-    const wxTomorrowTempEl = $('#wx-tomorrow-temp');
-    const wxTomorrowCondEl = $('#wx-tomorrow-cond');
-    const wxTomorrowWindEl = $('#wx-tomorrow-wind');
-    const wxDayAfterTempEl = $('#wx-dayafter-temp');
-    const wxDayAfterCondEl = $('#wx-dayafter-cond');
-    const wxDayAfterWindEl = $('#wx-dayafter-wind');
-    const wxSunTodayEl = $('#wx-sun-today');
-    const wxSunTomorrowEl = $('#wx-sun-tomorrow');
-    const wxSunDayAfterEl = $('#wx-sun-dayafter');
+    const yourAirport = document.getElementById('yourAirport');
+    const theirAirport = document.getElementById('theirAirport');
+    const yourTimeInput = document.getElementById('yourTimeInput');
+    const yourTimeDisplay = document.getElementById('yourTimeDisplay');
+    const theirTimeDisplay = document.getElementById('theirTimeDisplay');
+    const offsetDisplay = document.getElementById('offsetDisplay');
 
-    function cToF(c) {
-      return (c * 9/5) + 32;
-    }
-    function kmhToMph(kmh) {
-      return kmh * 0.621371;
-    }
-
-    // Map Open-Meteo WMO weather codes to simple condition labels
-    function mapWeatherCondition(code, tempC, windKmh) {
-      const tempF = cToF(tempC);
-      let base = '';
-
-      if (code === 0) {
-        base = 'Clear';
-      } else if (code >= 1 && code <= 3) {
-        base = 'Partly cloudy';
-      } else if (code >= 45 && code <= 48) {
-        base = 'Foggy';
-      } else if ((code >= 51 && code <= 57) || (code >= 61 && code <= 67) || (code >= 80 && code <= 82)) {
-        base = 'Rain';
-      } else if ((code >= 71 && code <= 77) || (code >= 85 && code <= 86)) {
-        base = 'Snow';
-      } else if (code >= 95) {
-        base = 'Storm';
-      } else {
-        base = 'Cloudy';
-      }
-
-      // Special tags from your list
-      if ((code === 66 || code === 67 || code === 77) && tempF <= 34) {
-        base = 'Ice';
-      } else if (tempF >= 90 && !(code >= 61 && code <= 67) && !(code >= 71 && code <= 77)) {
-        base = 'Hot';
-      }
-
-      if (windKmh >= 35) {
-        if (base === 'Clear') return 'Windy & Clear';
-        if (base === 'Rain') return 'Windy & Rain';
-        if (base === 'Snow') return 'Windy & Snow';
-        return 'Windy';
-      }
-
-      return base;
+    function populateAirports() {
+      const options = airports.map(([code, city]) => `<option value="${code}">${code} · ${city}</option>`).join('');
+      yourAirport.innerHTML = options;
+      theirAirport.innerHTML = options;
+      yourAirport.value = 'ABQ';
+      theirAirport.value = 'HNL';
     }
 
-    async function fetchAbqWeather() {
-      if (!wxStatusEl) return;
+    function getAirport(code) {
+      return airports.find(([airportCode]) => airportCode === code);
+    }
 
-      const LAT = 35.0844;
-      const LON = -106.6504;
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&hourly=temperature_2m,weather_code,wind_speed_10m&daily=sunrise,sunset&forecast_days=3&timezone=America%2FDenver`;
+    function zonedOffsetHours(date, zone) {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: zone,
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hourCycle: 'h23'
+      }).formatToParts(date).reduce((acc, part) => {
+        if (part.type !== 'literal') acc[part.type] = part.value;
+        return acc;
+      }, {});
+      const asUTC = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
+      return (asUTC - date.getTime()) / 36e5;
+    }
 
-      try {
-        wxStatusEl.textContent = 'Loading current conditions…';
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('Network error');
-        const data = await res.json();
+    function formatInZone(date, zone) {
+      return new Intl.DateTimeFormat('en-US', {
+        timeZone: zone,
+        month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true
+      }).format(date);
+    }
 
-        // Current
-        const current = data.current_weather;
-        if (current) {
-          const tempF = Math.round(cToF(current.temperature));
-          const windMph = Math.round(kmhToMph(current.wind_speed_10m || current.windspeed || 0));
-          const condLabel = mapWeatherCondition(current.weather_code ?? current.weathercode ?? 0, current.temperature, current.wind_speed_10m || current.windspeed || 0);
+    function parseNaiveLocalInput(inputValue, zone) {
+      if (!inputValue) return new Date();
+      const [datePart, timePart] = inputValue.split('T');
+      const [year, month, day] = datePart.split('-').map(Number);
+      const [hour, minute] = timePart.split(':').map(Number);
+      const approxUTC = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
+      const offset = zonedOffsetHours(approxUTC, zone);
+      return new Date(Date.UTC(year, month - 1, day, hour - offset, minute, 0));
+    }
 
-          wxTempEl.textContent = `${tempF}°F`;
-          wxCondEl.textContent = condLabel;
-          wxWindEl.textContent = `${windMph} mph`;
-          wxStatusEl.textContent = '';
+    function updateTimeComparison() {
+      const yourData = getAirport(yourAirport.value);
+      const theirData = getAirport(theirAirport.value);
+      if (!yourData || !theirData) return;
+
+      const selectedDate = parseNaiveLocalInput(yourTimeInput.value, yourData[2]);
+      const yourOffset = zonedOffsetHours(selectedDate, yourData[2]);
+      const theirOffset = zonedOffsetHours(selectedDate, theirData[2]);
+      const diff = theirOffset - yourOffset;
+      const aheadBehind = diff === 0 ? 'Same time' : `${Math.abs(diff)} hr ${diff > 0 ? 'ahead' : 'behind'}`;
+
+      yourTimeDisplay.innerHTML = formatInZone(selectedDate, yourData[2]);
+      theirTimeDisplay.innerHTML = formatInZone(selectedDate, theirData[2]);
+      offsetDisplay.innerHTML = aheadBehind;
+    }
+
+    function setCurrentTimeForYourAirport() {
+      const now = new Date();
+      const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+      yourTimeInput.value = local.toISOString().slice(0, 16);
+      updateTimeComparison();
+    }
+
+    [yourAirport, theirAirport, yourTimeInput].forEach(el => el.addEventListener('change', updateTimeComparison));
+    document.getElementById('useCurrentTime').addEventListener('click', setCurrentTimeForYourAirport);
+
+    populateAirports();
+    setCurrentTimeForYourAirport();
+    calculateTip();
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const stations = [
+        {
+          name: 'Island 98.9',
+          subtitle: 'Reggae · Hawai‘i · Live',
+          url: 'https://streaming.live365.com/a53788'
+        },
+        {
+          name: 'Island 98.5',
+          subtitle: 'Hawaiian Contemporary · Live',
+          url: 'https://stream.revma.ihrhls.com/zc821/hls.m3u8'
+        },
+        {
+          name: 'Onipaʻa 105.1',
+          subtitle: 'Hawaiian Contemporary · iHeart Live',
+          url: 'https://stream.rcs.revma.com/vfa2fzr1t7uvv/15_1hxu2efit755802/playlist.m3u8'
+        },
+        {
+          name: 'Reggae Roots Radio',
+          subtitle: 'Roots · Reggae · Live',
+          url: 'https://streaming.live365.com/a38681'
+        },
+        {
+          name: 'Hawaiian Rainbow',
+          subtitle: 'Traditional Hawaiian Hula · Live',
+          url: 'https://s1.autopo.st/proxy/nqjchago?mp=/stream'
+        }
+      ];
+
+      let currentIndex = 0;
+      const audio = new Audio();
+      audio.crossOrigin = 'anonymous';
+      audio.preload = 'none';
+
+      let audioCtx = null;
+      let gainNode = null;
+      let sourceNode = null;
+      let currentVolume = 1.0;
+
+      const playBtn = document.getElementById('radioPlayBtn');
+      const playIcon = document.getElementById('radioPlayIcon');
+      const playLabel = document.getElementById('radioPlayLabel');
+      const prevBtn = document.getElementById('radioPrevBtn');
+      const nextBtn = document.getElementById('radioNextBtn');
+      const nameEl = document.getElementById('radioName');
+      const subEl = document.getElementById('radioSubtitle');
+      const volumeSlider = document.getElementById('radioVolume');
+
+      if (!playBtn || !prevBtn || !nextBtn || !nameEl || !subEl) return;
+
+      let isPlaying = false;
+
+      function ensureAudioGraph() {
+        if (!audioCtx) {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (Ctx) {
+            audioCtx = new Ctx();
+            gainNode = audioCtx.createGain();
+            gainNode.gain.value = currentVolume;
+            try {
+              sourceNode = audioCtx.createMediaElementSource(audio);
+              sourceNode.connect(gainNode).connect(audioCtx.destination);
+            } catch (err) {
+              console.error('Audio graph error:', err);
+              gainNode = null;
+              sourceNode = null;
+            }
+          } else {
+            gainNode = null;
+          }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(function (e) {
+            console.error('AudioContext resume error:', e);
+          });
+        }
+      }
+
+      if (volumeSlider) {
+        volumeSlider.value = 100;
+        const applyVolume = function () {
+          const raw = Number(volumeSlider.value) || 0;
+
+          let effective = Math.round(raw / 5) * 5;
+          effective = Math.max(0, Math.min(150, effective));
+
+          currentVolume = effective / 100;
+
+          if (gainNode) {
+            gainNode.gain.value = currentVolume;
+          } else {
+            audio.volume = Math.max(0, Math.min(1, currentVolume));
+          }
+
+          const volValueEl = document.getElementById('radioVolValue');
+          if (volValueEl) volValueEl.innerHTML = String(effective);
+
+          const pct = (effective / 150) * 100;
+          const safePct = (Math.min(effective, 100) / 150) * 100;
+
+          volumeSlider.style.setProperty('--vol-safe', safePct.toFixed(3) + '%');
+          volumeSlider.style.setProperty('--vol-pct', pct.toFixed(3) + '%');
+        };
+        volumeSlider.addEventListener('input', applyVolume);
+        applyVolume();
+      }
+
+      function updateStationDisplay() {
+        const s = stations[currentIndex];
+        nameEl.innerHTML = s.name;
+        subEl.innerHTML = s.subtitle;
+      }
+
+      function setPlayingUI(on) {
+        isPlaying = on;
+        if (on) {
+          playIcon.innerHTML = '🔊';
+          playLabel.innerHTML = 'Mute';
+          playBtn.style.borderColor = 'rgba(34,197,94,0.9)';
+          playBtn.style.boxShadow = '0 0 12px rgba(34,197,94,0.7)';
         } else {
-          wxStatusEl.textContent = 'Current conditions unavailable.';
+          playIcon.innerHTML = '▶';
+          playLabel.innerHTML = 'Play';
+          playBtn.style.borderColor = 'rgba(148,163,184,0.7)';
+          playBtn.style.boxShadow = '0 0 10px rgba(15,23,42,0.9)';
         }
+      }
 
-        // Sunrise / sunset today, tomorrow, day after
-        if (data.daily && Array.isArray(data.daily.sunrise) && Array.isArray(data.daily.sunset)) {
-          const sr = data.daily.sunrise;
-          const ss = data.daily.sunset;
-          const fmt = new Intl.DateTimeFormat('en-US', {
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
-            timeZone: 'America/Denver'
+      function loadStation(newIndex, autoplay) {
+        currentIndex = (newIndex + stations.length) % stations.length;
+        const s = stations[currentIndex];
+        updateStationDisplay();
+        audio.src = s.url || '';
+        if (autoplay && s.url) {
+          ensureAudioGraph();
+          audio.play().then(function () {
+            setPlayingUI(true);
+          }).catch(function (e) {
+            console.error('Audio play error:', e);
+            setPlayingUI(false);
           });
-
-          const formatPair = (idx) => {
-            if (!sr[idx] || !ss[idx]) return '-- / --';
-            const srd = new Date(sr[idx]);
-            const ssd = new Date(ss[idx]);
-            return `${fmt.format(srd)} / ${fmt.format(ssd)}`;
-          };
-
-          if (wxSunTodayEl) wxSunTodayEl.textContent = formatPair(0);
-          if (wxSunTomorrowEl) wxSunTomorrowEl.textContent = formatPair(1);
-          if (wxSunDayAfterEl) wxSunDayAfterEl.textContent = formatPair(2);
+        } else {
+          setPlayingUI(false);
         }
+      }
 
-        // Simple tomorrow daytime snapshot (around 3 PM local if available)
-        if (wxTomorrowTempEl && wxTomorrowCondEl && wxTomorrowWindEl && data.hourly && Array.isArray(data.hourly.time)) {
-          const times = data.hourly.time;
-          const temps = data.hourly.temperature_2m || [];
-          const codes = data.hourly.weather_code || data.hourly.weathercode || [];
-          const winds = data.hourly.wind_speed_10m || data.hourly.windspeed_10m || [];
-
-          const now = new Date();
-          const tomorrow = new Date(now);
-          tomorrow.setDate(now.getDate() + 1);
-          tomorrow.setHours(0,0,0,0);
-
-          let bestIndex = -1;
-          let bestDiff = Infinity;
-
-          for (let i = 0; i < times.length; i++) {
-            const t = new Date(times[i]);
-            const sameDay = t.getFullYear() === tomorrow.getFullYear()
-              && t.getMonth() === tomorrow.getMonth()
-              && t.getDate() === tomorrow.getDate();
-            if (!sameDay) continue;
-            // Prefer mid–afternoon (15:00) but fall back to closest hour
-            const target = new Date(tomorrow);
-            target.setHours(15,0,0,0);
-            const diff = Math.abs(t - target);
-            if (diff < bestDiff) {
-              bestDiff = diff;
-              bestIndex = i;
-            }
-          }
-
-          if (bestIndex >= 0 && temps[bestIndex] != null && codes[bestIndex] != null) {
-            const tempC = temps[bestIndex];
-            const code = codes[bestIndex];
-            const windKmh = winds[bestIndex] || 0;
-            const tempF = Math.round(cToF(tempC));
-            const windMph = Math.round(kmhToMph(windKmh));
-            const label = mapWeatherCondition(code, tempC, windKmh);
-
-            wxTomorrowTempEl.textContent = tempF + '°F';
-            wxTomorrowCondEl.textContent = label;
-            wxTomorrowWindEl.textContent = windMph + ' mph';
+      playBtn.addEventListener('click', function () {
+        if (!isPlaying) {
+          if (!audio.src) {
+            loadStation(currentIndex, true);
           } else {
-            wxTomorrowTempEl.textContent = '--';
-            wxTomorrowCondEl.textContent = 'N/A';
-            wxTomorrowWindEl.textContent = '--';
-          }
-        }
-
-        
-        // Day After (two days from now) using same hourly series
-        if (wxDayAfterTempEl && data.hourly && Array.isArray(data.hourly.time)) {
-          const times = data.hourly.time;
-          const temps = data.hourly.temperature_2m || [];
-          const codes = data.hourly.weather_code || data.hourly.weathercode || [];
-          const winds = data.hourly.wind_speed_10m || data.hourly.windspeed_10m || [];
-
-          const now = new Date();
-          const dayAfter = new Date(now);
-          dayAfter.setDate(now.getDate() + 2);
-          dayAfter.setHours(0,0,0,0);
-
-          let bestIndex2 = -1;
-          let bestDiff2 = Infinity;
-
-          // Pick the hour closest to 3pm about two days from now, without requiring exact same calendar day.
-          const target = new Date(dayAfter);
-          target.setHours(15,0,0,0);
-
-          for (let i = 0; i < times.length; i++) {
-            const t = new Date(times[i]);
-            const diff = Math.abs(t - target);
-            if (diff < bestDiff2) {
-              bestDiff2 = diff;
-              bestIndex2 = i;
-            }
-          }
-
-          if (bestIndex2 >= 0 && temps[bestIndex2] != null && codes[bestIndex2] != null) {
-            const tempC2 = temps[bestIndex2];
-            const code2 = codes[bestIndex2];
-            const windKmh2 = winds[bestIndex2] || 0;
-            const tempF2 = Math.round(cToF(tempC2));
-            const windMph2 = Math.round(kmhToMph(windKmh2));
-            const label2 = mapWeatherCondition(code2, tempC2, windKmh2);
-
-            wxDayAfterTempEl.textContent = tempF2 + '°F';
-            wxDayAfterCondEl.textContent = label2;
-            wxDayAfterWindEl.textContent = windMph2 + ' mph';
-          } else {
-            wxDayAfterTempEl.textContent = '--';
-            wxDayAfterCondEl.textContent = 'N/A';
-            wxDayAfterWindEl.textContent = '--';
-          }
-        }
-
-// Hourly next 8 hours
-        if (wxHourlyEl && data.hourly && Array.isArray(data.hourly.time)) {
-          wxHourlyEl.innerHTML = '';
-          const times = data.hourly.time;
-          const temps = data.hourly.temperature_2m || [];
-          const codes = data.hourly.weather_code || data.hourly.weathercode || [];
-          const winds = data.hourly.wind_speed_10m || data.hourly.windspeed_10m || [];
-
-          const now = new Date();
-          const upcoming = [];
-
-          for (let i = 0; i < times.length; i++) {
-            const t = new Date(times[i]);
-            if (t <= now) continue;
-            upcoming.push({ t, tempC: temps[i], code: codes[i], windKmh: winds[i] });
-            if (upcoming.length >= 8) break;
-          }
-
-          upcoming.forEach(item => {
-            const tempF = Math.round(cToF(item.tempC));
-            const label = mapWeatherCondition(item.code, item.tempC, item.windKmh);
-            const timeLabel = new Intl.DateTimeFormat('en-US', {
-              hour: 'numeric',
-              hour12: true
-            }).format(item.t);
-
-            const div = document.createElement('div');
-            div.className = 'box';
-            div.innerHTML = `<h3>${timeLabel}</h3>
-              <div class="total">${tempF}°F</div>
-              <div class="subhead" style="margin-top:4px">${label}</div>`;
-            wxHourlyEl.appendChild(div);
-          });
-
-          // Following 8 hours (hours 9–16 ahead)
-          const wxNext = document.getElementById('wx-hourly-next');
-          if (wxNext) {
-            let following = [];
-            let startIndex = 0;
-
-            // find the index right after our first 8 upcoming slots
-            for (let i = 0; i < times.length; i++) {
-              const t = new Date(times[i]);
-              if (t > now) {
-                startIndex = i + 8;
-                break;
-              }
-            }
-
-            for (let i = startIndex; i < times.length; i++) {
-              const t = new Date(times[i]);
-              following.push({
-                t,
-                tempC: temps[i],
-                code: codes[i],
-                windKmh: winds[i]
-              });
-              if (following.length >= 8) break;
-            }
-
-            wxNext.innerHTML = '';
-            following.forEach(item => {
-              const tempF2 = Math.round(cToF(item.tempC));
-              const label2 = mapWeatherCondition(item.code, item.tempC, item.windKmh);
-              const timeLabel2 = new Intl.DateTimeFormat('en-US', {
-                hour: 'numeric',
-                hour12: true
-              }).format(item.t);
-
-              const div2 = document.createElement('div');
-              div2.className = 'box';
-              div2.innerHTML = `<h3>${timeLabel2}</h3>
-                <div class="total">${tempF2}°F</div>
-                <div class="subhead" style="margin-top:4px">${label2}</div>`;
-              wxNext.appendChild(div2);
+            ensureAudioGraph();
+            audio.play().then(function () {
+              setPlayingUI(true);
+            }).catch(function (e) {
+              console.error('Audio play error:', e);
+              setPlayingUI(false);
             });
           }
-
-          // Pets comfort: look at today's temps between 11:00 and 19:00
-          const petsBox = document.getElementById('pets-box');
-          const petsLabel = document.getElementById('pets-label');
-          const petsText = document.getElementById('pets-text');
-          if (petsBox && data.hourly && Array.isArray(data.hourly.time)) {
-            const nowLocal = new Date();
-            const todayY = nowLocal.getFullYear();
-            const todayM = nowLocal.getMonth();
-            const todayD = nowLocal.getDate();
-
-            let totalSlots = 0;
-            let coldSlots = 0;
-            let warmSlots = 0;
-
-            for (let i = 0; i < data.hourly.time.length; i++) {
-              const t = new Date(data.hourly.time[i]);
-              if (t.getFullYear() !== todayY || t.getMonth() !== todayM || t.getDate() !== todayD) continue;
-              const hr = t.getHours();
-              if (hr < 11 || hr > 19) continue;
-
-              const tempC = (data.hourly.temperature_2m || [])[i];
-              if (typeof tempC !== 'number') continue;
-              const tempF = cToF(tempC);
-
-              totalSlots++;
-              if (tempF < 52) {
-                coldSlots++;
-              } else if (tempF >= 52) {
-                warmSlots++;
-              }
-            }
-
-            if (totalSlots === 0) {
-              petsBox.classList.remove('pets-ok', 'pets-in');
-              petsLabel.textContent = 'Pets status';
-              petsText.textContent = "Today's daytime forecast not available.";
-            } else if (coldSlots > warmSlots) {
-              petsBox.classList.remove('pets-ok');
-              petsBox.classList.add('pets-in');
-              petsLabel.textContent = 'Pets Stay In';
-              petsText.textContent = 'Stays below 52°F from about 11 AM to 7 PM.';
-            } else if (warmSlots > coldSlots) {
-              petsBox.classList.remove('pets-in');
-              petsBox.classList.add('pets-ok');
-              petsLabel.textContent = 'Pets Go Out';
-              petsText.textContent = '53°F or warmer for most of 11 AM – 7 PM.';
-            } else {
-              // Tie or mixed – be cautious
-              petsBox.classList.remove('pets-ok');
-              petsBox.classList.add('pets-in');
-              petsLabel.textContent = 'Pets Stay In';
-              petsText.textContent = 'Temperatures are mixed; keeping pets in is safer.';
-            }
-          }
+        } else {
+          audio.pause();
+          setPlayingUI(false);
         }
-      } catch (err) {
-        console.error(err);
-        wxStatusEl.textContent = 'Weather data unavailable.';
-      }
-    }
-
-    // Initial fetch + refresh every 10 minutes
-    fetchAbqWeather();
-    setInterval(fetchAbqWeather, 10 * 60 * 1000);
-
-// ===== Mobile-fit helpers (added) =====
-(function(){
-  const content = document.getElementById('content');
-  const tabbar = document.querySelector('.tabbar');
-  const tabs = document.querySelector('.tabs');
-
-  function adjustBottomPadding(){
-    if (!content || !tabbar) return;
-    const h = tabbar.offsetHeight || 90;
-    // Add a little breathing room above the tabbar
-    content.style.paddingBottom = (h + 24) + 'px';
-  }
-
-  function toggleCompactTabs(){
-    if (!tabs) return;
-    // Icons-only on very narrow screens for better fit
-    if (window.innerWidth <= 400) {
-      tabs.classList.add('compact');
-    } else {
-      tabs.classList.remove('compact');
-    }
-  }
-
-  // Run on load and whenever layout might change
-  window.addEventListener('load', () => { adjustBottomPadding(); toggleCompactTabs(); });
-  window.addEventListener('resize', () => { adjustBottomPadding(); toggleCompactTabs(); });
-  window.addEventListener('orientationchange', () => { setTimeout(()=>{ adjustBottomPadding(); toggleCompactTabs(); }, 150); });
-
-  // Also re-run after the home overlay is dismissed since heights can change
-  const home = document.getElementById('homeOverlay');
-  if (home) {
-    const obs = new MutationObserver(adjustBottomPadding);
-    obs.observe(home, { attributes: true, attributeFilter: ['class'] });
-  }
-})();
-
-
-// ===== Keep Enter button clear of bottom UI (added) =====
-(function(){
-  const root = document.documentElement;
-  const content = document.getElementById('content');
-  const tabbar = document.querySelector('.tabbar');
-  const home = document.getElementById('homeOverlay');
-
-  function getTabbarHeight(){
-    return (tabbar && tabbar.offsetHeight) ? tabbar.offsetHeight : 90;
-  }
-
-  function adjustLayoutForBottomUI(){
-    const h = getTabbarHeight();
-    // Expose the tabbar height to CSS
-    root.style.setProperty('--tabbar-h', h + 'px');
-
-    // Make sure main content doesn't slip under the tabbar
-    if (content) content.style.paddingBottom = (h + 24) + 'px';
-
-    // Ensure the home overlay (with Enter button) has enough bottom padding
-    if (home) {
-      // If your overlay toggles classes like 'hidden' or 'open', padding still applies
-      home.style.paddingBottom = (h + 24) + 'px';
-    }
-  }
-
-  // Run on load and when layout changes
-  window.addEventListener('load', adjustLayoutForBottomUI);
-  window.addEventListener('resize', adjustLayoutForBottomUI);
-  window.addEventListener('orientationchange', () => setTimeout(adjustLayoutForBottomUI, 150));
-
-  // Observe home overlay visibility/class changes so padding updates when opened/closed
-  if (home && 'MutationObserver' in window) {
-    const obs = new MutationObserver(adjustLayoutForBottomUI);
-    obs.observe(home, { attributes: true, attributeFilter: ['class', 'style'] });
-  }
-
-  // Small delay to catch late layout shifts (fonts/icons)
-  setTimeout(adjustLayoutForBottomUI, 300);
-})();
-
-</script>
-<script>
-  
-  function trimAaronToFit() {
-    const panel = document.getElementById("ap-stories");
-    const feed = document.getElementById("ap-feed");
-    if (!panel || !feed) return;
-
-    let guard = 20;
-    while (guard-- > 0 && panel.scrollHeight > panel.clientHeight) {
-      if (feed.children.length <= 1) break;
-      feed.removeChild(feed.lastElementChild);
-    }
-  }
-
-async function loadParnasStoriesViaRss() {
-    const feed = document.getElementById("ap-feed");
-    if (!feed) return;
-
-    feed.innerHTML = '<p style="color:#9aa5b4;">Loading latest stories…</p>';
-
-    try {
-      const rssUrl = encodeURIComponent("https://aaronparnas.substack.com/feed");
-      const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
-      if (!res.ok) throw new Error("Network error");
-
-      const data = await res.json();
-      const items = (data.items || []).slice(0, 10);
-
-      if (!items.length) {
-        feed.innerHTML = '<p style="color:#9aa5b4;">No recent stories found.</p>';
-        return;
-      }
-
-      feed.innerHTML = "";
-
-      items.forEach(item => {
-        const url = item.link;
-        const pub = new Date(item.pubDate);
-        const month = String(pub.getMonth() + 1).padStart(2, '0');
-        const day = String(pub.getDate()).padStart(2, '0');
-        const hrs = String(pub.getHours()).padStart(2, '0');
-        const mins = String(pub.getMinutes()).padStart(2, '0');
-        const stamp = `${month}/${day} ${hrs}:${mins}`;
-
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(item.description || "", "text/html");
-        let raw = item.content && item.content.length ? item.content : (doc.body.textContent || ''); raw = raw.replace(/\s+/g, " ").trim();
-        const summary = item.title || 'Untitled';
-
-        const card = document.createElement("div");
-        const apAccent = "#a855f7"; // purple for Aaron
-        card.style.padding = "10px";
-        card.style.background = "#111827";
-        card.style.border = "1px solid " + apAccent;
-        card.style.borderRadius = "10px";
-
-        card.innerHTML = `
-          <p style="margin:0 0 6px;">${summary}</p>
-          <a href="${url}" target="_blank" style="color:${apAccent}; font-size:13px;">Read more</a>
-        `;
-
-        feed.appendChild(card);
       });
 
-      trimAaronToFit();
-    } catch (err) {
-      if (feed) {
-        feed.innerHTML = '<p style="color:#ef4444;">Unable to load stories right now.</p>';
-      }
+      prevBtn.addEventListener('click', function () {
+        loadStation(currentIndex - 1, isPlaying);
+      });
+
+      nextBtn.addEventListener('click', function () {
+        loadStation(currentIndex + 1, isPlaying);
+      });
+
+      audio.addEventListener('ended', function () {
+        setPlayingUI(false);
+      });
+
+      audio.addEventListener('error', function (e) {
+        console.error('Audio error:', e);
+        setPlayingUI(false);
+      });
+
+      updateStationDisplay();
+    });
+
+  </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const weatherCards = document.querySelectorAll('.weather-card[data-city]');
+
+  if (!weatherCards.length) return;
+
+  const weatherCodeMap = {
+    0: 'Clear',
+    1: 'Mostly Clear',
+    2: 'Partly Cloudy',
+    3: 'Overcast',
+    45: 'Fog',
+    48: 'Rime Fog',
+    51: 'Light Drizzle',
+    53: 'Drizzle',
+    55: 'Heavy Drizzle',
+    56: 'Freezing Drizzle',
+    57: 'Heavy Freezing Drizzle',
+    61: 'Light Rain',
+    63: 'Rain',
+    65: 'Heavy Rain',
+    66: 'Freezing Rain',
+    67: 'Heavy Freezing Rain',
+    71: 'Light Snow',
+    73: 'Snow',
+    75: 'Heavy Snow',
+    77: 'Snow Grains',
+    80: 'Rain Showers',
+    81: 'Showers',
+    82: 'Heavy Showers',
+    85: 'Snow Showers',
+    86: 'Heavy Snow Showers',
+    95: 'Thunderstorm',
+    96: 'T-Storm Hail',
+    99: 'Severe T-Storm'
+  };
+
+  function toLabel(code) {
+    return weatherCodeMap[Number(code)] || 'Weather';
+  }
+
+  function toWhole(value) {
+    return Math.round(Number(value)) + '°';
+  }
+
+  function setLoading(card) {
+    const currentTemp = card.querySelector('[data-role="current-temp"]');
+    const todayLine = card.querySelector('[data-role="today-line"]');
+    const tmrwLine = card.querySelector('[data-role="tmrw-line"]');
+    const nextLine = card.querySelector('[data-role="next-line"]');
+
+    if (currentTemp) {
+      currentTemp.innerHTML = '--°F';
+      currentTemp.classList.add('weather-loading');
+    }
+    if (todayLine) {
+      todayLine.innerHTML = 'Today: Loading...';
+      todayLine.classList.add('weather-loading');
+    }
+    if (tmrwLine) {
+      tmrwLine.innerHTML = 'Tmr: Loading...';
+      tmrwLine.classList.add('weather-loading');
+    }
+    if (nextLine) {
+      nextLine.innerHTML = 'Next: Loading...';
+      nextLine.classList.add('weather-loading');
     }
   }
 
-  // Kick off feed load after page scripts are parsed
-  document.addEventListener("DOMContentLoaded", loadParnasStoriesViaRss);
-  </script>
-<script>
-// ===== Dedicated News screen (US, Southwest, Hilton, Albuquerque) =====
-function parseNewsDate(dateStr){
-  if(!dateStr) return null;
-  // rss2json / Google News often returns e.g. "2025-11-23 16:36:00" in GMT with no timezone.
-  // If there is no explicit timezone but it matches that pattern, treat it as UTC.
-  const hasTZ = /[zZ]|[+\-]\d{2}:?\d{2}/.test(dateStr);
-  if(!hasTZ && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}/.test(dateStr)){
-    return new Date(dateStr.replace(' ', 'T') + 'Z');
+  function clearLoading(card) {
+    card.querySelectorAll('.weather-loading').forEach(function (el) {
+      el.classList.remove('weather-loading');
+    });
   }
-  const d = new Date(dateStr);
-  if(isNaN(d.getTime())) return null;
-  return d;
-}
 
-function formatNewsStamp(dateStr){
-  if(!dateStr) return '';
-  const d = parseNewsDate(dateStr);
-  if(!d || isNaN(d.getTime())) return '';
-  const now = new Date();
-  const diff = (now - d) / 1000;
-  if(diff < 60) return 'Just now';
-  if(diff < 3600){
-    const m = Math.round(diff/60);
-    return m + ' min' + (m === 1 ? '' : 's') + ' ago';
-  }
-  if(diff < 86400){
-    const h = Math.round(diff/3600);
-    return h + ' hour' + (h === 1 ? '' : 's') + ' ago';
-  }
-  return d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
-}
+  async function fetchWeatherForCard(card) {
+    const lat = card.dataset.lat;
+    const lon = card.dataset.lon;
+    const timezone = card.dataset.timezone || 'auto';
 
-function renderNewsList(containerId, emptyId, items){
-  const container = document.getElementById(containerId);
-  const empty = document.getElementById(emptyId);
-  if(!container || !empty) return;
-  container.innerHTML = '';
-  if(!items || !items.length){
-    empty.hidden = false;
+    const currentTemp = card.querySelector('[data-role="current-temp"]');
+    const todayLine = card.querySelector('[data-role="today-line"]');
+    const tmrwLine = card.querySelector('[data-role="tmrw-line"]');
+    const nextLine = card.querySelector('[data-role="next-line"]');
+
+    setLoading(card);
+
+    const params = new URLSearchParams({
+      latitude: lat,
+      longitude: lon,
+      current: 'temperature_2m,weather_code',
+      daily: 'weather_code,temperature_2m_max,temperature_2m_min',
+      temperature_unit: 'fahrenheit',
+      timezone: timezone,
+      forecast_days: '3'
+    });
+
+    const url = 'https://api.open-meteo.com/v1/forecast?' + params.toString();
+
+    try {
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Weather request failed');
+
+      const data = await response.json();
+
+      const current = data.current || {};
+      const daily = data.daily || {};
+
+      const codes = daily.weather_code || [];
+      const maxes = daily.temperature_2m_max || [];
+      const mins = daily.temperature_2m_min || [];
+
+      if (currentTemp && typeof current.temperature_2m !== 'undefined') {
+        currentTemp.innerHTML = Math.round(current.temperature_2m) + '°F';
+      }
+
+      if (todayLine && codes.length > 0) {
+        todayLine.innerHTML = 'Today: ' + toLabel(codes[0]) + ' • ' + toWhole(maxes[0]) + ' / ' + toWhole(mins[0]);
+      }
+
+      if (tmrwLine && codes.length > 1) {
+        tmrwLine.innerHTML = 'Tmr: ' + toLabel(codes[1]) + ' • ' + toWhole(maxes[1]) + ' / ' + toWhole(mins[1]);
+      }
+
+      if (nextLine && codes.length > 2) {
+        nextLine.innerHTML = 'Next: ' + toLabel(codes[2]) + ' • ' + toWhole(maxes[2]) + ' / ' + toWhole(mins[2]);
+      }
+
+      clearLoading(card);
+    } catch (error) {
+      console.error('Weather update failed for', card.dataset.city, error);
+
+      if (todayLine) todayLine.innerHTML = 'Today: Unavailable';
+      if (tmrwLine) tmrwLine.innerHTML = 'Tmr: Unavailable';
+      if (nextLine) nextLine.innerHTML = 'Next: Unavailable';
+      if (currentTemp) currentTemp.innerHTML = '--°F';
+
+      clearLoading(card);
+    }
+  }
+
+  async function refreshAllWeather() {
+    await Promise.all(Array.from(weatherCards).map(fetchWeatherForCard));
+  }
+
+  refreshAllWeather();
+  setInterval(refreshAllWeather, 30 * 60 * 1000);
+});
+</script><a href="https://domveenine.github.io/swa-call-assistant/" id="swa-assistant-btn" target="_blank">
+<svg height="22" viewbox="0 0 100 100" width="22" xmlns="http://www.w3.org/2000/svg">
+<path d="M50 90 L10 50 A20 20 0 1 1 50 20 A20 20 0 1 1 90 50 Z" fill="#304CB2"></path>
+<path d="M50 90 L25 55 A15 15 0 1 1 50 35 A15 15 0 1 1 75 55 Z" fill="#E31837"></path>
+<path d="M50 90 L35 65 A10 10 0 1 1 50 50 A10 10 0 1 1 65 65 Z" fill="#FFBF27"></path>
+</svg>
+</a><script>
+document.addEventListener('DOMContentLoaded', function () {
+  const yourAirport = document.getElementById('yourAirport');
+  const theirAirport = document.getElementById('theirAirport');
+  const yourTimeInput = document.getElementById('yourTimeInput');
+  const yourTimeDisplay = document.getElementById('yourTimeDisplay');
+  const theirTimeDisplay = document.getElementById('theirTimeDisplay');
+  const offsetDisplay = document.getElementById('offsetDisplay');
+  const useCurrentTimeBtn = document.getElementById('useCurrentTime');
+
+  if (!yourAirport || !theirAirport || !yourTimeInput || !yourTimeDisplay || !theirTimeDisplay || !offsetDisplay || !useCurrentTimeBtn) {
     return;
   }
-  empty.hidden = true;
-  items.forEach(item=>{
-    const card = document.createElement('article');
-    card.className = 'news-card';
-    card.tabIndex = 0;
 
-    const title = document.createElement('h4');
-    title.className = 'news-title';
-    title.textContent = item.title || 'Untitled';
-
-    const meta = document.createElement('div');
-    meta.className = 'news-meta';
-    const src = item.source || item.sourceName;
-    if(src){
-      const span = document.createElement('span');
-      span.textContent = src;
-      meta.appendChild(span);
-    }
-    if(item.published){
-      const span = document.createElement('span');
-      span.textContent = formatNewsStamp(item.published);
-      meta.appendChild(span);
-    }
-
-    card.appendChild(title);
-    card.appendChild(meta);
-
-    const open = ()=>{ if(item.url) window.open(item.url, '_blank', 'noopener'); };
-    card.addEventListener('click', open);
-    card.addEventListener('keypress', e=>{ if(e.key === 'Enter') open(); });
-
-    container.appendChild(card);
-  });
-}
-
-async function fetchRssNews(feedUrl){
-  try{
-    const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
-    const res = await fetch(apiUrl);
-    if(!res.ok) throw new Error('Network error');
-    const data = await res.json();
-
-    // Sort by published date (newest first) and keep up to 8 items
-    let items = (data.items || []).slice();
-    items.sort((a, b) => {
-      const daDate = parseNewsDate(a.pubDate || a.pubdate || a.published || '');
-      const dbDate = parseNewsDate(b.pubDate || b.pubdate || b.published || '');
-      const da = daDate ? daDate.getTime() : 0;
-      const db = dbDate ? dbDate.getTime() : 0;
-      return db - da;
-    });
-    items = items.slice(0, 8);
-
-    return items.map(item=>{
-      const d = {
-        title: item.title || "Untitled",
-        url: item.link || "",
-        published: item.pubDate || item.pubdate || item.published,
-        source: (item.author || (data.feed && data.feed.title)) || ""
-      };
-      const parser = new DOMParser();
-      const rawHtml = item.content && item.content.length ? item.content : (item.description || "");
-      const doc = parser.parseFromString(rawHtml, "text/html");
-      const raw = (doc.body.textContent || "").replace(/\s+/g, " ").trim();
-      d.summary = raw.slice(0, 90) + (raw.length > 90 ? "…" : "");
-      return d;
-    });
-  }catch(err){
-    console.error("News RSS error", err);
-    // Return a single "error" item so the panels never look completely empty
-    return [{
-      title: "Unable to load news right now",
-      url: "",
-      published: "",
-      source: "News feed",
-      summary: "Check your internet connection or try opening this page from a secure (https) site instead of file://."
-    }];
-  }
-}
-async function refreshNewsScreen(fromInterval){
-  const lastEl = document.getElementById('newsLastUpdated');
-  const now = new Date();
-  if(lastEl){
-    lastEl.textContent = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}) +
-      ' · ' + now.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-  }
-  // Show a basic loading state so it never looks blank
-  const panels = [
-    ['news-us-list','news-us-empty','Loading US headlines…'],
-    ['news-sw-list','news-sw-empty','Loading Southwest stories…'],
-    ['news-hilton-list','news-hilton-empty','Loading Hilton stories…'],
-    ['news-abq-list','news-abq-empty','Loading Albuquerque stories…']
+  const fallbackAirports = [
+    ['ABQ', 'Albuquerque', 'America/Denver'],
+    ['DAL', 'Dallas Love Field', 'America/Chicago'],
+    ['LAS', 'Las Vegas', 'America/Los_Angeles'],
+    ['HNL', 'Honolulu', 'Pacific/Honolulu'],
+    ['KOA', 'Kona', 'Pacific/Honolulu'],
+    ['LAX', 'Los Angeles', 'America/Los_Angeles'],
+    ['PHX', 'Phoenix', 'America/Phoenix'],
+    ['DEN', 'Denver', 'America/Denver'],
+    ['ORD', 'Chicago O’Hare', 'America/Chicago'],
+    ['ATL', 'Atlanta', 'America/New_York'],
+    ['JFK', 'New York JFK', 'America/New_York'],
+    ['MCO', 'Orlando', 'America/New_York'],
+    ['SEA', 'Seattle', 'America/Los_Angeles']
   ];
-  panels.forEach(([listId, emptyId, text])=>{
-    const listEl = document.getElementById(listId);
-    const emptyEl = document.getElementById(emptyId);
-    if(listEl){ listEl.innerHTML = ''; }
-    if(emptyEl){
-      emptyEl.hidden = false;
-      emptyEl.textContent = text;
+
+  const airportList = Array.isArray(window.airports) && window.airports.length ? window.airports : fallbackAirports;
+
+  function getAirport(code) {
+    return airportList.find(function (item) { return item[0] === code; }) || null;
+  }
+
+  function populateAirports() {
+    const options = airportList.map(function (item) {
+      return '<option value="' + item[0] + '">' + item[0] + ' · ' + item[1] + '</option>';
+    }).join('');
+
+    if (!yourAirport.innerHTML.trim()) yourAirport.innerHTML = options;
+    if (!theirAirport.innerHTML.trim()) theirAirport.innerHTML = options;
+
+    if (!yourAirport.value) yourAirport.value = 'ABQ';
+    if (!theirAirport.value) theirAirport.value = 'HNL';
+  }
+
+  function getParts(date, timeZone) {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: timeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hourCycle: 'h23'
+    }).formatToParts(date);
+
+    const out = {};
+    parts.forEach(function (part) {
+      if (part.type !== 'literal') out[part.type] = part.value;
+    });
+    return out;
+  }
+
+  function zonedOffsetHours(date, timeZone) {
+    const parts = getParts(date, timeZone);
+    const asUTC = Date.UTC(
+      Number(parts.year),
+      Number(parts.month) - 1,
+      Number(parts.day),
+      Number(parts.hour),
+      Number(parts.minute),
+      Number(parts.second)
+    );
+    return (asUTC - date.getTime()) / 36e5;
+  }
+
+  function toDateTimeLocalValue(date, timeZone) {
+    const parts = getParts(date, timeZone);
+    return parts.year + '-' + parts.month + '-' + parts.day + 'T' + parts.hour + ':' + parts.minute;
+  }
+
+  function parseAirportLocalInput(inputValue, timeZone) {
+    if (!inputValue) {
+      return new Date();
     }
+
+    const pieces = inputValue.split('T');
+    if (pieces.length !== 2) {
+      return new Date();
+    }
+
+    const datePart = pieces[0].split('-').map(Number);
+    const timePart = pieces[1].split(':').map(Number);
+
+    const year = datePart[0];
+    const month = datePart[1];
+    const day = datePart[2];
+    const hour = timePart[0];
+    const minute = timePart[1];
+
+    const approxUTC = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
+    const offset = zonedOffsetHours(approxUTC, timeZone);
+
+    return new Date(Date.UTC(year, month - 1, day, hour - offset, minute, 0));
+  }
+
+  function formatDisplay(date, timeZone) {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: timeZone,
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    }).formatToParts(date);
+
+    let month = '';
+    let day = '';
+    let hour = '';
+    let minute = '';
+    let dayPeriod = '';
+
+    parts.forEach(function(p){
+      if(p.type === 'month') month = p.value;
+      if(p.type === 'day') day = p.value;
+      if(p.type === 'hour') hour = p.value;
+      if(p.type === 'minute') minute = p.value;
+      if(p.type === 'dayPeriod') dayPeriod = p.value;
+    });
+
+    return '<span class="date-part">' + month + ' ' + day + '</span><span class="time-part">' + hour + ':' + minute + ' ' + dayPeriod + '</span>';
+  }
+
+  function updateTimeComparisonFixed() {
+    const yourData = getAirport(yourAirport.value);
+    const theirData = getAirport(theirAirport.value);
+
+    if (!yourData || !theirData) {
+      yourTimeDisplay.innerHTML = '—';
+      theirTimeDisplay.innerHTML = '—';
+      offsetDisplay.innerHTML = '—';
+      return;
+    }
+
+    const baseDate = parseAirportLocalInput(yourTimeInput.value, yourData[2]);
+
+    const yourOffset = zonedOffsetHours(baseDate, yourData[2]);
+    const theirOffset = zonedOffsetHours(baseDate, theirData[2]);
+    const diff = theirOffset - yourOffset;
+
+    yourTimeDisplay.innerHTML = formatDisplay(baseDate, yourData[2]);
+    theirTimeDisplay.innerHTML = formatDisplay(baseDate, theirData[2]);
+
+    if (diff === 0) {
+      offsetDisplay.innerHTML = 'Same time';
+    } else {
+      const abs = Math.abs(diff);
+      const hours = Math.floor(abs);
+      const minutes = Math.round((abs - hours) * 60);
+      const parts = [];
+      if (hours) parts.push(hours + ' hr');
+      if (minutes) parts.push(minutes + ' min');
+      offsetDisplay.innerHTML = parts.join(' ') + ' ' + (diff > 0 ? 'ahead' : 'behind');
+    }
+  }
+
+  function setCurrentTimeForSelectedAirport() {
+    const yourData = getAirport(yourAirport.value);
+    const zone = yourData ? yourData[2] : 'America/Denver';
+    yourTimeInput.value = toDateTimeLocalValue(new Date(), zone);
+    updateTimeComparisonFixed();
+  }
+
+  populateAirports();
+
+  yourAirport.addEventListener('change', function () {
+    setCurrentTimeForSelectedAirport();
   });
-  const usFeed = "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en";
-  const swFeed = "https://news.google.com/rss/search?q=Southwest+Airlines&hl=en-US&gl=US&ceid=US:en";
-  const hiltonFeed = "https://news.google.com/rss/search?q=Hilton+Hotels&hl=en-US&gl=US&ceid=US:en";
-  const abqFeed = "https://news.google.com/rss/search?q=Albuquerque+New+Mexico&hl=en-US&gl=US&ceid=US:en";
-  const [us, sw, hilton, abq] = await Promise.all([
-    fetchRssNews(usFeed),
-    fetchRssNews(swFeed),
-    fetchRssNews(hiltonFeed),
-    fetchRssNews(abqFeed)
-  ]);
-  renderNewsList('news-us-list','news-us-empty',us);
-  renderNewsList('news-sw-list','news-sw-empty',sw);
-  renderNewsList('news-hilton-list','news-hilton-empty',hilton);
-  renderNewsList('news-abq-list','news-abq-empty',abq);
-}
+  theirAirport.addEventListener('change', updateTimeComparisonFixed);
+  yourTimeInput.addEventListener('input', updateTimeComparisonFixed);
+  yourTimeInput.addEventListener('change', updateTimeComparisonFixed);
+  useCurrentTimeBtn.addEventListener('click', setCurrentTimeForSelectedAirport);
 
-function initNewsScreen(){
-  const btn = document.getElementById('newsRefreshBtn');
-  if(btn){
-    btn.addEventListener('click', ()=>refreshNewsScreen(false));
-  }
-  refreshNewsScreen(false);
-  // auto-refresh every 15 minutes
-  setInterval(()=>refreshNewsScreen(true), 15*60*1000);
-}
-function loadBrandNewsSection() {
-    const swFeed = document.getElementById("sw-news-feed");
-    const hiltonFeed = document.getElementById("hilton-news-feed");
-    if (!swFeed && !hiltonFeed) return;
-
-    if (swFeed) {
-      swFeed.innerHTML = '<p style="color:#9aa5b4; font-size:12px;">Loading Southwest Airlines news…</p>';
-    }
-    if (hiltonFeed) {
-      hiltonFeed.innerHTML = '<p style="color:#9aa5b4; font-size:12px;">Loading Hilton news…</p>';
-    }
-
-    async function loadNews(feedUrl, containerId) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-
-      try {
-        const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
-        const res = await fetch(apiUrl);
-        if (!res.ok) throw new Error("Network error");
-
-        const data = await res.json();
-        const items = (data.items || []).slice(0, 3);
-
-        if (!items.length) {
-          container.innerHTML = '<p style="color:#9aa5b4; font-size:12px;">No recent stories found.</p>';
-          return;
-        }
-
-        container.innerHTML = "";
-
-        items.forEach(item => {
-          const url = item.link;
-          const pub = new Date(item.pubDate);
-          const month = String(pub.getMonth() + 1).padStart(2, '0');
-          const day = String(pub.getDate()).padStart(2, '0');
-          const hrs = String(pub.getHours()).padStart(2, '0');
-          const mins = String(pub.getMinutes()).padStart(2, '0');
-          const stamp = month + "/" + day + " " + hrs + ":" + mins;
-
-          // Get fuller article text: prefer content, then description
-          const parser = new DOMParser();
-          const rawHtml = item.content && item.content.length ? item.content : (item.description || "");
-          const doc = parser.parseFromString(rawHtml, "text/html");
-          let raw = (doc.body.textContent || "").replace(/\s+/g, " ").trim();
-
-          // Strip title if it appears at the start so we keep the meat, not just the headline
-          if (item.title) {
-            const t = String(item.title).replace(/\s+/g, " ").trim();
-            const rawLower = raw.toLowerCase();
-            const tLower = t.toLowerCase();
-            if (rawLower.startsWith(tLower)) {
-              raw = raw.slice(t.length).trim();
-            }
-          }
-
-          const summary = item.title || 'Untitled';
-
-          const card = document.createElement("div");
-          const accent = containerId === "sw-news-feed" ? "#ef4444" : "#38bdf8"; // red for Southwest, blue for Hilton
-          card.style.padding = "8px";
-          card.style.background = "#111827";
-          card.style.border = "1px solid " + accent;
-          card.style.borderRadius = "8px";
-
-          card.innerHTML = `
-            <p style="margin:0 0 4px; font-size:13px;">${summary}</p>
-            <a href="${url}" target="_blank" style="color:${accent}; font-size:12px;">Read more</a>
-          `;
-
-          container.appendChild(card);
-        });
-      } catch (err) {
-        container.innerHTML = '<p style="color:#ef4444; font-size:12px;">Unable to load news right now.</p>';
-      }
-    }
-
-    
-    function trimBrandNewsToFit() {
-      const panel = document.getElementById("brand-news");
-      const sw = document.getElementById("sw-news-feed");
-      const hilton = document.getElementById("hilton-news-feed");
-      if (!panel || !sw || !hilton) return;
-
-      let guard = 20; // safety to avoid infinite loops
-      while (guard-- > 0 && panel.scrollHeight > panel.clientHeight) {
-        const swCount = sw.children.length;
-        const hiltonCount = hilton.children.length;
-
-        if (!swCount && !hiltonCount) break;
-
-        // Remove from the brand with more items first to keep counts even
-        if (swCount >= hiltonCount && swCount > 0) {
-          sw.removeChild(sw.lastElementChild);
-        }
-        if (hiltonCount >= swCount && hiltonCount > 0) {
-          hilton.removeChild(hilton.lastElementChild);
-        }
-      }
-    }
-
-// Google News RSS feeds for Southwest Airlines and Hilton
-    const swUrl = "https://news.google.com/rss/search?q=Southwest+Airlines&hl=en-US&gl=US&ceid=US:en";
-    const hiltonUrl = "https://news.google.com/rss/search?q=Hilton+Hotels&hl=en-US&gl=US&ceid=US:en";
-
-    loadNews(swUrl, "sw-news-feed");
-    loadNews(hiltonUrl, "hilton-news-feed");
-  }
-
-  
-
-document.addEventListener("DOMContentLoaded", loadBrandNewsSection);
-
-document.addEventListener("DOMContentLoaded", initNewsScreen);
-  </script>
-<script>
-(function() {
-  try {
-    const todayEl = document.getElementById('wx-label-today');
-    const tomorrowEl = document.getElementById('wx-label-tomorrow');
-    const dayAfterEl = document.getElementById('wx-label-dayafter');
-    if (!todayEl || !tomorrowEl || !dayAfterEl) return;
-
-    function ordinal(n){ return parseInt(n,10); }
-
-    function makeLabel(prefix, offsetDays) {
-      const d = new Date();
-      d.setDate(d.getDate() + offsetDays);
-      const weekday = d.toLocaleDateString(undefined, { weekday: 'long' });
-      const month = d.toLocaleDateString(undefined, { month: 'short' });
-      const dayNum = d.toLocaleDateString(undefined, { day: 'numeric' });
-      return prefix + ' - ' + weekday + ', ' + month + ' ' + dayNum;
-    }
-
-    todayEl.innerHTML = '<strong>' + makeLabel('Today', 0) + '</strong>';
-    tomorrowEl.innerHTML = '<strong>' + makeLabel('Tomorrow', 1) + '</strong>';
-    dayAfterEl.innerHTML = '<strong>' + makeLabel('Day After', 2) + '</strong>';
-  } catch (e) {
-    console && console.error && console.error('wx label error', e);
-  }
-})();
-</script>
-
-</body>
+  setCurrentTimeForSelectedAirport();
+});
+</script></body>
 </html>
