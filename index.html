@@ -727,11 +727,11 @@ small, .subtext {
 <h2>Airport Time Comparison</h2>
 <div class="field">
 <label for="yourAirport">Your Airport</label>
-<select id="yourAirport"></select>
+<select id="yourAirport"><option value="">Select Airport</option></select>
 </div>
 <div class="field">
 <label for="theirAirport">Their Airport</label>
-<select id="theirAirport"></select>
+<select id="theirAirport"><option value="">Select Airport</option></select>
 </div>
 <div class="field">
 <label for="yourTimeInput">Set Your Time (At Your Airport)</label>
@@ -783,7 +783,7 @@ small, .subtext {
         clockRow.innerHTML = timezones.map(tz => `
           <div class="clock-item">
             <div class="label">${tz.label}</div>
-            <div class="time">${formatTimeForZone(tz.zone)}</div>
+            <div class="time">${formatTimeForZone(tz.zone)}</div><div class="date" style="font-size:10px;opacity:0.6;margin-top:2px;">${new Intl.DateTimeFormat("en-US",{month:"numeric",day:"numeric",timeZone:tz.zone}).format(new Date())}</div>
           </div>
         `).join('');
       }
@@ -857,22 +857,129 @@ Final Total: ${finalValue.textContent}`;
       });
     }
 
-    const airports = [
-      ['ABQ', 'Albuquerque', 'America/Denver'],
-      ['PHX', 'Phoenix', 'America/Phoenix'],
-      ['LAX', 'Los Angeles', 'America/Los_Angeles'],
-      ['LAS', 'Las Vegas', 'America/Los_Angeles'],
-      ['DEN', 'Denver', 'America/Denver'],
-      ['DAL', 'Dallas Love', 'America/Chicago'],
-      ['HOU', 'Houston Hobby', 'America/Chicago'],
-      ['MDW', 'Chicago Midway', 'America/Chicago'],
-      ['BWI', 'Baltimore', 'America/New_York'],
-      ['ATL', 'Atlanta', 'America/New_York'],
-      ['MCO', 'Orlando', 'America/New_York'],
-      ['JFK', 'New York JFK', 'America/New_York'],
-      ['SEA', 'Seattle', 'America/Los_Angeles'],
-      ['HNL', 'Honolulu', 'Pacific/Honolulu']
+    window.airports = [
+      ['ALB','Albany, NY','America/New_York'],
+      ['ABQ','Albuquerque, NM','America/Denver'],
+      ['ANC','Anchorage, AK','America/Anchorage'],
+      ['AMA','Amarillo, TX','America/Chicago'],
+      ['ATL','Atlanta, GA','America/New_York'],
+      ['AUS','Austin, TX','America/Chicago'],
+      ['BWI','Baltimore/Washington, MD','America/New_York'],
+      ['BHM','Birmingham, AL','America/Chicago'],
+      ['BOI','Boise, ID','America/Boise'],
+      ['BOS','Boston (Logan), MA','America/New_York'],
+      ['BZN','Bozeman/Yellowstone, MT','America/Denver'],
+      ['BUF','Buffalo/Niagara, NY','America/New_York'],
+      ['BUR','Burbank, CA','America/Los_Angeles'],
+      ['CHS','Charleston, SC','America/New_York'],
+      ['CLT','Charlotte, NC','America/New_York'],
+      ['MDW','Chicago (Midway), IL','America/Chicago'],
+      ['ORD','Chicago (O’Hare), IL','America/Chicago'],
+      ['CVG','Cincinnati, OH','America/New_York'],
+      ['CLE','Cleveland, OH','America/New_York'],
+      ['COS','Colorado Springs, CO','America/Denver'],
+      ['CMH','Columbus, OH','America/New_York'],
+      ['CRP','Corpus Christi, TX','America/Chicago'],
+      ['DAL','Dallas (Love Field), TX','America/Chicago'],
+      ['DEN','Denver, CO','America/Denver'],
+      ['DSM','Des Moines, IA','America/Chicago'],
+      ['VPS','Destin/Fort Walton Beach, FL','America/Chicago'],
+      ['DTW','Detroit, MI','America/New_York'],
+      ['ELP','El Paso, TX','America/Denver'],
+      ['EUG','Eugene, OR','America/Los_Angeles'],
+      ['FLL','Fort Lauderdale, FL','America/New_York'],
+      ['RSW','Fort Myers, FL','America/New_York'],
+      ['FAT','Fresno, CA','America/Los_Angeles'],
+      ['GCM','Grand Cayman, Cayman Islands','America/Cayman'],
+      ['GRR','Grand Rapids, MI','America/New_York'],
+      ['GSP','Greenville/Spartanburg, SC','America/New_York'],
+      ['HDN','Steamboat Springs (Hayden), CO','America/Denver'],
+      ['HRL','Harlingen, TX','America/Chicago'],
+      ['BDL','Hartford, CT','America/New_York'],
+      ['HAV','Havana, Cuba','America/Havana'],
+      ['ITO','Hilo (Island of Hawaiʻi), HI','Pacific/Honolulu'],
+      ['HNL','Honolulu (Oahu), HI','Pacific/Honolulu'],
+      ['HOU','Houston (Hobby), TX','America/Chicago'],
+      ['IND','Indianapolis, IN','America/Indiana/Indianapolis'],
+      ['JAN','Jackson, MS','America/Chicago'],
+      ['JAX','Jacksonville, FL','America/New_York'],
+      ['MCI','Kansas City, MO','America/Chicago'],
+      ['OGG','Kahului (Maui), HI','Pacific/Honolulu'],
+      ['KOA','Kona (Island of Hawaiʻi), HI','Pacific/Honolulu'],
+      ['TYS','Knoxville, TN','America/New_York'],
+      ['LAS','Las Vegas, NV','America/Los_Angeles'],
+      ['LIR','Liberia (Guanacaste), Costa Rica','America/Costa_Rica'],
+      ['LIH','Lihue (Kauai), HI','Pacific/Honolulu'],
+      ['LIT','Little Rock, AR','America/Chicago'],
+      ['LGB','Long Beach, CA','America/Los_Angeles'],
+      ['ISP','Long Island/Islip, NY','America/New_York'],
+      ['LAX','Los Angeles, CA','America/Los_Angeles'],
+      ['SDF','Louisville, KY','America/New_York'],
+      ['LBB','Lubbock, TX','America/Chicago'],
+      ['MHT','Manchester, NH','America/New_York'],
+      ['MEM','Memphis, TN','America/Chicago'],
+      ['MIA','Miami, FL','America/New_York'],
+      ['MAF','Midland/Odessa, TX','America/Chicago'],
+      ['MKE','Milwaukee, WI','America/Chicago'],
+      ['MSP','Minneapolis/St. Paul, MN','America/Chicago'],
+      ['MBJ','Montego Bay, Jamaica','America/Jamaica'],
+      ['MTJ','Montrose (Telluride/Crested Butte), CO','America/Denver'],
+      ['MYR','Myrtle Beach, SC','America/New_York'],
+      ['BNA','Nashville, TN','America/Chicago'],
+      ['NAS','Nassau, Bahamas','America/Nassau'],
+      ['MSY','New Orleans, LA','America/Chicago'],
+      ['LGA','New York (LaGuardia), NY','America/New_York'],
+      ['ORF','Norfolk, VA','America/New_York'],
+      ['OAK','Oakland, CA','America/Los_Angeles'],
+      ['OKC','Oklahoma City, OK','America/Chicago'],
+      ['OMA','Omaha, NE','America/Chicago'],
+      ['ONT','Ontario/LA, CA','America/Los_Angeles'],
+      ['SNA','Orange County/Santa Ana, CA','America/Los_Angeles'],
+      ['MCO','Orlando, FL','America/New_York'],
+      ['PSP','Palm Springs, CA','America/Los_Angeles'],
+      ['ECP','Panama City Beach, FL','America/Chicago'],
+      ['PNS','Pensacola, FL','America/Chicago'],
+      ['PHL','Philadelphia, PA','America/New_York'],
+      ['PHX','Phoenix, AZ','America/Phoenix'],
+      ['PIT','Pittsburgh, PA','America/New_York'],
+      ['PLS','Providenciales, Turks and Caicos','America/Grand_Turk'],
+      ['PVD','Providence, RI','America/New_York'],
+      ['PVR','Puerto Vallarta, Mexico','America/Mexico_City'],
+      ['PUJ','Punta Cana, Dominican Republic','America/Santo_Domingo'],
+      ['RDU','Raleigh/Durham, NC','America/New_York'],
+      ['RNO','Reno/Tahoe, NV','America/Los_Angeles'],
+      ['RIC','Richmond, VA','America/New_York'],
+      ['ROC','Rochester, NY','America/New_York'],
+      ['SMF','Sacramento, CA','America/Los_Angeles'],
+      ['SLC','Salt Lake City, UT','America/Denver'],
+      ['SAT','San Antonio, TX','America/Chicago'],
+      ['SAN','San Diego, CA','America/Los_Angeles'],
+      ['SFO','San Francisco, CA','America/Los_Angeles'],
+      ['SJO','San Jose, Costa Rica','America/Costa_Rica'],
+      ['SJC','San Jose, CA','America/Los_Angeles'],
+      ['SJU','San Juan, Puerto Rico','America/Puerto_Rico'],
+      ['SBA','Santa Barbara, CA','America/Los_Angeles'],
+      ['STS','Santa Rosa, CA','America/Los_Angeles'],
+      ['SRQ','Sarasota/Bradenton, FL','America/New_York'],
+      ['SAV','Savannah/Hilton Head, GA','America/New_York'],
+      ['SEA','Seattle/Tacoma, WA','America/Los_Angeles'],
+      ['GEG','Spokane, WA','America/Los_Angeles'],
+      ['STL','St. Louis, MO','America/Chicago'],
+      ['SXM','St. Maarten, St. Maarten','America/Lower_Princes'],
+      ['STT','St. Thomas, Virgin Islands','America/St_Thomas'],
+      ['TPA','Tampa, FL','America/New_York'],
+      ['TUS','Tucson, AZ','America/Phoenix'],
+      ['TUL','Tulsa, OK','America/Chicago'],
+      ['IAD','Washington (Dulles), DC','America/New_York'],
+      ['DCA','Washington (Reagan National), DC','America/New_York'],
+      ['PBI','West Palm Beach, FL','America/New_York'],
+      ['ICT','Wichita, KS','America/Chicago'],
+      ['AUA','Aruba, Aruba','America/Aruba'],
+      ['BZE','Belize City, Belize','America/Belize'],
+      ['CUN','Cancun, Mexico','America/Cancun'],
+      ['SJD','Los Cabos, Mexico','America/Mazatlan']
     ];
+    const airports = window.airports;
 
     const yourAirport = document.getElementById('yourAirport');
     const theirAirport = document.getElementById('theirAirport');
@@ -886,7 +993,7 @@ Final Total: ${finalValue.textContent}`;
       yourAirport.innerHTML = options;
       theirAirport.innerHTML = options;
       yourAirport.value = 'ABQ';
-      theirAirport.value = 'HNL';
+      theirAirport.value = '';
     }
 
     function getAirport(code) {
@@ -1309,21 +1416,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  const fallbackAirports = [
-    ['ABQ', 'Albuquerque', 'America/Denver'],
-    ['DAL', 'Dallas Love Field', 'America/Chicago'],
-    ['LAS', 'Las Vegas', 'America/Los_Angeles'],
-    ['HNL', 'Honolulu', 'Pacific/Honolulu'],
-    ['KOA', 'Kona', 'Pacific/Honolulu'],
-    ['LAX', 'Los Angeles', 'America/Los_Angeles'],
-    ['PHX', 'Phoenix', 'America/Phoenix'],
-    ['DEN', 'Denver', 'America/Denver'],
-    ['ORD', 'Chicago O’Hare', 'America/Chicago'],
-    ['ATL', 'Atlanta', 'America/New_York'],
-    ['JFK', 'New York JFK', 'America/New_York'],
-    ['MCO', 'Orlando', 'America/New_York'],
-    ['SEA', 'Seattle', 'America/Los_Angeles']
-  ];
+  const fallbackAirports = Array.isArray(window.airports) && window.airports.length ? window.airports : [];
 
   const airportList = Array.isArray(window.airports) && window.airports.length ? window.airports : fallbackAirports;
 
@@ -1340,7 +1433,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!theirAirport.innerHTML.trim()) theirAirport.innerHTML = options;
 
     if (!yourAirport.value) yourAirport.value = 'ABQ';
-    if (!theirAirport.value) theirAirport.value = 'HNL';
+    if (!theirAirport.value) theirAirport.value = '';
   }
 
   function getParts(date, timeZone) {
