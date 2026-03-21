@@ -533,6 +533,81 @@ small, .subtext {
   line-height: 1.15 !important;
   margin-bottom: 2px !important;
 }
+</style><style>
+/* Compact mode for specific widgets */
+.compact-card {
+  padding: 12px !important;
+}
+
+.compact-card h2 {
+  font-size: 0.95rem !important;
+  margin-bottom: 8px !important;
+}
+
+.compact-card input,
+.compact-card select {
+  padding: 10px 12px !important;
+  font-size: 0.9rem !important;
+}
+
+.compact-card .result .value {
+  font-size: 1.2rem !important;
+}
+
+.compact-card .stat {
+  padding: 10px !important;
+  min-height: 80px !important;
+}
+
+.compact-card .stat-value {
+  font-size: 1.1rem !important;
+}
+</style><style>
+/* Ultra compact mode */
+.ultra-compact {
+  padding: 10px !important;
+}
+
+.ultra-compact h2 {
+  font-size: 0.9rem !important;
+  margin-bottom: 6px !important;
+}
+
+.ultra-compact label {
+  font-size: 0.75rem !important;
+  margin-bottom: 4px !important;
+}
+
+.ultra-compact input,
+.ultra-compact select {
+  padding: 8px 10px !important;
+  font-size: 0.85rem !important;
+}
+
+.ultra-compact .result {
+  padding: 10px !important;
+}
+
+.ultra-compact .result .value {
+  font-size: 1rem !important;
+}
+
+.ultra-compact .stat {
+  padding: 8px !important;
+  min-height: 65px !important;
+}
+
+.ultra-compact .stat-value {
+  font-size: 0.95rem !important;
+}
+
+.ultra-compact .grid.three {
+  gap: 6px !important;
+}
+
+.ultra-compact .field {
+  margin-bottom: 8px !important;
+}
 </style></head>
 <body>
 <!-- Multi-Station Slim Radio Bar (Right-Aligned) -->
@@ -682,7 +757,7 @@ small, .subtext {
 </div>
 </section>
 </div>
-<section class="card">
+<section class="card ultra-compact compact-card">
 <h2 style=";font-weight:600;">Tip Calculator</h2>
 <div class="field">
 <label for="billAmount" style=";font-weight:600;">Bill Amount Pre Tax</label>
@@ -723,7 +798,7 @@ small, .subtext {
 <button class="button" id="resetTip" type="button">Reset</button>
 </div>
 </section>
-<section class="card">
+<section class="card ultra-compact compact-card">
 <h2>Airport Time Comparison</h2>
 <div class="field">
 <label for="yourAirport">Your Airport</label>
