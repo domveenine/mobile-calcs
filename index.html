@@ -746,30 +746,112 @@ small, .subtext {
 }
 </style>
 <style>
-.banking-tile.nusenda { background: rgba(34,197,94,0.14); border-color: rgba(34,197,94,0.35); }
-.banking-tile.bofa { background: rgba(220,38,38,0.14); border-color: rgba(220,38,38,0.35); }
-.banking-tile.amex { background: rgba(37,99,235,0.14); border-color: rgba(37,99,235,0.35); }
-.banking-tile.chase { background: rgba(59,130,246,0.14); border-color: rgba(59,130,246,0.35); }
-.banking-tile.citi { background: rgba(239,68,68,0.14); border-color: rgba(239,68,68,0.35); }
-.banking-tile.capitalone { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.32); }
-.banking-tile.discover { background: rgba(249,115,22,0.14); border-color: rgba(249,115,22,0.35); }
-.banking-tile.carecredit { background: rgba(16,185,129,0.14); border-color: rgba(16,185,129,0.35); }
-.banking-tile.aven { background: rgba(168,85,247,0.14); border-color: rgba(168,85,247,0.35); }
-.banking-tile.firestone { background: rgba(234,179,8,0.14); border-color: rgba(234,179,8,0.35); }
+..nusenda { background: rgba(34,197,94,0.14); border-color: rgba(34,197,94,0.35); }
+..bofa { background: rgba(220,38,38,0.14); border-color: rgba(220,38,38,0.35); }
+..amex { background: rgba(37,99,235,0.14); border-color: rgba(37,99,235,0.35); }
+..chase { background: rgba(59,130,246,0.14); border-color: rgba(59,130,246,0.35); }
+..citi { background: rgba(239,68,68,0.14); border-color: rgba(239,68,68,0.35); }
+..capitalone { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.32); }
+..discover { background: rgba(249,115,22,0.14); border-color: rgba(249,115,22,0.35); }
+..carecredit { background: rgba(16,185,129,0.14); border-color: rgba(16,185,129,0.35); }
+..aven { background: rgba(168,85,247,0.14); border-color: rgba(168,85,247,0.35); }
+..firestone { background: rgba(234,179,8,0.14); border-color: rgba(234,179,8,0.35); }
 </style>
 
 
 <style id="banking-color-styles">
-.banking-tile.nusenda { background: rgba(34,197,94,0.18) !important; border: 1px solid rgba(34,197,94,0.45) !important; }
-.banking-tile.bofa { background: rgba(220,38,38,0.18) !important; border: 1px solid rgba(220,38,38,0.45) !important; }
-.banking-tile.amex { background: rgba(37,99,235,0.18) !important; border: 1px solid rgba(37,99,235,0.45) !important; }
-.banking-tile.chase { background: rgba(59,130,246,0.18) !important; border: 1px solid rgba(59,130,246,0.45) !important; }
-.banking-tile.citi { background: rgba(239,68,68,0.18) !important; border: 1px solid rgba(239,68,68,0.45) !important; }
-.banking-tile.capitalone { background: rgba(99,102,241,0.18) !important; border: 1px solid rgba(99,102,241,0.45) !important; }
-.banking-tile.discover { background: rgba(249,115,22,0.18) !important; border: 1px solid rgba(249,115,22,0.45) !important; }
-.banking-tile.carecredit { background: rgba(16,185,129,0.18) !important; border: 1px solid rgba(16,185,129,0.45) !important; }
-.banking-tile.aven { background: rgba(168,85,247,0.18) !important; border: 1px solid rgba(168,85,247,0.45) !important; }
-.banking-tile.firestone { background: rgba(234,179,8,0.18) !important; border: 1px solid rgba(234,179,8,0.45) !important; }
+..nusenda { background: rgba(34,197,94,0.18) !important; border: 1px solid rgba(34,197,94,0.45) !important; }
+..bofa { background: rgba(220,38,38,0.18) !important; border: 1px solid rgba(220,38,38,0.45) !important; }
+..amex { background: rgba(37,99,235,0.18) !important; border: 1px solid rgba(37,99,235,0.45) !important; }
+..chase { background: rgba(59,130,246,0.18) !important; border: 1px solid rgba(59,130,246,0.45) !important; }
+..citi { background: rgba(239,68,68,0.18) !important; border: 1px solid rgba(239,68,68,0.45) !important; }
+..capitalone { background: rgba(99,102,241,0.18) !important; border: 1px solid rgba(99,102,241,0.45) !important; }
+..discover { background: rgba(249,115,22,0.18) !important; border: 1px solid rgba(249,115,22,0.45) !important; }
+..carecredit { background: rgba(16,185,129,0.18) !important; border: 1px solid rgba(16,185,129,0.45) !important; }
+..aven { background: rgba(168,85,247,0.18) !important; border: 1px solid rgba(168,85,247,0.45) !important; }
+..firestone { background: rgba(234,179,8,0.18) !important; border: 1px solid rgba(234,179,8,0.45) !important; }
+</style>
+
+
+<style id="quick-links-cleanup">
+.quick-links-section {
+  display: grid;
+  gap: 16px;
+}
+
+.quick-links-group {
+  display: grid;
+  gap: 10px;
+}
+
+.quick-links-heading {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.links-grid.utility-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.links-grid.banking-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.quick-links-section .link-tile {
+  min-height: 56px;
+  padding: 14px 12px;
+}
+
+.quick-links-section .notice {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .links-grid.utility-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .links-grid.utility-grid,
+  .links-grid.banking-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+</style>
+
+
+<style id="timer-compact-tuning">
+.timer-compact .timer-presets {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.timer-compact .timer-presets button {
+  padding: 8px 6px;
+  font-size: 0.8rem;
+}
+.timer-compact .field input {
+  padding: 8px 10px;
+  font-size: 0.85rem;
+}
+.timer-compact .timer-display {
+  font-size: 1.6rem;
+  margin: 6px 0;
+}
+.timer-compact .timer-status {
+  font-size: 0.75rem;
+}
+.timer-compact .button-row {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.timer-compact .button {
+  padding: 8px;
+  font-size: 0.8rem;
+}
 </style>
 
 </head>
@@ -919,33 +1001,41 @@ small, .subtext {
 <div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Showers • 75° / 71°</div>
 <div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmrw: Mostly Cloudy • 78° / 74°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Mostly Cloudy • 78° / 74°</div></div>
 </div>
-</div></section></div><div class="stack"><section class="card compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Quick Links</h2><button aria-expanded="false" aria-label="Toggle Quick Links" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="links-grid">
-<a class="link-tile" href="https://www.southwest.com" rel="noopener noreferrer" target="_blank">Southwest<small>Public site</small></a>
-<a class="link-tile" href="https://weather.com" rel="noopener noreferrer" target="_blank">Weather<small>National forecast</small></a>
-<a class="link-tile" href="https://www.flightaware.com" rel="noopener noreferrer" target="_blank">FlightAware<small>Flight tracking</small></a>
-<a class="link-tile" href="https://www.google.com/maps" rel="noopener noreferrer" target="_blank">Maps<small>Directions and traffic</small></a>
-</div><div class="notice"></div>
-<div class="notice" style="margin-top:10px;font-weight:600;">Home Utilities</div>
+</div></section></div><div class="stack"><section class="card compact-card widget-card timer-compact" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Quick Links</h2><button aria-expanded="false" aria-label="Toggle Quick Links" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="quick-links-section">
+<div class="quick-links-group">
 <div class="links-grid">
-<a class="link-tile" href="https://login.pnm.com/u/login?state=hKFo2SBSV1hkSlVINm9Ya24zTGNyTF91b1A5cWhKakZ5U0FOcaFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIFR5TkswZWpoelFKRzNsYUVoZnppbU9OODdON1AzemNEo2NpZNkgSUZ2dlV4Vm5COE04OVZTck1DRjc1TmVxSHZiTkNRVEI&ui_locales=en" target="_blank">PNM<small>Electric</small></a>
-<a class="link-tile" href="https://ipn4.paymentus.com/cp/nmg" target="_blank">NMG<small>Gas</small></a>
-<a class="link-tile" href="https://account.abcwua.org/#/login" target="_blank">ABCWUA<small>Water</small></a>
+<a class="link-tile" href="https://www.southwest.com" rel="noopener noreferrer" target="_blank">Southwest</a>
+<a class="link-tile" href="https://weather.com" rel="noopener noreferrer" target="_blank">Weather</a>
+<a class="link-tile" href="https://www.flightaware.com" rel="noopener noreferrer" target="_blank">FlightAware</a>
+<a class="link-tile" href="https://www.google.com/maps" rel="noopener noreferrer" target="_blank">Maps</a>
 </div>
-<div class="notice" style="margin-top:14px;font-weight:600;">Banking</div>
-<div class="links-grid">
-<a class="link-tile" href="https://www.nusenda.org/about/membership?utm_campaign=26-acc&utm_medium=sem&utm_source=kob&utm_content=brand&utm_term=phrase&gad_source=1&gad_campaignid=20417165970&gbraid=0AAAAAqDADC8skBldrVkH4lk540151SWUk&gclid=Cj0KCQjwm6POBhCrARIsAIG58CJ6_KffkhTSwswqq-AT3Xqz8M1P6T5Ip9ozxwCg0VEpvdXxak-aVqgaAtSoEALw_wcB" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile nusenda">Nusenda<small>Credit Union</small></a>
-<a class="link-tile" href="https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile bofa">BofA<small>Banking</small></a>
-<a class="link-tile" href="https://www.americanexpress.com/en-us/account/login?inav=iNavLnkLog" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile amex">American Express<small>Banking</small></a>
-<a class="link-tile" href="https://www.chase.com/" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile chase">Chase<small>Banking</small></a>
-<a class="link-tile" href="https://www.citi.com/" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile citi">Citi<small>Banking</small></a>
-<a class="link-tile" href="https://www.capitalone.com/?external_id=WWW_XXXXX_XXX_SEM-Brand_Google_ZZ_ZZ_T_Home_ZZ__kenshoo_clickid__25524&target_id=kwd-16416311&oC=J7OrkCRo4H&gad_source=1&gad_campaignid=157615448&gbraid=0AAAAAD-_MFqQe6buGI7di0x8F0Csoemb3&gclid=Cj0KCQjwm6POBhCrARIsAIG58CLaXKKpYe1x6TNikmK9OqXdlM4gggdoR1NzSkezQTzLnHbEcVPWprEaAl4LEALw_wcB" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile capitalone">Capital One<small>Banking</small></a>
-<a class="link-tile" href="https://www.discover.com/" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile discover">Discover<small>Banking</small></a>
-<a class="link-tile" href="https://id.synchrony.com/idp/en" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile carecredit">Care Credit<small>Synchrony</small></a>
-<a class="link-tile" href="https://my.aven.com/login" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile aven">Aven<small>Financial</small></a>
-<a class="link-tile" href="https://login.cfna.com/oauth2/aus53ctr36CVsNOIf697/v1/authorize?response_type=code&client_id=0oa53cww5rL73XrqI697&scope=openid%20email%20profile&state=cfnanid_v1.cid.3555734f-8a4e-4293-ac8a-a7214984405c._st.b58CUva1OTVGiREpN4eSF-RC6eRUVqRnDZqceHVc92g%3D&redirect_uri=https://www.cfna.com/authorization-code/callback&nonce=BQz4rZRl_YP99fS9i84QOM2oDQBKT9bZKUjLp9IxfsE" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile firestone">Firestone Credit<small>CFNA</small></a>
 </div>
 
-</div></section><section class="card ultra-compact compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2 style=";font-weight:600;">Tip Calculator</h2><button aria-expanded="false" aria-label="Toggle Tip Calculator" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
+<div class="quick-links-group">
+<div class="quick-links-heading">Home Utilities</div>
+<div class="links-grid utility-grid">
+<a class="link-tile" href="https://login.pnm.com/u/login?state=hKFo2SBSV1hkSlVINm9Ya24zTGNyTF91b1A5cWhKakZ5U0FOcaFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIFR5TkswZWpoelFKRzNsYUVoZnppbU9OODdON1AzemNEo2NpZNkgSUZ2dlV4Vm5COE04OVZTck1DRjc1TmVxSHZiTkNRVEI&amp;ui_locales=en" target="_blank">PNM</a>
+<a class="link-tile" href="https://ipn4.paymentus.com/cp/nmg" target="_blank">NMG</a>
+<a class="link-tile" href="https://account.abcwua.org/#/login" target="_blank">ABCWUA</a>
+</div>
+</div>
+
+<div class="quick-links-group">
+<div class="quick-links-heading">Banking</div>
+<div class="links-grid banking-grid">
+<a class="link-tile " href="https://www.nusenda.org/about/membership?utm_campaign=26-acc&amp;utm_medium=sem&amp;utm_source=kob&amp;utm_content=brand&amp;utm_term=phrase&amp;gad_source=1&amp;gad_campaignid=20417165970&amp;gbraid=0AAAAAqDADC8skBldrVkH4lk540151SWUk&amp;gclid=Cj0KCQjwm6POBhCrARIsAIG58CJ6_KffkhTSwswqq-AT3Xqz8M1P6T5Ip9ozxwCg0VEpvdXxak-aVqgaAtSoEALw_wcB" rel="noopener noreferrer" target="_blank">Nusenda</a>
+<a class="link-tile " href="https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go" rel="noopener noreferrer" target="_blank">BofA</a>
+<a class="link-tile " href="https://www.americanexpress.com/en-us/account/login?inav=iNavLnkLog" rel="noopener noreferrer" target="_blank">American Express</a>
+<a class="link-tile " href="https://www.chase.com/" rel="noopener noreferrer" target="_blank">Chase</a>
+<a class="link-tile " href="https://www.citi.com/" rel="noopener noreferrer" target="_blank">Citi</a>
+<a class="link-tile " href="https://www.capitalone.com/?external_id=WWW_XXXXX_XXX_SEM-Brand_Google_ZZ_ZZ_T_Home_ZZ__kenshoo_clickid__25524&amp;target_id=kwd-16416311&amp;oC=J7OrkCRo4H&amp;gad_source=1&amp;gad_campaignid=157615448&amp;gbraid=0AAAAAD-_MFqQe6buGI7di0x8F0Csoemb3&amp;gclid=Cj0KCQjwm6POBhCrARIsAIG58CLaXKKpYe1x6TNikmK9OqXdlM4gggdoR1NzSkezQTzLnHbEcVPWprEaAl4LEALw_wcB" rel="noopener noreferrer" target="_blank">Capital One</a>
+<a class="link-tile " href="https://www.discover.com/" rel="noopener noreferrer" target="_blank">Discover</a>
+<a class="link-tile " href="https://id.synchrony.com/idp/en" rel="noopener noreferrer" target="_blank">Care Credit</a>
+<a class="link-tile " href="https://my.aven.com/login" rel="noopener noreferrer" target="_blank">Aven</a>
+<a class="link-tile " href="https://login.cfna.com/oauth2/aus53ctr36CVsNOIf697/v1/authorize?response_type=code&amp;client_id=0oa53cww5rL73XrqI697&amp;scope=openid%20email%20profile&amp;state=cfnanid_v1.cid.3555734f-8a4e-4293-ac8a-a7214984405c._st.b58CUva1OTVGiREpN4eSF-RC6eRUVqRnDZqceHVc92g%3D&amp;redirect_uri=https://www.cfna.com/authorization-code/callback&amp;nonce=BQz4rZRl_YP99fS9i84QOM2oDQBKT9bZKUjLp9IxfsE" rel="noopener noreferrer" target="_blank">Firestone Credit</a>
+</div>
+</div>
+</div></div></section></div><div class="stack"><section class="card ultra-compact compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2 style=";font-weight:600;">Tip Calculator</h2><button aria-expanded="false" aria-label="Toggle Tip Calculator" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
 <label for="billAmount" style=";font-weight:600;">Bill Amount Pre Tax</label>
 <input id="billAmount" min="0" placeholder="0.00" step="0.01" type="number"/>
 </div><div class="field">
@@ -977,28 +1067,48 @@ small, .subtext {
 </div>
 </div><div class="button-row">
 <button class="button" id="resetTip" type="button">Reset</button>
-</div></div></section></div><div class="stack"><section class="card compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Quick Notes</h2><button aria-expanded="false" aria-label="Toggle Quick Notes" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
+</div></div></section><section class="card compact-card widget-card timer-compact" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Quick Notes</h2><button aria-expanded="false" aria-label="Toggle Quick Notes" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
 <label for="quickNotes">Scratchpad</label>
 <textarea id="quickNotes" placeholder="Type notes here..."></textarea>
 </div><div class="button-row">
 <button class="button primary" id="saveNotesBtn" type="button">Save Notes</button>
 <button class="button" id="clearNotesBtn" type="button">Clear</button>
-</div><div class="notice" id="notesStatus">Notes save on this device automatically.</div></div></section><section class="card compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Countdown Timer</h2><button aria-expanded="false" aria-label="Toggle Countdown Timer" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="timer-presets">
-<button data-minutes="5" type="button">5 min</button>
-<button data-minutes="10" type="button">10 min</button>
-<button data-minutes="15" type="button">15 min</button>
-<button data-minutes="30" type="button">30 min</button>
-</div><div class="field">
-<label for="customTimerMinutes">Custom Minutes</label>
-<input id="customTimerMinutes" min="1" placeholder="Enter minutes" step="1" type="number"/>
-</div><div class="timer-display" id="timerDisplay">00:00</div><div class="timer-status" id="timerStatus">Ready</div><div class="button-row">
-<button class="button primary" id="startTimerBtn" type="button">Start</button>
-<button class="button" id="pauseTimerBtn" type="button">Pause</button>
-<button class="button" id="resumeTimerBtn" type="button">Resume</button>
-<button class="button" id="resetTimerBtn" type="button">Reset</button>
-<button class="button" id="add30Btn" type="button">+30s</button>
-<button class="button" id="add1MinBtn" type="button">+1m</button>
-</div></div></section><section class="card ultra-compact compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Airport Time Comparison</h2><button aria-expanded="false" aria-label="Toggle Airport Time Comparison" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
+</div><div class="notice" id="notesStatus">Notes save on this device automatically.</div></div></section><section class="card compact-card widget-card timer-compact" data-collapsible="true" data-expanded="false">
+<div class="widget-header">
+<h2>Countdown Timer</h2>
+<button class="widget-toggle" type="button">Expand</button>
+</div>
+
+<div class="widget-body">
+
+<div class="timer-presets">
+<button data-minutes="5">5m</button>
+<button data-minutes="10">10m</button>
+<button data-minutes="15">15m</button>
+<button data-minutes="30">30m</button>
+</div>
+
+<div class="field">
+<input id="customTimerMinutes" type="number" min="1" placeholder="Custom minutes">
+</div>
+
+<div class="timer-display" id="timerDisplay">00:00</div>
+<div class="timer-status" id="timerStatus">Ready</div>
+
+<div class="button-row">
+<button class="button primary" id="startTimerBtn">Start</button>
+<button class="button" id="pauseTimerBtn">Pause</button>
+<button class="button" id="resetTimerBtn">Reset</button>
+</div>
+
+<div class="button-row">
+<button class="button" id="resumeTimerBtn">Resume</button>
+<button class="button" id="add30Btn">+30s</button>
+<button class="button" id="add1MinBtn">+1m</button>
+</div>
+
+</div>
+</section><section class="card ultra-compact compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Airport Time Comparison</h2><button aria-expanded="false" aria-label="Toggle Airport Time Comparison" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
 <label for="yourAirport">Your Airport</label>
 <select id="yourAirport"><option value="">Select Airport</option></select>
 </div><div class="field">
