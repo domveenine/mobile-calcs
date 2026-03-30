@@ -608,7 +608,171 @@ small, .subtext {
 .ultra-compact .field {
   margin-bottom: 8px !important;
 }
-</style></head>
+</style>
+<style>
+    textarea {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(5, 10, 20, 0.58);
+      color: var(--text);
+      border-radius: 16px;
+      outline: none;
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    textarea:focus {
+      border-color: rgba(125, 211, 252, 0.7);
+      box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.14);
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .link-tile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 12px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      font-weight: 600;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .link-tile:hover {
+      transform: translateY(-1px);
+      border-color: rgba(125, 211, 252, 0.5);
+      background: rgba(125, 211, 252, 0.10);
+    }
+
+    .link-tile small {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .timer-display {
+      text-align: center;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin: 10px 0;
+    }
+
+    .timer-presets {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+    }
+
+    .timer-presets button {
+      border: 0;
+      border-radius: 14px;
+      padding: 10px 8px;
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .timer-status {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      min-height: 20px;
+    }
+
+    @media (max-width: 620px) {
+      .links-grid, .timer-presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+</style>
+<style>
+.widget-card {
+  overflow: hidden;
+  height: auto !important;
+  align-self: start;
+}
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.widget-header h2 {
+  margin: 0;
+}
+.widget-toggle {
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.widget-toggle:hover {
+  background: rgba(255,255,255,0.12);
+}
+.widget-body {
+  overflow: hidden;
+  transition: max-height 0.25s ease, opacity 0.2s ease, margin-top 0.2s ease;
+  max-height: 4000px;
+  opacity: 1;
+}
+.widget-card.is-collapsed .widget-body {
+  max-height: 0 !important;
+  opacity: 0;
+}
+.widget-card.is-collapsed .widget-header {
+  margin-bottom: 0;
+}
+</style>
+<style>
+.banking-tile.nusenda { background: rgba(34,197,94,0.14); border-color: rgba(34,197,94,0.35); }
+.banking-tile.bofa { background: rgba(220,38,38,0.14); border-color: rgba(220,38,38,0.35); }
+.banking-tile.amex { background: rgba(37,99,235,0.14); border-color: rgba(37,99,235,0.35); }
+.banking-tile.chase { background: rgba(59,130,246,0.14); border-color: rgba(59,130,246,0.35); }
+.banking-tile.citi { background: rgba(239,68,68,0.14); border-color: rgba(239,68,68,0.35); }
+.banking-tile.capitalone { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.32); }
+.banking-tile.discover { background: rgba(249,115,22,0.14); border-color: rgba(249,115,22,0.35); }
+.banking-tile.carecredit { background: rgba(16,185,129,0.14); border-color: rgba(16,185,129,0.35); }
+.banking-tile.aven { background: rgba(168,85,247,0.14); border-color: rgba(168,85,247,0.35); }
+.banking-tile.firestone { background: rgba(234,179,8,0.14); border-color: rgba(234,179,8,0.35); }
+</style>
+
+
+<style id="banking-color-styles">
+.banking-tile.nusenda { background: rgba(34,197,94,0.18) !important; border: 1px solid rgba(34,197,94,0.45) !important; }
+.banking-tile.bofa { background: rgba(220,38,38,0.18) !important; border: 1px solid rgba(220,38,38,0.45) !important; }
+.banking-tile.amex { background: rgba(37,99,235,0.18) !important; border: 1px solid rgba(37,99,235,0.45) !important; }
+.banking-tile.chase { background: rgba(59,130,246,0.18) !important; border: 1px solid rgba(59,130,246,0.45) !important; }
+.banking-tile.citi { background: rgba(239,68,68,0.18) !important; border: 1px solid rgba(239,68,68,0.45) !important; }
+.banking-tile.capitalone { background: rgba(99,102,241,0.18) !important; border: 1px solid rgba(99,102,241,0.45) !important; }
+.banking-tile.discover { background: rgba(249,115,22,0.18) !important; border: 1px solid rgba(249,115,22,0.45) !important; }
+.banking-tile.carecredit { background: rgba(16,185,129,0.18) !important; border: 1px solid rgba(16,185,129,0.45) !important; }
+.banking-tile.aven { background: rgba(168,85,247,0.18) !important; border: 1px solid rgba(168,85,247,0.45) !important; }
+.banking-tile.firestone { background: rgba(234,179,8,0.18) !important; border: 1px solid rgba(234,179,8,0.45) !important; }
+</style>
+
+</head>
 <body>
 <!-- Multi-Station Slim Radio Bar (Right-Aligned) -->
 <div id="island-radio-bar" style="
@@ -726,48 +890,68 @@ small, .subtext {
 </div>
 </section>
 <main class="widget-grid">
-<div class="stack">
-<section class="card">
-<h2>Weather</h2>
-<div class="grid two weather-grid">
+
+
+
+
+<div class="stack"><section class="card widget-card"><div class="widget-header"><h2>Weather</h2></div><div class="widget-body"><div class="grid two weather-grid">
 <div class="stat weather-card" data-city="Albuquerque, NM" data-lat="35.0844" data-lon="-106.6504" data-timezone="America/Denver">
 <div class="stat-label" data-role="city" style=";color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">Albuquerque, NM</div>
 <div class="stat-value" data-role="current-temp" style=";color:#f59e0b;font-weight:600;;color:#d1d5db;;color:#e4e4e7;;color:#e5e7eb;">69°F</div>
 <div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Clear • 90° / 52°</div>
-<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmr: Sunny • 87° / 53°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Sunny • 87° / 53°</div>
+<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmrw: Sunny • 87° / 53°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Sunny • 87° / 53°</div>
 </div>
 <div class="stat weather-card" data-city="Las Vegas, NV" data-lat="36.1699" data-lon="-115.1398" data-timezone="America/Los_Angeles">
 <div class="stat-label" data-role="city" style=";color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">Las Vegas, NV</div>
 <div class="stat-value" data-role="current-temp" style=";color:#f59e0b;font-weight:600;;color:#d1d5db;;color:#e4e4e7;;color:#e5e7eb;">81°F</div>
 <div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Clear • 96° / 70°</div>
-<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmr: Sunny • 96° / 69°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Sunny • 96° / 69°</div>
+<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmrw: Sunny • 96° / 69°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Sunny • 96° / 69°</div>
 </div>
 <div class="stat weather-card" data-city="Dallas, TX" data-lat="32.7767" data-lon="-96.797" data-timezone="America/Chicago">
 <div class="stat-label" data-role="city" style=";color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">Dallas, TX</div>
 <div class="stat-value" data-role="current-temp" style=";color:#f59e0b;font-weight:600;;color:#d1d5db;;color:#e4e4e7;;color:#e5e7eb;">69°F</div>
 <div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Clear • 85° / 61°</div>
-<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmr: Sunny • 92° / 64°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Sunny • 92° / 64°</div>
+<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmrw: Sunny • 92° / 64°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Sunny • 92° / 64°</div>
 </div>
 <div class="stat weather-card" data-city="Kona, HI" data-lat="19.639994" data-lon="-155.996933" data-timezone="Pacific/Honolulu">
 <div class="stat-label" data-role="city" style=";color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">Kona, HI</div>
 <div class="stat-value" data-role="current-temp" style=";color:#f59e0b;font-weight:600;;color:#d1d5db;;color:#e4e4e7;;color:#e5e7eb;">73°F</div>
 <div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Showers • 75° / 71°</div>
-<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmr: Mostly Cloudy • 78° / 74°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Mostly Cloudy • 78° / 74°</div>
+<div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmrw: Mostly Cloudy • 78° / 74°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Mostly Cloudy • 78° / 74°</div></div>
 </div>
+</div></section></div><div class="stack"><section class="card compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Quick Links</h2><button aria-expanded="false" aria-label="Toggle Quick Links" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="links-grid">
+<a class="link-tile" href="https://www.southwest.com" rel="noopener noreferrer" target="_blank">Southwest<small>Public site</small></a>
+<a class="link-tile" href="https://weather.com" rel="noopener noreferrer" target="_blank">Weather<small>National forecast</small></a>
+<a class="link-tile" href="https://www.flightaware.com" rel="noopener noreferrer" target="_blank">FlightAware<small>Flight tracking</small></a>
+<a class="link-tile" href="https://www.google.com/maps" rel="noopener noreferrer" target="_blank">Maps<small>Directions and traffic</small></a>
+</div><div class="notice"></div>
+<div class="notice" style="margin-top:10px;font-weight:600;">Home Utilities</div>
+<div class="links-grid">
+<a class="link-tile" href="https://login.pnm.com/u/login?state=hKFo2SBSV1hkSlVINm9Ya24zTGNyTF91b1A5cWhKakZ5U0FOcaFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIFR5TkswZWpoelFKRzNsYUVoZnppbU9OODdON1AzemNEo2NpZNkgSUZ2dlV4Vm5COE04OVZTck1DRjc1TmVxSHZiTkNRVEI&ui_locales=en" target="_blank">PNM<small>Electric</small></a>
+<a class="link-tile" href="https://ipn4.paymentus.com/cp/nmg" target="_blank">NMG<small>Gas</small></a>
+<a class="link-tile" href="https://account.abcwua.org/#/login" target="_blank">ABCWUA<small>Water</small></a>
 </div>
-</section>
+<div class="notice" style="margin-top:14px;font-weight:600;">Banking</div>
+<div class="links-grid">
+<a class="link-tile" href="https://www.nusenda.org/about/membership?utm_campaign=26-acc&utm_medium=sem&utm_source=kob&utm_content=brand&utm_term=phrase&gad_source=1&gad_campaignid=20417165970&gbraid=0AAAAAqDADC8skBldrVkH4lk540151SWUk&gclid=Cj0KCQjwm6POBhCrARIsAIG58CJ6_KffkhTSwswqq-AT3Xqz8M1P6T5Ip9ozxwCg0VEpvdXxak-aVqgaAtSoEALw_wcB" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile nusenda">Nusenda<small>Credit Union</small></a>
+<a class="link-tile" href="https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile bofa">BofA<small>Banking</small></a>
+<a class="link-tile" href="https://www.americanexpress.com/en-us/account/login?inav=iNavLnkLog" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile amex">American Express<small>Banking</small></a>
+<a class="link-tile" href="https://www.chase.com/" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile chase">Chase<small>Banking</small></a>
+<a class="link-tile" href="https://www.citi.com/" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile citi">Citi<small>Banking</small></a>
+<a class="link-tile" href="https://www.capitalone.com/?external_id=WWW_XXXXX_XXX_SEM-Brand_Google_ZZ_ZZ_T_Home_ZZ__kenshoo_clickid__25524&target_id=kwd-16416311&oC=J7OrkCRo4H&gad_source=1&gad_campaignid=157615448&gbraid=0AAAAAD-_MFqQe6buGI7di0x8F0Csoemb3&gclid=Cj0KCQjwm6POBhCrARIsAIG58CLaXKKpYe1x6TNikmK9OqXdlM4gggdoR1NzSkezQTzLnHbEcVPWprEaAl4LEALw_wcB" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile capitalone">Capital One<small>Banking</small></a>
+<a class="link-tile" href="https://www.discover.com/" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile discover">Discover<small>Banking</small></a>
+<a class="link-tile" href="https://id.synchrony.com/idp/en" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile carecredit">Care Credit<small>Synchrony</small></a>
+<a class="link-tile" href="https://my.aven.com/login" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile aven">Aven<small>Financial</small></a>
+<a class="link-tile" href="https://login.cfna.com/oauth2/aus53ctr36CVsNOIf697/v1/authorize?response_type=code&client_id=0oa53cww5rL73XrqI697&scope=openid%20email%20profile&state=cfnanid_v1.cid.3555734f-8a4e-4293-ac8a-a7214984405c._st.b58CUva1OTVGiREpN4eSF-RC6eRUVqRnDZqceHVc92g%3D&redirect_uri=https://www.cfna.com/authorization-code/callback&nonce=BQz4rZRl_YP99fS9i84QOM2oDQBKT9bZKUjLp9IxfsE" rel="noopener noreferrer" target="_blank" class="link-tile banking-tile firestone">Firestone Credit<small>CFNA</small></a>
 </div>
-<section class="card ultra-compact compact-card">
-<h2 style=";font-weight:600;">Tip Calculator</h2>
-<div class="field">
+
+</div></section><section class="card ultra-compact compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2 style=";font-weight:600;">Tip Calculator</h2><button aria-expanded="false" aria-label="Toggle Tip Calculator" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
 <label for="billAmount" style=";font-weight:600;">Bill Amount Pre Tax</label>
 <input id="billAmount" min="0" placeholder="0.00" step="0.01" type="number"/>
-</div>
-<div class="field">
+</div><div class="field">
 <label for="taxAmount" style=";font-weight:600;">Tax</label>
 <input id="taxAmount" min="0" placeholder="0.00" step="0.01" type="number"/>
-</div>
-<div class="field">
+</div><div class="field">
 <label>Preset Percentage</label>
 <div class="segmented" id="tipButtons">
 <button class="active" data-tip="20" type="button">20%</button>
@@ -775,12 +959,10 @@ small, .subtext {
 <button data-tip="30" type="button">30%</button>
 <button data-tip="35" type="button">35%</button>
 </div>
-</div>
-<div class="field">
+</div><div class="field">
 <label for="customTip">Custom Percentage</label>
 <input id="customTip" min="0" placeholder="Optional" step="0.01" type="number"/>
-</div>
-<div class="grid three">
+</div><div class="grid three">
 <div class="result">
 <div class="title" style=";font-weight:600;;font-weight:600;;color:#3b82f6;font-weight:600;">Subtotal + Tax</div>
 <div class="value" id="subtotalValue">$0.00</div>
@@ -793,27 +975,39 @@ small, .subtext {
 <div class="title" style=";color:#ef4444;font-weight:600;">Final Amount</div>
 <div class="value" id="finalValue">$0.00</div>
 </div>
-</div>
-<div class="button-row">
+</div><div class="button-row">
 <button class="button" id="resetTip" type="button">Reset</button>
-</div>
-</section>
-<section class="card ultra-compact compact-card">
-<h2>Airport Time Comparison</h2>
-<div class="field">
+</div></div></section></div><div class="stack"><section class="card compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Quick Notes</h2><button aria-expanded="false" aria-label="Toggle Quick Notes" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
+<label for="quickNotes">Scratchpad</label>
+<textarea id="quickNotes" placeholder="Type notes here..."></textarea>
+</div><div class="button-row">
+<button class="button primary" id="saveNotesBtn" type="button">Save Notes</button>
+<button class="button" id="clearNotesBtn" type="button">Clear</button>
+</div><div class="notice" id="notesStatus">Notes save on this device automatically.</div></div></section><section class="card compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Countdown Timer</h2><button aria-expanded="false" aria-label="Toggle Countdown Timer" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="timer-presets">
+<button data-minutes="5" type="button">5 min</button>
+<button data-minutes="10" type="button">10 min</button>
+<button data-minutes="15" type="button">15 min</button>
+<button data-minutes="30" type="button">30 min</button>
+</div><div class="field">
+<label for="customTimerMinutes">Custom Minutes</label>
+<input id="customTimerMinutes" min="1" placeholder="Enter minutes" step="1" type="number"/>
+</div><div class="timer-display" id="timerDisplay">00:00</div><div class="timer-status" id="timerStatus">Ready</div><div class="button-row">
+<button class="button primary" id="startTimerBtn" type="button">Start</button>
+<button class="button" id="pauseTimerBtn" type="button">Pause</button>
+<button class="button" id="resumeTimerBtn" type="button">Resume</button>
+<button class="button" id="resetTimerBtn" type="button">Reset</button>
+<button class="button" id="add30Btn" type="button">+30s</button>
+<button class="button" id="add1MinBtn" type="button">+1m</button>
+</div></div></section><section class="card ultra-compact compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Airport Time Comparison</h2><button aria-expanded="false" aria-label="Toggle Airport Time Comparison" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
 <label for="yourAirport">Your Airport</label>
 <select id="yourAirport"><option value="">Select Airport</option></select>
-</div>
-<div class="field">
+</div><div class="field">
 <label for="theirAirport">Their Airport</label>
 <select id="theirAirport"><option value="">Select Airport</option></select>
-</div>
-<div class="field">
+</div><div class="field">
 <label for="yourTimeInput">Set Your Time (At Your Airport)</label>
 <input id="yourTimeInput" type="datetime-local"/>
-</div>
-<button class="button" id="useCurrentTime" type="button">Use Current Time</button>
-<div class="grid three" style="margin-top:12px;">
+</div><button class="button" id="useCurrentTime" type="button">Use Current Time</button><div class="grid three" style="margin-top:12px;">
 <div class="stat">
 <div class="stat-label">Your Time</div>
 <div class="stat-value" id="yourTimeDisplay">—</div>
@@ -826,9 +1020,7 @@ small, .subtext {
 <div class="stat-label">Offset</div>
 <div class="stat-value" id="offsetDisplay">—</div>
 </div>
-</div>
-</section>
-</main>
+</div></div></section></div></main>
 </div>
 <script style=";font-weight:600;;font-weight:600;;font-weight:600;;color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">
     const timezones = [
@@ -1322,7 +1514,55 @@ Final Total: ${finalValue.textContent}`;
       updateStationDisplay();
     });
 
-  </script>
+  
+document.addEventListener('DOMContentLoaded', function () {
+  const add30Btn = document.getElementById('add30Btn');
+  const add1MinBtn = document.getElementById('add1MinBtn');
+  const presetButtons = document.querySelectorAll('.timer-presets button');
+  const customTimerMinutes = document.getElementById('customTimerMinutes');
+  const startBtn = document.getElementById('startTimerBtn');
+
+  function syncTimerDisplayIfAvailable() {
+    if (typeof updateTimerDisplay === 'function') {
+      updateTimerDisplay();
+    } else if (typeof formatTimer === 'function') {
+      const timerDisplay = document.getElementById('timerDisplay');
+      if (timerDisplay && typeof remainingMs !== 'undefined') {
+        timerDisplay.textContent = formatTimer(remainingMs);
+      }
+    }
+  }
+
+  if (add30Btn) {
+    add30Btn.addEventListener('click', function () {
+      if (typeof remainingMs !== 'undefined') {
+        remainingMs += 30000;
+        if (timerEnd) timerEnd += 30000;
+        syncTimerDisplayIfAvailable();
+      }
+    });
+  }
+
+  if (add1MinBtn) {
+    add1MinBtn.addEventListener('click', function () {
+      if (typeof remainingMs !== 'undefined') {
+        remainingMs += 60000;
+        if (timerEnd) timerEnd += 60000;
+        syncTimerDisplayIfAvailable();
+      }
+    });
+  }
+
+  presetButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const mins = Number(btn.getAttribute('data-minutes')) || 0;
+      if (customTimerMinutes) customTimerMinutes.value = mins;
+      if (startBtn) startBtn.click();
+    });
+  });
+});
+
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const weatherCards = document.querySelectorAll('.weather-card[data-city]');
@@ -1360,6 +1600,17 @@ document.addEventListener('DOMContentLoaded', function () {
     99: 'Severe T-Storm'
   };
 
+  function weatherIcon(code) {
+    const numeric = Number(code);
+    if (numeric === 0) return '☀️';
+    if ([1,2].includes(numeric)) return '🌤️';
+    if ([3,45,48].includes(numeric)) return '☁️';
+    if ([51,53,55,56,57,61,63,66,67,80,81,82].includes(numeric)) return '🌧️';
+    if ([71,73,75,77,85,86].includes(numeric)) return '❄️';
+    if ([95,96,99].includes(numeric)) return '⛈️';
+    return '🌡️';
+  }
+
   function toLabel(code) {
     return weatherCodeMap[Number(code)] || 'Weather';
   }
@@ -1383,7 +1634,7 @@ document.addEventListener('DOMContentLoaded', function () {
       todayLine.classList.add('weather-loading');
     }
     if (tmrwLine) {
-      tmrwLine.innerHTML = 'Tmr: Loading...';
+      tmrwLine.innerHTML = 'Tmrw: Loading...';
       tmrwLine.classList.add('weather-loading');
     }
     if (nextLine) {
@@ -1440,15 +1691,15 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       if (todayLine && codes.length > 0) {
-        todayLine.innerHTML = 'Today: ' + toLabel(codes[0]) + ' • ' + toWhole(maxes[0]) + ' / ' + toWhole(mins[0]);
+        todayLine.innerHTML = 'Today: ' + weatherIcon(codes[0]) + ' ' + toLabel(codes[0]) + ' • ' + toWhole(maxes[0]) + ' / ' + toWhole(mins[0]);
       }
 
       if (tmrwLine && codes.length > 1) {
-        tmrwLine.innerHTML = 'Tmr: ' + toLabel(codes[1]) + ' • ' + toWhole(maxes[1]) + ' / ' + toWhole(mins[1]);
+        tmrwLine.innerHTML = 'Tmrw: ' + weatherIcon(codes[1]) + ' ' + toLabel(codes[1]) + ' • ' + toWhole(maxes[1]) + ' / ' + toWhole(mins[1]);
       }
 
       if (nextLine && codes.length > 2) {
-        nextLine.innerHTML = 'Next: ' + toLabel(codes[2]) + ' • ' + toWhole(maxes[2]) + ' / ' + toWhole(mins[2]);
+        nextLine.innerHTML = 'Next: ' + weatherIcon(codes[2]) + ' ' + toLabel(codes[2]) + ' • ' + toWhole(maxes[2]) + ' / ' + toWhole(mins[2]);
       }
 
       clearLoading(card);
@@ -1456,7 +1707,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('Weather update failed for', card.dataset.city, error);
 
       if (todayLine) todayLine.innerHTML = 'Today: Unavailable';
-      if (tmrwLine) tmrwLine.innerHTML = 'Tmr: Unavailable';
+      if (tmrwLine) tmrwLine.innerHTML = 'Tmrw: Unavailable';
       if (nextLine) nextLine.innerHTML = 'Next: Unavailable';
       if (currentTemp) currentTemp.innerHTML = '--°F';
 
@@ -1652,5 +1903,397 @@ document.addEventListener('DOMContentLoaded', function () {
 
   setCurrentTimeForSelectedAirport();
 });
-</script></body>
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const notesKey = 'cini-mod-quick-notes';
+  const notesEl = document.getElementById('quickNotes');
+  const notesStatus = document.getElementById('notesStatus');
+  const saveNotesBtn = document.getElementById('saveNotesBtn');
+  const clearNotesBtn = document.getElementById('clearNotesBtn');
+
+  function setNotesStatus(message) {
+    if (notesStatus) notesStatus.textContent = message;
+  }
+
+  function saveNotes() {
+    if (!notesEl) return;
+    localStorage.setItem(notesKey, notesEl.value || '');
+    setNotesStatus('Notes saved');
+    window.setTimeout(function () {
+      setNotesStatus('Notes save on this device automatically.');
+    }, 1400);
+  }
+
+  if (notesEl) {
+    notesEl.value = localStorage.getItem(notesKey) || '';
+    notesEl.addEventListener('input', function () {
+      localStorage.setItem(notesKey, notesEl.value || '');
+      setNotesStatus('Saving...');
+      window.clearTimeout(notesEl._notesTimer);
+      notesEl._notesTimer = window.setTimeout(function () {
+        setNotesStatus('Notes save on this device automatically.');
+      }, 600);
+    });
+  }
+
+  if (saveNotesBtn) saveNotesBtn.addEventListener('click', saveNotes);
+  if (clearNotesBtn) {
+    clearNotesBtn.addEventListener('click', function () {
+      if (!notesEl) return;
+      notesEl.value = '';
+      localStorage.removeItem(notesKey);
+      setNotesStatus('Notes cleared');
+    });
+  }
+
+  const display = document.getElementById('timerDisplay');
+  const status = document.getElementById('timerStatus');
+  const customMinutes = document.getElementById('customTimerMinutes');
+  const startBtn = document.getElementById('startTimerBtn');
+  const pauseBtn = document.getElementById('pauseTimerBtn');
+  const resumeBtn = document.getElementById('resumeTimerBtn');
+  const resetBtn = document.getElementById('resetTimerBtn');
+  const add30Btn = document.getElementById('add30Btn');
+  const add1MinBtn = document.getElementById('add1MinBtn');
+  const presetBtns = document.querySelectorAll('.timer-presets button');
+
+  let durationMs = 0;
+  let remainingMs = 0;
+  let timerEnd = null;
+  let timerInterval = null;
+  let paused = false;
+  let timerAudioContext = null;
+
+  function ensureTimerAudioContext() {
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return null;
+      if (!timerAudioContext) {
+        timerAudioContext = new AudioContextClass();
+      }
+      if (timerAudioContext.state === 'suspended') {
+        timerAudioContext.resume().catch(function () {});
+      }
+      return timerAudioContext;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function playDoneTone() {
+    const ctx = ensureTimerAudioContext();
+    if (!ctx) return;
+
+    const sequence = [
+      { freq: 880, duration: 0.16, delay: 0.00 },
+      { freq: 1046.5, duration: 0.16, delay: 0.20 },
+      { freq: 1318.5, duration: 0.4, delay: 0.40 }
+    ];
+
+    const startAt = ctx.currentTime + 0.02;
+
+    sequence.forEach(function (note) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(note.freq, startAt + note.delay);
+
+      gain.gain.setValueAtTime(0.0001, startAt + note.delay);
+      gain.gain.exponentialRampToValueAtTime(0.35, startAt + note.delay + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startAt + note.delay + note.duration);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(startAt + note.delay);
+      osc.stop(startAt + note.delay + note.duration + 0.03);
+    });
+  }
+
+  function formatTimer(ms) {
+    const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+  }
+
+  function updateTimerDisplay() {
+    if (display) display.textContent = formatTimer(remainingMs);
+  }
+
+  function stopTimerInterval() {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  }
+
+  function finishTimer() {
+    stopTimerInterval();
+    remainingMs = 0;
+    updateTimerDisplay();
+    paused = false;
+    if (status) status.textContent = 'Time is up';
+    playDoneTone();
+  }
+
+  function tickTimer() {
+    if (!timerEnd) return;
+    remainingMs = timerEnd - Date.now();
+    if (remainingMs <= 0) {
+      finishTimer();
+      return;
+    }
+    updateTimerDisplay();
+  }
+
+  function setDurationFromMinutes(minutes) {
+    durationMs = Math.max(0, Number(minutes) || 0) * 60 * 1000;
+    remainingMs = durationMs;
+    updateTimerDisplay();
+    if (status) status.textContent = durationMs ? 'Ready to start' : 'Ready';
+  }
+
+  presetBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const minutes = Number(btn.dataset.minutes) || 0;
+      if (customMinutes) customMinutes.value = minutes;
+      setDurationFromMinutes(minutes);
+      if (startBtn) startBtn.click();
+    });
+  });
+
+  if (customMinutes) {
+    customMinutes.addEventListener('input', function () {
+      setDurationFromMinutes(customMinutes.value);
+    });
+  }
+
+  if (startBtn) {
+    startBtn.addEventListener('click', function () {
+      ensureTimerAudioContext();
+      if (!remainingMs) setDurationFromMinutes(customMinutes ? customMinutes.value : 0);
+      if (!remainingMs) return;
+      timerEnd = Date.now() + remainingMs;
+      paused = false;
+      if (status) status.textContent = 'Running';
+      stopTimerInterval();
+      tickTimer();
+      timerInterval = setInterval(tickTimer, 250);
+    });
+  }
+
+  if (pauseBtn) {
+    pauseBtn.addEventListener('click', function () {
+      if (!timerInterval) return;
+      remainingMs = Math.max(0, timerEnd - Date.now());
+      paused = true;
+      stopTimerInterval();
+      if (status) status.textContent = 'Paused';
+      updateTimerDisplay();
+    });
+  }
+
+  if (resumeBtn) {
+    resumeBtn.addEventListener('click', function () {
+      ensureTimerAudioContext();
+      if (!paused || !remainingMs) return;
+      timerEnd = Date.now() + remainingMs;
+      paused = false;
+      if (status) status.textContent = 'Running';
+      stopTimerInterval();
+      tickTimer();
+      timerInterval = setInterval(tickTimer, 250);
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      stopTimerInterval();
+      paused = false;
+      durationMs = 0;
+      remainingMs = 0;
+      updateTimerDisplay();
+      if (status) status.textContent = 'Ready';
+    });
+  }
+
+  if (add30Btn) {
+    add30Btn.addEventListener('click', function () {
+      const increment = 30000;
+      remainingMs = Math.max(0, remainingMs) + increment;
+      durationMs = Math.max(durationMs, remainingMs);
+      if (timerInterval && timerEnd) {
+        timerEnd += increment;
+      }
+      if (!timerInterval && !paused && status) {
+        status.textContent = remainingMs ? 'Ready to start' : 'Ready';
+      }
+      updateTimerDisplay();
+    });
+  }
+
+  if (add1MinBtn) {
+    add1MinBtn.addEventListener('click', function () {
+      const increment = 60000;
+      remainingMs = Math.max(0, remainingMs) + increment;
+      durationMs = Math.max(durationMs, remainingMs);
+      if (timerInterval && timerEnd) {
+        timerEnd += increment;
+      }
+      if (!timerInterval && !paused && status) {
+        status.textContent = remainingMs ? 'Ready to start' : 'Ready';
+      }
+      updateTimerDisplay();
+    });
+  }
+
+  updateTimerDisplay();
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const cards = document.querySelectorAll('.widget-card[data-collapsible="true"]');
+
+  function applyState(card, expanded, immediate) {
+    const body = card.querySelector('.widget-body');
+    const button = card.querySelector('.widget-toggle');
+    if (!body || !button) return;
+
+    card.classList.toggle('is-collapsed', !expanded);
+    card.setAttribute('data-expanded', expanded ? 'true' : 'false');
+    button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    button.textContent = expanded ? 'Collapse' : 'Expand';
+
+    if (expanded) {
+      body.style.maxHeight = immediate ? 'none' : body.scrollHeight + 'px';
+      if (immediate) {
+        requestAnimationFrame(function () {
+          body.style.maxHeight = 'none';
+        });
+      } else {
+        setTimeout(function () {
+          if (card.getAttribute('data-expanded') === 'true') {
+            body.style.maxHeight = 'none';
+          }
+        }, 260);
+      }
+    } else {
+      if (getComputedStyle(body).maxHeight === 'none') {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        requestAnimationFrame(function () {
+          body.style.maxHeight = '0px';
+        });
+      } else {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        requestAnimationFrame(function () {
+          body.style.maxHeight = '0px';
+        });
+      }
+    }
+  }
+
+  cards.forEach(function (card) {
+    const button = card.querySelector('.widget-toggle');
+    if (!button) return;
+    const expanded = card.getAttribute('data-expanded') === 'true';
+    applyState(card, expanded, true);
+    button.addEventListener('click', function () {
+      const isExpanded = card.getAttribute('data-expanded') === 'true';
+      applyState(card, !isExpanded, false);
+    });
+  });
+
+  window.addEventListener('resize', function () {
+    cards.forEach(function (card) {
+      if (card.getAttribute('data-expanded') === 'true') {
+        const body = card.querySelector('.widget-body');
+        if (body && getComputedStyle(body).maxHeight !== 'none') {
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      }
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function playTimerDoneTone() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+
+      const now = ctx.currentTime;
+      const notes = [
+        { freq: 880, start: now, duration: 0.18 },
+        { freq: 1046.5, start: now + 0.22, duration: 0.18 },
+        { freq: 1318.5, start: now + 0.44, duration: 0.26 }
+      ];
+
+      notes.forEach(function(note) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(note.freq, note.start);
+
+        gain.gain.setValueAtTime(0.0001, note.start);
+        gain.gain.exponentialRampToValueAtTime(0.16, note.start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, note.start + note.duration);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(note.start);
+        osc.stop(note.start + note.duration + 0.02);
+      });
+
+      setTimeout(function () {
+        if (ctx && typeof ctx.close === 'function') ctx.close().catch(function(){});
+      }, 1200);
+    } catch (err) {
+      console.error('Timer tone failed:', err);
+    }
+  }
+
+  window.playTimerDoneTone = playTimerDoneTone;
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const timerDisplayEl = document.getElementById('timerDisplay');
+  const timerStatusEl = document.getElementById('timerStatus');
+  if (!timerDisplayEl || !timerStatusEl) return;
+
+  let lastTimerValue = timerDisplayEl.textContent.trim();
+  let doneTonePlayed = false;
+
+  const observer = new MutationObserver(function () {
+    const currentValue = timerDisplayEl.textContent.trim();
+    const statusValue = timerStatusEl.textContent.trim().toLowerCase();
+
+    if ((currentValue === '00:00' && /done|time.?up|finished/.test(statusValue)) ||
+        /done|time.?up|finished/.test(statusValue)) {
+      if (!doneTonePlayed && window.playTimerDoneTone) {
+        doneTonePlayed = true;
+        window.playTimerDoneTone();
+      }
+    } else if (currentValue !== lastTimerValue) {
+      doneTonePlayed = false;
+    }
+
+    lastTimerValue = currentValue;
+  });
+
+  observer.observe(timerDisplayEl, { childList: true, subtree: true, characterData: true });
+  observer.observe(timerStatusEl, { childList: true, subtree: true, characterData: true });
+});
+</script>
+
+</body>
 </html>
