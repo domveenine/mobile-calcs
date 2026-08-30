@@ -2813,6 +2813,105 @@ input:focus, select:focus, textarea:focus {
     .standalone-clock-strip .clock-item .date { font-size:10px !important; }
   }
 </style>
+<style id="v15-mobile-volume-control-fix">
+/* Final mobile slider override. Keep the native range behavior, but give iPhone a much larger touch target. */
+#music-player-shell #radio-volume-wrap {
+  display:grid !important;
+  grid-template-columns:22px minmax(0,1fr) 22px 46px !important;
+  align-items:center !important;
+  gap:8px !important;
+  width:100% !important;
+  min-width:0 !important;
+  overflow:visible !important;
+  touch-action:auto !important;
+}
+#music-player-shell #radioVolume {
+  position:relative !important;
+  z-index:5000 !important;
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  height:48px !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  appearance:none !important;
+  -webkit-appearance:none !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+  touch-action:none !important;
+  cursor:pointer !important;
+}
+#music-player-shell #radioVolume::-webkit-slider-runnable-track {
+  height:8px !important;
+  border:0 !important;
+  border-radius:999px !important;
+  background:linear-gradient(90deg,var(--electric-cyan) 0 var(--vol-pct,80%),rgba(255,255,255,.18) var(--vol-pct,80%) 100%) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06) !important;
+}
+#music-player-shell #radioVolume::-webkit-slider-thumb {
+  -webkit-appearance:none !important;
+  appearance:none !important;
+  width:28px !important;
+  height:28px !important;
+  margin-top:-10px !important;
+  border:0 !important;
+  border-radius:50% !important;
+  background:#fff !important;
+  box-shadow:0 2px 10px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.22) !important;
+}
+#music-player-shell #radioVolume::-moz-range-track {
+  height:8px !important;
+  border:0 !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.18) !important;
+}
+#music-player-shell #radioVolume::-moz-range-progress {
+  height:8px !important;
+  border-radius:999px !important;
+  background:var(--electric-cyan) !important;
+}
+#music-player-shell #radioVolume::-moz-range-thumb {
+  width:28px !important;
+  height:28px !important;
+  border:0 !important;
+  border-radius:50% !important;
+  background:#fff !important;
+  box-shadow:0 2px 10px rgba(0,0,0,.45) !important;
+}
+#music-player-shell #radioVolValue {
+  min-width:46px !important;
+  font-size:13px !important;
+  line-height:1 !important;
+  font-weight:700 !important;
+  color:#fff !important;
+  text-align:right !important;
+  font-variant-numeric:tabular-nums;
+}
+@media (max-width:700px) {
+  #music-player-shell #radio-volume-wrap {
+    grid-template-columns:20px minmax(0,1fr) 20px 44px !important;
+    gap:7px !important;
+    padding:2px 0 4px !important;
+  }
+  #music-player-shell #radioVolume {
+    height:54px !important;
+  }
+  #music-player-shell #radioVolume::-webkit-slider-runnable-track {
+    height:9px !important;
+  }
+  #music-player-shell #radioVolume::-webkit-slider-thumb {
+    width:30px !important;
+    height:30px !important;
+    margin-top:-10.5px !important;
+  }
+  #music-player-shell .music-volume-icon {
+    font-size:15px !important;
+    pointer-events:none !important;
+  }
+}
+</style>
 </head>
 <body>
 <!-- iPhone-style primary music player -->
@@ -4103,9 +4202,9 @@ document.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   var stations = [
-    {name:'Island 98.9', subtitle:'Reggae · Hawai‘i · Live', gain:1.00, sources:['https://streaming.live365.com/a53788','https://das-edge11-live365-dal03.cdnstream.com/a53788']},
-    {name:'Island 98.5', subtitle:'Hawaiian Contemporary · Live', gain:1.00, sources:['https://stream.revma.ihrhls.com/zc821','https://stream.revma.ihrhls.com/zc821/hls.m3u8']},
-    {name:'Onipaʻa 105.1', subtitle:'The Music of Hawai‘i · Live', gain:1.00, sources:['https://stream.revma.ihrhls.com/zc9648','https://stream.revma.ihrhls.com/zc9648/hls.m3u8']},
+    {name:'Island 98.9', subtitle:'Reggae · Hawai‘i · Live', gain:0.72, sources:['https://streaming.live365.com/a53788','https://das-edge11-live365-dal03.cdnstream.com/a53788']},
+    {name:'Island 98.5', subtitle:'Hawaiian Contemporary · Live', gain:0.72, sources:['https://stream.revma.ihrhls.com/zc821','https://stream.revma.ihrhls.com/zc821/hls.m3u8']},
+    {name:'Onipaʻa 105.1', subtitle:'The Music of Hawai‘i · Live', gain:0.72, sources:['https://stream.revma.ihrhls.com/zc9648','https://stream.revma.ihrhls.com/zc9648/hls.m3u8']},
     {name:'Hawaiian Rainbow', subtitle:'Traditional Hawaiian Hula · Live', gain:1.20, sources:['https://s1.autopo.st/proxy/nqjchago?mp=/stream']}
   ];
 
