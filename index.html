@@ -2943,6 +2943,14 @@ input:focus, select:focus, textarea:focus {
   }
 }
 </style>
+<style id="no-volume-slider">#radio-volume-wrap,#radioVolume,#radioVolValue{display:none !important;}</style>
+
+<style id="remove-native-bottom-nav">
+.native-bottom-nav { display: none !important; }
+@media (max-width: 700px) {
+  .app { padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important; }
+}
+</style>
 </head>
 <body>
 <!-- iPhone-style primary music player -->
@@ -2952,7 +2960,7 @@ input:focus, select:focus, textarea:focus {
 <div class="music-player-eyebrow">NOW PLAYING</div>
 <div class="music-player-live"><span aria-hidden="true" class="live-dot"></span> LIVE RADIO</div>
 </div>
-<div aria-hidden="true" class="music-airplay-badge">◉</div>
+
 </div>
 <div aria-hidden="true" class="music-artwork">
 <div class="music-orbit orbit-one"></div>
@@ -2972,12 +2980,6 @@ input:focus, select:focus, textarea:focus {
 <span class="music-play-label" id="radioPlayLabel">Play</span>
 </button>
 <button aria-label="Next station" class="music-skip" id="radioNextBtn" type="button" onclick="window.radioShift(1); return false;">›</button>
-</div>
-<div class="music-volume-row" id="radio-volume-wrap">
-<span aria-hidden="true" class="music-volume-icon">◖</span>
-<input aria-label="Radio volume" id="radioVolume" max="100" min="0" step="1" type="range" value="80" aria-valuetext="80 percent" oninput="window.radioSetVolume(this.value);"/>
-<span aria-hidden="true" class="music-volume-icon">◗</span>
-<span aria-live="polite" class="music-volume-value" id="radioVolValue">80%</span>
 </div>
 <div class="music-station-hint">Use ‹ and › to change stations</div>
 <audio aria-hidden="true" id="radioAudio" playsinline="" preload="none" style="display:none;" webkit-playsinline=""></audio></section>
@@ -4196,31 +4198,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (timerCard) timerCard.id = 'app-timer';
   if (tipCard) tipCard.id = 'app-tools';
 
-  const nav = document.createElement('nav');
-  nav.className = 'native-bottom-nav';
-  nav.setAttribute('aria-label', 'Dashboard navigation');
-  nav.innerHTML = [
-    ['music-player-shell','♫','Radio'],
-    ['app-weather','☼','Weather'],
-    ['app-tools','%','Tools'],
-    ['app-links','↗','Links']
-  ].map(function(item){
-    return '<button type="button" data-target="'+item[0]+'"><span class="nav-icon" aria-hidden="true">'+item[1]+'</span>'+item[2]+'</button>';
-  }).join('');
-  document.body.appendChild(nav);
-
-  nav.addEventListener('click', function (event) {
-    const button = event.target.closest('button[data-target]');
-    if (!button) return;
-    const target = document.getElementById(button.dataset.target);
-    if (!target) return;
-
-    // Native <details> modules open reliably without depending on custom click handlers.
-    if (target.tagName === 'DETAILS' && !target.open) {
-      target.open = true;
-    }
-    setTimeout(function(){ target.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
-  });
+  // Bottom navigation removed.
 
   // Improve button semantics for mobile tap behavior.
   document.querySelectorAll('.timer-presets button, .button-row button').forEach(function(btn){
@@ -4234,10 +4212,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var stations = [
     // Per-station trim values balance the stations by ear. Hawaiian Rainbow is the reference level.
-    {name:'Island 98.9', subtitle:'Reggae · Hawai‘i · Live', gain:0.28, sources:['https://streaming.live365.com/a53788','https://das-edge11-live365-dal03.cdnstream.com/a53788']},
-    {name:'Island 98.5', subtitle:'Hawaiian Contemporary · Live', gain:0.28, sources:['https://stream.revma.ihrhls.com/zc821','https://stream.revma.ihrhls.com/zc821/hls.m3u8']},
-    {name:'Onipaʻa 105.1', subtitle:'The Music of Hawai‘i · Live', gain:0.28, sources:['https://stream.revma.ihrhls.com/zc9648','https://stream.revma.ihrhls.com/zc9648/hls.m3u8']},
-    {name:'Hawaiian Rainbow', subtitle:'Traditional Hawaiian Hula · Live', gain:1.28, sources:['https://s1.autopo.st/proxy/nqjchago?mp=/stream']}
+    {name:'Island 98.9', subtitle:'Live · Reggae · Hawai‘i', gain:0.28, sources:['https://streaming.live365.com/a53788','https://das-edge11-live365-dal03.cdnstream.com/a53788']},
+    {name:'Island 98.5', subtitle:'Live · Hawaiian Contemporary', gain:0.28, sources:['https://stream.revma.ihrhls.com/zc821','https://stream.revma.ihrhls.com/zc821/hls.m3u8']},
+    {name:'Hawaiian Rainbow', subtitle:'Live · Traditional Hawaiian Hula', gain:1.28, sources:['https://s1.autopo.st/proxy/nqjchago?mp=/stream']}
   ];
 
   var index = 0;
@@ -4250,6 +4227,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var lastProgressAt = Date.now();
   var initialized = false;
   var retryDelays = [1000, 2000, 5000, 10000, 15000, 30000, 60000];
+  var MASTER_VOLUME = 100; // Overall player level (0-100). Change this if you want to adjust all stations together.
 
   function el(id){ return document.getElementById(id); }
   function audio(){ return el('radioAudio'); }
@@ -4280,23 +4258,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function remember(){
-    try {
-      localStorage.setItem('radioStationIndex', String(index));
-      localStorage.setItem('radioVolumeV12', String(el('radioVolume') ? el('radioVolume').value : 80));
-    } catch(e) {}
+    try { localStorage.setItem('radioStationIndex', String(index)); } catch(e) {}
   }
 
   function restore(){
     try {
       var savedIndex=Number(localStorage.getItem('radioStationIndex'));
-      var savedVolume=Number(localStorage.getItem('radioVolumeV12'));
       if(Number.isInteger(savedIndex) && savedIndex>=0 && savedIndex<stations.length) index=savedIndex;
-      var savedVolumeRaw=localStorage.getItem('radioVolumeV12');
-      if(savedVolumeRaw !== null && Number.isFinite(savedVolume) && el('radioVolume')) {
-        el('radioVolume').value=String(Math.max(0,Math.min(100,savedVolume)));
-      } else if(el('radioVolume')) {
-        el('radioVolume').value='80';
-      }
     } catch(e) {}
   }
 
@@ -4324,6 +4292,7 @@ document.addEventListener('DOMContentLoaded', function () {
     a.removeAttribute('src');
     try { a.load(); } catch(e) {}
     a.src=src;
+    applyStationVolume();
     try { a.load(); } catch(e) {}
     lastProgressAt=Date.now();
     return true;
@@ -4412,7 +4381,7 @@ document.addEventListener('DOMContentLoaded', function () {
     index=(index+Number(delta)+stations.length)%stations.length;
     sourceIndex=0;
     show();
-    window.radioSetVolume(el('radioVolume')?el('radioVolume').value:80);
+    applyStationVolume();
     remember();
     ui(false);
     if(wasPlaying){
@@ -4426,20 +4395,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 
-  window.radioSetVolume=function(v){
-    var a=audio(), slider=el('radioVolume'), val=Math.max(0,Math.min(100,Number(v)||0));
+  function applyStationVolume(){
+    var a=audio();
     var st=station();
     var stationGain=(st && Number.isFinite(st.gain)) ? st.gain : 1;
-    var effective=Math.max(0,Math.min(1,(val/100)*stationGain));
+    var effective=Math.max(0,Math.min(1,(MASTER_VOLUME/100)*stationGain));
     if(a) a.volume=effective;
-    if(el('radioVolValue')) el('radioVolValue').textContent=String(Math.round(val))+'%';
-    if(slider){
-      slider.style.setProperty('--vol-pct',val+'%');
-      slider.style.setProperty('--vol-safe',val+'%');
-      slider.setAttribute('aria-valuetext',String(Math.round(val))+' percent');
-    }
-    remember();
-  };
+  }
+
 
   function markProgress(){ lastProgressAt=Date.now(); }
 
@@ -4458,7 +4421,7 @@ document.addEventListener('DOMContentLoaded', function () {
     restore();
     show();
     ui(false);
-    window.radioSetVolume(el('radioVolume')?el('radioVolume').value:80);
+    applyStationVolume();
     status('Tap Play to start live radio');
 
     a.preload='none';
