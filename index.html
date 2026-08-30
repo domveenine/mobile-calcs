@@ -2912,6 +2912,37 @@ input:focus, select:focus, textarea:focus {
   }
 }
 </style>
+
+<style id="v16-full-width-volume-track-fix">
+/* Fix inherited mobile rules that previously capped the actual range input at 34–46px. */
+#music-player-shell #radio-volume-wrap {
+  width:100% !important;
+  max-width:none !important;
+  min-width:0 !important;
+}
+#music-player-shell #radioVolume {
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+  flex:1 1 auto !important;
+  flex-basis:auto !important;
+  box-sizing:border-box !important;
+}
+@media (max-width:700px) {
+  #music-player-shell #radio-volume-wrap {
+    grid-template-columns:18px minmax(0,1fr) 18px 46px !important;
+    width:100% !important;
+  }
+  #music-player-shell #radioVolume {
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    flex:1 1 auto !important;
+    flex-basis:auto !important;
+    height:54px !important;
+  }
+}
+</style>
 </head>
 <body>
 <!-- iPhone-style primary music player -->
@@ -2944,7 +2975,7 @@ input:focus, select:focus, textarea:focus {
 </div>
 <div class="music-volume-row" id="radio-volume-wrap">
 <span aria-hidden="true" class="music-volume-icon">◖</span>
-<input aria-label="Radio volume" id="radioVolume" max="100" min="0" step="5" type="range" value="80" aria-valuetext="80 percent" oninput="window.radioSetVolume(this.value);"/>
+<input aria-label="Radio volume" id="radioVolume" max="100" min="0" step="1" type="range" value="80" aria-valuetext="80 percent" oninput="window.radioSetVolume(this.value);"/>
 <span aria-hidden="true" class="music-volume-icon">◗</span>
 <span aria-live="polite" class="music-volume-value" id="radioVolValue">80%</span>
 </div>
@@ -4202,9 +4233,10 @@ document.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   var stations = [
-    {name:'Island 98.9', subtitle:'Reggae · Hawai‘i · Live', gain:0.72, sources:['https://streaming.live365.com/a53788','https://das-edge11-live365-dal03.cdnstream.com/a53788']},
-    {name:'Island 98.5', subtitle:'Hawaiian Contemporary · Live', gain:0.72, sources:['https://stream.revma.ihrhls.com/zc821','https://stream.revma.ihrhls.com/zc821/hls.m3u8']},
-    {name:'Onipaʻa 105.1', subtitle:'The Music of Hawai‘i · Live', gain:0.72, sources:['https://stream.revma.ihrhls.com/zc9648','https://stream.revma.ihrhls.com/zc9648/hls.m3u8']},
+    // Per-station trim values balance the stations by ear. Hawaiian Rainbow is the reference level.
+    {name:'Island 98.9', subtitle:'Reggae · Hawai‘i · Live', gain:0.30, sources:['https://streaming.live365.com/a53788','https://das-edge11-live365-dal03.cdnstream.com/a53788']},
+    {name:'Island 98.5', subtitle:'Hawaiian Contemporary · Live', gain:0.28, sources:['https://stream.revma.ihrhls.com/zc821','https://stream.revma.ihrhls.com/zc821/hls.m3u8']},
+    {name:'Onipaʻa 105.1', subtitle:'The Music of Hawai‘i · Live', gain:0.32, sources:['https://stream.revma.ihrhls.com/zc9648','https://stream.revma.ihrhls.com/zc9648/hls.m3u8']},
     {name:'Hawaiian Rainbow', subtitle:'Traditional Hawaiian Hula · Live', gain:1.20, sources:['https://s1.autopo.st/proxy/nqjchago?mp=/stream']}
   ];
 
