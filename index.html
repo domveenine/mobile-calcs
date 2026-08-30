@@ -757,8 +757,6 @@ small, .subtext {
 ..aven { background: rgba(168,85,247,0.14); border-color: rgba(168,85,247,0.35); }
 ..firestone { background: rgba(234,179,8,0.14); border-color: rgba(234,179,8,0.35); }
 </style>
-
-
 <style id="banking-color-styles">
 ..nusenda { background: rgba(34,197,94,0.18) !important; border: 1px solid rgba(34,197,94,0.45) !important; }
 ..bofa { background: rgba(220,38,38,0.18) !important; border: 1px solid rgba(220,38,38,0.45) !important; }
@@ -771,8 +769,6 @@ small, .subtext {
 ..aven { background: rgba(168,85,247,0.18) !important; border: 1px solid rgba(168,85,247,0.45) !important; }
 ..firestone { background: rgba(234,179,8,0.18) !important; border: 1px solid rgba(234,179,8,0.45) !important; }
 </style>
-
-
 <style id="quick-links-cleanup">
 .quick-links-section {
   display: grid;
@@ -822,8 +818,6 @@ small, .subtext {
   }
 }
 </style>
-
-
 <style id="timer-compact-tuning">
 .timer-compact .timer-presets {
   grid-template-columns: repeat(4, 1fr);
@@ -853,8 +847,6 @@ small, .subtext {
   font-size: 0.8rem;
 }
 </style>
-
-
 <style id="fun-dark-redesign">
 /* Grey + Black + Dark Purple + Dark Blue redesign */
 :root {
@@ -1084,8 +1076,6 @@ input:focus, select:focus, textarea:focus {
   .clock-item { padding:6px 8px; }
 }
 </style>
-
-
 <style id="weather-single-row-layout">
   /* Weather: one city per row for improved readability */
   .weather-grid {
@@ -1101,14 +1091,12 @@ input:focus, select:focus, textarea:focus {
     line-height: 1.45;
   }
 </style>
-
-
 <!-- iPhone / mobile optimization -->
-<meta name="theme-color" content="#08090d"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="format-detection" content="telephone=no"/>
+<meta content="#081215" name="theme-color"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="telephone=no" name="format-detection"/>
 <style id="iphone-mobile-optimization">
   html {
     -webkit-text-size-adjust: 100%;
@@ -1448,8 +1436,6 @@ input:focus, select:focus, textarea:focus {
     }
   }
 </style>
-
-
 <style id="radio-header-true-centering-fix">
   /* Center the entire radio player group inside the header bar on every screen size. */
   #island-radio-bar {
@@ -1576,131 +1562,1310 @@ input:focus, select:focus, textarea:focus {
     #radioPlayBtn { min-width: 54px !important; min-height: 30px !important; padding: 5px 6px !important; }
   }
 </style>
+<style id="reference-image-mosaic-palette">
+  /* Bright electric interpretation of the supplied mosaic image:
+     deep ink #06131b, electric cyan #29d9ff, aqua #00f5d4,
+     vivid teal #00c9a7, cobalt #3d7cff, violet #8b5cf6,
+     mint #7cffb2, pearl #effcff. */
+  :root {
+    --bg: #06131b;
+    --bg-soft: #0a2230;
+    --card: rgba(13, 34, 46, 0.88);
+    --text: #effcff;
+    --muted: #a7d9e8;
+    --accent: #29d9ff;
+    --accent-2: #00f5d4;
+    --accent-purple: #8b5cf6;
+    --accent-blue: #3d7cff;
+    --success: #7cffb2;
+    --shadow: 0 18px 44px rgba(0, 0, 0, .50);
+  }
 
+  html { background: #041018 !important; }
+
+  body {
+    background:
+      radial-gradient(circle at 10% 7%, rgba(41,217,255,.34), transparent 26%),
+      radial-gradient(circle at 88% 12%, rgba(0,245,212,.28), transparent 28%),
+      radial-gradient(circle at 52% 90%, rgba(139,92,246,.24), transparent 31%),
+      radial-gradient(circle at 76% 72%, rgba(61,124,255,.18), transparent 24%),
+      linear-gradient(145deg, #041018 0%, #09202c 38%, #0b2b30 66%, #071724 100%) !important;
+    color: var(--text) !important;
+  }
+
+  body::before {
+    opacity: .29 !important;
+    background-image:
+      linear-gradient(rgba(41,217,255,.026) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,212,.020) 1px, transparent 1px) !important;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, rgba(18,53,67,.96), rgba(7,27,39,.95)) !important;
+    border-color: rgba(41,217,255,.42) !important;
+    box-shadow: 0 22px 52px rgba(0,0,0,.43), 0 0 30px rgba(41,217,255,.07), inset 0 1px 0 rgba(239,252,255,.08) !important;
+  }
+  .hero::after {
+    background: radial-gradient(circle, rgba(0,245,212,.34), rgba(41,217,255,.12) 38%, transparent 70%) !important;
+  }
+  .eyebrow { color: #29d9ff !important; text-shadow: 0 0 13px rgba(41,217,255,.42); }
+  .subtitle, .small, label, .notice, .timer-status, .quick-links-heading,
+  .stat-label, .clock-banner .clock-label, .clock-banner .clock-date,
+  .clock-item .label { color: #a7d9e8 !important; }
+
+  #island-radio-bar {
+    background: linear-gradient(90deg, #041018 0%, #083148 45%, #0b3a43 72%, #203b78 100%) !important;
+    border-bottom-color: rgba(41,217,255,.48) !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,.34), 0 0 20px rgba(41,217,255,.06) !important;
+  }
+  #radioSubtitle { color: #7cffb2 !important; text-shadow: 0 0 10px rgba(124,255,178,.26); }
+  #radioPlayBtn, #radioPrevBtn, #radioNextBtn {
+    background: linear-gradient(145deg, rgba(61,124,255,.96), rgba(0,201,167,.90)) !important;
+    border-color: rgba(41,217,255,.62) !important;
+    color: #f7ffff !important;
+    box-shadow: 0 6px 18px rgba(61,124,255,.18) !important;
+  }
+  #radioPlayBtn:hover, #radioPrevBtn:hover, #radioNextBtn:hover {
+    border-color: rgba(239,252,255,.88) !important;
+    box-shadow: 0 0 20px rgba(41,217,255,.22) !important;
+  }
+  #radioVolume { background: #0a2230 !important; border-color: rgba(41,217,255,.52) !important; }
+  #radioVolume::-webkit-slider-runnable-track {
+    background: linear-gradient(90deg, #00c9a7, #29d9ff, #3d7cff) !important;
+    border-color: rgba(41,217,255,.55) !important;
+  }
+  #radioVolume::-webkit-slider-thumb {
+    background: #effcff !important;
+    border-color: #29d9ff !important;
+    box-shadow: 0 0 12px rgba(41,217,255,.50) !important;
+  }
+  #radioVolume::-moz-range-track {
+    background: linear-gradient(90deg, #00c9a7, #29d9ff, #3d7cff) !important;
+    border-color: rgba(41,217,255,.55) !important;
+  }
+  #radioVolume::-moz-range-thumb {
+    background: #effcff !important;
+    border-color: #29d9ff !important;
+  }
+
+  .clock-banner {
+    background: linear-gradient(120deg, rgba(61,124,255,.34), rgba(0,245,212,.26), rgba(139,92,246,.22)) !important;
+    border-top-color: rgba(41,217,255,.18) !important;
+    border-bottom-color: rgba(0,245,212,.18) !important;
+  }
+  .clock-item .time { color: #f2fdff !important; text-shadow: 0 0 18px rgba(41,217,255,.28) !important; }
+  .clock-item:hover { background: rgba(41,217,255,.08) !important; }
+
+  .card {
+    background: linear-gradient(155deg, rgba(19,51,65,.94), rgba(7,27,39,.95)) !important;
+    border-color: rgba(41,217,255,.24) !important;
+    box-shadow: 0 18px 42px rgba(0,0,0,.40), inset 0 1px 0 rgba(239,252,255,.05) !important;
+  }
+  .card::before {
+    height: 4px !important;
+    background: linear-gradient(90deg, #00f5d4 0%, #29d9ff 35%, #3d7cff 67%, #8b5cf6 100%) !important;
+    box-shadow: 0 0 14px rgba(41,217,255,.28) !important;
+  }
+  .card:hover {
+    border-color: rgba(41,217,255,.54) !important;
+    box-shadow: 0 24px 54px rgba(0,0,0,.48), 0 0 24px rgba(41,217,255,.08) !important;
+  }
+  .card h2, .card h3 { color: #effcff !important; }
+  .card h2::after {
+    background: linear-gradient(135deg, #00f5d4, #29d9ff 52%, #8b5cf6) !important;
+    box-shadow: 0 0 15px rgba(41,217,255,.56) !important;
+  }
+
+  .stat, .result {
+    background: linear-gradient(145deg, rgba(41,217,255,.10), rgba(0,245,212,.07), rgba(61,124,255,.08)) !important;
+    border-color: rgba(41,217,255,.22) !important;
+  }
+  .stat-value, .result .value { color: #effcff !important; }
+  .result {
+    background: linear-gradient(145deg, rgba(61,124,255,.20), rgba(0,245,212,.12)) !important;
+    border-color: rgba(41,217,255,.36) !important;
+  }
+
+  .weather-card {
+    background: linear-gradient(145deg, rgba(20,67,78,.72), rgba(9,31,45,.84)) !important;
+    border-color: rgba(0,245,212,.22) !important;
+  }
+  .weather-card [data-role="city"] { color: #7cffb2 !important; }
+  .weather-card [data-role="current-temp"] { color: #effcff !important; text-shadow: 0 0 14px rgba(41,217,255,.20); }
+  .weather-card [data-role="today-line"] { color: #8be8ff !important; }
+  .weather-card [data-role="tmrw-line"] { color: #7cffb2 !important; }
+  .weather-card [data-role="next-line"] { color: #a9b8ff !important; }
+
+  input, select, textarea {
+    background: linear-gradient(145deg, rgba(4,16,24,.95), rgba(9,42,48,.90)) !important;
+    color: #effcff !important;
+    border-color: rgba(41,217,255,.34) !important;
+  }
+  input::placeholder, textarea::placeholder { color: #78a9b7 !important; }
+  input:focus, select:focus, textarea:focus {
+    border-color: rgba(0,245,212,.90) !important;
+    box-shadow: 0 0 0 3px rgba(0,245,212,.16), 0 0 22px rgba(41,217,255,.16) !important;
+  }
+
+  .button, .segmented button, .timer-presets button, .widget-toggle {
+    background: linear-gradient(145deg, rgba(34,74,86,.90), rgba(8,39,52,.95)) !important;
+    color: #effcff !important;
+    border-color: rgba(41,217,255,.26) !important;
+  }
+  .button:hover, .segmented button:hover, .timer-presets button:hover, .widget-toggle:hover {
+    border-color: rgba(0,245,212,.62) !important;
+    box-shadow: 0 0 16px rgba(0,245,212,.10) !important;
+  }
+  .button.primary, .segmented button.active {
+    background: linear-gradient(135deg, #00c9a7 0%, #29d9ff 38%, #3d7cff 72%, #8b5cf6 100%) !important;
+    color: #041018 !important;
+    border-color: rgba(239,252,255,.66) !important;
+    box-shadow: 0 8px 24px rgba(41,217,255,.18), 0 0 22px rgba(0,245,212,.12), inset 0 1px 0 rgba(255,255,255,.30) !important;
+  }
+
+  .link-tile {
+    background: linear-gradient(145deg, rgba(21,58,72,.82), rgba(8,31,44,.92)) !important;
+    color: #effcff !important;
+    border-color: rgba(41,217,255,.22) !important;
+  }
+  .link-tile::before {
+    background: linear-gradient(120deg, transparent 8%, rgba(0,245,212,.16) 42%, rgba(41,217,255,.18) 64%, rgba(139,92,246,.15) 86%) !important;
+  }
+  .link-tile:hover {
+    border-color: rgba(41,217,255,.58) !important;
+    background: linear-gradient(145deg, rgba(16,92,99,.62), rgba(36,69,126,.62)) !important;
+    box-shadow: 0 0 20px rgba(41,217,255,.10) !important;
+  }
+  .link-tile small { color: #9dddea !important; }
+
+  .timer-display {
+    color: #effcff !important;
+    background: linear-gradient(135deg, rgba(61,124,255,.30), rgba(0,245,212,.24), rgba(139,92,246,.20)) !important;
+    border-color: rgba(41,217,255,.40) !important;
+    text-shadow: 0 0 24px rgba(41,217,255,.44) !important;
+    box-shadow: inset 0 0 24px rgba(41,217,255,.04) !important;
+  }
+
+  .pill {
+    color: #bfffe0 !important;
+    background: rgba(0,201,167,.20) !important;
+    border-color: rgba(124,255,178,.34) !important;
+    box-shadow: 0 0 14px rgba(0,245,212,.07) !important;
+  }
+
+  #swa-assistant-btn {
+    background: linear-gradient(145deg, #3d7cff, #00c9a7) !important;
+    border-color: rgba(41,217,255,.72) !important;
+    box-shadow: 0 8px 22px rgba(0,0,0,.35), 0 0 20px rgba(41,217,255,.15) !important;
+  }
+  #swa-assistant-btn:hover {
+    border-color: rgba(239,252,255,.95) !important;
+    box-shadow: 0 0 24px rgba(41,217,255,.42) !important;
+  }
+
+  .date-part,
+  #yourTimeDisplay .date-part,
+  #theirTimeDisplay .date-part { color: #8ecddd !important; }
+
+  ::selection { background: rgba(0,245,212,.40); color: #041018; }
+  ::-webkit-scrollbar-track { background: #041018 !important; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#00c9a7, #29d9ff 50%, #3d7cff) !important;
+    border-color: #041018 !important;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: linear-gradient(#00f5d4, #29d9ff, #8b5cf6) !important; }
+
+  @media (max-width: 700px) {
+    .clock-item {
+      border-color: rgba(41,217,255,.13) !important;
+      background: rgba(41,217,255,.045) !important;
+    }
+  }
+</style>
+<style id="iphone-native-overhaul">
+  /* iPhone-first app shell: electric mosaic palette */
+  :root {
+    --ios-bg: #05070b;
+    --ios-surface: rgba(20, 24, 33, .88);
+    --ios-surface-2: rgba(28, 34, 45, .88);
+    --ios-hairline: rgba(255,255,255,.10);
+    --ios-label: #f7fbff;
+    --ios-secondary: #9aaabd;
+    --ios-tertiary: #6f8195;
+    --electric-cyan: #29d9ff;
+    --electric-mint: #00f5d4;
+    --electric-blue: #3d7cff;
+    --electric-violet: #8b5cf6;
+    --electric-green: #7cffb2;
+    --ios-radius: 22px;
+    --ios-shadow: 0 10px 32px rgba(0,0,0,.34);
+  }
+
+  html {
+    background: var(--ios-bg) !important;
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0 !important;
+    min-height: 100dvh !important;
+    overflow-x: hidden !important;
+    background:
+      radial-gradient(circle at 10% -5%, rgba(0,245,212,.16), transparent 24rem),
+      radial-gradient(circle at 92% 2%, rgba(61,124,255,.17), transparent 26rem),
+      radial-gradient(circle at 50% 70%, rgba(139,92,246,.09), transparent 34rem),
+      linear-gradient(180deg, #06090e 0%, #080c13 48%, #05070b 100%) !important;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body::before {
+    background-image: none !important;
+    opacity: 0 !important;
+  }
+
+  /* Compact Now Playing bar */
+  #island-radio-bar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10000 !important;
+    min-height: 58px !important;
+    height: auto !important;
+    padding: calc(7px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) 7px max(12px, env(safe-area-inset-left, 0px)) !important;
+    background: rgba(8,12,18,.82) !important;
+    border-bottom: 1px solid rgba(255,255,255,.08) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25) !important;
+    backdrop-filter: blur(22px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(160%) !important;
+  }
+
+  #radio-info { gap: 0 !important; }
+  #radioName {
+    color: var(--ios-label) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: .06em !important;
+  }
+  #radioSubtitle {
+    color: var(--electric-cyan) !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+  }
+  #radioPrevBtn, #radioNextBtn, #radioPlayBtn {
+    border: 1px solid rgba(255,255,255,.11) !important;
+    background: rgba(255,255,255,.075) !important;
+    box-shadow: none !important;
+    color: var(--ios-label) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+  #radioPlayBtn {
+    background: linear-gradient(135deg, rgba(61,124,255,.92), rgba(0,201,167,.92)) !important;
+    border-color: rgba(41,217,255,.30) !important;
+  }
+  #radioVolume::-webkit-slider-runnable-track {
+    background: rgba(255,255,255,.13) !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+  }
+  #radioVolume::-webkit-slider-thumb {
+    background: #fff !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    box-shadow: 0 1px 6px rgba(0,0,0,.35) !important;
+  }
+
+  .app {
+    width: min(1440px, 100%) !important;
+    margin: 0 auto !important;
+    padding: 18px 18px 44px !important;
+  }
+
+  .native-app-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 4px 12px;
+  }
+  .native-app-kicker {
+    margin: 0 0 3px;
+    color: var(--electric-mint);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+  .native-app-title {
+    margin: 0;
+    color: var(--ios-label);
+    font-size: clamp(28px, 5vw, 38px);
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -.035em;
+  }
+  .native-app-subtitle {
+    margin: 5px 0 0;
+    color: var(--ios-secondary);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .native-app-dot {
+    width: 11px;
+    height: 11px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    margin-bottom: 8px;
+    background: var(--electric-mint);
+    box-shadow: 0 0 0 5px rgba(0,245,212,.10), 0 0 18px rgba(0,245,212,.55);
+  }
+
+  .hero {
+    margin: 0 0 14px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(255,255,255,.09) !important;
+    background: linear-gradient(145deg, rgba(23,30,40,.88), rgba(10,15,22,.92)) !important;
+    box-shadow: var(--ios-shadow) !important;
+    backdrop-filter: blur(24px) saturate(130%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
+  }
+  .hero::after { display:none !important; }
+
+  .clock-banner {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+  .clock-row {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    gap: 8px !important;
+  }
+  .clock-item {
+    min-width: 0 !important;
+    padding: 12px 8px !important;
+    border: 1px solid rgba(255,255,255,.07) !important;
+    border-radius: 17px !important;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.022)) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.025) !important;
+  }
+  .clock-item .label {
+    color: var(--ios-secondary) !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: .06em !important;
+  }
+  .clock-item .time {
+    margin-top: 4px !important;
+    color: var(--ios-label) !important;
+    font-size: 18px !important;
+    font-weight: 750 !important;
+    letter-spacing: -.02em !important;
+    text-shadow: none !important;
+  }
+  .clock-item:nth-child(1) { box-shadow: inset 0 2px 0 rgba(0,245,212,.75) !important; }
+  .clock-item:nth-child(2) { box-shadow: inset 0 2px 0 rgba(41,217,255,.75) !important; }
+  .clock-item:nth-child(3) { box-shadow: inset 0 2px 0 rgba(61,124,255,.78) !important; }
+  .clock-item:nth-child(4) { box-shadow: inset 0 2px 0 rgba(139,92,246,.75) !important; }
+
+  .widget-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    align-items: start !important;
+  }
+  .stack { gap: 14px !important; }
+
+  .card, .compact-card, .ultra-compact {
+    position: relative !important;
+    height: auto !important;
+    padding: 15px !important;
+    overflow: hidden !important;
+    border-radius: var(--ios-radius) !important;
+    border: 1px solid rgba(255,255,255,.085) !important;
+    background: linear-gradient(150deg, rgba(25,31,41,.92), rgba(13,18,25,.94)) !important;
+    box-shadow: 0 8px 26px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.025) !important;
+    backdrop-filter: blur(20px) saturate(125%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(125%) !important;
+    transition: transform .16s ease, border-color .16s ease !important;
+  }
+  .card::before {
+    height: 2px !important;
+    opacity: .95 !important;
+    background: linear-gradient(90deg, var(--electric-mint), var(--electric-cyan) 38%, var(--electric-blue) 70%, var(--electric-violet)) !important;
+  }
+  .card:hover { transform: none !important; box-shadow: 0 8px 26px rgba(0,0,0,.26) !important; }
+
+  .widget-header {
+    min-height: 44px !important;
+    margin-bottom: 10px !important;
+    gap: 10px !important;
+  }
+  .widget-header h2, .card h2, .card h3 {
+    color: var(--ios-label) !important;
+    font-size: 17px !important;
+    line-height: 1.2 !important;
+    font-weight: 720 !important;
+    letter-spacing: -.015em !important;
+  }
+  .card h2::after { display:none !important; }
+  .widget-header h2::before {
+    content: attr(data-native-icon);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-right: 9px;
+    border-radius: 9px;
+    color: #041018;
+    background: linear-gradient(145deg, var(--electric-mint), var(--electric-cyan));
+    font-size: 15px;
+    font-weight: 900;
+    vertical-align: -1px;
+    box-shadow: 0 5px 14px rgba(41,217,255,.15);
+  }
+
+  .widget-toggle {
+    min-width: 64px !important;
+    min-height: 34px !important;
+    padding: 7px 11px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(41,217,255,.20) !important;
+    background: rgba(41,217,255,.08) !important;
+    color: var(--electric-cyan) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+  }
+
+  .widget-body {
+    transition: max-height .28s cubic-bezier(.22,1,.36,1), opacity .18s ease !important;
+  }
+
+  .stat, .result {
+    min-height: auto !important;
+    padding: 12px !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255,255,255,.065) !important;
+    background: rgba(255,255,255,.035) !important;
+    box-shadow: none !important;
+  }
+  .stat-label, .result .title, label, .small, .notice, .timer-status, .quick-links-heading {
+    color: var(--ios-secondary) !important;
+  }
+  .stat-label, .result .title, label {
+    font-size: 12px !important;
+    font-weight: 650 !important;
+    letter-spacing: .005em !important;
+  }
+  .stat-value, .result .value {
+    color: var(--ios-label) !important;
+    font-size: 18px !important;
+    font-weight: 740 !important;
+    letter-spacing: -.02em !important;
+  }
+
+  input:not([type="range"]), select, textarea {
+    width: 100% !important;
+    min-height: 50px !important;
+    padding: 12px 14px !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(255,255,255,.085) !important;
+    background: rgba(4,8,13,.72) !important;
+    color: var(--ios-label) !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.018) !important;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  select {
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--ios-secondary) 50%),
+      linear-gradient(135deg, var(--ios-secondary) 50%, transparent 50%) !important;
+    background-position: calc(100% - 18px) 21px, calc(100% - 13px) 21px !important;
+    background-size: 5px 5px, 5px 5px !important;
+    background-repeat: no-repeat !important;
+    padding-right: 38px !important;
+  }
+  textarea { min-height: 132px !important; resize: vertical !important; }
+  input::placeholder, textarea::placeholder { color: var(--ios-tertiary) !important; opacity: 1 !important; }
+  input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    border-color: rgba(41,217,255,.62) !important;
+    box-shadow: 0 0 0 3px rgba(41,217,255,.12) !important;
+  }
+
+  .segmented {
+    gap: 6px !important;
+    padding: 4px !important;
+    border-radius: 14px !important;
+    background: rgba(0,0,0,.28) !important;
+  }
+  .segmented button, .timer-presets button {
+    min-height: 42px !important;
+    padding: 8px !important;
+    border: 0 !important;
+    border-radius: 11px !important;
+    background: transparent !important;
+    color: var(--ios-secondary) !important;
+    box-shadow: none !important;
+    font-size: 14px !important;
+    font-weight: 650 !important;
+  }
+  .segmented button.active {
+    color: #061216 !important;
+    background: linear-gradient(135deg, var(--electric-mint), var(--electric-cyan)) !important;
+    box-shadow: 0 3px 10px rgba(41,217,255,.20) !important;
+  }
+
+  .button {
+    min-height: 48px !important;
+    padding: 11px 13px !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(255,255,255,.08) !important;
+    background: rgba(255,255,255,.065) !important;
+    color: var(--ios-label) !important;
+    box-shadow: none !important;
+    font-size: 15px !important;
+    font-weight: 680 !important;
+  }
+  .button.primary {
+    color: #041018 !important;
+    border-color: transparent !important;
+    background: linear-gradient(135deg, var(--electric-mint), var(--electric-cyan) 48%, #62e7ff) !important;
+    box-shadow: 0 5px 16px rgba(41,217,255,.18) !important;
+  }
+  .button:active, .segmented button:active, .timer-presets button:active, .link-tile:active, .widget-toggle:active {
+    transform: scale(.975) !important;
+    filter: brightness(.94) !important;
+  }
+
+  .button-row { gap: 8px !important; }
+  .timer-display {
+    margin: 8px 0 !important;
+    padding: 13px !important;
+    border-radius: 18px !important;
+    border: 1px solid rgba(41,217,255,.18) !important;
+    background: linear-gradient(135deg, rgba(0,245,212,.11), rgba(41,217,255,.10), rgba(61,124,255,.10)) !important;
+    color: var(--ios-label) !important;
+    font-size: 34px !important;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.025em !important;
+    text-shadow: 0 0 24px rgba(41,217,255,.22) !important;
+  }
+
+  .links-grid, .links-grid.utility-grid, .links-grid.banking-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    gap: 8px !important;
+  }
+  .link-tile, .quick-links-section .link-tile {
+    min-height: 52px !important;
+    padding: 11px 10px !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(255,255,255,.07) !important;
+    background: rgba(255,255,255,.045) !important;
+    color: var(--ios-label) !important;
+    box-shadow: none !important;
+    font-size: 13px !important;
+    font-weight: 650 !important;
+  }
+  .link-tile::before { display:none !important; }
+
+  /* Weather becomes an iOS-style card strip on smaller screens */
+  .weather-card {
+    min-height: 132px !important;
+    padding: 14px !important;
+    border-radius: 18px !important;
+    background: linear-gradient(145deg, rgba(20,52,63,.52), rgba(19,28,47,.62)) !important;
+    border-color: rgba(41,217,255,.11) !important;
+  }
+  .weather-card [data-role="city"] {
+    color: var(--electric-cyan) !important;
+    font-size: 13px !important;
+    font-weight: 750 !important;
+  }
+  .weather-card [data-role="current-temp"] {
+    margin: 3px 0 6px !important;
+    color: var(--ios-label) !important;
+    font-size: 28px !important;
+    font-weight: 760 !important;
+    letter-spacing: -.035em !important;
+  }
+  .weather-card [data-role="today-line"],
+  .weather-card [data-role="tmrw-line"],
+  .weather-card [data-role="next-line"] {
+    color: #b9c8d7 !important;
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+    white-space: normal !important;
+  }
+
+  #swa-assistant-btn {
+    right: max(16px, env(safe-area-inset-right, 0px)) !important;
+    bottom: 18px !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 15px !important;
+    border: 1px solid rgba(255,255,255,.14) !important;
+    background: linear-gradient(145deg, var(--electric-blue), #00c9a7) !important;
+    box-shadow: 0 8px 28px rgba(0,0,0,.36), 0 0 18px rgba(41,217,255,.14) !important;
+  }
+
+  .native-bottom-nav { display:none; }
+
+  @media (max-width: 1080px) {
+    .widget-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+    .widget-grid > .stack:first-child { grid-column: 1 / -1; }
+    .weather-grid { grid-template-columns: repeat(4, minmax(0,1fr)) !important; }
+  }
+
+  @media (max-width: 700px) {
+    body { padding-bottom: env(safe-area-inset-bottom, 0px) !important; }
+    #island-radio-bar {
+      display: grid !important;
+      grid-template-columns: minmax(0,1fr) auto !important;
+      grid-template-rows: auto auto !important;
+      gap: 5px 8px !important;
+      min-height: 68px !important;
+      padding-top: calc(7px + env(safe-area-inset-top, 0px)) !important;
+    }
+    #radio-info {
+      grid-column: 1 !important;
+      grid-row: 1 !important;
+      align-items: flex-start !important;
+      text-align: left !important;
+      max-width: 100% !important;
+    }
+    #radioName, #radioSubtitle {
+      text-align: left !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+    #island-radio-bar > div:last-child {
+      grid-column: 2 !important;
+      grid-row: 1 / 3 !important;
+      width: auto !important;
+      gap: 5px !important;
+    }
+    #radioPrevBtn, #radioNextBtn {
+      width: 38px !important; height: 38px !important;
+      min-width: 38px !important; min-height: 38px !important;
+      font-size: 20px !important;
+    }
+    #radioPlayBtn {
+      min-width: 56px !important;
+      min-height: 38px !important;
+      padding: 7px 9px !important;
+      font-size: 10px !important;
+    }
+    #radio-volume-wrap {
+      grid-column: 1 !important;
+      grid-row: 2 !important;
+      width: 100% !important;
+      justify-content: flex-start !important;
+      margin: 0 !important;
+    }
+    #radioVolume { width: min(145px, 42vw) !important; height: 20px !important; }
+
+    .app {
+      width: 100% !important;
+      padding: 8px 12px calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+    .native-app-header { padding: 14px 4px 11px; }
+    .native-app-title { font-size: 32px !important; }
+    .native-app-subtitle { font-size: 12px !important; }
+
+    .hero { border-radius: 22px !important; }
+    .clock-banner { padding: 8px !important; }
+    .clock-row {
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+      gap: 7px !important;
+    }
+    .clock-item { padding: 10px 6px !important; border-radius: 15px !important; }
+    .clock-item .time { font-size: 17px !important; }
+
+    .widget-grid {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
+    }
+    .widget-grid > .stack:first-child { grid-column: auto !important; }
+    .stack { gap: 12px !important; }
+    .card, .compact-card, .ultra-compact {
+      padding: 14px !important;
+      border-radius: 21px !important;
+      scroll-margin-top: 84px;
+    }
+    .widget-header { margin-bottom: 8px !important; }
+    .widget-header h2, .card h2 { font-size: 17px !important; }
+
+    .weather-grid {
+      display: flex !important;
+      gap: 9px !important;
+      overflow-x: auto !important;
+      overscroll-behavior-inline: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding: 1px 1px 5px !important;
+    }
+    .weather-grid::-webkit-scrollbar { display:none; }
+    .weather-card {
+      flex: 0 0 min(78vw, 310px) !important;
+      scroll-snap-align: start;
+      min-height: 138px !important;
+    }
+
+    .grid.two, .grid.three { grid-template-columns: 1fr !important; }
+    .segmented { grid-template-columns: repeat(4,minmax(0,1fr)) !important; }
+    .button-row { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+    .timer-compact .button-row { grid-template-columns: repeat(3,minmax(0,1fr)) !important; }
+    .timer-presets, .timer-compact .timer-presets { grid-template-columns: repeat(4,minmax(0,1fr)) !important; }
+    .links-grid, .links-grid.utility-grid, .links-grid.banking-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+
+    #swa-assistant-btn {
+      bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+      width: 46px !important;
+      height: 46px !important;
+    }
+
+    .native-bottom-nav {
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+      z-index: 9998;
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 4px;
+      padding: 6px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 22px;
+      background: rgba(14,18,25,.88);
+      box-shadow: 0 12px 36px rgba(0,0,0,.42);
+      backdrop-filter: blur(24px) saturate(170%);
+      -webkit-backdrop-filter: blur(24px) saturate(170%);
+    }
+    .native-bottom-nav button {
+      min-height: 50px;
+      padding: 5px 3px;
+      border: 0;
+      border-radius: 16px;
+      background: transparent;
+      color: var(--ios-secondary);
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .native-bottom-nav .nav-icon {
+      display: block;
+      margin: 0 auto 2px;
+      color: var(--electric-cyan);
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 800;
+    }
+    .native-bottom-nav button:active { background: rgba(41,217,255,.08); transform: scale(.97); }
+  }
+
+  @media (max-width: 390px) {
+    .links-grid, .links-grid.utility-grid, .links-grid.banking-grid { grid-template-columns: 1fr !important; }
+    .segmented { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+    .timer-presets, .timer-compact .timer-presets { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+    .timer-compact .button-row { grid-template-columns: 1fr !important; }
+    .weather-card { flex-basis: 84vw !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+<style id="music-player-native-focus">
+  /* Music-first iPhone app treatment */
+  #island-radio-bar { display:none !important; }
+
+  .music-player-shell {
+    width: min(560px, calc(100% - 24px));
+    margin: calc(12px + env(safe-area-inset-top, 0px)) auto 8px;
+    padding: 18px 18px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,.11);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(0,245,212,.20), transparent 34%),
+      radial-gradient(circle at 92% 14%, rgba(61,124,255,.23), transparent 35%),
+      radial-gradient(circle at 52% 78%, rgba(139,92,246,.19), transparent 43%),
+      linear-gradient(160deg, rgba(25,32,43,.96), rgba(8,13,20,.98));
+    box-shadow: 0 18px 55px rgba(0,0,0,.44), inset 0 1px 0 rgba(255,255,255,.05);
+    backdrop-filter: blur(28px) saturate(145%);
+    -webkit-backdrop-filter: blur(28px) saturate(145%);
+    color: var(--ios-label);
+  }
+  .music-player-topline { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+  .music-player-eyebrow { color:var(--ios-secondary); font-size:11px; font-weight:800; letter-spacing:.16em; }
+  .music-player-live { display:flex; align-items:center; gap:6px; margin-top:5px; color:var(--electric-mint); font-size:11px; font-weight:750; letter-spacing:.08em; }
+  .live-dot { width:7px; height:7px; border-radius:50%; background:var(--electric-mint); box-shadow:0 0 12px rgba(0,245,212,.75); }
+  .music-airplay-badge { display:grid; place-items:center; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.09); color:var(--electric-cyan); font-size:16px; }
+
+  .music-artwork {
+    position:relative;
+    width:min(76vw, 330px);
+    aspect-ratio:1;
+    margin:2px auto 20px;
+    overflow:hidden;
+    border-radius:28px;
+    background:
+      conic-gradient(from 22deg, #00f5d4, #29d9ff, #3d7cff, #8b5cf6, #00f5d4);
+    box-shadow:0 24px 48px rgba(0,0,0,.35), 0 0 40px rgba(41,217,255,.13);
+  }
+  .music-artwork::before { content:""; position:absolute; inset:8%; border-radius:24px; background:radial-gradient(circle at 30% 28%, rgba(255,255,255,.28), transparent 18%), radial-gradient(circle at 65% 62%, rgba(5,8,15,.72), transparent 38%), linear-gradient(135deg, rgba(4,10,16,.18), rgba(4,10,16,.68)); backdrop-filter:blur(3px); }
+  .music-artwork::after { content:""; position:absolute; inset:0; background:repeating-radial-gradient(circle at 50% 50%, transparent 0 14px, rgba(255,255,255,.05) 15px 16px); opacity:.65; }
+  .music-orbit { position:absolute; border:1px solid rgba(255,255,255,.24); border-radius:50%; z-index:2; }
+  .orbit-one { width:68%; height:68%; left:16%; top:16%; }
+  .orbit-two { width:46%; height:46%; left:27%; top:27%; border-color:rgba(0,245,212,.42); }
+  .orbit-three { width:22%; height:22%; left:39%; top:39%; border-color:rgba(255,255,255,.55); }
+  .music-artwork-mark { position:absolute; inset:0; z-index:3; display:grid; place-items:center; color:#fff; font-size:58px; line-height:1; font-weight:900; letter-spacing:-.08em; text-shadow:0 5px 24px rgba(0,0,0,.28); }
+
+  .music-track-info { display:flex !important; flex-direction:column !important; align-items:center !important; text-align:center !important; gap:4px !important; min-width:0; }
+  #radioName { color:#fff !important; font-size:25px !important; line-height:1.15 !important; font-weight:780 !important; letter-spacing:-.035em !important; text-transform:none !important; max-width:100% !important; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  #radioSubtitle { color:var(--ios-secondary) !important; font-size:13px !important; line-height:1.35 !important; font-weight:600 !important; text-align:center !important; }
+  #radioSubtitle a { color:var(--electric-cyan) !important; }
+  .music-radio-status { color:var(--ios-tertiary); font-size:11px; line-height:1.35; font-weight:600; min-height:15px; margin-top:2px; }
+  .music-radio-status.is-live { color:var(--electric-mint); }
+  .music-radio-status.is-error { color:#ff9f9f; }
+
+  .music-controls { display:grid; grid-template-columns:64px 88px 64px; justify-content:center; align-items:center; gap:20px; margin:22px 0 18px; }
+  .music-controls button { -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+  .music-skip, .music-play { border:0 !important; color:#fff !important; cursor:pointer; }
+  .music-skip { width:64px !important; height:64px !important; border-radius:50% !important; background:rgba(255,255,255,.075) !important; border:1px solid rgba(255,255,255,.10) !important; font-size:40px !important; line-height:1 !important; font-weight:350 !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.04) !important; }
+  .music-play { width:88px !important; height:88px !important; min-width:88px !important; border-radius:50% !important; padding:0 !important; display:grid !important; place-items:center !important; background:linear-gradient(145deg,var(--electric-mint),var(--electric-cyan) 48%,var(--electric-blue)) !important; box-shadow:0 12px 28px rgba(41,217,255,.23), inset 0 1px 0 rgba(255,255,255,.30) !important; color:#041018 !important; }
+  #radioPlayIcon { font-size:32px !important; line-height:1 !important; transform:translateX(2px); }
+  .music-play-label { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+  .music-controls button:active { transform:scale(.94); }
+
+  .music-volume-row { display:grid !important; grid-template-columns:auto 1fr auto auto; align-items:center !important; gap:9px !important; width:100% !important; margin:0 !important; }
+  #radioVolume { width:100% !important; height:26px !important; margin:0 !important; appearance:none; -webkit-appearance:none; background:transparent !important; border:0 !important; }
+  #radioVolume::-webkit-slider-runnable-track { height:5px !important; border:0 !important; border-radius:999px !important; background:linear-gradient(90deg,var(--electric-cyan) 0 var(--vol-pct,100%),rgba(255,255,255,.15) var(--vol-pct,100%) 100%) !important; }
+  #radioVolume::-webkit-slider-thumb { -webkit-appearance:none; width:18px !important; height:18px !important; margin-top:-6.5px !important; border-radius:50% !important; background:#fff !important; border:0 !important; box-shadow:0 2px 8px rgba(0,0,0,.35) !important; }
+  .music-volume-icon { color:var(--ios-secondary); font-size:14px; }
+  .music-volume-value { min-width:28px; color:var(--ios-secondary); font-size:10px; font-variant-numeric:tabular-nums; text-align:right; }
+  .music-station-hint { margin-top:13px; color:var(--ios-tertiary); font-size:11px; line-height:1.35; text-align:center; }
+
+  .app { padding-top:8px !important; }
+  .native-app-header { width:min(560px,100%); margin:0 auto; padding-top:8px !important; }
+  .hero { width:min(560px,100%); margin-left:auto !important; margin-right:auto !important; }
+  .widget-grid { margin-top:14px; }
+
+  @media (min-width: 900px) {
+    .music-player-shell { width:min(620px, calc(100% - 36px)); padding:22px 24px 24px; }
+    .music-artwork { width:340px; }
+  }
+  @media (max-width:700px) {
+    body { padding-bottom:env(safe-area-inset-bottom,0px) !important; }
+    .music-player-shell { width:calc(100% - 20px); margin-top:calc(8px + env(safe-area-inset-top,0px)); padding:14px 14px 17px; border-radius:27px; }
+    .music-artwork { width:min(76vw,300px); margin-bottom:17px; border-radius:25px; }
+    #radioName { font-size:23px !important; }
+    .music-controls { grid-template-columns:58px 80px 58px; gap:18px; margin:19px 0 16px; }
+    .music-skip { width:58px !important; height:58px !important; font-size:36px !important; }
+    .music-play { width:80px !important; height:80px !important; min-width:80px !important; }
+    #radioPlayIcon { font-size:29px !important; }
+    .native-app-header { padding-left:4px !important; padding-right:4px !important; }
+    .native-app-title { font-size:30px !important; }
+    .app { padding-top:4px !important; }
+    .native-bottom-nav { grid-template-columns:repeat(4,1fr) !important; }
+  }
+  @media (max-width:360px) {
+    .music-player-shell { width:calc(100% - 14px); padding-left:12px; padding-right:12px; }
+    .music-controls { gap:13px; }
+    .music-artwork { width:min(78vw,270px); }
+  }
+</style>
+<style id="music-title-visibility-fix">
+  /* Keep station title, subtitle and transport symbols fully visible on iPhone. */
+  .music-track-info {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 10px !important;
+    overflow: visible !important;
+  }
+  #radioName {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: anywhere !important;
+    padding: 1px 0 2px !important;
+  }
+  #radioSubtitle {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: anywhere !important;
+    padding: 1px 0 !important;
+  }
+  .music-skip {
+    display: grid !important;
+    place-items: center !important;
+    padding: 0 0 5px !important;
+    overflow: visible !important;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif !important;
+  }
+  @media (max-width: 360px) {
+    #radioName { font-size: 22px !important; }
+    #radioSubtitle { font-size: 12.5px !important; }
+    .music-track-info { padding-left: 4px !important; padding-right: 4px !important; }
+  }
+</style>
+
+
+
+<style id="radio-original-engine-visible-controls-v8">
+  /* The redesigned player now uses the original working radio engine and its original control IDs. */
+  #music-player-shell { position:relative !important; z-index:10 !important; isolation:isolate; pointer-events:auto !important; }
+  #music-player-shell .music-controls,
+  #music-player-shell #radio-volume-wrap { position:relative !important; z-index:20 !important; pointer-events:auto !important; }
+  #music-player-shell #radioPrevBtn,
+  #music-player-shell #radioPlayBtn,
+  #music-player-shell #radioNextBtn,
+  #music-player-shell #radioVolume { pointer-events:auto !important; touch-action:manipulation !important; }
+  #music-player-shell #radioVolume { touch-action:pan-x !important; }
+  #music-player-shell #radio-info { align-items:center !important; text-align:center !important; width:100% !important; max-width:100% !important; white-space:normal !important; }
+  #music-player-shell #radioName { display:block !important; width:100% !important; white-space:normal !important; overflow:visible !important; text-overflow:clip !important; color:#fff !important; font-size:25px !important; line-height:1.15 !important; font-weight:780 !important; letter-spacing:-.035em !important; text-align:center !important; }
+  #music-player-shell #radioSubtitle { display:block !important; width:100% !important; white-space:normal !important; overflow:visible !important; text-overflow:clip !important; color:var(--ios-secondary) !important; font-size:13px !important; line-height:1.35 !important; font-weight:600 !important; text-align:center !important; }
+  #music-player-shell #radioStatus { display:block; min-height:15px; margin-top:4px; color:var(--ios-tertiary); font-size:11px; line-height:1.35; font-weight:600; text-align:center; }
+  #music-player-shell .music-controls { display:grid !important; grid-template-columns:64px 88px 64px !important; justify-content:center !important; align-items:center !important; gap:20px !important; margin:22px 0 18px !important; }
+  #music-player-shell .music-skip { display:grid !important; place-items:center !important; width:64px !important; height:64px !important; min-width:64px !important; min-height:64px !important; padding:0 0 5px !important; border-radius:50% !important; background:rgba(255,255,255,.075) !important; border:1px solid rgba(255,255,255,.10) !important; color:#fff !important; font-size:40px !important; line-height:1 !important; cursor:pointer !important; }
+  #music-player-shell .music-play { display:grid !important; place-items:center !important; width:88px !important; height:88px !important; min-width:88px !important; min-height:88px !important; padding:0 !important; border-radius:50% !important; border:1px solid rgba(255,255,255,.16) !important; background:linear-gradient(145deg,var(--electric-mint),var(--electric-cyan) 48%,var(--electric-blue)) !important; color:#041018 !important; cursor:pointer !important; box-shadow:0 12px 28px rgba(41,217,255,.23), inset 0 1px 0 rgba(255,255,255,.30) !important; }
+  #music-player-shell #radioPlayIcon { font-size:32px !important; line-height:1 !important; transform:translateX(2px); pointer-events:none !important; }
+  #music-player-shell #radioPlayLabel { position:absolute !important; width:1px !important; height:1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; }
+  #music-player-shell #radio-volume-wrap { display:grid !important; grid-template-columns:auto 1fr auto auto !important; align-items:center !important; gap:9px !important; width:100% !important; margin:0 !important; }
+  #music-player-shell #radioVolume { display:block !important; width:100% !important; height:38px !important; margin:0 !important; padding:0 !important; appearance:none !important; -webkit-appearance:none !important; background:transparent !important; border:0 !important; cursor:pointer !important; }
+  #music-player-shell #radioVolume::-webkit-slider-runnable-track { height:6px !important; border:0 !important; border-radius:999px !important; background:linear-gradient(90deg,var(--electric-cyan) 0 var(--vol-pct,100%),rgba(255,255,255,.16) var(--vol-pct,100%) 100%) !important; }
+  #music-player-shell #radioVolume::-webkit-slider-thumb { -webkit-appearance:none !important; width:22px !important; height:22px !important; margin-top:-8px !important; border-radius:50% !important; background:#fff !important; border:0 !important; box-shadow:0 2px 9px rgba(0,0,0,.42) !important; }
+  #music-player-shell #radioVolValue { min-width:30px !important; color:var(--ios-secondary) !important; font-size:10px !important; text-align:right !important; }
+  @media (max-width:700px) {
+    #music-player-shell #radioName { font-size:23px !important; }
+    #music-player-shell .music-controls { grid-template-columns:58px 80px 58px !important; gap:18px !important; margin:19px 0 16px !important; }
+    #music-player-shell .music-skip { width:58px !important; height:58px !important; min-width:58px !important; min-height:58px !important; font-size:36px !important; }
+    #music-player-shell .music-play { width:80px !important; height:80px !important; min-width:80px !important; min-height:80px !important; }
+    #music-player-shell #radioPlayIcon { font-size:29px !important; }
+  }
+</style>
+<style id="radio-working-engine-v9">
+#music-player-shell {
+  position: relative !important;
+  z-index: 10 !important;
+  isolation: isolate !important;
+}
+#music-player-shell .music-controls,
+#music-player-shell #radio-volume-wrap {
+  position: relative !important;
+  z-index: 20 !important;
+}
+#music-player-shell #radioPlayBtn,
+#music-player-shell #radioPrevBtn,
+#music-player-shell #radioNextBtn,
+#music-player-shell #radioVolume {
+  pointer-events: auto !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+#music-player-shell #radioPlayBtn,
+#music-player-shell #radioPrevBtn,
+#music-player-shell #radioNextBtn {
+  touch-action: manipulation !important;
+}
+#music-player-shell #radioPlayBtn[aria-busy="true"] {
+  filter: saturate(.85) brightness(.92);
+}
+#music-player-shell #radioStatus.is-live { color: var(--electric-mint) !important; }
+#music-player-shell #radioStatus.is-error { color: #ff9b9b !important; }
+#music-player-shell #radioStatus.is-connecting { color: var(--electric-cyan) !important; }
+</style><style id="radio-click-target-v10">
+#music-player-shell .music-controls{position:relative!important;z-index:999!important;pointer-events:auto!important;}
+#music-player-shell .music-controls button{position:relative!important;z-index:1000!important;pointer-events:auto!important;user-select:none!important;-webkit-user-select:none!important;}
+#music-player-shell .music-artwork,#music-player-shell .music-artwork::before,#music-player-shell .music-artwork::after{pointer-events:none!important;}
+</style>
+
+<style id="v12-mobile-clarity">
+  /* Cleaner mobile clock cards with larger, easier-to-scan type. */
+  @media (max-width: 700px) {
+    .app { padding-top: 8px !important; }
+    .hero {
+      margin-top: 10px !important;
+      border-radius: 24px !important;
+    }
+    .clock-banner { padding: 10px !important; }
+    .clock-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 9px !important;
+    }
+    .clock-item {
+      min-height: 78px !important;
+      padding: 12px 8px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border-radius: 17px !important;
+      background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.03)) !important;
+    }
+    .clock-item .label {
+      font-size: 11px !important;
+      line-height: 1.15 !important;
+      font-weight: 800 !important;
+      letter-spacing: .055em !important;
+      color: #bcecf7 !important;
+    }
+    .clock-item .time {
+      margin-top: 6px !important;
+      font-size: 22px !important;
+      line-height: 1 !important;
+      font-weight: 800 !important;
+      letter-spacing: -.025em !important;
+      color: #ffffff !important;
+      font-variant-numeric: tabular-nums !important;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .clock-item { min-height: 72px !important; padding: 10px 5px !important; }
+    .clock-item .label { font-size: 10px !important; }
+    .clock-item .time { font-size: 20px !important; }
+  }
+
+  /* Make the player's current volume obvious at a glance. */
+  #music-player-shell .music-volume-value {
+    min-width: 48px !important;
+    padding: 5px 8px !important;
+    border-radius: 999px !important;
+    background: rgba(255,255,255,.075) !important;
+    border: 1px solid rgba(255,255,255,.09) !important;
+    color: #f5fdff !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+</style>
+
+<style id="v13-mobile-clock-visibility">
+  /* Keep the clocks directly with the radio so they are visible without scrolling past the player. */
+  .music-clock-strip {
+    width: 100%;
+    margin-top: 15px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,.09);
+  }
+  .music-clock-strip .clock-row {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    gap: 7px !important;
+  }
+  .music-clock-strip .clock-item {
+    min-width: 0 !important;
+    min-height: 64px !important;
+    padding: 9px 5px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(255,255,255,.08) !important;
+    background: rgba(255,255,255,.045) !important;
+  }
+  .music-clock-strip .clock-item .label {
+    color: #bcecf7 !important;
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+    letter-spacing: .045em !important;
+    white-space: nowrap !important;
+  }
+  .music-clock-strip .clock-item .time {
+    margin-top: 5px !important;
+    color: #fff !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    font-weight: 850 !important;
+    letter-spacing: -.03em !important;
+    white-space: nowrap !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+  .music-clock-strip .clock-item .date {
+    margin-top: 4px !important;
+    color: rgba(255,255,255,.58) !important;
+    font-size: 9px !important;
+    line-height: 1 !important;
+    opacity: 1 !important;
+    white-space: nowrap !important;
+  }
+  @media (max-width: 700px) {
+    .music-clock-strip { margin-top: 13px; padding-top: 12px; }
+    .music-clock-strip .clock-row {
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+      gap: 8px !important;
+    }
+    .music-clock-strip .clock-item {
+      min-height: 70px !important;
+      padding: 10px 6px !important;
+      border-radius: 15px !important;
+    }
+    .music-clock-strip .clock-item .label { font-size: 10px !important; }
+    .music-clock-strip .clock-item .time { font-size: 20px !important; }
+    .music-clock-strip .clock-item .date { font-size: 10px !important; }
+  }
+</style>
+
+<style id="v14-standalone-clock-strip">
+  /* Clocks live outside every card and outside the music player so they can never be collapsed or clipped. */
+  .standalone-clock-strip {
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    width:min(560px, calc(100% - 20px));
+    margin:10px auto 4px;
+    padding:12px;
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(155deg, rgba(22,30,40,.96), rgba(8,13,20,.98));
+    box-shadow:0 12px 34px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.04);
+    color:#fff;
+  }
+  .standalone-clock-heading {
+    margin:0 2px 10px;
+    color:#bcecf7;
+    font-size:11px;
+    line-height:1;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+  .standalone-clock-strip .clock-row {
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:8px !important;
+  }
+  .standalone-clock-strip .clock-item {
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    min-width:0 !important;
+    min-height:74px !important;
+    padding:10px 6px !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+    border-radius:15px !important;
+    border:1px solid rgba(255,255,255,.08) !important;
+    background:rgba(255,255,255,.045) !important;
+  }
+  .standalone-clock-strip .clock-item .label {
+    display:block !important;
+    color:#bcecf7 !important;
+    font-size:10px !important;
+    line-height:1.15 !important;
+    font-weight:800 !important;
+    letter-spacing:.025em !important;
+    text-align:center !important;
+    white-space:normal !important;
+  }
+  .standalone-clock-strip .clock-item .time {
+    display:block !important;
+    margin-top:5px !important;
+    color:#fff !important;
+    font-size:19px !important;
+    line-height:1 !important;
+    font-weight:850 !important;
+    letter-spacing:-.03em !important;
+    white-space:nowrap !important;
+    font-variant-numeric:tabular-nums !important;
+  }
+  .standalone-clock-strip .clock-item .date {
+    display:block !important;
+    margin-top:4px !important;
+    color:rgba(255,255,255,.60) !important;
+    font-size:10px !important;
+    line-height:1 !important;
+    opacity:1 !important;
+    white-space:nowrap !important;
+  }
+  @media (max-width:700px) {
+    .standalone-clock-strip { width:calc(100% - 20px); margin-top:9px; padding:10px; border-radius:20px; }
+    .standalone-clock-strip .clock-row { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:8px !important; }
+    .standalone-clock-strip .clock-item { min-height:78px !important; padding:11px 6px !important; }
+    .standalone-clock-strip .clock-item .label { font-size:11px !important; }
+    .standalone-clock-strip .clock-item .time { font-size:22px !important; }
+    .standalone-clock-strip .clock-item .date { font-size:10px !important; }
+  }
+</style>
 </head>
 <body>
-<!-- Multi-Station Slim Radio Bar (Right-Aligned) -->
-<div id="island-radio-bar" style="
-    width:100%;
-    height:46px;
-    background:linear-gradient(to right, #020617, #0b1120, #111827);
-    border-bottom:1px solid rgba(148,163,184,0.5);
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    padding:0 14px;
-    box-sizing:border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-    color:#e5e7eb;
-    font-size:12px;
-    letter-spacing:.04em;
-    z-index:9999;
-    position:relative;
-    gap:12px;
-  ">
-<div id="radio-info" style="
-        display:flex;
-        flex-direction:column;
-        align-items:flex-end;
-        gap:2px;
-        text-align:right;
-        white-space:nowrap;
-      ">
-<span id="radioName" style="font-size:11px; text-transform:uppercase; opacity:.9;">
-        Island 98.9 · KITH-FM
-      </span>
-<span id="radioSubtitle" style="font-size:10px; color:#a5f3fc; opacity:.9;">
-        Reggae · Hawai‘i · Live
-      </span>
+<!-- iPhone-style primary music player -->
+<section aria-label="Live radio player" class="music-player-shell" id="music-player-shell">
+<div class="music-player-topline">
+<div>
+<div class="music-player-eyebrow">NOW PLAYING</div>
+<div class="music-player-live"><span aria-hidden="true" class="live-dot"></span> LIVE RADIO</div>
 </div>
-<div id="radio-volume-wrap" style="
-        display:flex;
-        align-items:center;
-        gap:4px;
-        margin-left:8px;
-      ">
-<span style="font-size:10px;opacity:.7;">VOL</span>
-<input id="radioVolume" max="100" min="0" step="5" style="
-    width:90px;
-    cursor:pointer;
-    appearance:none;
-    height:6px;
-    border-radius:2px;
-    background:#1f2937;
-    outline:none;
-    border:1px solid rgba(148,163,184,0.4);
-    " type="range" value="100"/>
-<span id="radioVolValue" style="font-size:10px;opacity:.85;min-width:26px;text-align:right;">75</span>
+<div aria-hidden="true" class="music-airplay-badge">◉</div>
 </div>
-<div style="
-        display:flex;
-        align-items:center;
-        gap:6px;
-      ">
-<button id="radioPrevBtn" style="
-          width:26px;
-          height:26px;
-          border-radius:999px;
-          border:1px solid rgba(148,163,184,0.7);
-          background:rgba(15,23,42,0.9);
-          color:#e5e7eb;
-          font-size:12px;
-          cursor:pointer;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-        " title="Previous station" type="button">
-        ‹
-      </button>
-<button id="radioPlayBtn" style="
-          display:inline-flex;
-          align-items:center;
-          justify-content:center;
-          gap:6px;
-          padding:4px 10px;
-          border-radius:999px;
-          border:1px solid rgba(148,163,184,0.7);
-          background:rgba(15,23,42,0.95);
-          color:#e5e7eb;
-          font-size:11px;
-          text-transform:uppercase;
-          letter-spacing:.12em;
-          cursor:pointer;
-          box-shadow:0 0 10px rgba(15,23,42,0.9);
-        " type="button">
-<span id="radioPlayIcon">▶</span>
-<span id="radioPlayLabel">Play</span>
+<div aria-hidden="true" class="music-artwork">
+<div class="music-orbit orbit-one"></div>
+<div class="music-orbit orbit-two"></div>
+<div class="music-orbit orbit-three"></div>
+<div class="music-artwork-mark">HI</div>
+</div>
+<div class="music-track-info" id="radio-info">
+<span id="radioName">Island 98.9</span>
+<span id="radioSubtitle">Reggae · Hawai‘i · Live</span>
+<span aria-live="polite" class="music-radio-status" id="radioStatus" role="status">Tap Play to start live radio</span>
+</div>
+<div aria-label="Radio controls" class="music-controls">
+<button aria-label="Previous station" class="music-skip" id="radioPrevBtn" type="button" onclick="window.radioShift(-1); return false;">‹</button>
+<button aria-label="Play live radio" class="music-play" id="radioPlayBtn" type="button" onclick="window.radioToggle(); return false;">
+<span aria-hidden="true" id="radioPlayIcon">▶</span>
+<span class="music-play-label" id="radioPlayLabel">Play</span>
 </button>
-<button id="radioNextBtn" style="
-          width:26px;
-          height:26px;
-          border-radius:999px;
-          border:1px solid rgba(148,163,184,0.7);
-          background:rgba(15,23,42,0.9);
-          color:#e5e7eb;
-          font-size:12px;
-          cursor:pointer;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-        " title="Next station" type="button">
-        ›
-      </button>
+<button aria-label="Next station" class="music-skip" id="radioNextBtn" type="button" onclick="window.radioShift(1); return false;">›</button>
 </div>
+<div class="music-volume-row" id="radio-volume-wrap">
+<span aria-hidden="true" class="music-volume-icon">◖</span>
+<input aria-label="Radio volume" id="radioVolume" max="100" min="0" step="5" type="range" value="80" aria-valuetext="80 percent" oninput="window.radioSetVolume(this.value);"/>
+<span aria-hidden="true" class="music-volume-icon">◗</span>
+<span aria-live="polite" class="music-volume-value" id="radioVolValue">80%</span>
 </div>
+<div class="music-station-hint">Use ‹ and › to change stations</div>
+<audio aria-hidden="true" id="radioAudio" playsinline="" preload="none" style="display:none;" webkit-playsinline=""></audio></section>
 
-<div class="app">
-<section class="hero">
-<div class="clock-banner" id="clock-bar">
-<div class="clock-row" id="clock-row"></div>
-</div>
+<section class="standalone-clock-strip" id="clock-bar" aria-label="Current times">
+  <div class="standalone-clock-heading">Current Times</div>
+  <div class="clock-row" id="clock-row">
+    <div class="clock-item"><div class="label">Hawai‘i (HST)</div><div class="time">--:--</div><div class="date">--/--</div></div>
+    <div class="clock-item"><div class="label">Pacific (PT)</div><div class="time">--:--</div><div class="date">--/--</div></div>
+    <div class="clock-item"><div class="label">Mountain (MT)</div><div class="time">--:--</div><div class="date">--/--</div></div>
+    <div class="clock-item"><div class="label">Central (CT)</div><div class="time">--:--</div><div class="date">--/--</div></div>
+    <div class="clock-item"><div class="label">Eastern (ET)</div><div class="time">--:--</div><div class="date">--/--</div></div>
+    <div class="clock-item"><div class="label">Zulu (UTC)</div><div class="time">--:--</div><div class="date">--/--</div></div>
+  </div>
 </section>
+<div class="app">
 <main class="widget-grid">
-
-
-
-
-<div class="stack"><section class="card widget-card"><div class="widget-header"><h2>Weather</h2></div><div class="widget-body"><div class="grid two weather-grid">
+<div class="stack"><details class="card widget-card"><summary class="widget-header"><h2>Weather</h2><span aria-hidden="true" class="native-details-action"></span></summary><div class="widget-body"><div class="grid two weather-grid">
 <div class="stat weather-card" data-city="Albuquerque, NM" data-lat="35.0844" data-lon="-106.6504" data-timezone="America/Denver">
 <div class="stat-label" data-role="city" style=";color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">Albuquerque, NM</div>
 <div class="stat-value" data-role="current-temp" style=";color:#f59e0b;font-weight:600;;color:#d1d5db;;color:#e4e4e7;;color:#e5e7eb;">69°F</div>
@@ -1725,7 +2890,7 @@ input:focus, select:focus, textarea:focus {
 <div class="small" data-role="today-line" style=";color:#22c55e;;color:#86efac;;color:#93c5fd;;color:#93c5fd;;font-size:11px;white-space:nowrap;">Today: Showers • 75° / 71°</div>
 <div data-role="tmrw-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;font-size:11px;white-space:nowrap;">Tmrw: Mostly Cloudy • 78° / 74°</div><div data-role="next-line" style=";color:#a78bfa;;color:#c4b5fd;;color:#fbcfe8;;color:#c4b5fd;;color:#86efac;;font-size:11px;white-space:nowrap;">Next: Mostly Cloudy • 78° / 74°</div></div>
 </div>
-</div></section></div><div class="stack"><section class="card compact-card widget-card timer-compact" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Quick Links</h2><button aria-expanded="false" aria-label="Toggle Quick Links" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="quick-links-section">
+</div></details></div><div class="stack"><details class="card compact-card widget-card timer-compact"><summary class="widget-header"><h2>Quick Links</h2><span aria-hidden="true" class="native-details-action"></span></summary><div class="widget-body"><div class="quick-links-section">
 <div class="quick-links-group">
 <div class="links-grid">
 <a class="link-tile" href="https://www.southwest.com" rel="noopener noreferrer" target="_blank">Southwest</a>
@@ -1734,7 +2899,6 @@ input:focus, select:focus, textarea:focus {
 <a class="link-tile" href="https://www.google.com/maps" rel="noopener noreferrer" target="_blank">Maps</a>
 </div>
 </div>
-
 <div class="quick-links-group">
 <div class="quick-links-heading">Home Utilities</div>
 <div class="links-grid utility-grid">
@@ -1743,23 +2907,22 @@ input:focus, select:focus, textarea:focus {
 <a class="link-tile" href="https://account.abcwua.org/#/login" target="_blank">ABCWUA</a>
 </div>
 </div>
-
 <div class="quick-links-group">
 <div class="quick-links-heading">Banking</div>
 <div class="links-grid banking-grid">
-<a class="link-tile " href="https://www.nusenda.org/about/membership?utm_campaign=26-acc&amp;utm_medium=sem&amp;utm_source=kob&amp;utm_content=brand&amp;utm_term=phrase&amp;gad_source=1&amp;gad_campaignid=20417165970&amp;gbraid=0AAAAAqDADC8skBldrVkH4lk540151SWUk&amp;gclid=Cj0KCQjwm6POBhCrARIsAIG58CJ6_KffkhTSwswqq-AT3Xqz8M1P6T5Ip9ozxwCg0VEpvdXxak-aVqgaAtSoEALw_wcB" rel="noopener noreferrer" target="_blank">Nusenda</a>
-<a class="link-tile " href="https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go" rel="noopener noreferrer" target="_blank">BofA</a>
-<a class="link-tile " href="https://www.americanexpress.com/en-us/account/login?inav=iNavLnkLog" rel="noopener noreferrer" target="_blank">American Express</a>
-<a class="link-tile " href="https://www.chase.com/" rel="noopener noreferrer" target="_blank">Chase</a>
-<a class="link-tile " href="https://www.citi.com/" rel="noopener noreferrer" target="_blank">Citi</a>
-<a class="link-tile " href="https://www.capitalone.com/?external_id=WWW_XXXXX_XXX_SEM-Brand_Google_ZZ_ZZ_T_Home_ZZ__kenshoo_clickid__25524&amp;target_id=kwd-16416311&amp;oC=J7OrkCRo4H&amp;gad_source=1&amp;gad_campaignid=157615448&amp;gbraid=0AAAAAD-_MFqQe6buGI7di0x8F0Csoemb3&amp;gclid=Cj0KCQjwm6POBhCrARIsAIG58CLaXKKpYe1x6TNikmK9OqXdlM4gggdoR1NzSkezQTzLnHbEcVPWprEaAl4LEALw_wcB" rel="noopener noreferrer" target="_blank">Capital One</a>
-<a class="link-tile " href="https://www.discover.com/" rel="noopener noreferrer" target="_blank">Discover</a>
-<a class="link-tile " href="https://id.synchrony.com/idp/en" rel="noopener noreferrer" target="_blank">Care Credit</a>
-<a class="link-tile " href="https://my.aven.com/login" rel="noopener noreferrer" target="_blank">Aven</a>
-<a class="link-tile " href="https://login.cfna.com/oauth2/aus53ctr36CVsNOIf697/v1/authorize?response_type=code&amp;client_id=0oa53cww5rL73XrqI697&amp;scope=openid%20email%20profile&amp;state=cfnanid_v1.cid.3555734f-8a4e-4293-ac8a-a7214984405c._st.b58CUva1OTVGiREpN4eSF-RC6eRUVqRnDZqceHVc92g%3D&amp;redirect_uri=https://www.cfna.com/authorization-code/callback&amp;nonce=BQz4rZRl_YP99fS9i84QOM2oDQBKT9bZKUjLp9IxfsE" rel="noopener noreferrer" target="_blank">Firestone Credit</a>
+<a class="link-tile" href="https://www.nusenda.org/about/membership?utm_campaign=26-acc&amp;utm_medium=sem&amp;utm_source=kob&amp;utm_content=brand&amp;utm_term=phrase&amp;gad_source=1&amp;gad_campaignid=20417165970&amp;gbraid=0AAAAAqDADC8skBldrVkH4lk540151SWUk&amp;gclid=Cj0KCQjwm6POBhCrARIsAIG58CJ6_KffkhTSwswqq-AT3Xqz8M1P6T5Ip9ozxwCg0VEpvdXxak-aVqgaAtSoEALw_wcB" rel="noopener noreferrer" target="_blank">Nusenda</a>
+<a class="link-tile" href="https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go" rel="noopener noreferrer" target="_blank">BofA</a>
+<a class="link-tile" href="https://www.americanexpress.com/en-us/account/login?inav=iNavLnkLog" rel="noopener noreferrer" target="_blank">American Express</a>
+<a class="link-tile" href="https://www.chase.com/" rel="noopener noreferrer" target="_blank">Chase</a>
+<a class="link-tile" href="https://www.citi.com/" rel="noopener noreferrer" target="_blank">Citi</a>
+<a class="link-tile" href="https://www.capitalone.com/?external_id=WWW_XXXXX_XXX_SEM-Brand_Google_ZZ_ZZ_T_Home_ZZ__kenshoo_clickid__25524&amp;target_id=kwd-16416311&amp;oC=J7OrkCRo4H&amp;gad_source=1&amp;gad_campaignid=157615448&amp;gbraid=0AAAAAD-_MFqQe6buGI7di0x8F0Csoemb3&amp;gclid=Cj0KCQjwm6POBhCrARIsAIG58CLaXKKpYe1x6TNikmK9OqXdlM4gggdoR1NzSkezQTzLnHbEcVPWprEaAl4LEALw_wcB" rel="noopener noreferrer" target="_blank">Capital One</a>
+<a class="link-tile" href="https://www.discover.com/" rel="noopener noreferrer" target="_blank">Discover</a>
+<a class="link-tile" href="https://id.synchrony.com/idp/en" rel="noopener noreferrer" target="_blank">Care Credit</a>
+<a class="link-tile" href="https://my.aven.com/login" rel="noopener noreferrer" target="_blank">Aven</a>
+<a class="link-tile" href="https://login.cfna.com/oauth2/aus53ctr36CVsNOIf697/v1/authorize?response_type=code&amp;client_id=0oa53cww5rL73XrqI697&amp;scope=openid%20email%20profile&amp;state=cfnanid_v1.cid.3555734f-8a4e-4293-ac8a-a7214984405c._st.b58CUva1OTVGiREpN4eSF-RC6eRUVqRnDZqceHVc92g%3D&amp;redirect_uri=https://www.cfna.com/authorization-code/callback&amp;nonce=BQz4rZRl_YP99fS9i84QOM2oDQBKT9bZKUjLp9IxfsE" rel="noopener noreferrer" target="_blank">Firestone Credit</a>
 </div>
 </div>
-</div></div></section></div><div class="stack"><section class="card ultra-compact compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2 style=";font-weight:600;">Tip Calculator</h2><button aria-expanded="false" aria-label="Toggle Tip Calculator" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
+</div></div></details></div><div class="stack"><details class="card ultra-compact compact-card widget-card"><summary class="widget-header"><h2 style=";font-weight:600;">Tip Calculator</h2><span aria-hidden="true" class="native-details-action"></span></summary><div class="widget-body"><div class="field">
 <label for="billAmount" style=";font-weight:600;">Bill Amount Pre Tax</label>
 <input id="billAmount" min="0" placeholder="0.00" step="0.01" type="number"/>
 </div><div class="field">
@@ -1791,48 +2954,40 @@ input:focus, select:focus, textarea:focus {
 </div>
 </div><div class="button-row">
 <button class="button" id="resetTip" type="button">Reset</button>
-</div></div></section><section class="card compact-card widget-card timer-compact" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Quick Notes</h2><button aria-expanded="false" aria-label="Toggle Quick Notes" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
+</div></div></details><details class="card compact-card widget-card timer-compact"><summary class="widget-header"><h2>Quick Notes</h2><span aria-hidden="true" class="native-details-action"></span></summary><div class="widget-body"><div class="field">
 <label for="quickNotes">Scratchpad</label>
 <textarea id="quickNotes" placeholder="Type notes here..."></textarea>
 </div><div class="button-row">
 <button class="button primary" id="saveNotesBtn" type="button">Save Notes</button>
 <button class="button" id="clearNotesBtn" type="button">Clear</button>
-</div><div class="notice" id="notesStatus">Notes save on this device automatically.</div></div></section><section class="card compact-card widget-card timer-compact" data-collapsible="true" data-expanded="false">
-<div class="widget-header">
+</div><div class="notice" id="notesStatus">Notes save on this device automatically.</div></div></details><details class="card compact-card widget-card timer-compact">
+<summary class="widget-header">
 <h2>Countdown Timer</h2>
-<button class="widget-toggle" type="button">Expand</button>
-</div>
-
+<span aria-hidden="true" class="native-details-action"></span></summary>
 <div class="widget-body">
-
 <div class="timer-presets">
 <button data-minutes="5">5m</button>
 <button data-minutes="10">10m</button>
 <button data-minutes="15">15m</button>
 <button data-minutes="30">30m</button>
 </div>
-
 <div class="field">
-<input id="customTimerMinutes" type="number" min="1" placeholder="Custom minutes">
+<input id="customTimerMinutes" min="1" placeholder="Custom minutes" type="number"/>
 </div>
-
 <div class="timer-display" id="timerDisplay">00:00</div>
 <div class="timer-status" id="timerStatus">Ready</div>
-
 <div class="button-row">
 <button class="button primary" id="startTimerBtn">Start</button>
 <button class="button" id="pauseTimerBtn">Pause</button>
 <button class="button" id="resetTimerBtn">Reset</button>
 </div>
-
 <div class="button-row">
 <button class="button" id="resumeTimerBtn">Resume</button>
 <button class="button" id="add30Btn">+30s</button>
 <button class="button" id="add1MinBtn">+1m</button>
 </div>
-
 </div>
-</section><section class="card ultra-compact compact-card widget-card" data-collapsible="true" data-expanded="false"><div class="widget-header"><h2>Airport Time Comparison</h2><button aria-expanded="false" aria-label="Toggle Airport Time Comparison" class="widget-toggle" type="button">Expand</button></div><div class="widget-body"><div class="field">
+</details><details class="card ultra-compact compact-card widget-card"><summary class="widget-header"><h2>Airport Time Comparison</h2><span aria-hidden="true" class="native-details-action"></span></summary><div class="widget-body"><div class="field">
 <label for="yourAirport">Your Airport</label>
 <select id="yourAirport"><option value="">Select Airport</option></select>
 </div><div class="field">
@@ -1854,7 +3009,7 @@ input:focus, select:focus, textarea:focus {
 <div class="stat-label">Offset</div>
 <div class="stat-value" id="offsetDisplay">—</div>
 </div>
-</div></div></section></div></main>
+</div></div></details></div></main>
 </div>
 <script style=";font-weight:600;;font-weight:600;;font-weight:600;;color:#38bdf8;font-weight:700;;color:#94a3b8;font-weight:600;;color:#a1a1aa;font-weight:600;;color:#a1a1aa;font-weight:600;">
     const timezones = [
@@ -2163,206 +3318,9 @@ Final Total: ${finalValue.textContent}`;
     calculateTip();
 
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const audio = new Audio();
-      audio.preload = 'none';
 
-      const playBtn = document.getElementById('radioPlayBtn');
-      const playIcon = document.getElementById('radioPlayIcon');
-      const playLabel = document.getElementById('radioPlayLabel');
-      const prevBtn = document.getElementById('radioPrevBtn');
-      const nextBtn = document.getElementById('radioNextBtn');
-      const nameEl = document.getElementById('radioName');
-      const subEl = document.getElementById('radioSubtitle');
-      const volumeSlider = document.getElementById('radioVolume');
-      const volValueEl = document.getElementById('radioVolValue');
+    // Radio player is initialized by the dedicated music-player script below.
 
-      if (!playBtn || !playIcon || !playLabel || !prevBtn || !nextBtn || !nameEl || !subEl) return;
-
-      const nativeHls = !!(
-        audio.canPlayType('application/vnd.apple.mpegurl') ||
-        audio.canPlayType('application/x-mpegURL')
-      );
-
-      const stations = [
-        {
-          name: 'Island 98.9',
-          subtitle: 'Reggae · Hawai‘i · Live',
-          sources: ['https://streaming.live365.com/a53788']
-        },
-        {
-          name: 'Island 98.5',
-          subtitle: 'Hawaiian Contemporary · Live',
-          sources: nativeHls
-            ? ['https://stream.revma.ihrhls.com/zc821/hls.m3u8', 'https://stream.revma.ihrhls.com/zc821']
-            : ['https://stream.revma.ihrhls.com/zc821', 'https://stream.revma.ihrhls.com/zc821/hls.m3u8']
-        },
-        {
-          name: 'Onipaʻa 105.1',
-          subtitle: 'The Music of Hawai‘i · Live',
-          sources: nativeHls
-            ? ['https://stream.revma.ihrhls.com/zc9648/hls.m3u8', 'https://stream.revma.ihrhls.com/zc9648']
-            : ['https://stream.revma.ihrhls.com/zc9648', 'https://stream.revma.ihrhls.com/zc9648/hls.m3u8'],
-          fallbackUrl: 'https://www.iheart.com/live/onipaa-1051-hd2-9648/'
-        },
-        {
-          name: 'Hawaiian Rainbow',
-          subtitle: 'Traditional Hawaiian Hula · Live',
-          sources: ['https://s1.autopo.st/proxy/nqjchago?mp=/stream']
-        }
-      ];
-
-      let currentIndex = 0;
-      let sourceIndex = 0;
-      let isPlaying = false;
-      let shouldKeepPlaying = false;
-      let currentVolume = 1;
-
-      function setPlayingUI(on) {
-        isPlaying = on;
-        if (on) {
-          playIcon.textContent = '🔊';
-          playLabel.textContent = 'Mute';
-          playBtn.style.borderColor = 'rgba(93,63,211,0.95)';
-          playBtn.style.boxShadow = '0 0 14px rgba(38,58,180,0.55)';
-        } else {
-          playIcon.textContent = '▶';
-          playLabel.textContent = 'Play';
-          playBtn.style.borderColor = 'rgba(148,163,184,0.7)';
-          playBtn.style.boxShadow = '0 0 10px rgba(15,23,42,0.9)';
-        }
-      }
-
-      function updateStationDisplay(extraHtml) {
-        const station = stations[currentIndex];
-        nameEl.textContent = station.name;
-        subEl.innerHTML = station.subtitle + (extraHtml || '');
-      }
-
-      function fallbackLink(station) {
-        if (!station.fallbackUrl) return '';
-        return ' · <a href="' + station.fallbackUrl + '" target="_blank" rel="noopener noreferrer" style="color:#c4b5fd;text-decoration:none;font-weight:700;">Open in iHeart</a>';
-      }
-
-      function setAudioSource(index) {
-        const station = stations[currentIndex];
-        sourceIndex = Math.max(0, Math.min(index, station.sources.length - 1));
-        const source = station.sources[sourceIndex] || '';
-        audio.pause();
-        audio.removeAttribute('src');
-        audio.load();
-        if (source) {
-          audio.src = source;
-          audio.load();
-        }
-        return source;
-      }
-
-      function tryPlayCurrentSource() {
-        const station = stations[currentIndex];
-        const source = station.sources[sourceIndex];
-        if (!source) {
-          setPlayingUI(false);
-          updateStationDisplay(fallbackLink(station));
-          return;
-        }
-
-        shouldKeepPlaying = true;
-        audio.play().then(function () {
-          setPlayingUI(true);
-          updateStationDisplay();
-        }).catch(function (err) {
-          console.error('Radio play error:', err);
-          if (sourceIndex + 1 < station.sources.length) {
-            setAudioSource(sourceIndex + 1);
-            tryPlayCurrentSource();
-          } else {
-            shouldKeepPlaying = false;
-            setPlayingUI(false);
-            updateStationDisplay(fallbackLink(station));
-          }
-        });
-      }
-
-      function loadStation(newIndex, autoplay) {
-        shouldKeepPlaying = !!autoplay;
-        audio.pause();
-        currentIndex = (newIndex + stations.length) % stations.length;
-        sourceIndex = 0;
-        updateStationDisplay();
-        setAudioSource(0);
-
-        if (autoplay) {
-          tryPlayCurrentSource();
-        } else {
-          setPlayingUI(false);
-        }
-      }
-
-      if (volumeSlider) {
-        volumeSlider.value = '100';
-        const applyVolume = function () {
-          const raw = Number(volumeSlider.value) || 0;
-          const effective = Math.max(0, Math.min(100, Math.round(raw / 5) * 5));
-          currentVolume = effective / 100;
-          audio.volume = currentVolume;
-          if (volValueEl) volValueEl.textContent = String(effective);
-          volumeSlider.style.setProperty('--vol-safe', effective.toFixed(3) + '%');
-          volumeSlider.style.setProperty('--vol-pct', effective.toFixed(3) + '%');
-        };
-        volumeSlider.addEventListener('input', applyVolume);
-        applyVolume();
-      }
-
-      playBtn.addEventListener('click', function () {
-        if (!isPlaying) {
-          shouldKeepPlaying = true;
-          if (!audio.src) setAudioSource(sourceIndex);
-          tryPlayCurrentSource();
-        } else {
-          shouldKeepPlaying = false;
-          audio.pause();
-          setPlayingUI(false);
-        }
-      });
-
-      prevBtn.addEventListener('click', function () {
-        loadStation(currentIndex - 1, isPlaying);
-      });
-
-      nextBtn.addEventListener('click', function () {
-        loadStation(currentIndex + 1, isPlaying);
-      });
-
-      audio.addEventListener('playing', function () {
-        if (shouldKeepPlaying) setPlayingUI(true);
-      });
-
-      audio.addEventListener('pause', function () {
-        if (!shouldKeepPlaying) setPlayingUI(false);
-      });
-
-      audio.addEventListener('ended', function () {
-        shouldKeepPlaying = false;
-        setPlayingUI(false);
-      });
-
-      audio.addEventListener('error', function () {
-        const station = stations[currentIndex];
-        if (!station || !shouldKeepPlaying) return;
-
-        if (sourceIndex + 1 < station.sources.length) {
-          setAudioSource(sourceIndex + 1);
-          tryPlayCurrentSource();
-        } else {
-          shouldKeepPlaying = false;
-          setPlayingUI(false);
-          updateStationDisplay(fallbackLink(station));
-        }
-      });
-
-      updateStationDisplay();
-    });
 
   
 document.addEventListener('DOMContentLoaded', function () {
@@ -2572,13 +3530,7 @@ document.addEventListener('DOMContentLoaded', function () {
   refreshAllWeather();
   setInterval(refreshAllWeather, 30 * 60 * 1000);
 });
-</script><a href="https://domveenine.github.io/swa-call-assistant/" id="swa-assistant-btn" target="_blank">
-<svg height="22" viewbox="0 0 100 100" width="22" xmlns="http://www.w3.org/2000/svg">
-<path d="M50 90 L10 50 A20 20 0 1 1 50 20 A20 20 0 1 1 90 50 Z" fill="#304CB2"></path>
-<path d="M50 90 L25 55 A15 15 0 1 1 50 35 A15 15 0 1 1 75 55 Z" fill="#E31837"></path>
-<path d="M50 90 L35 65 A10 10 0 1 1 50 50 A10 10 0 1 1 65 65 Z" fill="#FFBF27"></path>
-</svg>
-</a><script>
+</script><script>
 document.addEventListener('DOMContentLoaded', function () {
   const yourAirport = document.getElementById('yourAirport');
   const theirAirport = document.getElementById('theirAirport');
@@ -3005,71 +3957,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  const cards = document.querySelectorAll('.widget-card[data-collapsible="true"]');
-
-  function applyState(card, expanded, immediate) {
-    const body = card.querySelector('.widget-body');
-    const button = card.querySelector('.widget-toggle');
-    if (!body || !button) return;
-
-    card.classList.toggle('is-collapsed', !expanded);
-    card.setAttribute('data-expanded', expanded ? 'true' : 'false');
-    button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-    button.textContent = expanded ? 'Collapse' : 'Expand';
-
-    if (expanded) {
-      body.style.maxHeight = immediate ? 'none' : body.scrollHeight + 'px';
-      if (immediate) {
-        requestAnimationFrame(function () {
-          body.style.maxHeight = 'none';
-        });
-      } else {
-        setTimeout(function () {
-          if (card.getAttribute('data-expanded') === 'true') {
-            body.style.maxHeight = 'none';
-          }
-        }, 260);
-      }
-    } else {
-      if (getComputedStyle(body).maxHeight === 'none') {
-        body.style.maxHeight = body.scrollHeight + 'px';
-        requestAnimationFrame(function () {
-          body.style.maxHeight = '0px';
-        });
-      } else {
-        body.style.maxHeight = body.scrollHeight + 'px';
-        requestAnimationFrame(function () {
-          body.style.maxHeight = '0px';
-        });
-      }
-    }
-  }
-
-  cards.forEach(function (card) {
-    const button = card.querySelector('.widget-toggle');
-    if (!button) return;
-    const expanded = card.getAttribute('data-expanded') === 'true';
-    applyState(card, expanded, true);
-    button.addEventListener('click', function () {
-      const isExpanded = card.getAttribute('data-expanded') === 'true';
-      applyState(card, !isExpanded, false);
-    });
-  });
-
-  window.addEventListener('resize', function () {
-    cards.forEach(function (card) {
-      if (card.getAttribute('data-expanded') === 'true') {
-        const body = card.querySelector('.widget-body');
-        if (body && getComputedStyle(body).maxHeight !== 'none') {
-          body.style.maxHeight = body.scrollHeight + 'px';
-        }
-      }
-    });
-  });
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
   function playTimerDoneTone() {
     try {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -3112,8 +3999,6 @@ document.addEventListener('DOMContentLoaded', function () {
   window.playTimerDoneTone = playTimerDoneTone;
 });
 </script>
-
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const timerDisplayEl = document.getElementById('timerDisplay');
@@ -3144,6 +4029,388 @@ document.addEventListener('DOMContentLoaded', function () {
   observer.observe(timerStatusEl, { childList: true, subtree: true, characterData: true });
 });
 </script>
+<script id="iphone-native-overhaul-script">
+document.addEventListener('DOMContentLoaded', function () {
+  const app = document.querySelector('.app');
+  if (!app) return;
 
+  // Give each module a lightweight visual identity without changing its functionality.
+  const iconMap = {
+    'Weather': '☼',
+    'Quick Links': '↗',
+    'Tip Calculator': '%',
+    'Quick Notes': '✎',
+    'Countdown Timer': '◷',
+    'Airport Time Comparison': '⌁'
+  };
+  document.querySelectorAll('.widget-header h2').forEach(function (heading) {
+    const label = heading.textContent.trim();
+    heading.setAttribute('data-native-icon', iconMap[label] || '•');
+  });
+
+  // Mark anchors used by the mobile bottom navigation.
+  const weatherCard = Array.from(document.querySelectorAll('.widget-card')).find(function(c){
+    const h = c.querySelector('h2'); return h && h.textContent.trim() === 'Weather';
+  });
+  const linksCard = Array.from(document.querySelectorAll('.widget-card')).find(function(c){
+    const h = c.querySelector('h2'); return h && h.textContent.trim() === 'Quick Links';
+  });
+  const timerCard = Array.from(document.querySelectorAll('.widget-card')).find(function(c){
+    const h = c.querySelector('h2'); return h && h.textContent.trim() === 'Countdown Timer';
+  });
+  const tipCard = Array.from(document.querySelectorAll('.widget-card')).find(function(c){
+    const h = c.querySelector('h2'); return h && h.textContent.trim() === 'Tip Calculator';
+  });
+  if (weatherCard) weatherCard.id = 'app-weather';
+  if (linksCard) linksCard.id = 'app-links';
+  if (timerCard) timerCard.id = 'app-timer';
+  if (tipCard) tipCard.id = 'app-tools';
+
+  const nav = document.createElement('nav');
+  nav.className = 'native-bottom-nav';
+  nav.setAttribute('aria-label', 'Dashboard navigation');
+  nav.innerHTML = [
+    ['music-player-shell','♫','Radio'],
+    ['app-weather','☼','Weather'],
+    ['app-tools','%','Tools'],
+    ['app-links','↗','Links']
+  ].map(function(item){
+    return '<button type="button" data-target="'+item[0]+'"><span class="nav-icon" aria-hidden="true">'+item[1]+'</span>'+item[2]+'</button>';
+  }).join('');
+  document.body.appendChild(nav);
+
+  nav.addEventListener('click', function (event) {
+    const button = event.target.closest('button[data-target]');
+    if (!button) return;
+    const target = document.getElementById(button.dataset.target);
+    if (!target) return;
+
+    // Native <details> modules open reliably without depending on custom click handlers.
+    if (target.tagName === 'DETAILS' && !target.open) {
+      target.open = true;
+    }
+    setTimeout(function(){ target.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
+  });
+
+  // Improve button semantics for mobile tap behavior.
+  document.querySelectorAll('.timer-presets button, .button-row button').forEach(function(btn){
+    if (!btn.getAttribute('type')) btn.setAttribute('type','button');
+  });
+});
+</script>
+<script id="radio-engine-v11-longplay">
+(function () {
+  'use strict';
+
+  var stations = [
+    {name:'Island 98.9', subtitle:'Reggae · Hawai‘i · Live', gain:1.00, sources:['https://streaming.live365.com/a53788','https://das-edge11-live365-dal03.cdnstream.com/a53788']},
+    {name:'Island 98.5', subtitle:'Hawaiian Contemporary · Live', gain:1.00, sources:['https://stream.revma.ihrhls.com/zc821','https://stream.revma.ihrhls.com/zc821/hls.m3u8']},
+    {name:'Onipaʻa 105.1', subtitle:'The Music of Hawai‘i · Live', gain:1.00, sources:['https://stream.revma.ihrhls.com/zc9648','https://stream.revma.ihrhls.com/zc9648/hls.m3u8']},
+    {name:'Hawaiian Rainbow', subtitle:'Traditional Hawaiian Hula · Live', gain:1.20, sources:['https://s1.autopo.st/proxy/nqjchago?mp=/stream']}
+  ];
+
+  var index = 0;
+  var sourceIndex = 0;
+  var wantsPlay = false;
+  var reconnectAttempt = 0;
+  var reconnectTimer = null;
+  var stallTimer = null;
+  var watchdogTimer = null;
+  var lastProgressAt = Date.now();
+  var initialized = false;
+  var retryDelays = [1000, 2000, 5000, 10000, 15000, 30000, 60000];
+
+  function el(id){ return document.getElementById(id); }
+  function audio(){ return el('radioAudio'); }
+  function station(){ return stations[index]; }
+
+  function status(msg, cls){
+    var x=el('radioStatus');
+    if(!x) return;
+    x.textContent=msg;
+    x.className='music-radio-status'+(cls?' '+cls:'');
+  }
+
+  function ui(playing){
+    var icon=el('radioPlayIcon'), label=el('radioPlayLabel'), btn=el('radioPlayBtn');
+    if(icon) icon.textContent=playing?'❚❚':'▶';
+    if(label) label.textContent=playing?'Pause':'Play';
+    if(btn){
+      btn.setAttribute('aria-label',playing?'Pause live radio':'Play live radio');
+      btn.setAttribute('aria-pressed',playing?'true':'false');
+    }
+  }
+
+  function show(){
+    var st=station();
+    var n=el('radioName'), sub=el('radioSubtitle');
+    if(n) n.textContent=st.name;
+    if(sub) sub.textContent=st.subtitle;
+  }
+
+  function remember(){
+    try {
+      localStorage.setItem('radioStationIndex', String(index));
+      localStorage.setItem('radioVolumeV12', String(el('radioVolume') ? el('radioVolume').value : 80));
+    } catch(e) {}
+  }
+
+  function restore(){
+    try {
+      var savedIndex=Number(localStorage.getItem('radioStationIndex'));
+      var savedVolume=Number(localStorage.getItem('radioVolumeV12'));
+      if(Number.isInteger(savedIndex) && savedIndex>=0 && savedIndex<stations.length) index=savedIndex;
+      var savedVolumeRaw=localStorage.getItem('radioVolumeV12');
+      if(savedVolumeRaw !== null && Number.isFinite(savedVolume) && el('radioVolume')) {
+        el('radioVolume').value=String(Math.max(0,Math.min(100,savedVolume)));
+      } else if(el('radioVolume')) {
+        el('radioVolume').value='80';
+      }
+    } catch(e) {}
+  }
+
+  function clearReconnect(){
+    if(reconnectTimer){ clearTimeout(reconnectTimer); reconnectTimer=null; }
+  }
+
+  function clearStallTimer(){
+    if(stallTimer){ clearTimeout(stallTimer); stallTimer=null; }
+  }
+
+  function resetReconnectState(){
+    clearReconnect();
+    clearStallTimer();
+    reconnectAttempt=0;
+  }
+
+  function setSource(nextSourceIndex){
+    var a=audio(), st=station();
+    if(!a || !st) return false;
+    sourceIndex=Math.max(0,Math.min(Number(nextSourceIndex)||0,st.sources.length-1));
+    var src=st.sources[sourceIndex];
+    if(!src) return false;
+    try { a.pause(); } catch(e) {}
+    a.removeAttribute('src');
+    try { a.load(); } catch(e) {}
+    a.src=src;
+    try { a.load(); } catch(e) {}
+    lastProgressAt=Date.now();
+    return true;
+  }
+
+  function scheduleReconnect(reason){
+    if(!wantsPlay) return;
+    clearReconnect();
+    clearStallTimer();
+
+    var st=station();
+    var delay=retryDelays[Math.min(reconnectAttempt,retryDelays.length-1)];
+    reconnectAttempt++;
+    status('Reconnecting to '+st.name+' in '+Math.ceil(delay/1000)+'s…','is-connecting');
+
+    reconnectTimer=setTimeout(function(){
+      if(!wantsPlay) return;
+
+      // Rotate through every available source before repeating the preferred source.
+      if(st.sources.length>1){ sourceIndex=(sourceIndex+1)%st.sources.length; }
+      setSource(sourceIndex);
+      playCurrent('reconnect');
+    },delay);
+  }
+
+  function playCurrent(reason){
+    var a=audio();
+    if(!a || !wantsPlay) return;
+    clearReconnect();
+    clearStallTimer();
+
+    if(!a.src && !setSource(sourceIndex)){
+      scheduleReconnect('missing-source');
+      return;
+    }
+
+    status(reason==='reconnect'?'Reconnecting…':'Connecting…','is-connecting');
+    var p;
+    try { p=a.play(); }
+    catch(err){ scheduleReconnect('play-throw'); return; }
+
+    if(p && typeof p.then==='function'){
+      p.then(function(){
+        if(!wantsPlay) return;
+        reconnectAttempt=0;
+        lastProgressAt=Date.now();
+        ui(true);
+        status('Live','is-live');
+      }).catch(function(err){
+        console.warn('Radio playback retry:',err);
+        scheduleReconnect('play-rejected');
+      });
+    }
+  }
+
+  function beginPlayback(){
+    wantsPlay=true;
+    reconnectAttempt=0;
+    sourceIndex=0;
+    setSource(0);
+    playCurrent('start');
+  }
+
+  function stopPlayback(){
+    wantsPlay=false;
+    resetReconnectState();
+    var a=audio();
+    if(a){ try { a.pause(); } catch(e) {} }
+    ui(false);
+    status('Paused');
+  }
+
+  window.radioToggle=function(){
+    var a=audio();
+    if(!a) return;
+    if(wantsPlay && !a.paused){ stopPlayback(); return; }
+    if(wantsPlay && a.paused){ stopPlayback(); return; }
+    beginPlayback();
+  };
+
+  window.radioShift=function(delta){
+    var wasPlaying=wantsPlay;
+    resetReconnectState();
+    var a=audio();
+    if(a){ try { a.pause(); } catch(e) {} a.removeAttribute('src'); try { a.load(); } catch(e) {} }
+    index=(index+Number(delta)+stations.length)%stations.length;
+    sourceIndex=0;
+    show();
+    window.radioSetVolume(el('radioVolume')?el('radioVolume').value:80);
+    remember();
+    ui(false);
+    if(wasPlaying){
+      wantsPlay=true;
+      status('Switching station…','is-connecting');
+      setSource(0);
+      playCurrent('start');
+    } else {
+      wantsPlay=false;
+      status('Tap Play to start live radio');
+    }
+  };
+
+  window.radioSetVolume=function(v){
+    var a=audio(), slider=el('radioVolume'), val=Math.max(0,Math.min(100,Number(v)||0));
+    var st=station();
+    var stationGain=(st && Number.isFinite(st.gain)) ? st.gain : 1;
+    var effective=Math.max(0,Math.min(1,(val/100)*stationGain));
+    if(a) a.volume=effective;
+    if(el('radioVolValue')) el('radioVolValue').textContent=String(Math.round(val))+'%';
+    if(slider){
+      slider.style.setProperty('--vol-pct',val+'%');
+      slider.style.setProperty('--vol-safe',val+'%');
+      slider.setAttribute('aria-valuetext',String(Math.round(val))+' percent');
+    }
+    remember();
+  };
+
+  function markProgress(){ lastProgressAt=Date.now(); }
+
+  function handleUnexpectedStop(reason){
+    if(!wantsPlay) return;
+    ui(false);
+    scheduleReconnect(reason);
+  }
+
+  function init(){
+    if(initialized) return;
+    var a=audio();
+    if(!a) return;
+    initialized=true;
+
+    restore();
+    show();
+    ui(false);
+    window.radioSetVolume(el('radioVolume')?el('radioVolume').value:80);
+    status('Tap Play to start live radio');
+
+    a.preload='none';
+    a.setAttribute('playsinline','');
+
+    a.addEventListener('playing',function(){
+      if(!wantsPlay) return;
+      reconnectAttempt=0;
+      clearReconnect();
+      clearStallTimer();
+      lastProgressAt=Date.now();
+      ui(true);
+      status('Live','is-live');
+    });
+
+    a.addEventListener('timeupdate',markProgress);
+    a.addEventListener('progress',markProgress);
+    a.addEventListener('canplay',markProgress);
+
+    a.addEventListener('waiting',function(){
+      if(!wantsPlay) return;
+      status('Buffering…','is-connecting');
+      clearStallTimer();
+      stallTimer=setTimeout(function(){
+        if(wantsPlay && (a.readyState<3 || a.paused)) handleUnexpectedStop('buffer-timeout');
+      },15000);
+    });
+
+    a.addEventListener('stalled',function(){
+      if(!wantsPlay) return;
+      status('Stream stalled. Reconnecting…','is-connecting');
+      clearStallTimer();
+      stallTimer=setTimeout(function(){ handleUnexpectedStop('stalled'); },5000);
+    });
+
+    a.addEventListener('ended',function(){ handleUnexpectedStop('ended'); });
+    a.addEventListener('error',function(){ handleUnexpectedStop('error'); });
+    a.addEventListener('abort',function(){ if(wantsPlay) handleUnexpectedStop('abort'); });
+    a.addEventListener('emptied',function(){ if(wantsPlay && !reconnectTimer) handleUnexpectedStop('emptied'); });
+
+    window.addEventListener('online',function(){
+      if(wantsPlay){
+        status('Connection restored. Reconnecting…','is-connecting');
+        reconnectAttempt=0;
+        clearReconnect();
+        setSource(sourceIndex);
+        playCurrent('reconnect');
+      }
+    });
+
+    window.addEventListener('offline',function(){
+      if(wantsPlay){
+        clearReconnect();
+        status('Offline. Waiting for connection…','is-connecting');
+      }
+    });
+
+    document.addEventListener('visibilitychange',function(){
+      if(document.visibilityState==='visible' && wantsPlay){
+        // iOS may suspend a backgrounded tab. Check the stream as soon as the page is active again.
+        if(a.paused || a.ended || a.readyState<2){
+          reconnectAttempt=0;
+          clearReconnect();
+          setSource(sourceIndex);
+          playCurrent('reconnect');
+        }
+      }
+    });
+
+    // Long-session watchdog. If playback claims to be active but no media progress is
+    // observed for 45 seconds, rebuild the stream connection automatically.
+    watchdogTimer=setInterval(function(){
+      if(!wantsPlay || document.visibilityState==='hidden') return;
+      var silentFor=Date.now()-lastProgressAt;
+      if((a.paused || a.ended || a.readyState<2 || silentFor>45000) && !reconnectTimer){
+        handleUnexpectedStop('watchdog');
+      }
+    },15000);
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script>
 </body>
 </html>
