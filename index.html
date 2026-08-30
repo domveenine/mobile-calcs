@@ -2951,6 +2951,88 @@ input:focus, select:focus, textarea:focus {
   .app { padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important; }
 }
 </style>
+
+<style id="music-audio-visualizer">
+  /* Tiny playback indicator under LIVE RADIO. */
+  .music-visualizer {
+    width: 42px;
+    height: 14px;
+    margin: 3px 0 0 13px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    overflow: hidden;
+  }
+
+  .music-visualizer-bar {
+    width: 3px;
+    height: 3px;
+    flex: 0 0 3px;
+    border-radius: 999px;
+    background: linear-gradient(to top, var(--electric-blue), var(--electric-cyan) 58%, var(--electric-mint));
+    opacity: .38;
+    transform-origin: center bottom;
+    transition: height .18s ease, opacity .18s ease;
+  }
+
+  .music-visualizer.is-playing .music-visualizer-bar {
+    opacity: .92;
+    animation: musicVisualizerBounce .58s ease-in-out infinite alternate;
+  }
+
+  .music-visualizer.is-playing .music-visualizer-bar:nth-child(2) { animation-duration: .42s; animation-delay: -.18s; }
+  .music-visualizer.is-playing .music-visualizer-bar:nth-child(3) { animation-duration: .67s; animation-delay: -.34s; }
+  .music-visualizer.is-playing .music-visualizer-bar:nth-child(4) { animation-duration: .49s; animation-delay: -.11s; }
+  .music-visualizer.is-playing .music-visualizer-bar:nth-child(5) { animation-duration: .72s; animation-delay: -.27s; }
+  .music-visualizer.is-playing .music-visualizer-bar:nth-child(6) { animation-duration: .46s; animation-delay: -.39s; }
+  .music-visualizer.is-playing .music-visualizer-bar:nth-child(7) { animation-duration: .63s; animation-delay: -.15s; }
+  .music-visualizer.is-playing .music-visualizer-bar:nth-child(8) { animation-duration: .52s; animation-delay: -.31s; }
+
+  @keyframes musicVisualizerBounce {
+    0%   { height: 3px; }
+    35%  { height: 6px; }
+    70%  { height: 11px; }
+    100% { height: 14px; }
+  }
+
+  @media (max-width: 700px) {
+    .music-visualizer {
+      width: 38px;
+      height: 12px;
+      margin-top: 2px;
+      gap: 2px;
+    }
+    .music-visualizer-bar {
+      width: 2.5px;
+      flex-basis: 2.5px;
+    }
+    @keyframes musicVisualizerBounce {
+      0%   { height: 3px; }
+      35%  { height: 5px; }
+      70%  { height: 9px; }
+      100% { height: 12px; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .music-visualizer.is-playing .music-visualizer-bar { animation: none !important; height: 7px; }
+    .music-visualizer.is-playing .music-visualizer-bar:nth-child(2n) { height: 11px; }
+  }
+</style>
+
+<style id="world-clock-accent-borders">
+  /* Distinct top accent borders for every World Clock card. */
+  .standalone-clock-strip .clock-item:nth-child(1) { box-shadow: inset 0 3px 0 rgba(0,245,212,.95) !important; }
+  .standalone-clock-strip .clock-item:nth-child(2) { box-shadow: inset 0 3px 0 rgba(41,217,255,.95) !important; }
+  .standalone-clock-strip .clock-item:nth-child(3) { box-shadow: inset 0 3px 0 rgba(61,124,255,.95) !important; }
+  .standalone-clock-strip .clock-item:nth-child(4) { box-shadow: inset 0 3px 0 rgba(139,92,246,.95) !important; }
+  .standalone-clock-strip .clock-item:nth-child(5) { box-shadow: inset 0 3px 0 rgba(236,72,153,.95) !important; }
+  .standalone-clock-strip .clock-item:nth-child(6) { box-shadow: inset 0 3px 0 rgba(250,204,21,.95) !important; }
+</style>
 </head>
 <body>
 <!-- iPhone-style primary music player -->
@@ -2959,6 +3041,16 @@ input:focus, select:focus, textarea:focus {
 <div>
 <div class="music-player-eyebrow">NOW PLAYING</div>
 <div class="music-player-live"><span aria-hidden="true" class="live-dot"></span> LIVE RADIO</div>
+<div aria-hidden="true" class="music-visualizer" id="audioVisualizer">
+  <span class="music-visualizer-bar"></span>
+  <span class="music-visualizer-bar"></span>
+  <span class="music-visualizer-bar"></span>
+  <span class="music-visualizer-bar"></span>
+  <span class="music-visualizer-bar"></span>
+  <span class="music-visualizer-bar"></span>
+  <span class="music-visualizer-bar"></span>
+  <span class="music-visualizer-bar"></span>
+</div>
 </div>
 
 </div>
@@ -2984,8 +3076,8 @@ input:focus, select:focus, textarea:focus {
 <div class="music-station-hint">Use ‹ and › to change stations</div>
 <audio aria-hidden="true" id="radioAudio" playsinline="" preload="none" style="display:none;" webkit-playsinline=""></audio></section>
 
-<section class="standalone-clock-strip" id="clock-bar" aria-label="Current times">
-  <div class="standalone-clock-heading">Current Times</div>
+<section class="standalone-clock-strip" id="clock-bar" aria-label="World Clock">
+  <div class="standalone-clock-heading">World Clock</div>
   <div class="clock-row" id="clock-row">
     <div class="clock-item"><div class="label">Hawai‘i (HST)</div><div class="time">--:--</div><div class="date">--/--</div></div>
     <div class="clock-item"><div class="label">Pacific (PT)</div><div class="time">--:--</div><div class="date">--/--</div></div>
@@ -4240,6 +4332,12 @@ document.addEventListener('DOMContentLoaded', function () {
     x.className='music-radio-status'+(cls?' '+cls:'');
   }
 
+  function setVisualizer(playing){
+    var v=el('audioVisualizer');
+    if(!v) return;
+    v.classList.toggle('is-playing',!!playing);
+  }
+
   function ui(playing){
     var icon=el('radioPlayIcon'), label=el('radioPlayLabel'), btn=el('radioPlayBtn');
     if(icon) icon.textContent=playing?'❚❚':'▶';
@@ -4248,6 +4346,7 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.setAttribute('aria-label',playing?'Pause live radio':'Play live radio');
       btn.setAttribute('aria-pressed',playing?'true':'false');
     }
+    setVisualizer(playing);
   }
 
   function show(){
@@ -4444,6 +4543,7 @@ document.addEventListener('DOMContentLoaded', function () {
     a.addEventListener('waiting',function(){
       if(!wantsPlay) return;
       status('Buffering…','is-connecting');
+      setVisualizer(false);
       clearStallTimer();
       stallTimer=setTimeout(function(){
         if(wantsPlay && (a.readyState<3 || a.paused)) handleUnexpectedStop('buffer-timeout');
@@ -4453,6 +4553,7 @@ document.addEventListener('DOMContentLoaded', function () {
     a.addEventListener('stalled',function(){
       if(!wantsPlay) return;
       status('Stream stalled. Reconnecting…','is-connecting');
+      setVisualizer(false);
       clearStallTimer();
       stallTimer=setTimeout(function(){ handleUnexpectedStop('stalled'); },5000);
     });
